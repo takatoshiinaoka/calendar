@@ -1,6 +1,7 @@
 # calender 環境設定の手順
 
 ## 1. はじめに
+- [キャッシュファイル読み込み無効化](https://note.com/masato1230/n/na63ac4e7ccdd)
 * githubアカウントを作る。
 * gitのインストールする。
 
