@@ -25,7 +25,7 @@ SECRET_KEY = 'l@h=+uu9m5nbfr0tw-vee-w1@67^88+hyw!e$6=vuqkbb11a%q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'calenderSite',
 ]
 
 MIDDLEWARE = [
