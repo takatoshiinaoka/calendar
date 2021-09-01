@@ -1,5 +1,5 @@
 from django.apps import AppConfig
 
 
-class CalendersiteConfig(AppConfig):
-    name = 'calenderSite'
+class CalendarsiteConfig(AppConfig):
+    name = 'calendarSite'

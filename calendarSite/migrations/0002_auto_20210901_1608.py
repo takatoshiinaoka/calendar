@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('calenderSite', '0001_initial'),
+        ('calendarSite', '0001_initial'),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='Kalender',
-            new_name='Calender',
+            old_name='Kalendar',
+            new_name='Calendar',
         ),
     ]
