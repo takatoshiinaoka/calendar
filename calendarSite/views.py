@@ -15,10 +15,9 @@ def index(request):
     def addData(request):
    return render(request, 'addData.html')
 """
-"""
-    def user(request):
+def user(request):
    return render(request, 'user.html')
-"""
+
 """
     def subject(request):
    return render(request, 'subject.html')
