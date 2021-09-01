@@ -33,6 +33,9 @@
 
     git config --global user.email メールアドレス
 
+## 5.編集履歴の表示(TortoiseGit)
+エクスプローラーで緑のチェックが入ったフォルダを右クリックし、「TortoiseGit」の「ログを表示」より閲覧できる。
+
   
 
   
