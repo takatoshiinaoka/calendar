@@ -7,6 +7,8 @@
 
    git config --global user.name "ShunsukeHosino"
 
-   
+
    git config --global user.email user名@gmail.com
+   
+   
    ↑をVScodeのターミナルで実行する
