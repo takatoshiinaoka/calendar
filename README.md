@@ -28,7 +28,7 @@
     git config --global user.name "Githubアカウント名"  　 
 
 
-2.メールアドレス(VSCodeのターミナル)
+2.メールアドレス(VSCodeのターミナル)  
 例：git config --global user.email heavenhayao2316@gmail.com  
 
     git config --global user.email メールアドレス
