@@ -4,6 +4,8 @@ from django.shortcuts import render
 def index(request):
     return render(request, 'index.html')
 
+def calender(request):
+    return render(request, 'calender.html')
 """
     def serch(request):
     return render(request, 'serch.html')

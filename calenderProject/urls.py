@@ -20,4 +20,5 @@ from calenderSite import views
 urlpatterns = [
     path('', views.index,  name="index"),
     path('admin/', admin.site.urls),
+    path('calender', views.calender, name="calender"),
 ]
