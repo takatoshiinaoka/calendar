@@ -13,5 +13,9 @@ h1{
     margin : 40px auto;
     width : 300px;
     padding :20px 60px;
-    border :5px solid #ddd;
+    border :5px solid #AAAAAA;
+}
+
+h2{
+    text-align : right;
 }
