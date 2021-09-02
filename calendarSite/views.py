@@ -59,7 +59,6 @@ def addData(request):
    print(str(title))
 
    return render(request, 'user.html')
-   return render(request, 'addData.html')
 
 def user(request):
    return render(request, 'user.html')
