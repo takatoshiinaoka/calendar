@@ -21,20 +21,20 @@ def search(request):
    
    """if  subject != '':
         # メッセージの内容をDBに登録
-        CalendarModel = Calendar(subject=subject)
-        CalendarModel.save()
+        UserModel = User(subject=subject)
+        UserModel.save()
 
-    CalendarList = Calendar.objects.all()
+    UserList = User.objects.all()
 
     return render(request, 'search.html',{
-        "CalendarList": CalendarList
+        "UserList": UserList
     })
 
     dbData = {
         "id": 123,
         "name": "name",
         "form": form,
-        "CalendarList" : CalendarList,
+        "UserList" : UserList,
     }"""
    return render(request, 'search.html')
 
