@@ -43,10 +43,7 @@ def addData(request):
    user='かいた'
    subject='おーいお茶'
    title='伊藤園'
-   print(str(user))
-   print(str(subject))
-   print(str(title))
-
+   
    form=addDataForm(request.POST or None)
 
    date=form['date'].data or ''
