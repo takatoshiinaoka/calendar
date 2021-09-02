@@ -38,10 +38,13 @@ def search(request):
    return render(request, 'search.html')
 
 def addData(request):
-   data=0
-   user=''
-   subject=''
-   title=''
+   date=0
+   user='かいた'
+   subject='おーいお茶'
+   title='伊藤園'
+   print(str(user))
+   print(str(subject))
+   print(str(title))
 
    form=addDataForm(request.POST or None)
 
@@ -50,7 +53,7 @@ def addData(request):
    subject=form['subject'].data or ''
    title=form['title'].data or ''
 
-   print(form)
+   #print(form)
 
    print(str(date))
    print(str(user))
