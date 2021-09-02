@@ -44,11 +44,17 @@ def addData(request):
    subject='おーいお茶'
    title='伊藤園'
    caleList=[{
-      'id':'',
-      'title':'ワクチン',
-      'date':'2021-09-03',
-      'user':'',
-   }]
+         'id':'0',
+         'title':'ワクチン',
+         'date':'2021-09-03',
+         'user':'',
+      },{
+         'id':'1',
+         'title':'てすと',
+         'date':'2021-09-13',
+         'user':'',
+      }
+   ]
 
    form=addDataForm(request.POST or None)
 
@@ -57,9 +63,11 @@ def addData(request):
    subject=form['subject'].data or ''
    title=form['title'].data or ''
 
-   caleList[0]['date']=date  
-   caleList[0]['title']=title  
-   #print(form)
+
+   for cale in caleList:
+      print(cale)
+      
+      
 
    print(str(date))
    print(str(user))
