@@ -16,6 +16,7 @@ def search(request):
       # form = searchForm(request.POST or None)
       subject = request.POST.getlist("subject") 
       print(subject)
+
    # メッセージ情報を取得。ない場合は空文字が入る
    
    """if  subject != '':
@@ -35,7 +36,7 @@ def search(request):
         "form": form,
         "CalendarList" : CalendarList,
     }"""
-   return render(request, 'search.html')
+   return render(request, 'user.html')
 
 def addData(request):
    date=0
@@ -58,6 +59,7 @@ def addData(request):
    print(str(title))
 
    return render(request, 'user.html')
+   return render(request, 'addData.html')
 
 def user(request):
    return render(request, 'user.html')
