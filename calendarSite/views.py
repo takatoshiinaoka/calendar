@@ -12,7 +12,6 @@ def index(request):
     return render(request, 'index.html')
 
 def search(request):
-   subject :''
    if request.POST:
       #form = searchForm(request.POST or None)
       subject = request.POST.getlist("subject") 
@@ -37,8 +36,6 @@ def search(request):
         "form": form,
         "CalendarList" : CalendarList,
     }"""
-   if subject!='':
-      return render(request,'user.html')
    return render(request, 'search.html')
 
 def addData(request):
