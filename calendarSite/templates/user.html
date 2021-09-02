@@ -14,7 +14,7 @@
             {
               id:'cale.id',
               title:'{{cale.title}}',
-              start:'{{cale.date}}',
+              start:'{{cale.date | date:"Y-m-d" }}',
               url:'#'
             },
         {% endfor %}

@@ -22,6 +22,25 @@
         
             <input type="submit" class="btn btn-danger" value="登録" />
         </form>
-
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>日付</th>
+                    <th>科目</th>
+                    <th>タイトル</th>
+                    <th>ユーザ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cale in caleList %}
+                <tr>
+                    <td>{{cale.date | date:"Y-m-d"}}</td>
+                    <td>{{cale.subject}}</td>
+                    <td>{{cale.title}}</td>
+                    <td>{{cale.user}}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </body>
 </html>

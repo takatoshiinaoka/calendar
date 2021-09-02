@@ -4,6 +4,7 @@ from calendarSite.forms import indexForm
 #from calendarSite.forms import searchForm
 from calendarSite.forms import subjectForm
 from calendarSite.forms import userForm
+from calendarSite.models import Calendar
 
 # Create your views here.
 
@@ -43,45 +44,38 @@ def addData(request):
    user='かいた'
    subject='おーいお茶'
    title='伊藤園'
-   caleList=[{
-         'id':'0',
-         'title':'ワクチン',
-         'date':'2021-09-03',
-         'user':'',
-      },{
-         'id':'1',
-         'title':'てすと',
-         'date':'2021-09-13',
-         'user':'',
-      }
-   ]
 
+
+   #フォームを持って来る
    form=addDataForm(request.POST or None)
-
+   #フォームからデータを取得
    date=form['date'].data or ''
    user=form['user'].data or ''
    subject=form['subject'].data or ''
    title=form['title'].data or ''
 
-
-   for cale in caleList:
-      print(cale)
-      
-      
-
    print(str(date))
    print(str(user))
    print(str(subject))
    print(str(title))
+
+   #データベースに保存
+   if date!=''and user!='' and subject!='' and title!='':
+      calendarModel=Calendar(date=date, user=user, title=title, subject=subject)
+      calendarModel.save()
+
+   caleList = Calendar.objects.all()
+
    print(caleList)
 
-   if date!=''and user!='' and subject!='' and title!='':
-      return render(request,'user.html',{
+   dbData={
          "caleList":caleList,
          "date":date,
          "title":title
-      })
-   return render(request, 'addData.html')
+   }
+   if date!=''and user!='' and subject!='' and title!='':
+      return render(request,'user.html',dbData)
+   return render(request, 'addData.html',dbData)
 
 def user(request):
    return render(request, 'user.html')
