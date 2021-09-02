@@ -1,8 +1,23 @@
+{% load static %}
 <!DOCTYPE html>
     <head> 
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <title>予定追加ページ</title> 
     </head>
     <body>
         <h1>予定を追加してください</h1>
+        日付<br>
+        <input type="datetime-local" name="date"><br>
+        ユーザー名<br>
+        <input type="text" name="user"><br>
+        科目<br>
+        <input type"text" name="subject"><br>
+        タイトル<br>
+        <input type="text" name="title"><br><br>
+        <form method="post">
+        {% csrf_token %}
+            <input type="submit" class="btn btn-danger" value="登録" />
+        </form>
     </body>
 </html>

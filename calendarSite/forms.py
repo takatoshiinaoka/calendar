@@ -9,9 +9,18 @@ class addDataForm(forms.Form):
         max_length=200,
         required=True
     )
-    title=()
-    data=()
-    user=()
+    title=forms.CharField(
+        max_length=200,
+        required=True
+    )
+    date= forms.DateField(
+        widget=forms.DateInput(attrs={"type":"date"}),
+        input_formats=['%Y-%m-%d']
+    )
+    user=forms.CharField(
+        max_length=200,
+        required=True
+    )
 
 
 class indexForm(forms.Form):
