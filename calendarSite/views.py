@@ -1,4 +1,9 @@
 from django.shortcuts import render
+from calendarSite.forms import addDataForm
+from calendarSite.forms import indexForm
+from calendarSite.forms import searchForm
+from calendarSite.forms import subjectForm
+from calendarSite.forms import userForm
 
 # Create your views here.
 
