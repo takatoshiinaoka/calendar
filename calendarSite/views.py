@@ -6,8 +6,8 @@ from django.shortcuts import render
 def index(request):
     return render(request, 'index.html')
 
-def serch(request):
-    return render(request, 'serch.html')
+def search(request):
+    return render(request, 'search.html')
 
 def addData(request):
    return render(request, 'addData.html')
