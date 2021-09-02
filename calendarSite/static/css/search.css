@@ -3,21 +3,23 @@ body {
 }
 
 .header{
-    background-color: #66cdaa;
+    background-color: #FFB6C1;
     padding : 1em;
 }
 
 h1{
-    color :#ffffff;
-    font-size : 3em;
-    margin : 0;
+    color :#333333;
+    font-size : 3em;  
+    margin : 40px auto;
+    width : 300px;
+    padding :20px 60px;
+    border :5px solid #AAAAAA;
 }
 
-th{
-    text-align : left;
-    padding : 0em 1em 0em 1em;
+h2{
+    text-align : right;
 }
 
-th > label , td > label{
-    color: #ffffff;
+p{
+    text-align :center;
 }
