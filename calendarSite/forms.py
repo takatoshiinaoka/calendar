@@ -31,11 +31,8 @@ class indexForm(forms.Form):
 
 
 
-class searchForm(forms.Form):
-    subject=()
-    title=()
-    data=()
-    user=()
+#class searchForm(forms.Form):
+#    subject = forms.ChoiceField()
 
     
 
