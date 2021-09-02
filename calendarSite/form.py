@@ -10,3 +10,10 @@ class addDataForm(forms.Form):
 class indexForm(forms.Form):
 
 
+class searchForm(forms.Form):
+
+
+class subjectForm(forms.Form):
+
+
+class userForm(forms.Form):
