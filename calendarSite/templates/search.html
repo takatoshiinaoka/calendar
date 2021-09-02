@@ -1,6 +1,7 @@
 <!DOCTYPE html>
     <head> 
         <title> カレンダー </title> 
+        <link href="{% static 'css/search.css' %}" rel="stylesheet" />
     </head>
     <body>
         <h1>Calendar Site</h1>
@@ -10,8 +11,10 @@
     <form method="post">
         {% csrf_token %}
         <input type="checkbox" name="subject" value="subjct1"><br>
-        <input type="checkbox" name="subject" value="subjct1"><br>
-        <input type="checkbox" name="subject" value="subjct1"><br>
-        <input type="checkbox" name="subject" value="subjct1"><br>
+        <input type="checkbox" name="subject" value="subjct2"><br>
+        <input type="checkbox" name="subject" value="subjct3"><br>
+        <input type="checkbox" name="subject" value="subjct4"><br>
+
+        <input type="submit" value="登録" />
 
 </html>
