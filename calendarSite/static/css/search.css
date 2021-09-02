@@ -1,0 +1,23 @@
+body {
+    margin : 0;
+}
+
+.header{
+    background-color: #66cdaa;
+    padding : 1em;
+}
+
+h1{
+    color :#ffffff;
+    font-size : 3em;
+    margin : 0;
+}
+
+th{
+    text-align : left;
+    padding : 0em 1em 0em 1em;
+}
+
+th > label , td > label{
+    color: #ffffff;
+}

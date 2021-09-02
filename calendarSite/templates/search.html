@@ -1,10 +1,14 @@
+{% load static %}
 <!DOCTYPE html>
     <head> 
         <title> カレンダー </title> 
+        <link href="{% static 'css/search.css' %}" rel="stylesheet" />
     </head>
     <body>
-        <h1>Calendar Site</h1>
-        <h2>情報工学科</h2>
+        <div class="header">
+            <h1>Calendar Site</h1>
+            <h2>情報工学科</h2>
+        </div>
     </body>
     履修している科目を選択してください
     <form method="post">
