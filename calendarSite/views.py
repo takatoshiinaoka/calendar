@@ -42,7 +42,7 @@ def addData(request):
    user='かいた'
    subject='おーいお茶'
    title='伊藤園'
-   
+
    form=addDataForm(request.POST or None)
 
    date=form['date'].data or ''
@@ -57,7 +57,7 @@ def addData(request):
    print(str(subject))
    print(str(title))
 
-   return render(request, 'addData.html')
+   return render(request, 'user.html')
 
 def user(request):
    return render(request, 'user.html')
