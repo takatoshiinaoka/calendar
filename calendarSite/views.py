@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from calendarSite.forms import addDataForm
 from calendarSite.forms import indexForm
-# from calendarSite.forms import searchForm
+#from calendarSite.forms import searchForm
 from calendarSite.forms import subjectForm
 from calendarSite.forms import userForm
 
@@ -12,8 +12,9 @@ def index(request):
     return render(request, 'index.html')
 
 def search(request):
+   subject :''
    if request.POST:
-      # form = searchForm(request.POST or None)
+      #form = searchForm(request.POST or None)
       subject = request.POST.getlist("subject") 
       print(subject)
 
@@ -36,7 +37,9 @@ def search(request):
         "form": form,
         "CalendarList" : CalendarList,
     }"""
-   return render(request, 'user.html')
+   if subject!='':
+      return render(request,'user.html')
+   return render(request, 'search.html')
 
 def addData(request):
    date=0
