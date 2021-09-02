@@ -9,6 +9,17 @@
     <script>
         
         document.addEventListener('DOMContentLoaded', function() {
+        var events=[
+        {% for cale in caleList %}
+            {
+              id:'cale.id',
+              title:'{{cale.title}}',
+              start:'{{cale.date}}',
+              url:'#'
+            },
+        {% endfor %}
+        ]
+
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
             locale: 'ja',
@@ -23,7 +34,8 @@
                 day:      '日',
                 list:     '一覧'
             },
-          initialView: 'dayGridMonth'
+          initialView: 'dayGridMonth',
+          events:events
         });
         calendar.render();
       });
