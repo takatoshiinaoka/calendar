@@ -57,8 +57,9 @@ def addData(request):
    print(str(user))
    print(str(subject))
    print(str(title))
-
-   return render(request, 'user.html')
+   if date!=''and user!='' and subject!='' and title!='':
+      return render(request,'user.html')
+   return render(request, 'addData.html')
 
 def user(request):
    return render(request, 'user.html')
