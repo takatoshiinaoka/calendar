@@ -11,7 +11,7 @@ class indexForm(forms.Form):
 
 
 class searchForm(forms.Form):
-
+    
 
 class subjectForm(forms.Form):
 
