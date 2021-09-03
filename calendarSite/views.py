@@ -78,7 +78,16 @@ def addData(request):
    return render(request, 'addData.html',dbData)
 
 def user(request):
-   return render(request, 'user.html')
+   caleList = Calendar.objects.all()
+
+   print(caleList)
+
+   dbData={
+         "caleList":caleList,
+   }
+
+   return render(request,'user.html',dbData)
+
 
 def subject(request):
    return render(request, 'subject.html')
