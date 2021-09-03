@@ -8,8 +8,25 @@
     <link href='calendar.css' rel='stylesheet' />
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
     <title>user</title>
     <style>
+      .btn--orange,
+      a.btn--orange {
+        color: #fff;
+        background-color: #eb6100;
+      }
+      .btn--orange:hover,
+      a.btn--orange:hover {
+        color: #fff;
+        background: #f56500;
+      }
+
+      a.btn--radius {
+        border-radius: 100vh;
+      }
       div.user_name{
         color:#ff00ff;
       }
@@ -21,7 +38,6 @@
       }
     </style>
     <script>
-        
         document.addEventListener('DOMContentLoaded', function() {
         var events=[
           {
@@ -39,14 +55,11 @@
               start:'{{cale.date | date:"Y-m-d" }}',
               url:'#'
             },
-        {% endfor %}
-        
-          
+          {% endfor %}
         ]
 
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-
           locale: 'ja',
           height: 'auto',
           headerToolbar: {
@@ -70,15 +83,17 @@
         });
         calendar.render();
       });
-      
-
     </script>
   </head>
   <body>
-    <div class="user_name">
-      <h2>稲岡天駿の予定</h2>
+    <div>
+      <div>
+        {{user}}のサイト  
+        <a class="btn btn--orange btn--radius" href="addData">予定追加</a>
+      </div>
     </div>
     <div id='calendar'></div>
-    <a href="{% url 'addData' %}">予定を追加する</a>
+    
+    
   </body>
 </html>
