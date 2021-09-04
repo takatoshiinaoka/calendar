@@ -12,6 +12,8 @@
             <p>履修している科目を選択してください</p>
     <form method="post">
         {% csrf_token %}
+        名前入力<br>
+        <input type="text" name="user"><br>
         <input type="checkbox" name="subject" value="subjct1"><br>
         <input type="checkbox" name="subject" value="subjct2"><br>
         <input type="checkbox" name="subject" value="subjct3"><br>
