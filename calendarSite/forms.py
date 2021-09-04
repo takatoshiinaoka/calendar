@@ -46,7 +46,5 @@ class subjectForm(forms.Form):
 
 class userForm(forms.Form):
     subject=()
-    title=()
-    data=()
     user=()
 
