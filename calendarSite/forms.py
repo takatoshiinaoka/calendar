@@ -45,6 +45,12 @@ class subjectForm(forms.Form):
 
 
 class userForm(forms.Form):
-    subject=()
-    user=()
+    subject= forms.CharField(
+        max_length=200,
+        required=True
+    )
+    user=forms.CharField(
+        max_length=200,
+        required=True
+    )
 
