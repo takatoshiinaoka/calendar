@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from calendarSite.forms import addDataForm
 from calendarSite.forms import indexForm
-#from calendarSite.forms import searchForm
+from calendarSite.forms import searchForm
 from calendarSite.forms import subjectForm
 from calendarSite.forms import userForm
 from calendarSite.models import Calendar
@@ -14,8 +14,10 @@ def index(request):
 
 def search(request):
    if request.POST:
-      #form = searchForm(request.POST or None)
-      subject = request.POST.getlist("subject") 
+      form = searchForm(request.POST or None)
+      subject = request.POST.getlist("subject")
+      user=form['user'].data or ''
+      print(user)
       print(subject)
 
    # メッセージ情報を取得。ない場合は空文字が入る

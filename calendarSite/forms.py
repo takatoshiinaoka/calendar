@@ -31,8 +31,12 @@ class indexForm(forms.Form):
 
 
 
-#class searchForm(forms.Form):
-#    subject = forms.ChoiceField()
+class searchForm(forms.Form):
+    subject = forms.ChoiceField()
+    user=forms.CharField(
+        max_length=200,
+        required=True
+    )
 
     
 
@@ -45,12 +49,8 @@ class subjectForm(forms.Form):
 
 
 class userForm(forms.Form):
-    subject= forms.CharField(
-        max_length=200,
-        required=True
-    )
-    user=forms.CharField(
-        max_length=200,
-        required=True
-    )
+    subject=()
+    title=()
+    data=()
+    user=()
 
