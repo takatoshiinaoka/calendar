@@ -21,12 +21,13 @@ def search(request):
       print(subject)
 
    # メッセージ情報を取得。ない場合は空文字が入る
-   
-   """if  subject != '':
+   """
+   if  user != '':
         # メッセージの内容をDBに登録
-        UserModel = User(subject=subject)
-        UserModel.save()
-
+        userModel = User(user_id=user,user_subject=subject)
+        userModel.save()
+   
+   
     UserList = User.objects.all()
 
     return render(request, 'search.html',{
