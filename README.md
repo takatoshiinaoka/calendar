@@ -20,11 +20,28 @@ aaaaa
 7. [Add NAME to REPOSITORY] をクリックします。
 8. メールに届いた招待からリポジトリに参加できます。
 
-## 3. ローカルにリポジトリを保存する
+## 3. ローカルにリポジトリを保存する(cloneする)
 エクスプローラーのリポジトリを入れたいフォルダで検索欄に「cmd」と入力し、コマンドプロンプトを開き、以下のコードを入力する。
     
 
     git clone githubのアドレス
+    
+## 6.VScodeの開き方
+1. vscode/VisualStudioCode.batファイルをクリック。すると、VSCodeが開く!
+2. ターミナルを開き、「powershell」になっている人は、「cmd」に変更！
+3. 「cmd」になっている事を確認したら、activate envのコマンドを打つ!      
+
+        activate env
+
+4. clone後**初めて**VSCodeを開く場合は、以下のコマンドを打つ!(2回目以降はしなくてよい)
+   
+        python manage.py migrate
+5. 以下のコマンドを打ちサーバを立ち上げる!
+
+        python manage.py runserver
+
+    
+
 
 ## 4. pushするために必要な作業(VScodeのターミナルで実行する)
 1.Githubのアカウント　(VSCodeのターミナル)  
@@ -43,6 +60,8 @@ aaaaa
 また、VSCodeのターミナルで確認することもできる。以下のコードより確認できる。Enterキーを押すと過去のログが参照できる。「q」キーで終了する。
 
     git log
+   
+
 
   
 
