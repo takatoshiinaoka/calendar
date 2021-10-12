@@ -84,7 +84,7 @@ def user(request):
    caleList = Calendar.objects.all()
 
    print(caleList)
-   user="稲岡天駿"
+   user="user"
    dbData={
          "caleList":caleList,
          "user":user,
