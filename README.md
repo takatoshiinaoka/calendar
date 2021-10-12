@@ -28,8 +28,9 @@ aaaaa
     
 ## 6.VScodeの開き方
 1. vscode/VisualStudioCode.batファイルをクリック。すると、VSCodeが開く!
-2. ターミナルを開き、「powershell」になっている人は、「cmd」に変更！
-3. 「cmd」になっている事を確認したら、activate envのコマンドを打つ!      
+2. ファイル → Open Folder → vscode/Workspace/calendarを選択。
+3. ターミナルを開き、「powershell」になっている人は、「cmd」に変更！
+4. 「cmd」になっている事を確認したら、activate envのコマンドを打つ!      
 
         activate env
 
