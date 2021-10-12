@@ -4,10 +4,13 @@ aaaaa
 # calender 環境設定の手順
 
 ## 1. はじめに
-* [キャッシュファイル読み込み無効化](https://note.com/masato1230/n/na63ac4e7ccdd)
-* [キャッシュの削除](https://qiita.com/fuwamaki/items/3ed021163e50beab7154)
-* githubアカウントを作る。
-* gitのインストールする。
+* 全員すること
+    * githubアカウントを作る。
+    * gitのインストールする。
+* リポジトリ作る人がすること
+    * [キャッシュファイル読み込み無効化](https://note.com/masato1230/n/na63ac4e7ccdd)
+    * [キャッシュの削除](https://qiita.com/fuwamaki/items/3ed021163e50beab7154)
+
 
 ## 2. リポジトリにコラボレーターとして招待する
 * リポジトリ作成者はチームメンバーをコラボレーターすることで、リポジトリに書き込み等の権限が付与され、ソースコードのプッシュなどができるようになります。
