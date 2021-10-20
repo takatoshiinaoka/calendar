@@ -23,14 +23,12 @@ aaaaabbbbb
     
     cd C://Django/vscode/Workspace
  
-リポジトリをくろーんする．(URLは各自で変更してください)
+リポジトリをクローンする．(URLは各自で変更してください)
 
     git clone https://github.com/自分のGithub_id/calendar.git
     
 ## 4.VScodeの開き方
-1. **C://Django/vscode/VisualStudioCode.bat** ファイルをクリック。すると、VSCodeが開く!
-
-(batファイルから開かないと，5.のactivate envができません．)
+1. **C://Django/vscode/VisualStudioCode.bat** ファイルをクリック。すると、VSCodeが開く!(batファイルから開かないと，5.のactivate envができません．)
 
 2. ファイル → Open Folder → vscode/Workspace/calendarを選択。
 3. ターミナルを開き、「powershell」になっている人は、「cmd」に変更！
@@ -47,8 +45,8 @@ aaaaabbbbb
         
 7. localhostにアクセスする
 
-[localhost:8000](http://localhost:8000/)　　　
-※サーバーを閉じるときは「Ctrlキー + C」
+    [localhost:8000](http://localhost:8000/)　　　
+    ※サーバーを閉じるときは「Ctrlキー + C」
 
     
 
