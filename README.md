@@ -22,7 +22,7 @@ aaaaabbbbb
 エクスプローラーのリポジトリを入れたいフォルダで検索欄に「cmd」と入力する。今回はvscode/Workspaceのディレクトリをカレントディレクトリにする。コマンドプロンプトが開くので、以下のコードを入力する。
     
 
-    git clone githubのアドレス
+    git clone https://github.com/takatoshiinaoka/calendar.git
     
 ## 6.VScodeの開き方
 1. vscode/VisualStudioCode.batファイルをクリック。すると、VSCodeが開く!
