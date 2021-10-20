@@ -19,10 +19,13 @@ aaaaabbbbb
 
 
 ## 3. ローカルにリポジトリを保存する(cloneする)
-エクスプローラーのリポジトリを入れたいフォルダで検索欄に「cmd」と入力する。今回はvscode/Workspaceのディレクトリをカレントディレクトリにする。コマンドプロンプトが開くので、以下のコードを入力する。
+コマンドプロンプトを開く．以下のコマンドを実行し，リポジトリをクローンしたいディレクトリに移動する．(1の開発環境以外の場所にある場合は各自で変更お願いします)
     
+    cd C://Django/vscode/Workspace
+ 
+リポジトリをくろーんする．(URLは各自で変更してください)
 
-    git clone https://github.com/takatoshiinaoka/calendar.git
+    git clone https://github.com/自分のGithub_id/calendar.git
     
 ## 4.VScodeの開き方
 1. vscode/VisualStudioCode.batファイルをクリック。すると、VSCodeが開く!
