@@ -65,16 +65,15 @@ aaaaabbbbb
 [フォークしたリポジトリを最新化する方法](https://qiita.com/Nossa/items/ace2ab802adc85f86b20)
 
 
-GitHubのフォーク元のリポジトリをリモートブランチに追加する
-
+1.GitHubのフォーク元のリポジトリをリモートブランチに追加する
 
     git remote add upstream https://github.com/takatoshiinaoka/calendar.git
 
-フォーク元のmainブランチの変更差分を持ってくる
+2.フォーク元のmainブランチの変更差分を持ってくる
 
     git fetch upstream
 
-mainブランチを移動しフォーク元の差分をマージする
+3.mainブランチに移動し，フォーク元の差分をマージする
 
     git merge upstream/main
 
