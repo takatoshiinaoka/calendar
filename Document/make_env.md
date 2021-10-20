@@ -7,5 +7,8 @@
 
 3. 「Django」フォルダの中にダウンロードしたzipファイルを展開(展開するのに2時間くらいかかります)
 
-4. [README](README.md)に戻ってリポジトリをクローンする
+    - 展開するとこんな感じになります．(C://Django/ここに展開)
+ <div align="center"><img src="env1.png" width="80%"></div>
+
+4. [README](../README.md)に戻ってリポジトリをクローンする
 
