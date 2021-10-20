@@ -32,20 +32,20 @@ aaaaabbbbb
 
 (batファイルから開かないと，5.のactivate envができません．)
 
-3. ファイル → Open Folder → vscode/Workspace/calendarを選択。
-4. ターミナルを開き、「powershell」になっている人は、「cmd」に変更！
-5. 「cmd」になっている事を確認したら、activate envのコマンドを打つ!      
+2. ファイル → Open Folder → vscode/Workspace/calendarを選択。
+3. ターミナルを開き、「powershell」になっている人は、「cmd」に変更！
+4. 「cmd」になっている事を確認したら、activate envのコマンドを打つ!      
 
         activate env
 
-4. clone後**初めて**VSCodeを開く場合は、以下のコマンドを打つ!(2回目以降はしなくてよい)
+5. clone後**初めて**VSCodeを開く場合は、以下のコマンドを打つ!(2回目以降はしなくてよい)
    
         python manage.py migrate
-5. 以下のコマンドを打ちサーバを立ち上げる!
+6. 以下のコマンドを打ちサーバを立ち上げる!
 
         python manage.py runserver
         
-7.localhostにアクセスする
+7. localhostにアクセスする
 
 [localhost:8000](http://localhost:8000/)　　　
 ※サーバーを閉じるときは「Ctrlキー + C」
