@@ -28,10 +28,13 @@ aaaaabbbbb
     git clone https://github.com/自分のGithub_id/calendar.git
     
 ## 4.VScodeの開き方
-1. vscode/VisualStudioCode.batファイルをクリック。すると、VSCodeが開く!
-2. ファイル → Open Folder → vscode/Workspace/calendarを選択。
-3. ターミナルを開き、「powershell」になっている人は、「cmd」に変更！
-4. 「cmd」になっている事を確認したら、activate envのコマンドを打つ!      
+1. **C://Django/vscode/VisualStudioCode.bat** ファイルをクリック。すると、VSCodeが開く!
+
+(batファイルから開かないと，5.のactivate envができません．)
+
+3. ファイル → Open Folder → vscode/Workspace/calendarを選択。
+4. ターミナルを開き、「powershell」になっている人は、「cmd」に変更！
+5. 「cmd」になっている事を確認したら、activate envのコマンドを打つ!      
 
         activate env
 
