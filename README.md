@@ -43,8 +43,9 @@ aaaaabbbbb
         python manage.py runserver
         
 7.localhostにアクセスする
-[localhost:8000](http://localhost:8000/)
-8.サーバーを閉じるときは「Ctrlキー + C」
+
+[localhost:8000](http://localhost:8000/)　　　
+※サーバーを閉じるときは「Ctrlキー + C」
 
     
 
@@ -83,6 +84,17 @@ aaaaabbbbb
 3.mainブランチに移動し，フォーク元の差分をマージする
 
     git merge upstream/main
+
+
+## 8. 編集
+担当になった機能を実装します．変更したら，自分のリモートリポジトリにプッシュします．
+
+## 9.プルリクエスト
+自分の担当の機能が完成したら，Githubからプルリクエストをします．
+
+自分のリポジトリのメインブランチ→稲岡のリポジトリのメインブランチ
+
+となるようにしてください．
 
   
 
