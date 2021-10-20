@@ -1,5 +1,4 @@
-aaaaa
-
+aaaaabbbbb
 
 # calender 環境設定の手順
 
@@ -15,24 +14,20 @@ aaaaa
     * [キャッシュの削除](https://qiita.com/fuwamaki/items/3ed021163e50beab7154)
 
 
-## 2. リポジトリにコラボレーターとして招待する
-* リポジトリ作成者はチームメンバーをコラボレーターすることで、リポジトリに書き込み等の権限が付与され、ソースコードのプッシュなどができるようになります。
-1. コラボレーターとして招待する人のユーザ名を確認してください。  
-2. Githubで、リポジトリのメインページにアクセスしてください。 
-3. リポジトリ名の下で Setting(設定) をクリックしてください。
-4. 左のサイドバーで Manage access(アクセスの管理) をクリックしてください。
-5. [Invite a collaborator] をクリックします。
-6. 検索フィールドで招待する人の名前を入力し、一致するリストの名前をクリックします。
-7. [Add NAME to REPOSITORY] をクリックします。
-8. メールに届いた招待からリポジトリに参加できます。
+## 2. 自分のリポジトリにフォークする
+右上の **Folk** から **自分のリポジトリにフォーク** してください．それをクローンしてください．
+
 
 ## 3. ローカルにリポジトリを保存する(cloneする)
-エクスプローラーのリポジトリを入れたいフォルダで検索欄に「cmd」と入力する。今回はvscode/Workspaceのディレクトリをカレントディレクトリにする。コマンドプロンプトが開くので、以下のコードを入力する。
+コマンドプロンプトを開く．以下のコマンドを実行し，リポジトリをクローンしたいディレクトリに移動する．(1の開発環境以外の場所にある場合は各自で変更お願いします)
     
+    cd C://Django/vscode/Workspace
+ 
+リポジトリをくろーんする．(URLは各自で変更してください)
 
-    git clone githubのアドレス
+    git clone https://github.com/自分のGithub_id/calendar.git
     
-## 6.VScodeの開き方
+## 4.VScodeの開き方
 1. vscode/VisualStudioCode.batファイルをクリック。すると、VSCodeが開く!
 2. ファイル → Open Folder → vscode/Workspace/calendarを選択。
 3. ターミナルを開き、「powershell」になっている人は、「cmd」に変更！
@@ -50,7 +45,7 @@ aaaaa
     
 
 
-## 4. pushするために必要な作業(VScodeのターミナルで実行する)
+## 5. pushするために必要な作業(VScodeのターミナルで実行する)
 1.Githubのアカウント　(VSCodeのターミナル)  
 例：git config --global user.name "takathosiinaoka"
 
@@ -62,13 +57,28 @@ aaaaa
 
     git config --global user.email メールアドレス
 
-## 5.編集履歴の表示(TortoiseGit or Gitlog)
+## 6.編集履歴の表示(TortoiseGit or Gitlog)
 エクスプローラーで緑のチェックが入ったフォルダを右クリックし、「TortoiseGit」の「ログを表示」より閲覧できる。  
 また、VSCodeのターミナルで確認することもできる。以下のコードより確認できる。Enterキーを押すと過去のログが参照できる。「q」キーで終了する。
 
+
     git log
    
+## 7.フォークしたリポジトリを最新化する
+[フォークしたリポジトリを最新化する方法](https://qiita.com/Nossa/items/ace2ab802adc85f86b20)
 
+
+1.GitHubのフォーク元のリポジトリをリモートブランチに追加する
+
+    git remote add upstream https://github.com/takatoshiinaoka/calendar.git
+
+2.フォーク元のmainブランチの変更差分を持ってくる
+
+    git fetch upstream
+
+3.mainブランチに移動し，フォーク元の差分をマージする
+
+    git merge upstream/main
 
   
 
