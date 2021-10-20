@@ -24,7 +24,7 @@ aaaaabbbbb
 
     git clone https://github.com/takatoshiinaoka/calendar.git
     
-## 6.VScodeの開き方
+## 4.VScodeの開き方
 1. vscode/VisualStudioCode.batファイルをクリック。すると、VSCodeが開く!
 2. ファイル → Open Folder → vscode/Workspace/calendarを選択。
 3. ターミナルを開き、「powershell」になっている人は、「cmd」に変更！
@@ -42,7 +42,7 @@ aaaaabbbbb
     
 
 
-## 4. pushするために必要な作業(VScodeのターミナルで実行する)
+## 5. pushするために必要な作業(VScodeのターミナルで実行する)
 1.Githubのアカウント　(VSCodeのターミナル)  
 例：git config --global user.name "takathosiinaoka"
 
@@ -54,14 +54,16 @@ aaaaabbbbb
 
     git config --global user.email メールアドレス
 
-## 5.編集履歴の表示(TortoiseGit or Gitlog)
+## 6.編集履歴の表示(TortoiseGit or Gitlog)
 エクスプローラーで緑のチェックが入ったフォルダを右クリックし、「TortoiseGit」の「ログを表示」より閲覧できる。  
 また、VSCodeのターミナルで確認することもできる。以下のコードより確認できる。Enterキーを押すと過去のログが参照できる。「q」キーで終了する。
 
 
     git log
    
-## 6.フォークしたリポジトリを最新化する
+## 7.フォークしたリポジトリを最新化する
+[フォークしたリポジトリを最新化する方法](https://qiita.com/Nossa/items/ace2ab802adc85f86b20)
+
 
 GitHubのフォーク元のリポジトリをリモートブランチに追加する
 
