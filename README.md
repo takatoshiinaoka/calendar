@@ -41,6 +41,10 @@ aaaaabbbbb
 5. 以下のコマンドを打ちサーバを立ち上げる!
 
         python manage.py runserver
+        
+7.localhostにアクセスする
+[localhost:8000](http://localhost:8000/)
+8.サーバーを閉じるときは「Ctrlキー + C」
 
     
 
