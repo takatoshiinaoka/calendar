@@ -58,9 +58,23 @@ aaaaabbbbb
 エクスプローラーで緑のチェックが入ったフォルダを右クリックし、「TortoiseGit」の「ログを表示」より閲覧できる。  
 また、VSCodeのターミナルで確認することもできる。以下のコードより確認できる。Enterキーを押すと過去のログが参照できる。「q」キーで終了する。
 
+
     git log
    
+## 6.フォークしたリポジトリを最新化する
 
+GitHubのフォーク元のリポジトリをリモートブランチに追加する
+
+
+    git remote add upstream https://github.com/takatoshiinaoka/calendar.git
+
+フォーク元のmainブランチの変更差分を持ってくる
+
+    git fetch upstream
+
+mainブランチを移動しフォーク元の差分をマージする
+
+    git merge upstream/main
 
   
 
