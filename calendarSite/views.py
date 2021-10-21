@@ -95,3 +95,5 @@ def user(request):
 def subject(request):
    return render(request, 'subject.html')
 
+def report(request):
+    return render(request, 'report.html')
