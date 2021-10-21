@@ -19,30 +19,39 @@ aaaaabbbbb
 
 
 ## 3. ローカルにリポジトリを保存する(cloneする)
-エクスプローラーのリポジトリを入れたいフォルダで検索欄に「cmd」と入力する。今回はvscode/Workspaceのディレクトリをカレントディレクトリにする。コマンドプロンプトが開くので、以下のコードを入力する。
+コマンドプロンプトを開く．以下のコマンドを実行し，リポジトリをクローンしたいディレクトリに移動する．(1の開発環境以外の場所にある場合は各自で変更お願いします)
     
+    cd C://Django/vscode/Workspace
+ 
+リポジトリをクローンする．(URLは各自で変更してください)
 
-    git clone https://github.com/takatoshiinaoka/calendar.git
+    git clone https://github.com/自分のGithub_id/calendar.git
     
-## 6.VScodeの開き方
-1. vscode/VisualStudioCode.batファイルをクリック。すると、VSCodeが開く!
+## 4.VScodeの開き方
+1. **C://Django/vscode/VisualStudioCode.bat** ファイルをクリック。すると、VSCodeが開く!(batファイルから開かないと，5.のactivate envができません．)
+
 2. ファイル → Open Folder → vscode/Workspace/calendarを選択。
 3. ターミナルを開き、「powershell」になっている人は、「cmd」に変更！
 4. 「cmd」になっている事を確認したら、activate envのコマンドを打つ!      
 
         activate env
 
-4. clone後**初めて**VSCodeを開く場合は、以下のコマンドを打つ!(2回目以降はしなくてよい)
+5. clone後**初めて**VSCodeを開く場合は、以下のコマンドを打つ!(2回目以降はしなくてよい)
    
         python manage.py migrate
-5. 以下のコマンドを打ちサーバを立ち上げる!
+6. 以下のコマンドを打ちサーバを立ち上げる!
 
         python manage.py runserver
+        
+7. localhostにアクセスする
+
+    [localhost:8000](http://localhost:8000/)　　　
+    ※サーバーを閉じるときは「Ctrlキー + C」
 
     
 
 
-## 4. pushするために必要な作業(VScodeのターミナルで実行する)
+## 5. pushするために必要な作業(VScodeのターミナルで実行する)
 1.Githubのアカウント　(VSCodeのターミナル)  
 例：git config --global user.name "takathosiinaoka"
 
@@ -54,27 +63,39 @@ aaaaabbbbb
 
     git config --global user.email メールアドレス
 
-## 5.編集履歴の表示(TortoiseGit or Gitlog)
+## 6.編集履歴の表示(TortoiseGit or Gitlog)
 エクスプローラーで緑のチェックが入ったフォルダを右クリックし、「TortoiseGit」の「ログを表示」より閲覧できる。  
 また、VSCodeのターミナルで確認することもできる。以下のコードより確認できる。Enterキーを押すと過去のログが参照できる。「q」キーで終了する。
 
 
     git log
    
-## 6.フォークしたリポジトリを最新化する
+## 7.フォークしたリポジトリを最新化する
+[フォークしたリポジトリを最新化する方法](https://qiita.com/Nossa/items/ace2ab802adc85f86b20)
 
-GitHubのフォーク元のリポジトリをリモートブランチに追加する
 
+1.GitHubのフォーク元のリポジトリをリモートブランチに追加する
 
     git remote add upstream https://github.com/takatoshiinaoka/calendar.git
 
-フォーク元のmainブランチの変更差分を持ってくる
+2.フォーク元のmainブランチの変更差分を持ってくる
 
     git fetch upstream
 
-mainブランチを移動しフォーク元の差分をマージする
+3.mainブランチに移動し，フォーク元の差分をマージする
 
     git merge upstream/main
+
+
+## 8. 編集
+担当になった機能を実装します．変更したら，自分のリモートリポジトリにプッシュします．
+
+## 9.プルリクエスト
+自分の担当の機能が完成したら，Githubからプルリクエストをします．
+
+**自分のリポジトリのメインブランチ** → **稲岡のリポジトリのメインブランチ**
+
+となるようにしてください．
 
   
 
