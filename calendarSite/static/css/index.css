@@ -1,0 +1,37 @@
+.header{
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+  align-items:center; 
+  position:fixed;
+  background-color:orange;
+  top:0;
+  left:0;
+  height:10vh;
+  width:100vw;
+}
+.title{
+  margin-left:2vw;
+  text-decoration: none;
+  color:black;
+  font-size:2rem;
+  font-weight:bold;
+}
+
+.login{
+  margin-right:2vw;
+  text-decoration: none;
+  border:2px solid #333;
+  border-radius:1rem;
+  padding:0 0.5rem;
+  background-color:orange; 
+  font-size:1.3em;
+  cursor: pointer;
+  color:#333;
+  font-family:sans-serif;
+  font-weight: 1000;
+}
+.login:hover{
+  transition:0.5s;
+  background-color:rgb(236,224,200);
+}

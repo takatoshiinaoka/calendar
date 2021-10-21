@@ -1,11 +1,13 @@
+{% load static %}
 <!DOCTYPE html>
     <head> 
         <title> カレンダー </title> 
+        <link href="{% static 'css/index.css' %}" rel="stylesheet" />
     </head>
     <body>
         <div class = "header">
-            <h1>Calender Site</h1>
-            <a href="http://localhost:8000/admin/login/?next=/admin/">ログイン</a>
+            <a class = "title" href="#">Calender Site</a>
+            <a class = "login" href="http://localhost:8000/admin/login/?next=/admin/">ログイン</a>
         </div>
     </body>
 </html>
