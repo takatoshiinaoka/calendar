@@ -25,4 +25,5 @@ urlpatterns = [
     path('subject', views.subject, name="subject"),
     path('user', views.user, name="user"),
     path('report', views.report, name="report"),
+    path('memo', views.memo, name="memo"),
 ]

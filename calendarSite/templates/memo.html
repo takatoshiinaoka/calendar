@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+  <head>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+    <link href="{% static 'css/memo.css' %}" rel="stylesheet" />
+  </head>
+  <body>
+    <div class = "left-box">
+      <p>三</p><!--todo アイコンに変える-->
+    </div>
+    <div class = "calender">
+    </div>
+    <div id="root">wait...</div>
+    <script type="text/babel">
+      let dom = document.querySelector('#root');
+      class Counter extends React.Component {
+        constructor(props) {
+          super(props);
+          this.state = {
+            count: 0,
+            flag:false,
+            style: {
+              backgroundColor: "red",
+              position: "absolute",
+              left: "80vw",
+              top: "0px",
+              width: "20vw",
+              height: "20vh"
+            }
+          };
+        }
+        
+        change = () => {
+          this.setState({
+            flag :!this.state.flag,
+          
+          });
+        };
+
+        componentDidMount() {
+          // ----------- ①
+          setInterval(() => {
+            this.setState({
+              count : (this.state.flag ? (this.state.count<100 ? this.state.count + 1 : 100):
+              (this.state.count >0 ? this.state.count-1:0)),
+              style:{
+                backgroundColor: "red",
+                position: "absolute",
+                left: "80vw",
+                top: this.state.count + "px",
+                width: "20vw",
+                height: "20vh"
+              }
+            });
+          }, 1);
+        }
+        render() {
+          return (
+            <div>
+              <h1>{this.state.count}</h1>
+              <button onClick={this.increment}>Click me!!</button>
+              <button onClick={this.change}>切り替え</button>
+              <div style={this.state.style}></div>
+              <div className="box"></div>
+            </div>
+          );
+        }
+      }
+      class App extends React.Component{
+
+        constructor(props){
+          super(props);
+        }
+        render(){
+            return <Counter />;
+        }
+      }
+      let el = (
+      <div>
+         <App />
+      </div>
+      );
+      ReactDOM.render(el, dom);
+    </script>
+  </body>
+</html>
