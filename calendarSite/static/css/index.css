@@ -1,3 +1,7 @@
+a{
+  text-decoration:none;
+  color:black;
+}
 .header{
   display:flex;
   flex-direction:row;
@@ -79,7 +83,7 @@
 .top li{
   display:inline-block;
   flex-wrap:wrap;
-  padding:0.2vh 1.8vw;
+  padding:0.2vh 2vw;
   margin:1vh;
   color:white;
   font-weight:bold;
@@ -88,8 +92,8 @@
   display:inline-block;
   flex-wrap:wrap;
   background-color:gray;
-  padding:1vh 2vw;
-  margin:0.5vh 1vh;
+  padding:1vh 2.5vw;
+  margin:0.5vh 0.5vh 0 0;
 } 
 .footer{
   top:90vh;
