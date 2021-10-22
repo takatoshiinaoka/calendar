@@ -34,8 +34,7 @@
         
         change = () => {
           this.setState({
-            flag :!this.state.flag,
-          
+            flag :!this.state.flag,   
           });
         };
 
@@ -60,8 +59,7 @@
           return (
             <div>
               <h1>{this.state.count}</h1>
-              <button onClick={this.increment}>Click me!!</button>
-              <button onClick={this.change}>切り替え</button>
+              <button onClick={this.change}>{this.state.flag ? "close":"open"}</button>
               <div style={this.state.style}></div>
               <div className="box"></div>
             </div>
