@@ -100,3 +100,6 @@ def report(request):
 
 def memo(request):
     return render(request, 'memo.html')
+
+def chat(request):
+    return render(request, 'chat.html')
