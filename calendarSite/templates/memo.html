@@ -28,6 +28,9 @@
               top: "0px",
               width: "20vw",
               height: "20vh"
+            },
+            btnStyle: {
+              backgroundColor:"green",
             }
           };
         }
@@ -51,6 +54,9 @@
                 top: this.state.count + "px",
                 width: "20vw",
                 height: "20vh"
+              },
+              btnStyle: {
+                backgroundColor: (this.state.flag ? "red":"green"),
               }
             });
           }, 1);
@@ -59,12 +65,26 @@
           return (
             <div>
               <h1>{this.state.count}</h1>
-              <button onClick={this.change}>{this.state.flag ? "close":"open"}</button>
+              <button onClick={this.change} 
+              style={this.state.btnStyle}>
+              {this.state.flag ? "close":"open"}</button>
               <div style={this.state.style}></div>
               <div className="box"></div>
             </div>
           );
         }
+      }
+      function Test(){
+        const[count,setCount]=React.useState(0);
+        const Increment = () =>{
+          setCount(count+1)
+        }
+        return(
+          <div>
+            <h1>{count}</h1>
+            <button onClick={Increment}>+</button>
+          </div>
+        )
       }
       class App extends React.Component{
 
@@ -72,7 +92,12 @@
           super(props);
         }
         render(){
-            return <Counter />;
+            return(
+              <div> 
+                <Counter />
+                <Test />
+              </div>
+            )
         }
       }
       let el = (
