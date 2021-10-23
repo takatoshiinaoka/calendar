@@ -11,3 +11,5 @@ class Calendar(models.Model):
 class User(models.Model):
     user_id=models.CharField(max_length=200)
     user_subject=models.CharField(max_length=200)
+
+
