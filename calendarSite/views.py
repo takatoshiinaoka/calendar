@@ -102,4 +102,16 @@ def memo(request):
     return render(request, 'memo.html')
 
 def chat(request):
-    return render(request, 'chat.html')
+   params = {
+      'title':'Hello/Index',
+      'msg':'お名前は',
+   }
+   return render(request, 'chat.html',params)
+
+def form(request):
+   msg = request.POST['msg']
+   params = {
+      'title':'Hello/Form',
+      'msg':'こんにちは、'+msg+'さん。'
+   }
+   return render(request, 'chat.html',params)

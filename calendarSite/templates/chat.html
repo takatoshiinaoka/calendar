@@ -3,6 +3,13 @@
 
   </head>
   <body>
-    <p>グローバルチャット用のページ</p>
+    <h1>{{title}}</h1>
+    <p>{{msg}}</p>
+    <form action="{% url 'form' %}" method="post">
+      {% csrf_token %}
+      <label for="msg">message :</label>
+      <input id="msg" type="text" name="msg">
+      <input type="submit" value="click">
+    </form>
   </body>
 </html>
