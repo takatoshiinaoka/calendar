@@ -105,7 +105,7 @@ def memo(request):
 def chat(request):
    params = {
       'title':'Hello',
-      'message':'your data',
+      'message':'your data:',
       'form': testForm()
    }
    if(request.method == 'POST'):
