@@ -104,10 +104,17 @@ def memo(request):
     return render(request, 'memo.html')
 
 def chat(request):
-   data = Friend.objects.all()
    params = {
       'title':'Hello',
       'message':'all friends:',
-      'data':data,
+      'form':testForm(),
+      'data':[],
    }
+   if(request.method == 'POST'):
+      num = request.POST['id']
+      item = Friend.objects.get(id=num)
+      params['data'] = [item]
+      params['form'] = testForm(request.POST)
+   else:
+      params['data'] = Friend.objects.all()
    return render(request, 'chat.html',params)
