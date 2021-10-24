@@ -1,6 +1,8 @@
+{% load static%}
 <!DOCTYPE html>
   <head>
-
+    <title> チャット </title> 
+        <link href="{% static 'css/chat.css' %}" rel="stylesheet" />
   </head>
   <body>
     <h1>{{title}}</h1>
@@ -10,6 +12,7 @@
         <th>ID</th>
         <th>NAME</th>
         <th>GENDER</th>
+        <th>MAIL</th>
         <th>AGE</th>
         <th>BIRTHDAY</th>
       </tr>
