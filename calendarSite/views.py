@@ -4,6 +4,7 @@ from calendarSite.forms import indexForm
 from calendarSite.forms import searchForm
 from calendarSite.forms import subjectForm
 from calendarSite.forms import userForm
+from calendarSite.forms import testForm
 from calendarSite.models import Calendar
 
 # Create your views here.
@@ -103,15 +104,13 @@ def memo(request):
 
 def chat(request):
    params = {
-      'title':'Hello/Index',
-      'msg':'お名前は',
+      'title':'Hello',
+      'message':'your data',
+      'form': testForm()
    }
-   return render(request, 'chat.html',params)
-
-def form(request):
-   msg = request.POST['msg']
-   params = {
-      'title':'Hello/Form',
-      'msg':'こんにちは、'+msg+'さん。'
-   }
+   if(request.method == 'POST'):
+      params['message'] = '名前：' + request.POST['name']+\
+         '<br>メール：'+ request.POST['mail']+\
+         '<br>年齢：'+request.POST['age']
+      params['form']=testForm(request.POST)
    return render(request, 'chat.html',params)
