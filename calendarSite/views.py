@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from calendarSite.forms import addDataForm
 from calendarSite.forms import indexForm
 from calendarSite.forms import searchForm
@@ -6,7 +7,7 @@ from calendarSite.forms import subjectForm
 from calendarSite.forms import userForm
 from calendarSite.forms import testForm
 from calendarSite.models import Calendar
-
+from calendarSite.models import Friend
 # Create your views here.
 
 
@@ -103,14 +104,10 @@ def memo(request):
     return render(request, 'memo.html')
 
 def chat(request):
+   data = Friend.objects.all()
    params = {
       'title':'Hello',
-      'message':'your data:',
-      'form': testForm()
+      'message':'all friends:',
+      'data':data,
    }
-   if(request.method == 'POST'):
-      params['message'] = '名前：' + request.POST['name']+\
-         '<br>メール：'+ request.POST['mail']+\
-         '<br>年齢：'+request.POST['age']
-      params['form']=testForm(request.POST)
    return render(request, 'chat.html',params)
