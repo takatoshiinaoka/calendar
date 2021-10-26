@@ -27,4 +27,5 @@ urlpatterns = [
     path('report', views.report, name="report"),
     path('memo', views.memo, name="memo"),
     path('chat', views.chat, name="chat"),
+    path('create', views.create, name="create"),
 ]

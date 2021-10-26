@@ -4,6 +4,8 @@
 from django.core.files.storage import default_storage
 from django import forms
 
+from calendarSite.models import Friend
+
 class addDataForm(forms.Form):
     subject= forms.CharField(
         max_length=200,
@@ -55,4 +57,13 @@ class userForm(forms.Form):
     user=()
 
 class testForm(forms.Form):
-    id = forms.IntegerField(label='ID')
+    name = forms.CharField(label='Name')
+    mail = forms.EmailField(label='Email')
+    gender = forms.BooleanField(label = 'Gender',required=False)
+    age = forms.IntegerField(label='Age')
+    birthday = forms.DateField(label='Birth')
+
+class FriendForm(forms.ModelForm):
+    class Meta:
+        model = Friend
+        fields = ['name','mail','gender','age','birthday']
