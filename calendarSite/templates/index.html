@@ -8,12 +8,12 @@
 
         <div class = "header">
             <a class = "title" href="#">Calender Site</a>
-            <a class = "login" href="http://localhost:8000/admin/login/?next=/admin/">ログイン</a>
+            <a class = "login" href="http://localhost:8000/admin/login/?next=/admin/ %}">ログイン</a>
         </div>
         <div class = "nav-bar">
-            <a href = "http://localhost:8000/addData">Schedule</a>
+            <a href = "{% url 'addData' %}">Schedule</a>
             <p>Chat</p>
-            <a href = "http://localhost:8000/report">Report</a>
+            <a href = "{% url 'report' %}">Report</a>
         </div>
         <div class = "main">
             <div class = "calender">
@@ -38,7 +38,7 @@
                     <li>9</li>
                 </ul>
             </div>
-            <a href="http://localhost:8000/memo"></a>
+            <a href="{% url 'memo' %}"></a>
         </div>
 
         <div class = "footer">
