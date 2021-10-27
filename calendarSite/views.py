@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from calendarSite.forms import addDataForm
 from calendarSite.forms import indexForm
 from calendarSite.forms import searchForm
-from calendarSite.forms import subjectForm
+from calendarSite.forms import SubjectForm
 from calendarSite.forms import userForm
 from calendarSite.forms import FriendForm
 from calendarSite.forms import TaskForm
@@ -111,7 +111,7 @@ def memo(request):
 def chat(request):
    data = Task.objects.all()
    params = {
-      'title':'Hello',
+      'title':'課題リスト',
       'data': data,
    }
    return render(request, 'chat.html',params)
@@ -141,3 +141,23 @@ def edit(request,num):
       'form':TaskForm(instance=obj),
    }
    return render(request,'edit.html',params)
+
+def category(request):
+   params={
+      'title':'科目リスト',
+      'data': Subject.objects.all()
+   }
+   return render(request,'category.html',params)
+
+def create_category(request):
+   if (request.method == 'POST'):
+      obj = Subject()
+      subject = SubjectForm(request.POST,instance=obj)
+      subject.save()
+      return redirect(to = '/category')
+   params = {
+      'title' : 'Hello',
+      'form' : SubjectForm(),
+      'data': Subject.objects.all()
+   }
+   return render(request,'create_category.html',params)

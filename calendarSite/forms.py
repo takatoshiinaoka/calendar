@@ -6,6 +6,7 @@ from django import forms
 
 from calendarSite.models import Friend
 from calendarSite.models import Task
+from calendarSite.models import Subject
 
 class addDataForm(forms.Form):
     subject= forms.CharField(
@@ -69,6 +70,11 @@ class FriendForm(forms.ModelForm):
         model = Friend
         fields = ['name','mail','gender','age','birthday']
 
+class SubjectForm(forms.ModelForm):
+    class Meta:
+        model = Subject
+        fields = ['name']
+        
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
