@@ -7,9 +7,12 @@ from calendarSite.forms import searchForm
 from calendarSite.forms import subjectForm
 from calendarSite.forms import userForm
 from calendarSite.forms import FriendForm
+from calendarSite.forms import TaskForm
 from calendarSite.forms import testForm
 from calendarSite.models import Calendar
 from calendarSite.models import Friend
+from calendarSite.models import Task
+from calendarSite.models import Subject
 # Create your views here.
 
 
@@ -106,7 +109,7 @@ def memo(request):
     return render(request, 'memo.html')
 
 def chat(request):
-   data = Friend.objects.all()
+   data = Task.objects.all()
    params = {
       'title':'Hello',
       'data': data,
@@ -115,12 +118,25 @@ def chat(request):
 
 def create(request):
    if(request.method == 'POST'):
-      obj = Friend()
-      friend = FriendForm(request.POST,instance=obj)
-      friend.save()
+      obj = Task()
+      task = TaskForm(request.POST,instance=obj)
+      task.save()
       return redirect(to = '/chat')
    params = {
       'title' : 'Hello',
-      'form' : FriendForm(),
+      'form' : TaskForm(),
    }
    return render(request,'create.html',params)
+
+def edit(request,num):
+   obj = Task.objects.get(id=num)
+   if(request.method == 'POST'):
+      task = TaskForm(request.POST,instance=obj)
+      task.save()
+      return redirect(to='/chat')
+   params ={
+      'title':'Hello',
+      'id':num,
+      'form':TaskForm(instance=obj),
+   }
+   return render(request,'edit.html',params)

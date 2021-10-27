@@ -22,3 +22,13 @@ class Friend(models.Model):
     def __str__(self):
         return '<Friend:id=' + str(self.id) + ',' + \
             self.name + '(' + str(self.age) + ')>'
+
+class Subject(models.Model):
+    name = models.CharField(max_length=100)
+
+
+class Task(models.Model):
+    subject_id = models.ForeignKey(Subject,on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+
+

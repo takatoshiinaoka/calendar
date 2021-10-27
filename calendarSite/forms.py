@@ -5,6 +5,7 @@ from django.core.files.storage import default_storage
 from django import forms
 
 from calendarSite.models import Friend
+from calendarSite.models import Task
 
 class addDataForm(forms.Form):
     subject= forms.CharField(
@@ -67,3 +68,8 @@ class FriendForm(forms.ModelForm):
     class Meta:
         model = Friend
         fields = ['name','mail','gender','age','birthday']
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['subject_id','name']
