@@ -9,6 +9,7 @@ from calendarSite.forms import userForm
 from calendarSite.forms import FriendForm
 from calendarSite.forms import TaskForm
 from calendarSite.forms import testForm
+from calendarSite.forms import searchForm
 from calendarSite.models import Calendar
 from calendarSite.models import Friend
 from calendarSite.models import Task
@@ -113,7 +114,12 @@ def chat(request):
    params = {
       'title':'課題リスト',
       'data': data,
+      'form':SubjectForm(),
+      'find':'',
    }
+   if(request.method == 'POST'):
+      params['find']=request.POST['name']
+
    return render(request, 'chat.html',params)
 
 def create(request):

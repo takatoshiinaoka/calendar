@@ -7,6 +7,11 @@
   <body>
     <h1>{{title}}</h1>
     <a href="{% url 'category' %}">科目リスト</a>
+    <form action ="{% url 'chat' %}" method="post">
+      {% csrf_token %}
+      {{form.as_table }}
+      <tr><td></td><td><input type="submit" value="click"></td></tr>
+    </form>
     <table>
       <tr>
         <th>Task</th>
@@ -14,11 +19,13 @@
         <th></th>
       </tr>
       {% for item in data %}
-        <tr>
-          <td>{{item.name}}</td>
-          <td>{{item.subject_id.name}}</td>
-          <td><a href="{% url 'edit' item.id %}">Edit</a></td>
-        </tr>
+        {% if find == '' or find == item.subject_id.name %}
+          <tr>
+            <td>{{item.name}}</td>
+            <td>{{item.subject_id.name}}</td>
+            <td><a href="{% url 'edit' item.id %}">Edit</a></td>
+          </tr>
+        {% endif %}
       {% endfor %}
     </table>
     <a href="{% url 'create' %}">新規作成</a>
