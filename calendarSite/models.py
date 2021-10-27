@@ -25,10 +25,14 @@ class Friend(models.Model):
 
 class Subject(models.Model):
     name = models.CharField(max_length=100)
-
+    
+    def __str__(self):
+        return self.name
 
 class Task(models.Model):
     subject_id = models.ForeignKey(Subject,on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
+
+    
 
 

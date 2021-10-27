@@ -125,6 +125,7 @@ def create(request):
    params = {
       'title' : 'Hello',
       'form' : TaskForm(),
+      'data': Subject.objects.all()
    }
    return render(request,'create.html',params)
 
