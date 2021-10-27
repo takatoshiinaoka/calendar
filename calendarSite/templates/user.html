@@ -1,99 +1,78 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html>
-  <head>
-    <meta charset='utf-8' />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
-    <link href='fullcalendar/core/main.css' rel='stylesheet' />
-    <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
-    <link href='calendar.css' rel='stylesheet' />
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
-    <title>user</title>
-    <style>
-      .btn--orange,
-      a.btn--orange {
-        color: #fff;
-        background-color: #eb6100;
-      }
-      .btn--orange:hover,
-      a.btn--orange:hover {
-        color: #fff;
-        background: #f56500;
-      }
 
-      a.btn--radius {
-        border-radius: 100vh;
-      }
-      div.user_name{
-        color:#ff00ff;
-      }
-      .fc-sat {
-      background-color: #eaf4ff;
-      }
-      .fc-sun {
-          background-color: #ffeaea;
-      }
-    </style>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        var events=[
-          {
-              id:'cale.id',
-              title:'クラウドアプリ開発入門',
-              start:'2021-08-26',
-              end:'2021-09-03',
-              color:'#ff0000',
-              url:'#'
-          },
-          {% for cale in caleList %}
+<head>
+  <meta charset='utf-8' />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
+  <link href='fullcalendar/core/main.css' rel='stylesheet' />
+  <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
+  <link href='calendar.css' rel='stylesheet' />
+  <link href="../../calendarSite/static/css/user.css">
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+  <title>user</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var events = [
+        {
+          id: 'cale.id',
+          title: 'クラウドアプリ開発入門',
+          start: '2021-08-26',
+          end: '2021-09-03',
+          color: '#ff0000',
+          url: '#'
+        },
+        {% for cale in caleList %}
             {
-              id:'cale.id',
-              title:'{{cale.title}}',
-              start:'{{cale.date | date:"Y-m-d" }}',
-              url:'#'
-            },
-          {% endfor %}
+        id: 'cale.id',
+        title: '{{cale.title}}',
+        start: '{{cale.date | date:"Y-m-d" }}',
+        url: '#'
+      },
+      {% endfor %}
         ]
 
         var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-          locale: 'ja',
-          height: 'auto',
-          headerToolbar: {
-            left: "dayGridMonth,listMonth",
-            center: "title",
-            right: "today prev,next"
-          },
-          buttonText: {
-              prev:     '<',
-              next:     '>',
-              prevYear: '<<',
-              nextYear: '>>',
-              today:    '今日',
-              month:    '月',
-              week:     '週',
-              day:      '日',
-              list:     '一覧'
-          },
-          initialView: 'dayGridMonth',
-          events:events
-        });
-        calendar.render();
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      locale: 'ja',
+      height: 'auto',
+      headerToolbar: {
+        left: "dayGridMonth,listMonth",
+        center: "title",
+        right: "today prev,next"
+      },
+      buttonText: {
+        prev: '<',
+        next: '>',
+        prevYear: '<<',
+        nextYear: '>>',
+        today: '今日',
+        month: '月',
+        week: '週',
+        day: '日',
+        list: '一覧'
+      },
+      initialView: 'dayGridMonth',
+      events: events
+    });
+    calendar.render();
       });
-    </script>
-  </head>
-  <body>
+  </script>
+</head>
+
+<body>
+  <div>
     <div>
-      <div>
-        {{user}}のサイト  
-        <a class="btn btn--orange btn--radius" href="addData">予定追加</a>
-      </div>
+      {{user}}のサイト
+      <a class="btn btn--orange btn--radius" href="addData">予定追加</a>
     </div>
-    <div id='calendar'></div>
-    
-    
-  </body>
+  </div>
+  <div id='calendar'></div>
+
+
+</body>
+
 </html>
