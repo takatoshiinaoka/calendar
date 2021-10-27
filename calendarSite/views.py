@@ -7,6 +7,7 @@ from calendarSite.forms import userForm
 from calendarSite.models import Calendar
 
 # Create your views here.
+# Create your views here.
 
 
 def index(request):
@@ -20,10 +21,10 @@ def search(request):
       print(user)
       print(subject)
 
-   # メッセージ情報を取得。ない場合は空文字が入る
+   # メ�?セージ�?報を取得。な�?場合�?�空�?字が入�?
    """
    if  user != '':
-        # メッセージの内容をDBに登録
+        # メ�?セージの�?容をDBに登録
         userModel = User(user_id=user,user_subject=subject)
         userModel.save()
    
@@ -44,14 +45,14 @@ def search(request):
 
 def addData(request):
    date=0
-   user='かいた'
-   subject='おーいお茶'
-   title='伊藤園'
+   user='かい�?'
+   subject='お�?��?お茶'
+   title='伊藤�?'
 
 
-   #フォームを持って来る
+   #フォー�?を持って来�?
    form=addDataForm(request.POST or None)
-   #フォームからデータを取得
+   #フォー�?から�?ータを取�?
    date=form['date'].data or ''
    user=form['user'].data or ''
    subject=form['subject'].data or ''
@@ -62,7 +63,7 @@ def addData(request):
    print(str(subject))
    print(str(title))
 
-   #データベースに保存
+   #�?ータベ�?�スに保�?
    if date!=''and user!='' and subject!='' and title!='':
       calendarModel=Calendar(date=date, user=user, title=title, subject=subject)
       calendarModel.save()
