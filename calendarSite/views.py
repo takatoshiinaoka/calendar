@@ -109,19 +109,25 @@ def report(request):
 def memo(request):
     return render(request, 'memo.html')
 
+#課題の一覧表示
 def chat(request):
+   #課題のデータをすべて変数dataに入れる(要素はmodels.py参照)※importを忘れずに！
    data = Task.objects.all()
+   #表示に使いたい情報を配列(辞書)paramsに代入
    params = {
       'title':'課題リスト',
       'data': data,
-      'form':SubjectForm(),
+      'form':SubjectForm(),#forms.py参照 ※これもimportしないと使えない
       'find':'',
    }
+   #フォームから入力情報が送信されたら辞書に入力情報を代入
    if(request.method == 'POST'):
       params['find']=request.POST['name']
 
+   #第２引数でテンプレートの指定、第3引数にテンプレートで使う情報を入れる
    return render(request, 'chat.html',params)
 
+#課題の作成
 def create(request):
    if(request.method == 'POST'):
       obj = Task()
@@ -135,6 +141,7 @@ def create(request):
    }
    return render(request,'create.html',params)
 
+#課題の編集　どのデータを編集するかをnumでもらう
 def edit(request,num):
    obj = Task.objects.get(id=num)
    if(request.method == 'POST'):
