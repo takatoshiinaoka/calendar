@@ -10,35 +10,31 @@
             <a class = "title" href="#">Calender Site</a>
             <a class = "login" href="http://localhost:8000/admin/login/?next=/admin/">ログイン</a>
         </div>
-        <div class = "nav-bar">
-            <a href = "http://localhost:8000/addData">Schedule</a>
-            <a href = "http://localhost:8000/chat">Chat</a>
-            <a href = "http://localhost:8000/report">Report</a>
-        </div>
+      
         <div class = "main">
-            <div class = "calender">
-                <ul class = "top">
-                    <li>M</li>
-                    <li>T</li>
-                    <li>W</li>
-                    <li>T</li>
-                    <li>F</li>
-                    <li>S</li>
-                    <li>S</li>
-                </ul>
-                <ul class = "date">
-                    <li>1</li>
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>5</li>
-                    <li>6</li>
-                    <li>7</li>
-                    <li>8</li>
-                    <li>9</li>
-                </ul>
+            <ul class = "date" style="width:60vw">
+                <li>2021-10-31</br><img  src="{% static 'hanamaru-illust6.png' %}"></li>
+                <li>2021-10-30</li>
+                <li>3</li>
+                <li>4</li>
+                <li>5</li>
+                <li>6</li>
+                <li>7</li>
+                <li>8</li>
+                <li>9</li>
+            </ul>
+            <div class = "side">
+                <div class="menu">
+                    <a href = "http://localhost:8000/addData">Schedule</a><br><br>
+                    <a href = "http://localhost:8000/chat">Chat</a><br><br>
+                    <a href = "http://localhost:8000/report">Report</a>
+                </div>
+                <div class="graph">
+                    graph
+                </div>
             </div>
-            <a href="http://localhost:8000/memo"></a>
+                
+            </div>
         </div>
 
         <div class = "footer">
