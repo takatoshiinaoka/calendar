@@ -29,6 +29,7 @@ urlpatterns = [
     path('chat', views.chat, name="chat"),
     path('create', views.create, name="create"),
     path('edit/<int:num>',views.edit,name='edit'),
+    path('delete/<int:num>',views.delete,name='delete'),
     path('category', views.category, name="category"),
     path('create_category', views.create_category, name="create_category"),
 ]

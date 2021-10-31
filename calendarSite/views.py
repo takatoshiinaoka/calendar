@@ -155,6 +155,11 @@ def edit(request,num):
    }
    return render(request,'edit.html',params)
 
+def delete(request,num):#todo ユーザーに確認するページを追加
+   task = Task.objects.get(id=num)
+   task.delete()
+   return redirect(to = '/chat')
+
 def category(request):
    params={
       'title':'科目リスト',
