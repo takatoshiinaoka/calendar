@@ -1,37 +1,40 @@
-<!DOCTYPE html> 
-<html>
-  <head>
-    <meta charset='utf-8' />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
-    <title>subject</title>
-    <script>
-        
-        document.addEventListener('DOMContentLoaded', function() {
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
-            locale: 'ja',
-            buttonText: {
-                prev:     '<',
-                next:     '>',
-                prevYear: '<<',
-                nextYear: '>>',
-                today:    '今日',
-                month:    '月',
-                week:     '週',
-                day:      '日',
-                list:     '一覧'
-            },
-          initialView: 'dayGridMonth'
-        });
-        calendar.render();
-      });
-      
+{% load static %}
 
-    </script>
-  </head>
-  <body>
-    <div id='calendar'></div>
-  </body>
+<!DOCTYPE html>
+    <head> 
+        <title> カレンダー </title> 
+        <link href="{% static 'css/subject.css' %}" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="header">
+            <h1>科目リスト</h1>
+            <h2>情報工学科</h2>
+        </div>
+    <form method="post">
+        {% csrf_token %}
+        <th>{{ name }}</th><br>
+        <input type="text" name="subject">
+        <input type="submit" class="btn btn-danger" value="登録" /><br>
+    </form>
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>subjectID</th>
+                <th>科目</th>
+                <th>編集</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in data %}
+        <tr>
+            <td>{{item.subject_id}}</td>
+            <td>{{item.subject}}</td>
+            <td>Edit</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </body>
+
 </html>
