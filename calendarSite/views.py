@@ -14,6 +14,8 @@ from calendarSite.models import Calendar
 from calendarSite.models import Friend
 from calendarSite.models import Task
 from calendarSite.models import Subject
+
+
 # Create your views here.
 
 
@@ -109,14 +111,17 @@ def report(request):
 def memo(request):
     return render(request, 'memo.html')
 
+from django.core.paginator import Paginator
+
 #課題の一覧表示
-def chat(request):
+def chat(request,num=1):
    #課題のデータをすべて変数dataに入れる(要素はmodels.py参照)※importを忘れずに！
    data = Task.objects.all()
+   page = Paginator(data,3)
    #表示に使いたい情報を配列(辞書)paramsに代入
    params = {
       'title':'課題リスト',
-      'data': data,
+      'data': page.get_page(num),
       'form':SubjectForm(),#forms.py参照 ※これもimportしないと使えない
       'find':'',
    }
