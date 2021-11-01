@@ -138,7 +138,7 @@ def create(request):
       obj = Task()
       task = TaskForm(request.POST,instance=obj)
       task.save()
-      return redirect(to = '/chat')
+      return redirect(to = '/chat/1')
    params = {
       'title' : 'Hello',
       'form' : TaskForm(),
@@ -152,7 +152,7 @@ def edit(request,num):
    if(request.method == 'POST'):
       task = TaskForm(request.POST,instance=obj)
       task.save()
-      return redirect(to='/chat')
+      return redirect(to='/chat/1')
    params ={
       'title':'Hello',
       'id':num,
@@ -163,7 +163,7 @@ def edit(request,num):
 def delete(request,num):#todo ユーザーに確認するページを追加
    task = Task.objects.get(id=num)
    task.delete()
-   return redirect(to = '/chat')
+   return redirect(to = '/chat/1')
 
 def category(request):
    params={
