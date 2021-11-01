@@ -11,3 +11,8 @@ class Calendar(models.Model):
 class User(models.Model):
     user_id=models.CharField(max_length=200)
     user_subject=models.CharField(max_length=200)
+
+
+class Subject(models.Model):
+    subject_id = models.AutoField(primary_key=True)
+    subject = models.CharField(max_length=200)
