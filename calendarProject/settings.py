@@ -38,6 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'calendarSite',
+    'accounts',                #追加
+    'django.contrib.sites',    #追加
+    'allauth',                 #追加
+    'allauth.account',         #追加
+    'allauth.socialaccount',   #追加
 ]
 
 MIDDLEWARE = [
@@ -119,3 +124,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = 'index'
+ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = '自分nogmailアドレス'
+EMAIL_HOST_PASSWORD = 'gmailのパスワード'
+EMAIL_USE_TLS = True

@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from calendarSite import views
+from django.urls import include, path
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', views.index,  name="index"),
@@ -32,4 +34,5 @@ urlpatterns = [
     path('delete/<int:num>',views.delete,name='delete'),
     path('category', views.category, name="category"),
     path('create_category', views.create_category, name="create_category"),
+    path('accounts/', include('allauth.urls')),
 ]
