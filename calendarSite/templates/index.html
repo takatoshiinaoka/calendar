@@ -8,10 +8,10 @@
 
         <div class = "header">
             <a class = "title" href="#">Calender Site</a>
-            <div>
-                <a class = "login" href="http://localhost:8000/accounts/login">ログイン</a>
-                <a class = "login" href="http://localhost:8000/accounts/logout">ログアウト</a>
-            </div>
+            <a class = "login" href="/accounts/login">ログイン</a>
+            <a class = "login" href="/accounts/logout">ログアウト</a>
+            {% load account %}
+            <a class = "login">ユーザー名：{% user_display user %}</a>
         </div>
       
         <div class = "main">
@@ -26,14 +26,16 @@
                 <li>8</li>
                 <li>9</li>
             </ul>
+            
             <div class = "side">
                 <div class="menu">
-                    <a href = "http://localhost:8000/addData">Schedule</a><br><br>
-                    <a href = "http://localhost:8000/chat/1">Chat</a><br><br>
-                    <a href = "http://localhost:8000/report">Report</a>
+                    <a href = "{% url 'addData' %}">Schedule</a><br><br>
+                    <a href = "{% url 'chat' 1 %}">Task</a><br><br>
+                    <a href = "{% url 'report' %}">Report</a>
                 </div>
                 <div class="graph">
                     graph
+                 
                 </div>
             </div>
                 
