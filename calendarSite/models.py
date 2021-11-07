@@ -32,7 +32,8 @@ class Subject(models.Model):
 class Task(models.Model):
     subject_id = models.ForeignKey(Subject,on_delete=models.CASCADE)#科目テーブルと紐づけ
     name = models.CharField(max_length=100)
-
+    author = models.CharField(default = '',max_length=100)
+    contents = models.CharField(default='',max_length=100)
     
 
 

@@ -16,6 +16,7 @@
       <tr>
         <th>Task</th>
         <th>Subject</th>
+        <th>Author</th>
         <th></th>
         <th></th>
       </tr>
@@ -24,6 +25,7 @@
           <tr>
             <td>{{item.name}}</td>
             <td>{{item.subject_id.name}}</td>
+            <td>{{item.author}}</td>
             <td><a href="{% url 'edit_task' item.id %}">Edit</a></td>
             <td><a href="{% url 'delete_task' item.id %}">Delete</a></td>
           </tr>

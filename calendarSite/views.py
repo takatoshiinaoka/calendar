@@ -135,7 +135,7 @@ def task(request,num=1):
 #課題の作成
 def create_task(request):
    if(request.method == 'POST'):
-      obj = Task()
+      obj = Task(author = request.user)
       task = TaskForm(request.POST,instance=obj)
       task.save()
       return redirect(to = '/task/1')
@@ -184,3 +184,9 @@ def create_category(request):
       'data': Subject.objects.all()
    }
    return render(request,'create_category.html',params)
+
+
+def delete_category(request,num):#todo ユーザーに確認するページを追加
+   category = Subject.objects.get(id=num)
+   Subject.delete()
+   return redirect(to = '/category')
