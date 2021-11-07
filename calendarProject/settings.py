@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'calendarProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': str(BASE_DIR / 'db.sqlite3'),
     }
 }
 
@@ -132,6 +132,6 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = '自分nogmailアドレス'
-EMAIL_HOST_PASSWORD = 'gmailのパスワード'
+EMAIL_HOST_USER = 'spring@gmail.com'
+EMAIL_HOST_PASSWORD = 'sotugyousiki'
 EMAIL_USE_TLS = True
