@@ -10,13 +10,16 @@
     <table>
       <tr>
         <th>Subject</th>
+        <th></th>
       </tr>
       {% for item in data %}
         <tr>
           <td>{{item.name}}</td>
+          <td><a href="{% url 'delete_category' item.id %}">Delete</a></td>
         </tr>
       {% endfor %}
     </table>
+   
     <a href="{% url 'create_category' %}">新規作成</a>
   </body>
 </html>

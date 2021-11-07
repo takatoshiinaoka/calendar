@@ -185,8 +185,7 @@ def create_category(request):
    }
    return render(request,'create_category.html',params)
 
-
 def delete_category(request,num):#todo ユーザーに確認するページを追加
    category = Subject.objects.get(id=num)
-   Subject.delete()
+   category.delete()
    return redirect(to = '/category')
