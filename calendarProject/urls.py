@@ -34,6 +34,7 @@ urlpatterns = [
     path('delete_task/<int:num>',views.delete_task,name='delete_task'),
     path('category', views.category, name="category"),
     path('create_category', views.create_category, name="create_category"),
+    path('edit_category/<int:num>',views.edit_category,name='edit_category'),
     path('delete_category/<int:num>', views.delete_category, name="delete_category"),
     path('accounts/', include('allauth.urls')),
 ]

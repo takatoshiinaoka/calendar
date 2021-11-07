@@ -11,10 +11,12 @@
       <tr>
         <th>Subject</th>
         <th></th>
+        <th></th>
       </tr>
       {% for item in data %}
         <tr>
           <td>{{item.name}}</td>
+          <td><a href="{% url 'edit_category' item.id %}">Edit</a></td>
           <td><a href="{% url 'delete_category' item.id %}">Delete</a></td>
         </tr>
       {% endfor %}

@@ -185,6 +185,19 @@ def create_category(request):
    }
    return render(request,'create_category.html',params)
 
+def edit_category(request,num):
+   obj = Subject.objects.get(id=num)
+   if(request.method == 'POST'):
+      subject = SubjectForm(request.POST,instance=obj)
+      subject.save()
+      return redirect(to='/category')
+   params ={
+      'title':'科目の編集',
+      'id':num,
+      'form':SubjectForm(instance=obj),
+   }
+   return render(request,'edit_category.html',params)
+
 def delete_category(request,num):#todo ユーザーに確認するページを追加
    category = Subject.objects.get(id=num)
    category.delete()
