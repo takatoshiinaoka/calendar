@@ -140,7 +140,7 @@ def create_task(request):
       task.save()
       return redirect(to = '/task/1')
    params = {
-      'title' : 'Hello',
+      'title' : '課題の作成',
       'form' : TaskForm(),
       'data': Subject.objects.all()
    }
@@ -154,7 +154,7 @@ def edit_task(request,num):
       task.save()
       return redirect(to='/task/1')
    params ={
-      'title':'Hello',
+      'title':'課題の編集',
       'id':num,
       'form':TaskForm(instance=obj),
    }
@@ -179,7 +179,7 @@ def create_category(request):
       subject.save()
       return redirect(to = '/category')
    params = {
-      'title' : 'Hello',
+      'title' : '科目の作成',
       'form' : SubjectForm(),
       'data': Subject.objects.all()
    }
