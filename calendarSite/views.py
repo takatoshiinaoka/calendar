@@ -114,7 +114,7 @@ def memo(request):
 from django.core.paginator import Paginator
 
 #課題の一覧表示
-def chat(request,num=1):
+def task(request,num=1):
    #課題のデータをすべて変数dataに入れる(要素はmodels.py参照)※importを忘れずに！
    data = Task.objects.all()
    page = Paginator(data,3)
@@ -130,40 +130,40 @@ def chat(request,num=1):
       params['find']=request.POST['name']
 
    #第２引数でテンプレートの指定、第3引数にテンプレートで使う情報を入れる
-   return render(request, 'chat.html',params)
+   return render(request, 'task.html',params)
 
 #課題の作成
-def create(request):
+def create_task(request):
    if(request.method == 'POST'):
       obj = Task()
       task = TaskForm(request.POST,instance=obj)
       task.save()
-      return redirect(to = '/chat/1')
+      return redirect(to = '/task/1')
    params = {
       'title' : 'Hello',
       'form' : TaskForm(),
       'data': Subject.objects.all()
    }
-   return render(request,'create.html',params)
+   return render(request,'create_task.html',params)
 
 #課題の編集　どのデータを編集するかをnumでもらう
-def edit(request,num):
+def edit_task(request,num):
    obj = Task.objects.get(id=num)
    if(request.method == 'POST'):
       task = TaskForm(request.POST,instance=obj)
       task.save()
-      return redirect(to='/chat/1')
+      return redirect(to='/task/1')
    params ={
       'title':'Hello',
       'id':num,
       'form':TaskForm(instance=obj),
    }
-   return render(request,'edit.html',params)
+   return render(request,'edit_task.html',params)
 
-def delete(request,num):#todo ユーザーに確認するページを追加
+def delete_task(request,num):#todo ユーザーに確認するページを追加
    task = Task.objects.get(id=num)
    task.delete()
-   return redirect(to = '/chat/1')
+   return redirect(to = '/task/1')
 
 def category(request):
    params={
