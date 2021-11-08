@@ -85,7 +85,9 @@ aaaaabbbbb
 3.mainブランチに移動し，フォーク元の差分をマージする
 
     git merge upstream/main
-
+4.Dangoのユーザー機能のインストール
+         
+    pip install django-allauth
 
 ## 8. 編集
 担当になった機能を実装します．変更したら，自分のリモートリポジトリにプッシュします．
