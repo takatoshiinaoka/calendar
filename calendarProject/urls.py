@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from calendarSite import views
+from django.urls import include, path
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', views.index,  name="index"),
@@ -26,4 +28,13 @@ urlpatterns = [
     path('user', views.user, name="user"),
     path('report', views.report, name="report"),
     path('memo', views.memo, name="memo"),
+    path('task/<int:num>', views.task, name="task"),
+    path('create_task', views.create_task, name="create_task"),
+    path('edit_task/<int:num>',views.edit_task,name='edit_task'),
+    path('delete_task/<int:num>',views.delete_task,name='delete_task'),
+    path('category', views.category, name="category"),
+    path('create_category', views.create_category, name="create_category"),
+    path('edit_category/<int:num>',views.edit_category,name='edit_category'),
+    path('delete_category/<int:num>', views.delete_category, name="delete_category"),
+    path('accounts/', include('allauth.urls')),
 ]

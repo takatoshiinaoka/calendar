@@ -6,3 +6,10 @@
   width: 20vw;
   height: 20vh;
 }
+button{
+  padding:1rem;
+  font-size:2rem;
+  font-weight:bold;
+  background-color:#17a843;
+  color:white;
+}

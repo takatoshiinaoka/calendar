@@ -11,13 +11,16 @@ a{
   background-color:rgb(250,83,22);
   top:0;
   left:0;
-  height:10vh;
+  height:15vh;
   width:100vw;
+}
+body{
+  background-color:rgb(239,206,186);
 }
 .title{
   margin-left:2vw;
   text-decoration: none;
-  color:black;
+  color:white;
   font-size:2rem;
   font-weight:bold;
 }
@@ -25,19 +28,20 @@ a{
 .login{
   margin-right:2vw;
   text-decoration: none;
-  border:2px solid #333;
+  border:2px solid rgb(239,206,186);
   border-radius:1rem;
   padding:0 0.5rem;
-  background-color:rgb(239,206,186); 
+  background-color:rgb(250,83,22); 
   font-size:1.3em;
   cursor: pointer;
-  color:#333;
+  color:white;
   font-family:sans-serif;
   font-weight: 1000;
 }
 .login:hover{
   transition:0.5s;
-  background-color:rgb(236,224,200);
+  background-color:white;
+  color:rgb(250,83,22);
 }
 .nav-bar{
   display:flex;
@@ -57,23 +61,54 @@ a{
   border-bottom: solid 1vh rgb(250,83,22);
 }
 .main{
-  top:20vh;
+  top:15vh;
   left:0;
   width:100vw;
   position:fixed;
   height:70vh;
   overflow-x:hidden;
   overflow-y:scroll;
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
   
 }
-.calender{
-  position:fixed;
-  top:25vh;
-  left:3vw;
-  width:50vw;
-  height:50vh;
-  background-color:rgb(239,206,186);
-  border-radius:1rem;
+
+.side{
+  margin: 2.5vh 3vw 0;
+  width:25vw;
+  height:40vw;
+  
+  color:rgb(250,83,22);
+}
+.side a{
+  
+}
+.menu{
+  margin-right:2vw;
+  text-decoration: none;
+  align-items:center; 
+  border:2px solid rgb(250,83,22);
+  border-radius:0.5rem;
+  padding:1rem 0.5rem 1rem;
+  background-color:white; 
+  font-size:1.3em;
+  text-align: center;
+  font-family:sans-serif;
+  font-weight: 1000;
+}
+.menu a{
+  color:rgb(250,83,22);
+  border:1px solid white;
+  padding:0 1rem;
+  border-radius:0.5rem;
+}
+.menu a:hover{
+  color:white;
+  background-color:rgb(250,83,22);
+}
+.graph{
+
 }
 .top{
   background-color:rgb(250,83,22);
@@ -91,10 +126,15 @@ a{
 .date li{
   display:inline-block;
   flex-wrap:wrap;
-  background-color:gray;
+  background-color:white;
   padding:1vh 2.5vw;
   margin:0.5vh 0.5vh 0 0;
+  cursor:pointer;
 } 
+img{
+  width:100px;
+  height:100px;
+}
 .footer{
   top:90vh;
   left:0;
