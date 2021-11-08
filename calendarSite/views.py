@@ -3,8 +3,13 @@ from django.shortcuts import redirect
 from django.http import HttpResponse
 from calendarSite.forms import addDataForm
 from calendarSite.forms import indexForm
+
 from calendarSite.forms import searchForm
 from calendarSite.forms import SubjectForm
+
+from calendarSite.forms import taskForm
+from calendarSite.forms import subjectForm
+
 from calendarSite.forms import userForm
 from calendarSite.forms import FriendForm
 from calendarSite.forms import TaskForm
@@ -16,15 +21,16 @@ from calendarSite.models import Task
 from calendarSite.models import Subject
 
 
+
 # Create your views here.
 
 
 def index(request):
     return render(request, 'index.html')
 
-def search(request):
+def task(request):
    if request.POST:
-      form = searchForm(request.POST or None)
+      form = taskForm(request.POST or None)
       subject = request.POST.getlist("subject")
       user=form['user'].data or ''
       print(user)
@@ -50,7 +56,7 @@ def search(request):
         "form": form,
         "UserList" : UserList,
     }"""
-   return render(request, 'search.html')
+   return render(request, 'task.html')
 
 def addData(request):
    date=0
@@ -93,6 +99,7 @@ def addData(request):
 def user(request):
    caleList = Calendar.objects.all()
 
+   print("caleList")
    print(caleList)
    user="user"
    dbData={
@@ -103,7 +110,21 @@ def user(request):
 
 
 def subject(request):
-   return render(request, 'subject.html')
+   form = subjectForm(request.POST or None)
+   subject = form['subject'].data or ''
+   print(str(subject))
+   if(subject !=''):
+     SubjectModel = Subject(subject=subject)
+     SubjectModel.save()
+
+   data = Subject.objects.all()
+   print("data:")
+   print(str(data))
+   params = {
+      'name' : '科目登録',
+      'data' : data,
+   }
+   return render(request, 'subject.html',params)
 
 def report(request):
     return render(request, 'report.html')
