@@ -1,0 +1,115 @@
+{% load static %}
+<!DOCTYPE html>
+  <head>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6.26.0/babel.js"></script>
+  </head>
+  <body>
+    <!--↓この部分が置き換わる-->
+    <div id="root">wait...</div>
+
+    <script type="text/babel">
+      function Counter(){
+        // 特殊な変数countを用意 countに値を代入する際はsetCountを使う
+        const[count,setCount]=React.useState(0);
+        // countの値を1増やす関数を用意
+        const Increment = () =>{
+          setCount(count+1)
+        }
+        // returnの中が描画内容。html風に書ける
+        return(
+          <div>
+            {/* 波かっこの中はjavascriptが使える */}
+            {/* useStateを使って作った変数は値が変わると動的に
+            表示も変わる*/}
+            <h1>{count}</h1>
+            <button onClick={Increment}>+</button>
+          </div>
+        )
+      }
+      class Clock extends React.Component{
+        constructor(props){
+          super(props);
+          this.state = {date:new Date()};
+        }
+        componentDidMount() {
+          this.timerID = setInterval(
+            () => this.tick(),
+            1000
+          );
+        }
+    
+        componentWillunmount(){
+          clearInterval(this.timerID)
+        }
+        tick() {
+          this.setState({
+            date: new Date()
+          })
+        }
+        render(){
+          return(
+            <div>
+              <h2>It is
+                 {" "+this.state.date.toLocaleString()}.</h2>
+            </div>
+          )
+        }
+      }
+     
+      const Timer = () => {
+        const [seconds, setSeconds] = React.useState(0);
+        const [isActive, setIsActive] = React.useState(false);
+
+        function toggle() {
+          setIsActive(!isActive);
+        }
+
+        function reset() {
+          setSeconds(0);
+          setIsActive(false);
+        }
+
+        React.useEffect(() => {
+          let interval = null;
+          if (isActive) {
+            interval = setInterval(() => {
+              setSeconds(seconds => seconds + 1);
+            }, 1000);
+          } else if (!isActive && seconds !== 0) {
+            clearInterval(interval);
+          }
+          return () => clearInterval(interval);
+        }, [isActive, seconds]);
+
+        return (
+          <div className="app">
+            <div className="time">
+              {seconds}s
+            </div>
+            <div className="row">
+              <button className={`button button-primary button-primary-${isActive ? 'active' : 'inactive'}`} onClick={toggle}>
+                {isActive ? 'Pause' : 'Start'}
+              </button>
+              <button className="button" onClick={reset}>
+                Reset
+              </button>
+            </div>
+          </div>
+        );
+      };
+      function App(){
+        return(
+          <div> 
+            <h1>React</h1>
+            <Clock />
+            <Timer />
+            <Counter />
+          </div>
+        )
+      }
+      ReactDOM.render(<App />, document.querySelector('#root'));
+    </script>
+  </body>
+</html>

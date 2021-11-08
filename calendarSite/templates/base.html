@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+    <head> 
+        <title> カレンダー </title> 
+        <link href="{% static 'css/index.css' %}" rel="stylesheet" />
+    </head>
+    <body>
+
+        <div class = "header">
+            <a class = "title" href="#">Calender Site</a>
+            
+            {% if user.is_authenticated %}
+                <a class = "login" href="/accounts/logout">ログアウト</a>
+                {% load account %}
+                <a class = "login">ユーザー名：{% user_display user %}</a>
+            {% else %}
+                <a class = "login" href="/accounts/login">ログイン</a>
+            {% endif %}
+        </div>
+      
+        
+            {% block content %}{% endblock %}
+
+        <div class = "footer">
+        </div>
+        
+
+    </body>
+</html>
