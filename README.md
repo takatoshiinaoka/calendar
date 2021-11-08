@@ -1,4 +1,3 @@
-aaaaabbbbb
 
 # calender 環境設定の手順
 
@@ -39,11 +38,16 @@ aaaaabbbbb
 5. clone後**初めて**VSCodeを開く場合は、以下のコマンドを打つ!(2回目以降はしなくてよい)
    
         python manage.py migrate
-6. 以下のコマンドを打ちサーバを立ち上げる!
+
+6. django-alauthをインストールしていなければ、以下のコマンドを打つ
+
+        pip install django-allauth
+
+7. 以下のコマンドを打ちサーバを立ち上げる!
 
         python manage.py runserver
         
-7. localhostにアクセスする
+8. localhostにアクセスする
 
     [localhost:8000](http://localhost:8000/)　　　
     ※サーバーを閉じるときは「Ctrlキー + C」
