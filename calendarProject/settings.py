@@ -132,6 +132,6 @@ ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
 
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'spring@gmail.com'
-EMAIL_HOST_PASSWORD = 'sotugyousiki'
+EMAIL_HOST_USER = ''
+EMAIL_HOST_PASSWORD = ''
 EMAIL_USE_TLS = True
