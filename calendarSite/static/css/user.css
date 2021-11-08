@@ -1,0 +1,22 @@
+.btn--orange,
+a.btn--orange {
+  color: #fff;
+  background-color: #eb6100;
+}
+.btn--orange:hover,
+a.btn--orange:hover {
+  color: #fff;
+  background: #f56500;
+}
+a.btn--radius {
+  border-radius: 100vh;
+}
+div.user_name{
+ color:#ff00ff;
+}
+.fc-sat {
+  background-color: #eaf4ff;
+}
+.fc-sun {
+  background-color: #ffeaea;
+}
