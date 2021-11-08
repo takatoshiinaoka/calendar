@@ -24,6 +24,7 @@
         <th></th>
       </tr>
       {% for item in data %}
+        <!--要改善：フィルタリングはviews.pyで行うようにしたい-->
         {% if find == '' or find == item.subject_id.name %}
           <tr>
             <td>{{item.name}}</td>

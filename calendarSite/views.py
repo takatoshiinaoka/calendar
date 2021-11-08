@@ -133,6 +133,7 @@ def memo(request):
 
 from django.core.paginator import Paginator
 
+#todo クラスベースビューに書き換える
 #課題の一覧表示
 def task(request,num=1):
    #課題のデータをすべて変数dataに入れる(要素はmodels.py参照)※importを忘れずに！
