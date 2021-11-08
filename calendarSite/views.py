@@ -186,13 +186,6 @@ def delete_task(request,num):#todo ユーザーに確認するページを追加
    task.delete()
    return redirect(to = '/task/1')
 
-def category(request):
-   params={
-      'title':'科目リスト',
-      'data': Subject.objects.all()
-   }
-   return render(request,'category.html',params)
-
 def create_category(request):
    if (request.method == 'POST'):
       obj = Subject()
@@ -223,3 +216,18 @@ def delete_category(request,num):#todo ユーザーに確認するページを�
    category = Subject.objects.get(id=num)
    category.delete()
    return redirect(to = '/category')
+
+from django.views.generic import ListView
+from django.views.generic import DetailView
+
+class SubjectView(ListView):
+   model = Subject
+   template_name = "category.html"
+   def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs) # はじめに継承元のメソッドを呼び出す
+        context["title"] = "科目リスト"
+        return context
+
+class TaskDetailView(DetailView):
+   model = Task
+   template_name = "taskDetail.html"

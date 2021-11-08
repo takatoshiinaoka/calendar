@@ -15,7 +15,7 @@
         <th></th>
         <th></th>
       </tr>
-      {% for item in data %}
+      {% for item in subject_list %}
         <tr>
           <td>{{item.name}}</td>
           <td><a href="{% url 'edit_category' item.id %}">Edit</a></td>

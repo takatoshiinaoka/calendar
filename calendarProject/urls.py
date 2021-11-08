@@ -18,6 +18,8 @@ from django.urls import path
 from calendarSite import views
 from django.urls import include, path
 from django.views.generic import TemplateView
+from calendarSite.views import SubjectView
+from calendarSite.views import TaskDetailView
 
 urlpatterns = [
     path('', views.index,  name="index"),
@@ -32,7 +34,8 @@ urlpatterns = [
     path('create_task', views.create_task, name="create_task"),
     path('edit_task/<int:num>',views.edit_task,name='edit_task'),
     path('delete_task/<int:num>',views.delete_task,name='delete_task'),
-    path('category', views.category, name="category"),
+    path('category', SubjectView.as_view()),
+    path('taskDetail/<int:pk>', TaskDetailView.as_view()),
     path('create_category', views.create_category, name="create_category"),
     path('edit_category/<int:num>',views.edit_category,name='edit_category'),
     path('delete_category/<int:num>', views.delete_category, name="delete_category"),
