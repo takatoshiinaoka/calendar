@@ -7,7 +7,7 @@
         <link href="{% static 'css/table.css' %}" rel="stylesheet" />
   </head>
     <h1>{{title}}</h1>
-    <a href="{% url 'category' %}">科目リスト</a>
+    <a href="/subject">科目リスト</a>
     <form action ="{% url 'task' 1 %}" method="post">
       {% csrf_token %}
       {{form.as_table }}
@@ -22,8 +22,10 @@
         <th>最終更新日</th>
         <th></th>
         <th></th>
+        <th></th>
       </tr>
       {% for item in data %}
+        <!--要改善：フィルタリングはviews.pyで行うようにしたい-->
         {% if find == '' or find == item.subject_id.name %}
           <tr>
             <td>{{item.name}}</td>
@@ -31,6 +33,7 @@
             <td>{{item.author}}</td>
             <td>{{item.created_at | date:'Y/m/d H:i'}}</td>
             <td>{{item.updated_at | date:'Y/m/d H:i'}}</td>
+            <td><a href="/taskDetail/{{ item.id }}">Detail</a></td>
             <td><a href="{% url 'edit_task' item.id %}">Edit</a></td>
             <td><a href="{% url 'delete_task' item.id %}">Delete</a></td>
           </tr>

@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+<head>
+  <link href="{% static 'css/table.css' %}" rel="stylesheet" />
+</head>
+<table>
+  <tr>
+    <th>課題</th>
+    <th>科目</th>
+    <th>作成者</th>
+    <th>作成日</th>
+    <th>最終更新日</th>
+    <th></th>
+    <th></th>
+  </tr>
+  <tr>
+    <td>{{task.name}}</td>
+    <td>{{task.subject_id.name}}</td>
+    <td>{{task.author}}</td>
+    <td>{{task.created_at | date:'Y/m/d H:i'}}</td>
+    <td>{{task.updated_at | date:'Y/m/d H:i'}}</td>
+    <td><a href="{% url 'edit_task' task.id %}">Edit</a></td>
+    <td><a href="{% url 'delete_task' task.id %}">Delete</a></td>
+  </tr>
+</table>
+<a href="{% url 'task' 1 %}">一覧に戻る</a>
+{% endblock %}
