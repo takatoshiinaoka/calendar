@@ -114,25 +114,3 @@ body{
   color:white;
   font-weight:bold;
 }
-.date li{
-  display:inline-block;
-  flex-wrap:wrap;
-  background-color:white;
-  padding:1vh 2.5vw;
-  margin:0.5vh 0.5vh 0 0;
-  cursor:pointer;
-} 
-img{
-  width:100px;
-  height:100px;
-}
-.footer{
-  top:90vh;
-  left:0;
-  width:100vw;
-  height:10vh;
-  background-color:rgb(250,83,22); 
-  position:fixed;
-  bottom:0;
-  margin-bottom:2.5rem;
-}
