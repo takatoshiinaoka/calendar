@@ -4,7 +4,6 @@
 from django.core.files.storage import default_storage
 from django import forms
 
-from calendarSite.models import Friend
 from calendarSite.models import Task
 from calendarSite.models import Subject
 
@@ -62,10 +61,6 @@ class testForm(forms.Form):
     age = forms.IntegerField(label='Age')
     birthday = forms.DateField(label='Birth')
 
-class FriendForm(forms.ModelForm):
-    class Meta:
-        model = Friend
-        fields = ['name','mail','gender','age','birthday']
 
 class SubjectForm(forms.ModelForm):
     class Meta:

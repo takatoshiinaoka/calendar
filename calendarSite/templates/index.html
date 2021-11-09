@@ -38,7 +38,7 @@
           id: 'cale.id',
           title: '{{cale.subject_id.name}}:{{cale.name}}',
           start: '{{cale.created_at | date:"Y-m-d" }}',
-          url: '#'
+          url: '/taskDetail/{{cale.id}}'
           },
         {% endfor %}
         ]
@@ -86,7 +86,7 @@
 
       <div class = "side">
           <div class="menu">
-              <a href = "{% url 'addData' %}">Schedule</a><br><br>
+              <a href = "{% url 'addData' %}">スケジュール</a><br><br>
               <a href = "{% url 'task' 1 %}">課題</a><br><br>
               <a href = "{% url 'report' %}">Report</a>
           </div>
