@@ -23,7 +23,17 @@ from calendarSite.models import Subject
 
 
 def index(request):
-    return render(request, 'index.html')
+   caleList = Task.objects.all()
+
+   print("caleList")
+   print(caleList)
+   user = request.user
+   dbData={
+         "caleList":caleList,
+         "user":user,
+   }
+   return render(request, 'index.html',dbData)
+   
 
 def task(request):
    if request.POST:
