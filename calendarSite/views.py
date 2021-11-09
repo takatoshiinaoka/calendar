@@ -11,11 +11,9 @@ from calendarSite.forms import taskForm
 from calendarSite.forms import subjectForm
 
 from calendarSite.forms import userForm
-from calendarSite.forms import FriendForm
 from calendarSite.forms import TaskForm
 from calendarSite.forms import testForm
 from calendarSite.models import Calendar
-from calendarSite.models import Friend
 from calendarSite.models import Task
 from calendarSite.models import Subject
 

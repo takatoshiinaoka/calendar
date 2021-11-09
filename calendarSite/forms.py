@@ -4,7 +4,6 @@
 from django.core.files.storage import default_storage
 from django import forms
 
-from calendarSite.models import Friend
 from calendarSite.models import Task
 from calendarSite.models import Subject
 
