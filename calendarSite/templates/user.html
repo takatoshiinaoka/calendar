@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
 <!DOCTYPE html>
 <html>
 
@@ -6,8 +8,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
   <link href='fullcalendar/core/main.css' rel='stylesheet' />
   <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
-  <link href='calendar.css' rel='stylesheet' />
-  <link href="../../calendarSite/static/css/user.css">
+ 
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
@@ -25,14 +26,22 @@
           color: '#ff0000',
           url: '#'
         },
+        {
+          id: 'cale.id',
+          title: 'プロジェクト型演習頑張ろう！',
+          start: '2021-11-09',
+          end: '2022-02-01',
+          color: '#008000',
+          url: '#'
+        },
         {% for cale in caleList %}
-            {
-        id: 'cale.id',
-        title: '{{cale.subject}} {{cale.title}}',
-        start: '{{cale.date | date:"Y-m-d" }}',
-        url: '#'
-      },
-      {% endfor %}
+          {
+          id: 'cale.id',
+          title: '{{cale.subject_id.name}}:{{cale.name}}',
+          start: '{{cale.created_at | date:"Y-m-d" }}',
+          url: '#'
+          },
+        {% endfor %}
         ]
 
         var calendarEl = document.getElementById('calendar');
@@ -61,18 +70,19 @@
     calendar.render();
       });
   </script>
+  <style>
+    #calendar {
+      width: 1000px;
+      height:600px;
+    }
+  </style>
 </head>
 
 <body>
-  <div>
-    <div>
-      {{user}}のサイト
-      <a class="btn btn--orange btn--radius" href="addData">予定追加</a>
-    </div>
-  </div>
-  <div id='calendar'></div>
 
+  <div id='calendar'></div>
 
 </body>
 
 </html>
+{% endblock %}
