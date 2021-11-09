@@ -11,11 +11,11 @@
             <a class = "title" href="{% url 'index' %}">Calender Site</a>
             <div>
             {% if user.is_authenticated %}
-                <a class = "login" href="/accounts/logout">ログアウト</a>
+                <a class = "button" href="/accounts/logout">ログアウト</a>
                 {% load account %}
-                <a class = "login">ユーザー名：{% user_display user %}</a>
+                <a class = "button">ユーザー名：{% user_display user %}</a>
             {% else %}
-                <a class = "login" href="/accounts/login">ログイン</a>
+                <a class = "button" href="/accounts/login">ログイン</a>
             {% endif %}
             </div>
         </div>

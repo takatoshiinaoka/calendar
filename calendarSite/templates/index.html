@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <head>
   <meta charset='utf-8' />
+  <link href="{% static 'css/index.css' %}" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
   <link href='fullcalendar/core/main.css' rel='stylesheet' />
   <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
@@ -86,13 +87,9 @@
 
       <div class = "side">
           <div class="menu">
-              <a href = "{% url 'addData' %}">スケジュール</a><br><br>
-              <a href = "{% url 'task' 1 %}">課題</a><br><br>
-              <a href = "{% url 'report' %}">Report</a>
-          </div>
-          <div class="graph">
-              graph
-          
+              <a href = "{% url 'addData' %}" class="button">スケジュール</a><br><br>
+              <a href = "{% url 'task' 1 %}" class="button">課題</a><br><br>
+              <a href = "{% url 'report' %}" class="button">Report</a>
           </div>
       </div>
   </div>

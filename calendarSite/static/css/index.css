@@ -1,0 +1,31 @@
+
+.main{
+  top:10vh;
+  bottom:2vh;
+  left:0;
+  width:100vw;
+  position:fixed;
+  height:70vh;
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+}
+
+.side{
+  margin: 2.5vh 3vw 0;
+  width:25vw;
+  height:40vw;
+  
+  color:rgb(250,83,22);
+}
+.menu{
+  margin-right:2vw;
+  text-decoration: none;
+  align-items:center; 
+  padding:1rem 0.5rem 1rem;
+  background-color:var(--sub-color); 
+  font-size:1.3em;
+  text-align: center;
+  font-family:sans-serif;
+  font-weight: 1000;
+}

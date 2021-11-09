@@ -1,107 +1,53 @@
+:root {
+  --accent-color: rgb(255,165,0);
+  --base-color:rgb(37,38,39);
+  --sub-color:rgb(55,55,55);
+  --text-color:white;
+}
+a{
+  color:var(--text-color);
+}
+html{
+  color:var(--text-color);
+  
+}
 .header{
   display:flex;
   flex-direction:row;
   justify-content: space-between;
   align-items:center; 
-  background-color:rgb(250,83,22);
+  background-color:var(--base-color);
   height:8vh;
   width:100vw;
 }
 body{
-  background-color:rgb(239,206,186);
+  background-color:var(--base-color);
 }
 .title{
   margin-left:2vw;
   text-decoration: none;
-  color:white;
+  color:var(--text-color);
   font-size:2rem;
   font-weight:bold;
 }
 
-.login{
+.button{
   margin-right:2vw;
   text-decoration: none;
-  border:2px solid rgb(239,206,186);
-  border-radius:1rem;
+  border:2px solid var(--accent-color);
   padding:0 0.5rem;
-  background-color:rgb(250,83,22); 
+  background-color:var(--base-color); 
   font-size:1.3em;
   cursor: pointer;
-  color:white;
+  color:var(--text-color);
   font-family:sans-serif;
   font-weight: 1000;
 }
-.login:hover{
+.button:hover{
   transition:0.5s;
-  background-color:white;
-  color:rgb(250,83,22);
-}
-.nav-bar{
-  display:flex;
-  flex-direction:row;
-  align-items:center; 
-  position:fixed;
-  background-color:rgb(239,206,186);
-  top:10vh;
-  left:0;
-  height:7vh;
-  width:100vw;
-}
-.nav-bar > *{
-  margin-left:2vw;
-}
-.nav-bar > *:hover{
-  border-bottom: solid 1vh rgb(250,83,22);
-}
-.main{
-  top:10vh;
-  bottom:2vh;
-  left:0;
-  width:100vw;
-  position:fixed;
-  height:70vh;
-  display:flex;
-  flex-direction:row;
-  justify-content: space-between;
-  
+  background-color:var(--accent-color);
 }
 
-.side{
-  margin: 2.5vh 3vw 0;
-  width:25vw;
-  height:40vw;
-  
-  color:rgb(250,83,22);
-}
-.side a{
-  
-}
-.menu{
-  margin-right:2vw;
-  text-decoration: none;
-  align-items:center; 
-  border:2px solid rgb(250,83,22);
-  border-radius:0.5rem;
-  padding:1rem 0.5rem 1rem;
-  background-color:white; 
-  font-size:1.3em;
-  text-align: center;
-  font-family:sans-serif;
-  font-weight: 1000;
-}
-.menu a{
-  color:rgb(250,83,22);
-  border:1px solid white;
-  padding:0 1rem;
-  border-radius:0.5rem;
-}
-.menu a:hover{
-  color:white;
-  background-color:rgb(250,83,22);
-}
-.graph{
-
-}
 .top{
   background-color:rgb(250,83,22);
   border-radius:2rem;
