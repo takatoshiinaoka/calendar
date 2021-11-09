@@ -1,40 +1,30 @@
-{% load static %}
-
+{% extends "base.html" %}
+{% block content %}
+{% load static%}
 <!DOCTYPE html>
-    <head> 
-        <title> カレンダー </title> 
-        <link href="{% static 'css/subject.css' %}" rel="stylesheet" />
-    </head>
-    <body>
-        <div class="header">
-            <h1>科目リスト</h1>
-            <h2>情報工学科</h2>
-        </div>
-    <form method="post">
-        {% csrf_token %}
-        <th>{{ name }}</th><br>
-        <input type="text" name="subject">
-        <input type="submit" class="btn btn-danger" value="登録" /><br>
-    </form>
-    
-    <table class="table">
-        <thead>
-            <tr>
-                <th>subjectID</th>
-                <th>科目</th>
-                <th>編集</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for item in data %}
+  <head>
+    <title> チャット </title> 
+        <link href="{% static 'css/table.css' %}" rel="stylesheet" />
+  </head>
+  <body>
+    <h1>{{title}}</h1>
+    <a href="{% url 'task' 1 %}">課題リスト</a>
+    <table>
+      <tr>
+        <th>Subject</th>
+        <th></th>
+        <th></th>
+      </tr>
+      {% for item in subject_list %}
         <tr>
-            <td>{{item.subject_id}}</td>
-            <td>{{item.subject}}</td>
-            <td>Edit</td>
+          <td>{{item.name}}</td>
+          <td><a href="{% url 'edit_subject' item.id %}">Edit</a></td>
+          <td><a href="{% url 'delete_subject' item.id %}">Delete</a></td>
         </tr>
-        {% endfor %}
-        </tbody>
+      {% endfor %}
     </table>
-    </body>
-
+   
+    <a href="{% url 'create_subject' %}">新規作成</a>
+  </body>
 </html>
+{% endblock %}

@@ -7,7 +7,7 @@
         <link href="{% static 'css/table.css' %}" rel="stylesheet" />
   </head>
     <h1>{{title}}</h1>
-    <a href="/category">科目リスト</a>
+    <a href="/subject">科目リスト</a>
     <form action ="{% url 'task' 1 %}" method="post">
       {% csrf_token %}
       {{form.as_table }}
