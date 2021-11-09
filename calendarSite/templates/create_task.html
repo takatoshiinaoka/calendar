@@ -11,7 +11,7 @@
  
     <table>
       <form action="{% url 'create_task' %}" method = "post">
-        <a href="{% url 'create_category' %}">科目の追加</a>
+        <a href="{% url 'create_subject' %}">科目の追加</a>
         {% csrf_token %}
         {{ form.as_table }}
         <tr><td></td><td><input type="submit" value="click"></td></tr>
