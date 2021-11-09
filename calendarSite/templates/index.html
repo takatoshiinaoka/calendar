@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
-
+<!DOCTYPE html>
 <head>
   <meta charset='utf-8' />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
@@ -78,22 +78,25 @@
   </style>
 </head>
 
-<div class = "main">
-    <ul style="width:60vw,height:600px">
-        <div id="calendar"></div>
-    </ul>
+<body>
+  <div class = "main">
+      <ul style="width:1000px,height:600px">
+          <div id="calendar"></div>
+      </ul>
 
-    <div class = "side">
-        <div class="menu">
-            <a href = "{% url 'addData' %}">Schedule</a><br><br>
-            <a href = "{% url 'task' 1 %}">課題</a><br><br>
-            <a href = "{% url 'report' %}">Report</a>
-        </div>
-        <div class="graph">
-            graph
-        
-        </div>
-    </div>
-</div>
+      <div class = "side">
+          <div class="menu">
+              <a href = "{% url 'addData' %}">Schedule</a><br><br>
+              <a href = "{% url 'task' 1 %}">課題</a><br><br>
+              <a href = "{% url 'report' %}">Report</a>
+          </div>
+          <div class="graph">
+              graph
+          
+          </div>
+      </div>
+  </div>
+</body>
+</html>
 {% endblock %}
 

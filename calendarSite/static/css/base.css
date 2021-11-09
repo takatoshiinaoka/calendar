@@ -54,7 +54,8 @@ body{
   border-bottom: solid 1vh rgb(250,83,22);
 }
 .main{
-  top:15vh;
+  top:10vh;
+  bottom:2vh;
   left:0;
   width:100vw;
   position:fixed;
