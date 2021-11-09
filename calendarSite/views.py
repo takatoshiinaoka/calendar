@@ -23,16 +23,8 @@ from calendarSite.models import Subject
 
 
 def index(request):
-   caleList = Task.objects.all()
-
-   print("caleList")
-   print(caleList)
-   user = request.user
-   dbData={
-         "caleList":caleList,
-         "user":user,
-   }
-   return render(request, 'index.html',dbData)
+   
+   return render(request, 'index.html')
    
 
 def task(request):
