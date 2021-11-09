@@ -7,16 +7,16 @@
         <link href="{% static 'css/table.css' %}" rel="stylesheet" />
   </head>
     <h1>{{title}}</h1>
-    <a href="/subject">科目リスト</a>
+    <a href="/subject">科目一覧</a>
     
     <form action ="{% url 'task' 1 %}" method="post">
       {% csrf_token %}
-      <input type="text" name="form" />
+      <input type="text" name="name" />
       <tr><td></td><td><input type="submit" value="検索"></td></tr>
     </form>
     <table>
       <tr>
-        <th>課題</th>
+        <th>課題名</th>
         <th>科目</th>
         <th>作成者</th>
         <th>作成日</th>
