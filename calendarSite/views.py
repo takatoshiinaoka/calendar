@@ -98,9 +98,11 @@ def addData(request):
 def user(request):
    caleList = Calendar.objects.all()
 
+   caleList = Task.objects.all()
+
    print("caleList")
    print(caleList)
-   user="user"
+   user = request.user
    dbData={
          "caleList":caleList,
          "user":user,
