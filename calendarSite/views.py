@@ -31,7 +31,7 @@ def index(request):
          "caleList":caleList,
          "user":user,
          "data":data,
-         'title' : '課題の作成',
+         'title' : '',
          'form' : TaskForm(),
    }
    
@@ -54,7 +54,7 @@ def sub(request,num):
          "user":user,
          "data":data,
          "select":num,
-         'title' : '課題の作成',
+         'title' : '',
          'form' : TaskForm(),
    }
 
