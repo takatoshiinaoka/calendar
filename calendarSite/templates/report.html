@@ -4,7 +4,7 @@
     <link href="{% static 'css/test.css' %}" rel="stylesheet" />
   </head>
   <!-- クリックしたらモーダルを表示するボタン -->
-<a href="#" class="btn">モーダルウィンドウを表示</a>
+<a href="#" class="btn">課題を追加</a>
 
 <!-- オーバーレイ -->
 <div class="overlay"></div>
@@ -12,12 +12,21 @@
 <!-- モーダルウィンドウ -->
 <div class="modal">
   <div class="close">&times</div>
-    <h2>モダルのタイトル</h2>
-    <p>ここにモダルの内容が入ります。ここにモダルの内容が入ります。ここにモダルの内容が入ります。ここにモダルの内容が入ります。ここにモダルの内容が入ります。ここにモダルの内容が入ります。</p>
+  <h1>{{title}}</h1>
+ 
+  <table>
+    <form action="{% url 'report' %}" method = "post">
+      <a href="{% url 'create_subject' %}">科目の追加</a>
+      {% csrf_token %}
+      {{ form.as_table }}
+      <tr><td></td><td><input type="submit" value="click"></td></tr>
+    </form>
+  </table>
 </div>
 
 <!-- スクロールで高さを出すためのsectionタグ -->
 <section></section>
+<!--htmlの後に読み込まないとエラーになる。あとファイルの分け方がわからない。。。-->
   <script>
     // ボタン、モダル、モダルの閉じるボタン、オーバーレイを変数に格納
 const btn = document.querySelector('.btn');

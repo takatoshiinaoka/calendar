@@ -134,7 +134,17 @@ def subject(request):
    return render(request, 'subject.html',params)
 
 def report(request):
-    return render(request, 'report.html')
+   if(request.method == 'POST'):
+      obj = Task(author = request.user)
+      task = TaskForm(request.POST,instance=obj)
+      task.save()
+      return redirect(to = '/report')
+   params = {
+      'title' : '課題の作成',
+      'form' : TaskForm(),
+      'data': Subject.objects.all()
+   }
+   return render(request, 'report.html',params)
 
 from django.core.paginator import Paginator
 
