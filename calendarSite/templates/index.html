@@ -2,13 +2,15 @@
 {% block content %}
 {% load static %}
 <!DOCTYPE html>
+
 <head>
   <meta charset='utf-8' />
   <link href="{% static 'css/index.css' %}" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
   <link href='fullcalendar/core/main.css' rel='stylesheet' />
   <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
- 
+  <link rel="stylesheet" href="../static/css/modal.css">
+
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
@@ -36,12 +38,12 @@
         },
         {% for cale in caleList %}
           {
-          id: 'cale.id',
-          title: '{{cale.subject_id.name}}:{{cale.name}}',
-          start: '{{cale.created_at | date:"Y-m-d" }}',
-          url: '/taskDetail/{{cale.id}}'
-          },
-        {% endfor %}
+        id: 'cale.id',
+        title: '{{cale.subject_id.name}}:{{cale.name}}',
+        start: '{{cale.created_at | date:"Y-m-d" }}',
+        url: '/taskDetail/{{cale.id}}'
+      },
+      {% endfor %}
         ]
 
         var calendarEl = document.getElementById('calendar');
@@ -73,27 +75,38 @@
   <style>
     #calendar {
       width: 1000px;
-      height:600px;
-      background-color:rgb(55,55,55);
+      height: 600px;
+      background-color: rgb(55, 55, 55);
     }
   </style>
 </head>
 
 <body>
-  <div class = "main">
-      <ul style="width:1000px,height:600px">
-          <div id="calendar"></div>
-      </ul>
+  <div class="main">
+    <ul style="width:1000px,height:600px">
+      <div id="calendar"></div>
+    </ul>
 
-      <div class = "side">
-          <div class="menu">
-              <a href = "{% url 'addData' %}" class="button">スケジュール</a><br><br>
-              <a href = "{% url 'task' 1 %}" class="button">課題</a><br><br>
-              <a href = "{% url 'report' %}" class="button">Report</a>
+    <div class="side">
+      <div class="menu">
+        <a href="{% url 'addData' %}" class="button">スケジュール</a><br><br>
+        <a href="{% url 'task' 1 %}" class="button">課題</a><br><br>
+        <a href="{% url 'report' %}" class="button">Report</a>
+        <div id="open">
+          詳細をみる
+        </div>
+        <div id="mask" class="hidden"></div>
+        <section id="modal" class="hidden">
+          <p class="modal-text">ここに内容</p>
+          <div id="close" class="modal-text">
+            閉じる
           </div>
+        </section>
       </div>
-  </div>
+    </div>
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../static/js/madal.js"></script>
 </body>
+
 </html>
 {% endblock %}
-
