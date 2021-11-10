@@ -15,6 +15,7 @@ from calendarSite.models import Subject
 
 
 def index(request):
+
    caleList = Task.objects.all()
    data = Subject.objects.all()
 
@@ -56,7 +57,7 @@ def sub(request,num):
          'title' : '課題の作成',
          'form' : TaskForm(),
    }
-   
+
    return render(request, 'index.html',dbData)
 
 def task(request):
