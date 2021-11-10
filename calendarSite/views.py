@@ -16,6 +16,7 @@ from calendarSite.models import Subject
 
 def index(request):
    caleList = Task.objects.all()
+   data = Subject.objects.all()
 
    print("caleList")
    print(caleList)
@@ -23,9 +24,14 @@ def index(request):
    dbData={
          "caleList":caleList,
          "user":user,
+         "data":data,
    }
+   
    return render(request, 'index.html',dbData)
    
+def filter_subject(request,num):
+   
+   return redirect(to = '/')
 
 def task(request):
    if request.POST:
@@ -129,7 +135,7 @@ def subject(request):
 
 def report(request):
     return render(request, 'report.html')
-    
+
 from django.core.paginator import Paginator
 
 #todo クラスベースビューに書き換える
@@ -140,7 +146,7 @@ def task(request,num=1):
    page = Paginator(data,3)
    #表示に使いたい情報を配列(辞書)paramsに代入
    params = {
-      'title':'課題リスト',
+      'title':'課題一覧',
       'data': page.get_page(num),
       'form':SubjectForm(),#forms.py参照 ※これもimportしないと使えない
       'find':'',

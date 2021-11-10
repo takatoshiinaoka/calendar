@@ -13,10 +13,12 @@
     <th>最終更新日</th>
     <th></th>
     <th></th>
+    <th></th>
   </tr>
   <tr>
     <td>{{task.name}}</td>
     <td>{{task.subject_id.name}}</td>
+    <td>{{task.contents}}</td>
     <td>{{task.author}}</td>
     <td>{{task.created_at | date:'Y/m/d H:i'}}</td>
     <td>{{task.updated_at | date:'Y/m/d H:i'}}</td>
@@ -24,5 +26,5 @@
     <td><a href="{% url 'delete_task' task.id %}">削除</a></td>
   </tr>
 </table>
-<a href="{% url 'task' 1 %}">一覧に戻る</a>
+<a href="{% url 'task' 1 %}" class="button">一覧に戻る</a>
 {% endblock %}

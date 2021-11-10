@@ -81,17 +81,27 @@
 
 <body>
   <div class = "main">
+      <div class = "side">
+        <h1>{{title}}</h1>
+        <table>
+          <tr>
+            <th>Subject</th>
+            <th></th>
+            <th></th>
+          </tr>
+          {% for item in data %}
+            <tr>
+              <td>{{item.id}}</td>
+              <td>{{item.name}}</td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
       <ul style="width:1000px,height:600px">
           <div id="calendar"></div>
       </ul>
 
-      <div class = "side">
-          <div class="menu">
-              <a href = "{% url 'addData' %}" class="button">スケジュール</a><br><br>
-              <a href = "{% url 'task' 1 %}" class="button">課題</a><br><br>
-              <a href = "{% url 'report' %}" class="button">Report</a>
-          </div>
-      </div>
+     
   </div>
 </body>
 </html>

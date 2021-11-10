@@ -5,6 +5,7 @@
   <head>
     <title> チャット </title> 
         <link href="{% static 'css/table.css' %}" rel="stylesheet" />
+        <link href="{% static 'css/task.css' %}" rel="stylesheet" />
   </head>
     <h1>{{title}}</h1>
     <a href="/subject">科目一覧</a>
@@ -30,7 +31,7 @@
         {% if find == '' or find == item.subject_id.name %}
           <tr>
             <td>{{item.name}}</td>
-            <td>{{item.subject_id.name}}</td>
+            <td><a href="/taskDetail/{{ item.id }}">{{item.subject_id.name}}</a></td>
             <td>{{item.author}}</td>
             <td>{{item.created_at | date:'Y/m/d H:i'}}</td>
             <td>{{item.updated_at | date:'Y/m/d H:i'}}</td>
@@ -54,5 +55,6 @@
           <a href="{% url 'task' data.paginator.num_pages %}">最後&raquo;</a>
       {% endif %}
   </div>
-    <a href="{% url 'create_task' %}">新規作成</a>
+  <br>
+    <a href="{% url 'create_task' %}" class="button">新規作成</a>
 {% endblock %}
