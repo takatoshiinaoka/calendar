@@ -90,17 +90,18 @@
 <body>
   <div class = "main">
       <div class = "side">
-        <h1>{{title}}</h1>
         <table>
           <tr>
             <th>科目一覧</th>
-            <th></th>
-            <th></th>
           </tr>
           {% for item in data %}
             <tr>
+              {% if item.id == select %}
+              <td><a href="{% url 'sub' item.id %}" class="highlight">{{item.name}}</td>
+              {% else %}
               <td><a href="{% url 'sub' item.id %}">{{item.name}}</td>
-            </tr>
+              {% endif %}
+            </tr>   
           {% endfor %}
         </table>
       </div>
