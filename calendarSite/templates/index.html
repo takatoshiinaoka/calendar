@@ -20,7 +20,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var events = [
-        {
+        /*{
           id: 'cale.id',
           title: 'クラウドアプリ開発入門',
           start: '2021-08-26',
@@ -35,7 +35,7 @@
           end: '2022-02-01',
           color: '#008000',
           url: '#'
-        },
+        },*/
         {% for cale in caleList %}
           {
         id: 'cale.id',
@@ -74,14 +74,25 @@
   </script>
   <style>
     #calendar {
-      width: 1000px;
-      height: 600px;
-      background-color: rgb(55, 55, 55);
+
+      margin:0 2vw;
+      width: 75vw;
+      height:80vh;
+      overflow-y:scroll;
+      background-color:rgb(55,55,55);
+    }
+    #calendar th.fc-day{
+      background-color:rgb(55,55,55);
+
+    }
+    #calendar td.fc-day-today{
+      background-color:rgb(255,165,0);
     }
   </style>
 </head>
 
 <body>
+
   <div class="main">
     <ul style="width:1000px,height:600px">
       <div id="calendar"></div>
@@ -106,6 +117,7 @@
     </div>
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script type="text/javascript" src="../static/js/madal.js"></script>
+
 </body>
 
 </html>

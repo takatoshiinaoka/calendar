@@ -6,6 +6,7 @@
 }
 a{
   color:var(--text-color);
+  text-decoration: none;
 }
 html{
   color:var(--text-color);
@@ -16,7 +17,7 @@ html{
   flex-direction:row;
   justify-content: space-between;
   align-items:center; 
-  background-color:var(--base-color);
+  background-color:var(--sub-color);
   height:8vh;
   width:100vw;
 }
