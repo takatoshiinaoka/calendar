@@ -22,8 +22,8 @@
     <td>{{task.contents}}</td>
     <td>{{task.created_at | date:'Y/m/d H:i'}}</td>
     <td>{{task.updated_at | date:'Y/m/d H:i'}}</td>
-    <td><a href="{% url 'edit_task' task.id %}">Edit</a></td>
-    <td><a href="{% url 'delete_task' task.id %}">Delete</a></td>
+    <td><a href="{% url 'edit_task' task.id %}">編集</a></td>
+    <td><a href="{% url 'delete_task' task.id %}">削除</a></td>
   </tr>
 </table>
 <a href="{% url 'task' 1 %}">一覧に戻る</a>

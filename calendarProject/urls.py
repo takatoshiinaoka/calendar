@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path
 from calendarSite import views
 from django.urls import include, path
-from django.views.generic import TemplateView
 from calendarSite.views import SubjectView
 from calendarSite.views import TaskDetailView
 
@@ -28,7 +27,6 @@ urlpatterns = [
     path('task', views.task, name="task"),
     path('user', views.user, name="user"),
     path('report', views.report, name="report"),
-    path('memo', views.memo, name="memo"),
     path('task/<int:num>', views.task, name="task"),
     path('create_task', views.create_task, name="create_task"),
     path('edit_task/<int:num>',views.edit_task,name='edit_task'),

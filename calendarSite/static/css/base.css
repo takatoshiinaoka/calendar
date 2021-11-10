@@ -1,0 +1,50 @@
+:root {
+  --accent-color: rgb(255,165,0);
+  --base-color:rgb(37,38,39);
+  --sub-color:rgb(55,55,55);
+  --text-color:white;
+}
+a{
+  color:var(--text-color);
+}
+html{
+  color:var(--text-color);
+  
+}
+.header{
+  display:flex;
+  flex-direction:row;
+  justify-content: space-between;
+  align-items:center; 
+  background-color:var(--base-color);
+  height:8vh;
+  width:100vw;
+}
+body{
+  background-color:var(--base-color);
+}
+.title{
+  margin-left:2vw;
+  text-decoration: none;
+  color:var(--text-color);
+  font-size:2rem;
+  font-weight:bold;
+}
+
+.button{
+  margin-right:2vw;
+  text-decoration: none;
+  border:2px solid var(--accent-color);
+  padding:0 0.5rem;
+  background-color:var(--base-color); 
+  font-size:1.3em;
+  cursor: pointer;
+  color:var(--text-color);
+  font-family:sans-serif;
+  font-weight: 1000;
+}
+.button:hover{
+  transition:0.5s;
+  background-color:var(--accent-color);
+}
+

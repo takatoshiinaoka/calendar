@@ -1,21 +1,11 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.http import HttpResponse
 from calendarSite.forms import addDataForm
-from calendarSite.forms import indexForm
-
-
 from calendarSite.forms import SubjectForm
-
 from calendarSite.forms import taskForm
 from calendarSite.forms import subjectForm
-
-from calendarSite.forms import userForm
-from calendarSite.forms import FriendForm
 from calendarSite.forms import TaskForm
-from calendarSite.forms import testForm
 from calendarSite.models import Calendar
-from calendarSite.models import Friend
 from calendarSite.models import Task
 from calendarSite.models import Subject
 
@@ -25,7 +15,9 @@ from calendarSite.models import Subject
 
 
 def index(request):
-    return render(request, 'index.html')
+   
+   return render(request, 'index.html')
+   
 
 def task(request):
    if request.POST:
@@ -98,9 +90,11 @@ def addData(request):
 def user(request):
    caleList = Calendar.objects.all()
 
+   caleList = Task.objects.all()
+
    print("caleList")
    print(caleList)
-   user="user"
+   user = request.user
    dbData={
          "caleList":caleList,
          "user":user,
@@ -127,10 +121,7 @@ def subject(request):
 
 def report(request):
     return render(request, 'report.html')
-
-def memo(request):
-    return render(request, 'memo.html')
-
+    
 from django.core.paginator import Paginator
 
 #todo クラスベースビューに書き換える

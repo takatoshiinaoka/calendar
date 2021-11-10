@@ -1,32 +1,99 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
+<!DOCTYPE html>
+<head>
+  <meta charset='utf-8' />
+  <link href="{% static 'css/index.css' %}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
+  <link href='fullcalendar/core/main.css' rel='stylesheet' />
+  <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
+ 
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+  <title>user</title>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var events = [
+        {
+          id: 'cale.id',
+          title: 'クラウドアプリ開発入門',
+          start: '2021-08-26',
+          end: '2021-09-03',
+          color: '#ff0000',
+          url: '#'
+        },
+        {
+          id: 'cale.id',
+          title: 'プロジェクト型演習頑張ろう！',
+          start: '2021-11-09',
+          end: '2022-02-01',
+          color: '#008000',
+          url: '#'
+        },
+        {% for cale in caleList %}
+          {
+          id: 'cale.id',
+          title: '{{cale.subject_id.name}}:{{cale.name}}',
+          start: '{{cale.created_at | date:"Y-m-d" }}',
+          url: '/taskDetail/{{cale.id}}'
+          },
+        {% endfor %}
+        ]
 
+        var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      locale: 'ja',
+      height: 'auto',
+      headerToolbar: {
+        left: "dayGridMonth,listMonth",
+        center: "title",
+        right: "today prev,next"
+      },
+      buttonText: {
+        prev: '<',
+        next: '>',
+        prevYear: '<<',
+        nextYear: '>>',
+        today: '今日',
+        month: '月',
+        week: '週',
+        day: '日',
+        list: '一覧'
+      },
+      initialView: 'dayGridMonth',
+      events: events
+    });
+    calendar.render();
+      });
+  </script>
+  <style>
+    #calendar {
+      width: 1000px;
+      height:600px;
+      background-color:rgb(55,55,55);
+    }
+  </style>
+</head>
 
-<div class = "main">
-    <ul class = "date" style="width:60vw">
-        <li>2021-10-31</br><img  src="{% static 'hanamaru-illust6.png' %}"></li>
-        <li>2021-10-30</li>
-        <li>3</li>
-        <li>4</li>
-        <li>5</li>
-        <li>6</li>
-        <li>7</li>
-        <li>8</li>
-        <li>9</li>
-    </ul>
+<body>
+  <div class = "main">
+      <ul style="width:1000px,height:600px">
+          <div id="calendar"></div>
+      </ul>
 
-    <div class = "side">
-        <div class="menu">
-            <a href = "{% url 'addData' %}">Schedule</a><br><br>
-            <a href = "{% url 'task' 1 %}">Task</a><br><br>
-            <a href = "{% url 'report' %}">Report</a>
-        </div>
-        <div class="graph">
-            graph
-        
-        </div>
-    </div>
-</div>
+      <div class = "side">
+          <div class="menu">
+              <a href = "{% url 'addData' %}" class="button">スケジュール</a><br><br>
+              <a href = "{% url 'task' 1 %}" class="button">課題</a><br><br>
+              <a href = "{% url 'report' %}" class="button">Report</a>
+          </div>
+      </div>
+  </div>
+</body>
+</html>
 {% endblock %}
 
