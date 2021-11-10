@@ -48,16 +48,3 @@ body{
   background-color:var(--accent-color);
 }
 
-.top{
-  background-color:rgb(250,83,22);
-  border-radius:2rem;
-  margin:1.5vh 1vw 0;
-}
-.top li{
-  display:inline-block;
-  flex-wrap:wrap;
-  padding:0.2vh 2vw;
-  margin:1vh;
-  color:white;
-  font-weight:bold;
-}
