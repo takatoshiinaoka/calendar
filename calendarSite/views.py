@@ -15,6 +15,7 @@ from calendarSite.models import Subject
 
 
 def index(request):
+
    caleList = Task.objects.all()
    data = Subject.objects.all()
 
@@ -42,7 +43,7 @@ def sub(request,num):
          "data":data,
          "select":num,
    }
-   
+
    return render(request, 'index.html',dbData)
 
 def task(request):
