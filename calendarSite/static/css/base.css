@@ -11,7 +11,6 @@ a{
 }
 html{
   color:var(--text-color);
-  
 }
 .header{
   position:fixed;
@@ -23,6 +22,7 @@ html{
   height:8vh;
   width:100vw;
   font-size:2rem;
+  overflow-y:hidden;
 }
 body{
   background-color:var(--base-color);
