@@ -129,10 +129,7 @@ def subject(request):
 
 def report(request):
     return render(request, 'report.html')
-
-def memo(request):
-    return render(request, 'memo.html')
-
+    
 from django.core.paginator import Paginator
 
 #todo クラスベースビューに書き換える
