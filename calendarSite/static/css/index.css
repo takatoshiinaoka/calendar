@@ -18,24 +18,13 @@
 }
 
 .side{
-  margin: 2.5vh 3vw 0;
-  width:45vw;
+  margin: 2.5vh 1vw 0;
+  width:20vw;
   height:80vh;
   color:var(--text-color);
-  font-weight:2px;
-  font-size:2rem;
+  font-size:1rem;
   overflow-y:scroll;
   background-color:var(--accent-color);
 }
-.menu{
-  margin-right:2vw;
-  text-decoration: none;
-  align-items:center; 
-  padding:1rem 0.5rem 1rem;
-  background-color:var(--sub-color); 
-  font-size:1.3em;
-  text-align: center;
-  font-family:sans-serif;
-  font-weight: 1000;
-}
+
 

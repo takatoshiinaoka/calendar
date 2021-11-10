@@ -28,10 +28,21 @@ def index(request):
    }
    
    return render(request, 'index.html',dbData)
+
+def sub(request,num):
+   caleList = Task.objects.filter(subject_id=num).all()
+   data = Subject.objects.all()
+
+   print("caleList")
+   print(caleList)
+   user = request.user
+   dbData={
+         "caleList":caleList,
+         "user":user,
+         "data":data,
+   }
    
-def filter_subject(request,num):
-   
-   return redirect(to = '/')
+   return render(request, 'index.html',dbData)
 
 def task(request):
    if request.POST:
@@ -151,19 +162,21 @@ from django.core.paginator import Paginator
 #todo クラスベースビューに書き換える
 #課題の一覧表示
 def task(request,num=1):
-   #課題のデータをすべて変数dataに入れる(要素はmodels.py参照)※importを忘れずに！
-   data = Task.objects.all()
+   if(request.method == 'POST'):
+      #課題のデータをすべて変数dataに入れる(要素はmodels.py参照)※importを忘れずに！
+      data = Task.objects.filter(subject_id=4).all()
+   else:
+      data = Task.objects.all()
    page = Paginator(data,3)
    #表示に使いたい情報を配列(辞書)paramsに代入
    params = {
       'title':'課題一覧',
       'data': page.get_page(num),
       'form':SubjectForm(),#forms.py参照 ※これもimportしないと使えない
-      'find':'',
    }
    #フォームから入力情報が送信されたら辞書に入力情報を代入
-   if(request.method == 'POST'):
-      params['find']=request.POST['name']
+   
+      
 
    #第２引数でテンプレートの指定、第3引数にテンプレートで使う情報を入れる
    return render(request, 'task.html',params)

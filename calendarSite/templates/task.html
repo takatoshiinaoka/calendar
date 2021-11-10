@@ -27,8 +27,6 @@
         <th></th>
       </tr>
       {% for item in data %}
-        <!--要改善：フィルタリングはviews.pyで行うようにしたい-->
-        {% if find == '' or find == item.subject_id.name %}
           <tr>
             <td>{{item.name}}</td>
             <td><a href="/taskDetail/{{ item.id }}">{{item.subject_id.name}}</a></td>
@@ -39,7 +37,6 @@
             <td><a href="{% url 'edit_task' item.id %}">編集</a></td>
             <td><a href="{% url 'delete_task' item.id %}">削除</a></td>
           </tr>
-        {% endif %}
       {% endfor %}
     </table>
     <div class="pagination">
