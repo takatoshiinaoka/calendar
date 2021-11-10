@@ -17,7 +17,6 @@ from django.contrib import admin
 from django.urls import path
 from calendarSite import views
 from django.urls import include, path
-from django.views.generic import TemplateView
 from calendarSite.views import SubjectView
 from calendarSite.views import TaskDetailView
 

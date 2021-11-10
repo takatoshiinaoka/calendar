@@ -1,18 +1,10 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
-from django.http import HttpResponse
 from calendarSite.forms import addDataForm
-from calendarSite.forms import indexForm
-
-
 from calendarSite.forms import SubjectForm
-
 from calendarSite.forms import taskForm
 from calendarSite.forms import subjectForm
-
-from calendarSite.forms import userForm
 from calendarSite.forms import TaskForm
-from calendarSite.forms import testForm
 from calendarSite.models import Calendar
 from calendarSite.models import Task
 from calendarSite.models import Subject
