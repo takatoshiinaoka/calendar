@@ -230,7 +230,7 @@ class SubjectView(ListView):
    template_name = "subject.html"
    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs) # はじめに継承元のメソッドを呼び出す
-        context["title"] = "科目リスト"
+        context["title"] = "科目一覧"
         return context
 
 class TaskDetailView(DetailView):

@@ -1,5 +1,49 @@
+{% load static %}
 <!DOCTYPE html>
-  <p>
-    自分用のtodoリストや記録などを行うページ(予定)
-  </p>
+  <head>
+    <link href="{% static 'css/test.css' %}" rel="stylesheet" />
+  </head>
+  <!-- クリックしたらモーダルを表示するボタン -->
+<a href="#" class="btn">モーダルウィンドウを表示</a>
+
+<!-- オーバーレイ -->
+<div class="overlay"></div>
+
+<!-- モーダルウィンドウ -->
+<div class="modal">
+  <div class="close">&times</div>
+    <h2>モダルのタイトル</h2>
+    <p>ここにモダルの内容が入ります。ここにモダルの内容が入ります。ここにモダルの内容が入ります。ここにモダルの内容が入ります。ここにモダルの内容が入ります。ここにモダルの内容が入ります。</p>
+</div>
+
+<!-- スクロールで高さを出すためのsectionタグ -->
+<section></section>
+  <script>
+    // ボタン、モダル、モダルの閉じるボタン、オーバーレイを変数に格納
+const btn = document.querySelector('.btn');
+const modal = document.querySelector('.modal');
+const closeBtn = document.querySelector('.close');
+const overlay = document.querySelector('.overlay');
+
+// ボタンをクリックしたら、モダルとオーバーレイに.activeを付ける
+btn.addEventListener('click', function(e){
+  // aタグのデフォルトの機能を停止する
+  e.preventDefault();
+  　// モーダルとオーバーレイにactiveクラスを付与する
+  modal.classList.add('active');
+  overlay.classList.add('active');
+});
+
+// モダルの閉じるボタンをクリックしたら、モダルとオーバーレイのactiveクラスを外す
+closeBtn.addEventListener('click', function(){
+  modal.classList.remove('active');
+  overlay.classList.remove('active');
+});
+
+// オーバーレイをクリックしたら、モダルとオーバーレイのactiveクラスを外す
+overlay.addEventListener('click', function() {
+  modal.classList.remove('active');
+  overlay.classList.remove('active');
+});
+  </script>
 </html>
