@@ -99,7 +99,7 @@
           </tr>
           {% for item in data %}
             <tr>
-              <td>{{item.name}}</td>
+              <td><a href="{% url 'sub' item.id %}">{{item.name}}</td>
             </tr>
           {% endfor %}
         </table>
