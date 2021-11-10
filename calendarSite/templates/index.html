@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <head>
   <meta charset='utf-8' />
+  <link href="{% static 'css/mordal.css' %}" rel="stylesheet" /><!--モーダル-->
   <link href="{% static 'css/index.css' %}" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
   <link href='fullcalendar/core/main.css' rel='stylesheet' />
   <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
- 
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
@@ -109,6 +109,58 @@
           <div id="calendar"></div>
       </ul>     
   </div>
+  <!-- クリックしたらモーダルを表示するボタン -->
+<a href="#" class="btn">課題を追加</a>
+
+<!-- オーバーレイ -->
+<div class="overlay"></div>
+
+<!-- モーダルウィンドウ -->
+<div class="modal">
+  <div class="close">&times</div>
+  <h1>{{title}}</h1>
+ 
+  <table>
+    <form action="{% url 'index' %}" method = "post">
+      <a href="{% url 'create_subject' %}">科目の追加</a>
+      {% csrf_token %}
+      {{ form.as_table }}
+      <tr><td></td><td><input type="submit" value="click"></td></tr>
+    </form>
+  </table>
+</div>
+
+<!-- スクロールで高さを出すためのsectionタグ -->
+<section></section>
+<!--htmlの後に読み込まないとエラーになる。あとファイルの分け方がわからない。。。-->
+  <script>
+    // ボタン、モダル、モダルの閉じるボタン、オーバーレイを変数に格納
+const btn = document.querySelector('.btn');
+const modal = document.querySelector('.modal');
+const closeBtn = document.querySelector('.close');
+const overlay = document.querySelector('.overlay');
+
+// ボタンをクリックしたら、モダルとオーバーレイに.activeを付ける
+btn.addEventListener('click', function(e){
+  // aタグのデフォルトの機能を停止する
+  e.preventDefault();
+  　// モーダルとオーバーレイにactiveクラスを付与する
+  modal.classList.add('active');
+  overlay.classList.add('active');
+});
+
+// モダルの閉じるボタンをクリックしたら、モダルとオーバーレイのactiveクラスを外す
+closeBtn.addEventListener('click', function(){
+  modal.classList.remove('active');
+  overlay.classList.remove('active');
+});
+
+// オーバーレイをクリックしたら、モダルとオーバーレイのactiveクラスを外す
+overlay.addEventListener('click', function() {
+  modal.classList.remove('active');
+  overlay.classList.remove('active');
+});
+  </script>
 </body>
 </html>
 {% endblock %}

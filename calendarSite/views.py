@@ -21,14 +21,21 @@ def index(request):
    print("caleList")
    print(caleList)
    user = request.user
+   if(request.method == 'POST'):
+      obj = Task(author = request.user)
+      task = TaskForm(request.POST,instance=obj)
+      task.save()
+      return redirect(to = 'index')
    dbData={
          "caleList":caleList,
          "user":user,
          "data":data,
+         'title' : '課題の作成',
+         'form' : TaskForm(),
    }
    
    return render(request, 'index.html',dbData)
-
+ 
 def sub(request,num):
    caleList = Task.objects.filter(subject_id=num).all()
    data = Subject.objects.all()
@@ -36,11 +43,18 @@ def sub(request,num):
    print("caleList")
    print(caleList)
    user = request.user
+   if(request.method == 'POST'):
+      obj = Task(author = request.user)
+      task = TaskForm(request.POST,instance=obj)
+      task.save()
+      return redirect(to = 'index')
    dbData={
          "caleList":caleList,
          "user":user,
          "data":data,
          "select":num,
+         'title' : '課題の作成',
+         'form' : TaskForm(),
    }
    
    return render(request, 'index.html',dbData)
@@ -154,7 +168,6 @@ def report(request):
    params = {
       'title' : '課題の作成',
       'form' : TaskForm(),
-      'data': Subject.objects.all()
    }
    return render(request, 'report.html',params)
 

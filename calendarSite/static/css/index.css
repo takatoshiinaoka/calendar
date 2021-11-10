@@ -18,9 +18,10 @@
 }
 
 .side{
-  margin: 2.5vh 1vw 0;
+  margin: 5vh 1vw 0;
   width:20vw;
-  height:80vh;
+  height: 60vh;
+  top:50vh;
   color:var(--text-color);
   font-size:1rem;
   overflow-y:scroll;
