@@ -72,9 +72,17 @@
   </script>
   <style>
     #calendar {
-      width: 1000px;
-      height:600px;
+      margin:0 2vw;
+      width: 50vw;
+      height:80vh;
+      overflow-y:scroll;
       background-color:rgb(55,55,55);
+    }
+    #calendar th.fc-day{
+      background-color:rgb(55,55,55);
+    }
+    #calendar td.fc-day-today{
+      background-color:rgb(255,165,0);
     }
   </style>
 </head>
@@ -85,13 +93,12 @@
         <h1>{{title}}</h1>
         <table>
           <tr>
-            <th>Subject</th>
+            <th>科目一覧</th>
             <th></th>
             <th></th>
           </tr>
           {% for item in data %}
             <tr>
-              <td>{{item.id}}</td>
               <td>{{item.name}}</td>
             </tr>
           {% endfor %}

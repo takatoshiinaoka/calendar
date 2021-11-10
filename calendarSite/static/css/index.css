@@ -1,3 +1,9 @@
+:root {
+  --accent-color: rgb(255,165,0);
+  --base-color:rgb(37,38,39);
+  --sub-color:rgb(55,55,55);
+  --text-color:white;
+}
 
 .main{
   top:10vh;
@@ -13,10 +19,13 @@
 
 .side{
   margin: 2.5vh 3vw 0;
-  width:25vw;
-  height:40vw;
-  
-  color:rgb(250,83,22);
+  width:45vw;
+  height:80vh;
+  color:var(--text-color);
+  font-weight:2px;
+  font-size:2rem;
+  overflow-y:scroll;
+  background-color:var(--accent-color);
 }
 .menu{
   margin-right:2vw;
