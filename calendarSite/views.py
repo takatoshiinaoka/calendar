@@ -15,14 +15,18 @@ from calendarSite.models import Subject
 
 
 def index(request):#トップページ(科目を指定しない場合)
-   select=0
+   subject_id = '0'
+   task_id = '0'
    if 'subject' in request.GET:
-      select = request.GET['subject']
-   caleList = Task.objects.filter(subject_id=select).all()
-   data = Subject.objects.all()
-
+      subject_id = request.GET['subject']
+  
+   if 'task' in request.GET:
+      task_id = request.GET['task']
+  
+   tasks = Task.objects.filter(subject_id=subject_id).all() 
+   task = Task.objects.filter(id=task_id).all() 
+   subjects = Subject.objects.all()
    print("caleList")
-   print(caleList)
    user = request.user #現在ログインしているアカウント
    if(request.method == 'POST'):
       if 'create_task' in request.POST:
@@ -37,13 +41,16 @@ def index(request):#トップページ(科目を指定しない場合)
          return redirect(to = 'index')
    
    dbData={
-         "caleList":caleList,
+         "tasks":tasks,
          "user":user,
-         "data":data,
-         'subject' : select,
+         "subjects":subjects,
+         'subject_id' : subject_id,
+         'task_id':task_id,
+         'task':task,
          'form_task' : TaskForm(),
          'form_subject': SubjectForm(),
-         'select':int(select),
+         'subject_id_i':int(subject_id),
+         'task_id_i':int(task_id),
    }
    return render(request, 'index.html',dbData)
 

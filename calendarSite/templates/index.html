@@ -34,12 +34,12 @@
           color: '#008000',
           url: '#'
         },*/
-        {% for cale in caleList %}
+        {% for cale in tasks %}
           {
           id: 'cale.id',
           title: '{{cale.subject_id.name}}:{{cale.name}}',
           start: '{{cale.created_at | date:"Y-m-d" }}',
-          url: '?subject={{subject}}&task={{cale.id}}'
+          url: '?subject={{subject_id}}&task={{cale.id}}'
           },
         {% endfor %}
         ]
@@ -96,9 +96,9 @@
           <tr>
             <th>科目一覧</th>
           </tr>
-          {% for item in data %}
+          {% for item in subjects %}
             <tr>
-              {% if item.id == select %}
+              {% if item.id == subject_id_i %}
               <td><a href="?subject={{item.id}}" class="highlight">{{item.name}}</td>
               {% else %}
               <td><a href="?subject={{item.id}}">{{item.name}}</td>
@@ -108,6 +108,7 @@
         </table>
         <!-- クリックしたらモーダルを表示するボタン -->
         <a href="#" class="btn">課題を追加</a>
+        <p>{{task_id}}</p>
       </div>
       <ul>
           <div id="calendar"></div>
@@ -140,34 +141,8 @@
 
 <!-- スクロールで高さを出すためのsectionタグ -->
 <section></section>
-<!--htmlの後に読み込まないとエラーになる。あとファイルの分け方がわからない。。。-->
-  <script>
-    // ボタン、モダル、モダルの閉じるボタン、オーバーレイを変数に格納
-const btn = document.querySelector('.btn');
-const modal = document.querySelector('.modal');
-const closeBtn = document.querySelector('.close');
-const overlay = document.querySelector('.overlay');
-
-// ボタンをクリックしたら、モダルとオーバーレイに.activeを付ける
-btn.addEventListener('click', function(e){
-  // aタグのデフォルトの機能を停止する
-  e.preventDefault();
-  　// モーダルとオーバーレイにactiveクラスを付与する
-  modal.classList.add('active');
-  overlay.classList.add('active');
-});
-
-// モダルの閉じるボタンをクリックしたら、モダルとオーバーレイのactiveクラスを外す
-closeBtn.addEventListener('click', function(){
-  modal.classList.remove('active');
-  overlay.classList.remove('active');
-});
-
-// オーバーレイをクリックしたら、モダルとオーバーレイのactiveクラスを外す
-overlay.addEventListener('click', function() {
-  modal.classList.remove('active');
-  overlay.classList.remove('active');
-});
+<!--htmlの後に読み込まないとエラーになる。-->
+  <script src="{% static 'js/modal2.js' %}">
   </script>
 </body>
 </html>
