@@ -39,7 +39,7 @@
           id: 'cale.id',
           title: '{{cale.subject_id.name}}:{{cale.name}}',
           start: '{{cale.created_at | date:"Y-m-d" }}',
-          url: '/taskDetail/{{cale.id}}'
+          url: '?subject={{subject}}&task={{cale.id}}'
           },
         {% endfor %}
         ]

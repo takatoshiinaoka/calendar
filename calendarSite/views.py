@@ -40,7 +40,7 @@ def index(request):#トップページ(科目を指定しない場合)
          "caleList":caleList,
          "user":user,
          "data":data,
-         'title' : select,
+         'subject' : select,
          'form_task' : TaskForm(),
          'form_subject': SubjectForm(),
          'select':int(select),
