@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
   <link href='fullcalendar/core/main.css' rel='stylesheet' />
   <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
- 
+
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
@@ -36,12 +36,12 @@
         },
         {% for cale in caleList %}
           {
-          id: 'cale.id',
-          title: '{{cale.subject_id.name}}:{{cale.name}}',
-          start: '{{cale.created_at | date:"Y-m-d" }}',
-          url: '#'
-          },
-        {% endfor %}
+        id: 'cale.id',
+        title: '{{cale.subject_id.name}}:{{cale.name}}',
+        start: '{{cale.created_at | date:"Y-m-d" }}',
+        url: '#'
+      },
+      {% endfor %}
         ]
 
         var calendarEl = document.getElementById('calendar');
@@ -73,7 +73,7 @@
   <style>
     #calendar {
       width: 1000px;
-      height:600px;
+      height: 600px;
     }
   </style>
 </head>
@@ -81,7 +81,6 @@
 <body>
 
   <div id='calendar'></div>
-
 </body>
 
 </html>
