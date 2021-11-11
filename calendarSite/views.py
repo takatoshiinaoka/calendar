@@ -14,7 +14,7 @@ from calendarSite.models import Subject
 # Create your views here.
 
 
-def index(request):
+def index(request):#トップページ(科目を指定しない場合)
 
    caleList = Task.objects.all()
    data = Subject.objects.all()
@@ -23,21 +23,27 @@ def index(request):
    print(caleList)
    user = request.user
    if(request.method == 'POST'):
-      obj = Task(author = request.user)
-      task = TaskForm(request.POST,instance=obj)
-      task.save()
-      return redirect(to = 'index')
+      if 'create_task' in request.POST:
+         obj = Task(author = request.user)
+         task = TaskForm(request.POST,instance=obj)
+         task.save()
+         return redirect(to = 'index')
+      elif 'create_subject' in request.POST:
+         obj = Subject()
+         subject = SubjectForm(request.POST,instance=obj)
+         subject.save()
+         return redirect(to = 'index')
    dbData={
          "caleList":caleList,
          "user":user,
          "data":data,
          'title' : '',
-         'form' : TaskForm(),
+         'form_task' : TaskForm(),
+         'form_subject': SubjectForm(),
    }
-   
    return render(request, 'index.html',dbData)
  
-def sub(request,num):
+def sub(request,num):#トップページ(科目を指定する場合)
    caleList = Task.objects.filter(subject_id=num).all()
    data = Subject.objects.all()
 
@@ -45,17 +51,23 @@ def sub(request,num):
    print(caleList)
    user = request.user
    if(request.method == 'POST'):
-      obj = Task(author = request.user)
-      task = TaskForm(request.POST,instance=obj)
-      task.save()
-      return redirect(to = 'index')
+      if 'create_task' in request.POST:
+         obj = Task(author = request.user)
+         task = TaskForm(request.POST,instance=obj)
+         task.save()
+         return redirect(to = 'index')
+      elif 'create_subject' in request.POST:
+         obj = Subject()
+         subject = SubjectForm(request.POST,instance=obj)
+         subject.save()
+         return redirect(to = 'index')
    dbData={
          "caleList":caleList,
          "user":user,
          "data":data,
-         "select":num,
          'title' : '',
-         'form' : TaskForm(),
+         'form_task' : TaskForm(),
+         'form_subject': SubjectForm(),
    }
 
    return render(request, 'index.html',dbData)
