@@ -99,9 +99,9 @@
           {% for item in data %}
             <tr>
               {% if item.id == select %}
-              <td><a href="{% url 'sub' item.id %}" class="highlight">{{item.name}}</td>
+              <td><a href="?subject={{item.id}}" class="highlight">{{item.name}}</td>
               {% else %}
-              <td><a href="{% url 'sub' item.id %}">{{item.name}}</td>
+              <td><a href="?subject={{item.id}}">{{item.name}}</td>
               {% endif %}
             </tr>   
           {% endfor %}

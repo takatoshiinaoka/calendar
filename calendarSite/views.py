@@ -15,13 +15,15 @@ from calendarSite.models import Subject
 
 
 def index(request):#トップページ(科目を指定しない場合)
-
-   caleList = Task.objects.all()
+   select=0
+   if 'subject' in request.GET:
+      select = request.GET['subject']
+   caleList = Task.objects.filter(subject_id=select).all()
    data = Subject.objects.all()
 
    print("caleList")
    print(caleList)
-   user = request.user
+   user = request.user #現在ログインしているアカウント
    if(request.method == 'POST'):
       if 'create_task' in request.POST:
          obj = Task(author = request.user)
@@ -33,45 +35,18 @@ def index(request):#トップページ(科目を指定しない場合)
          subject = SubjectForm(request.POST,instance=obj)
          subject.save()
          return redirect(to = 'index')
+   
    dbData={
          "caleList":caleList,
          "user":user,
          "data":data,
-         'title' : '',
+         'title' : select,
          'form_task' : TaskForm(),
          'form_subject': SubjectForm(),
+         'select':int(select),
    }
    return render(request, 'index.html',dbData)
- 
-def sub(request,num):#トップページ(科目を指定する場合)
-   caleList = Task.objects.filter(subject_id=num).all()
-   data = Subject.objects.all()
 
-   print("caleList")
-   print(caleList)
-   user = request.user
-   if(request.method == 'POST'):
-      if 'create_task' in request.POST:
-         obj = Task(author = request.user)
-         task = TaskForm(request.POST,instance=obj)
-         task.save()
-         return redirect(to = 'index')
-      elif 'create_subject' in request.POST:
-         obj = Subject()
-         subject = SubjectForm(request.POST,instance=obj)
-         subject.save()
-         return redirect(to = 'index')
-   dbData={
-         "caleList":caleList,
-         "user":user,
-         "data":data,
-         'title' : '',
-         'form_task' : TaskForm(),
-         'form_subject': SubjectForm(),
-         'select':num,#ここだけindexと違う
-   }
-
-   return render(request, 'index.html',dbData)
 
 def task(request):
    if request.POST:
