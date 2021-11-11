@@ -1,7 +1,8 @@
 :root {
   --accent-color: rgb(255,165,0);
-  --base-color:rgb(37,38,39);
-  --sub-color:rgb(55,55,55);
+  --head-color:rgb(22,27,34);
+  --base-color:rgb(1,4,9);
+  --sub-color:rgb(13,17,23);
   --text-color:white;
 }
 a{
@@ -10,16 +11,18 @@ a{
 }
 html{
   color:var(--text-color);
-  
 }
 .header{
+  position:fixed;
   display:flex;
   flex-direction:row;
   justify-content: space-between;
   align-items:center; 
-  background-color:var(--sub-color);
+  background-color:var(--head-color);
   height:8vh;
   width:100vw;
+  font-size:2rem;
+  overflow-y:hidden;
 }
 body{
   background-color:var(--base-color);

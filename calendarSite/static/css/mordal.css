@@ -12,14 +12,10 @@ body {
 
 /* ボタンのデザイン */
 .btn {
-  display: inline-block;
   text-decoration: none;
-  padding: 10px 20px;
   background: linear-gradient(to right bottom, #FFA500, #FF6347);
   border-radius: 5px;
   color: #fff;
-  margin: 20px;
-  transition: 0.3s;
 }
 
 .btn:hover {
@@ -56,7 +52,7 @@ body {
   max-width: 500px;
   width: 86%;
   padding: 15px 20px;
-  background: #fff;
+  background: orange;
   /* 位置の調整(真ん中に表示) */
   position: fixed;
   top: 50%;

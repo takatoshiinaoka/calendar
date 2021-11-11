@@ -1,34 +1,44 @@
 :root {
   --accent-color: rgb(255,165,0);
-  --base-color:rgb(37,38,39);
-  --sub-color:rgb(55,55,55);
+  --base-color:rgb(1,4,9);
+  --sub-color:rgb(13,17,23);
   --text-color:white;
 }
-
+body{
+  overflow-y:hidden;
+}
 .main{
-  top:10vh;
+  top:8vh;
   bottom:2vh;
   left:0;
   width:100vw;
   position:fixed;
-  height:70vh;
+  height:92vh;
   display:flex;
   flex-direction:row;
   justify-content: space-between;
 }
-
-.side{
-  margin: 2.5vh 1vw 0;
-  width:20vw;
-  height:80vh;
-  color:var(--text-color);
-  font-size:1rem;
-  overflow-y:scroll;
-  background-color:var(--sub-color);
+.main::-webkit-scrollbar {  /* Chrome, Safari 対応 */
+  display:none;
 }
-
+.side{
+  width:20vw;
+  height: 92vh;
+  color:var(--text-color);
+  font-size:1.5rem;
+  background-color:var(--sub-color);
+  overflow-y:scroll;
+}
+/*スクロールバー非表示*/
+.side::-webkit-scrollbar {  /* Chrome, Safari 対応 */
+  display:none;
+}
 th{
   font-size:2rem;
+  padding:1rem 0;
+}
+td{
+  padding:1rem 0;
 }
 
 .highlight{

@@ -2,11 +2,13 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static%}
-  <head>
-    <title> チャット </title> 
-        <link href="{% static 'css/table.css' %}" rel="stylesheet" />
-        <link href="{% static 'css/task.css' %}" rel="stylesheet" />
-  </head>
+<head>
+  <title> チャット </title> 
+      <link href="{% static 'css/table.css' %}" rel="stylesheet" />
+      <link href="{% static 'css/task.css' %}" rel="stylesheet" />
+</head>
+<div class="tasklist">
+  
     <h1>{{title}}</h1>
     <a href="/subject">科目一覧</a>
     
@@ -54,4 +56,5 @@
   </div>
   <br>
     <a href="{% url 'create_task' %}" class="button">新規作成</a>
+</div>
 {% endblock %}
