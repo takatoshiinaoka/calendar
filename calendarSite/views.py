@@ -68,6 +68,7 @@ def sub(request,num):#トップページ(科目を指定する場合)
          'title' : '',
          'form_task' : TaskForm(),
          'form_subject': SubjectForm(),
+         'select':num,#ここだけindexと違う
    }
 
    return render(request, 'index.html',dbData)
