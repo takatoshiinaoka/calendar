@@ -18,7 +18,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var events = [
-        {
+        /*{
           id: 'cale.id',
           title: 'クラウドアプリ開発入門',
           start: '2021-08-26',
@@ -33,7 +33,7 @@
           end: '2022-02-01',
           color: '#008000',
           url: '#'
-        },
+        },*/
         {% for cale in caleList %}
           {
           id: 'cale.id',
@@ -72,26 +72,41 @@
   </script>
   <style>
     #calendar {
-      width: 1000px;
-      height:600px;
+      margin:0 2vw;
+      width: 75vw;
+      height:80vh;
+      overflow-y:scroll;
       background-color:rgb(55,55,55);
+    }
+    #calendar th.fc-day{
+      background-color:rgb(55,55,55);
+    }
+    #calendar td.fc-day-today{
+      background-color:rgb(255,165,0);
     }
   </style>
 </head>
 
 <body>
   <div class = "main">
-      <ul style="width:1000px,height:600px">
-          <div id="calendar"></div>
-      </ul>
-
       <div class = "side">
-          <div class="menu">
-              <a href = "{% url 'addData' %}" class="button">スケジュール</a><br><br>
-              <a href = "{% url 'task' 1 %}" class="button">課題</a><br><br>
-              <a href = "{% url 'report' %}" class="button">Report</a>
-          </div>
+        <h1>{{title}}</h1>
+        <table>
+          <tr>
+            <th>科目一覧</th>
+            <th></th>
+            <th></th>
+          </tr>
+          {% for item in data %}
+            <tr>
+              <td><a href="{% url 'sub' item.id %}">{{item.name}}</td>
+            </tr>
+          {% endfor %}
+        </table>
       </div>
+      <ul>
+          <div id="calendar"></div>
+      </ul>     
   </div>
 </body>
 </html>
