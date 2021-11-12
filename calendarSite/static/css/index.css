@@ -29,6 +29,15 @@ body{
   background-color:var(--sub-color);
   overflow-y:scroll;
 }
+.debug_area{
+  position:fixed;
+  top:8vh;
+  left:80vw;
+  width:20vw;
+  height: 92vh;
+  background-color: antiquewhite;
+  color:black;
+}
 /*スクロールバー非表示*/
 .side::-webkit-scrollbar {  /* Chrome, Safari 対応 */
   display:none;
