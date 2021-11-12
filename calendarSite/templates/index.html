@@ -16,35 +16,32 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
   <title>user</title>
   <script>
+    console.log(response_data.writers)
+  </script>
+  <script>
     document.addEventListener('DOMContentLoaded', function () {
-      var events = [
-        /*{
-          id: 'cale.id',
-          title: 'クラウドアプリ開発入門',
-          start: '2021-08-26',
-          end: '2021-09-03',
-          color: '#ff0000',
-          url: '#'
-        },
-        {
-          id: 'cale.id',
-          title: 'プロジェクト型演習頑張ろう！',
-          start: '2021-11-09',
-          end: '2022-02-01',
-          color: '#008000',
-          url: '#'
-        },*/
-        {% for cale in tasks %}
-          {
-          id: 'cale.id',
-          title: '{{cale.subject_id.name}}:{{cale.name}}',
-          start: '{{cale.created_at | date:"Y-m-d" }}',
-          url: '?subject={{subject_id}}&task={{cale.id}}'
-          },
-        {% endfor %}
-        ]
-
-        var calendarEl = document.getElementById('calendar');
+      var events = []
+      
+      response_data.writers.forEach(writer => 
+        events.push(
+            {
+          id: '[[writer.id]]',
+          title: '[[writer.subject]]:[[writer.task]]',
+          start: '[[writer.created_at | date:"Y-m-d" ]]',
+          }
+        )
+      );
+       
+        
+        
+        /*
+        <tr v-for="writer in response_data.writers">
+            <td>[[writer.subject]]</td>
+            <td>[[writer.task]]</td>
+          </tr>
+        */
+       
+      var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       locale: 'ja',
       height: 'auto',
@@ -122,7 +119,6 @@
       </ul>     
       <div class="debug_area">
         <h1 style="text-align: center;">デバッグエリア</h1>
-        <div>message:[[ response_data.message ]]</div>
         <table border="1">
           <tr>
             <th>ID</th>
@@ -130,9 +126,16 @@
           </tr>
           <tr v-for="writer in response_data.writers">
             <td>[[writer.subject]]</td>
-            <td>[[writer.task]]</td>
+            <td>[[writer.name]]</td>
           </tr>
         </table>
+        <p>↑これをカレンダーに表示させたい</p>
+        <p>ページ更新せずに課題を科目で絞り込む機能の実装を試みた</p>
+        <p>課題１：ブラウザのセキュリティ制約によりJSONファイルの読み込みがブロックされる。
+          <br>制約を回避するためのコードが必要</p>
+        <p>課題２：データ更新時にカレンダーが再レンダリングされない</p>
+        <br>
+        <div>message:[[ response_data.writers ]]</div>
       </div>
     </div>
   </div>

@@ -17,4 +17,4 @@ def get_name(request,id):
 
 
 def to_dict(data):
-    return {"subject": data.subject_id.name, "task": data.name}
+    return {"id":data.id,"subject": data.subject_id.name, "name": data.name,"created_at":data.created_at}
