@@ -7,7 +7,7 @@ var app = new Vue({
   methods: {
     getData: function (num) {
       axios
-        .get('/myapp/get_tasks/'+num)
+        .get('/app/get_name/'+num)
         .then(response => (this.response_data = response.data))
         .catch(error => console.log(error))
     }

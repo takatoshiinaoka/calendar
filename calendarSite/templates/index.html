@@ -94,6 +94,7 @@
 
 <body>
   <div class = "main">
+    <div id="app">
       <div class = "side">
         <table>
           <tr>
@@ -101,11 +102,14 @@
           </tr>
           {% for item in subjects %}
             <tr>
+              <td><button v-on:click="getData({{item.id}})">{{item.name}}</button></td>
+              <!--
               {% if item.id == subject_id_i %}
               <td><a href="?subject={{item.id}}" class="highlight">{{item.name}}</td>
               {% else %}
               <td><a href="?subject={{item.id}}">{{item.name}}</td>
               {% endif %}
+              -->
             </tr>   
           {% endfor %}
         </table>
@@ -118,7 +122,19 @@
       </ul>     
       <div class="debug_area">
         <h1 style="text-align: center;">デバッグエリア</h1>
+        <div>message:[[ response_data.message ]]</div>
+        <table border="1">
+          <tr>
+            <th>ID</th>
+            <th>NAME</th>
+          </tr>
+          <tr v-for="writer in response_data.writers">
+            <td>[[writer.subject]]</td>
+            <td>[[writer.task]]</td>
+          </tr>
+        </table>
       </div>
+    </div>
   </div>
 
 <!-- オーバーレイ -->

@@ -3,17 +3,18 @@ from calendarSite.models import Subject
 from calendarSite.models import Task
 
 
-def get_tasks(request,id):
+def get_name(request,id):
     response_data = {
-        "message": id,
+        "message": 'Hello!',
         "writers": [],
     }
-    obj = Subject.objects.get(id=id)
+    objs = Task.objects.filter(subject_id=id).all()
     
-    response_data["writers"].append(to_dict(obj))
+    for obj in objs:
+        response_data["writers"].append(to_dict(obj))
 
     return JsonResponse(response_data)
 
 
 def to_dict(data):
-    return {"subject": data.id, "task": data.name}
+    return {"subject": data.subject_id.name, "task": data.name}
