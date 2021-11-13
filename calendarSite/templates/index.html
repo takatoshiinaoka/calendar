@@ -42,22 +42,6 @@
        
       var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
-      eventClick: function(info) {
-      var eventObj = info.event;
-
-        if (eventObj.url) {
-          alert(
-            'Clicked ' + eventObj.title + '.\n' +
-            'Will open ' + eventObj.url + ' in a new tab'
-          );
-
-          window.open(eventObj.url);
-
-          info.jsEvent.preventDefault(); // prevents browser from following link in current tab.
-        } else {
-          alert('Clicked ' + eventObj.title);
-        }
-      },
       locale: 'ja',
       height: 'auto',
       headerToolbar: {
@@ -132,7 +116,13 @@
       </ul>     
       <div class="debug_area">
         <h1 style="text-align: center;">デバッグエリア</h1>
-
+      {% for item in task %}
+        <p>課題名：{{item.name}}</p>
+        <p>科目名：{{item.subject_id.name}}</p>
+        <p>内容；{{item.contents}}</p>
+        <p>作成者{{item.author}}</p>
+        <p>作成日：{{item.created_at | date:'Y/m/d H:i'}}</p>
+      {% endfor %}
       </div>
   </div>
 
@@ -166,22 +156,7 @@
   <script src="{% static 'js/modal2.js' %}">
   </script>
 
-<!-- bootstrapを使ったモーダル -->
-<div id="calendarModal" class="modal fade">
-  <div class="modal-dialog modal-dialog-center">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-          <span aria-hidden="true">×</span>
-          <span class="sr-only">close</span>
-        </button>
-        <span id="modalTitle" class="modal-title"></span>
-      </div>
-      <div id="modalBody" class="modal-body"></div>
-      <div id="modalFooter" class="modal-footer"></div>
-    </div>
-  </div>
-</div>
+
 </body>
 </html>
 {% endblock %}
