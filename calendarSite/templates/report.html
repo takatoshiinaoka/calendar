@@ -1,10 +1,140 @@
+{% extends "base.html" %}
+{% block content %}
 {% load static %}
 <!DOCTYPE html>
-  <head>
-    <link href="{% static 'css/mordal.css' %}" rel="stylesheet" />
-  </head>
-  <!-- クリックしたらモーダルを表示するボタン -->
-<a href="#" class="btn">課題を追加</a>
+<head>
+  <meta charset='utf-8' />
+  <link href="{% static 'css/mordal.css' %}" rel="stylesheet" /><!--モーダル-->
+  <link href="{% static 'css/index.css' %}" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
+  <link href='fullcalendar/core/main.css' rel='stylesheet' />
+  <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+  <title>user</title>
+  
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var events = []
+      
+      {% for cale in tasks %}
+        events.push(
+          {
+          id: 'cale.id',
+          title: '{{cale.subject_id.name}}:{{cale.name}}',
+          start: '{{cale.created_at | date:"Y-m-d" }}',
+          //url: '?subject={{subject_id}}&task={{cale.id}}'
+          },
+        )
+      {% endfor %}
+     
+        
+        
+        /*
+        <tr v-for="writer in response_data.writers">
+            <td>[[writer.subject]]</td>
+            <td>[[writer.task]]</td>
+          </tr>
+        */
+       
+      var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      eventClick: function(info) {
+      var eventObj = info.event;
+
+        if (eventObj.url) {
+          alert(
+            'Clicked ' + eventObj.title + '.\n' +
+            'Will open ' + eventObj.url + ' in a new tab'
+          );
+
+          window.open(eventObj.url);
+
+          info.jsEvent.preventDefault(); // prevents browser from following link in current tab.
+        } else {
+          alert('Clicked ' + eventObj.title);
+        }
+      },
+      locale: 'ja',
+      height: 'auto',
+      headerToolbar: {
+        left: "dayGridMonth,listMonth",
+        center: "title",
+        right: "today prev,next"
+      },
+      buttonText: {
+        prev: '<',
+        next: '>',
+        prevYear: '<<',
+        nextYear: '>>',
+        today: '今日',
+        month: '月',
+        week: '週',
+        day: '日',
+        list: '一覧'
+      },
+    
+       
+      initialView: 'dayGridMonth',
+      events: events
+    });
+    calendar.render();
+      });
+  </script>
+  <style>
+    #calendar {
+      position:fixed;
+      top:8vh;
+      left:20vw;
+      width: 60vw;
+      height:92vh;
+      overflow-y:scroll;
+      background-color:rgb(55,55,55);
+    }
+    #calendar::-webkit-scrollbar {  /* Chrome, Safari 対応 */
+      display:none;
+    }
+    #calendar th.fc-day{
+      background-color:rgb(55,55,55);
+    }
+    #calendar td.fc-day-today{
+      background-color:rgb(255,165,0);
+    }
+  </style>
+</head>
+
+<body>
+  <div class = "main">
+      <div class = "side">
+        <table>
+          <tr>
+            <th>科目一覧</th>
+          </tr>
+          {% for item in subjects %}
+            <tr>
+              {% if item.id == subject_id_i %}
+              <td><a href="?subject={{item.id}}" class="highlight">{{item.name}}</td>
+              {% else %}
+              <td><a href="?subject={{item.id}}">{{item.name}}</td>
+              {% endif %}
+            </tr>   
+          {% endfor %}
+        </table>
+        <!-- クリックしたらモーダルを表示するボタン -->
+        <a href="#" class="btn">課題を追加</a>
+        <p>{{task_id}}</p>
+      </div>
+      <ul>
+          <div id="calendar"></div>
+      </ul>     
+      <div class="debug_area">
+        <h1 style="text-align: center;">デバッグエリア</h1>
+
+      </div>
+  </div>
 
 <!-- オーバーレイ -->
 <div class="overlay"></div>
@@ -15,44 +145,44 @@
   <h1>{{title}}</h1>
  
   <table>
-    <form action="{% url 'report' %}" method = "post">
-      <a href="{% url 'create_subject' %}">科目の追加</a>
+    <th>課題の追加</th>
+    <form action="{% url 'index' %}" method = "post">
       {% csrf_token %}
-      {{ form.as_table }}
-      <tr><td></td><td><input type="submit" value="click"></td></tr>
+      {{ form_task.as_table }}
+      <tr><td></td><td><input type="submit" name="create_task" value="click"></td></tr>
+    </form>
+    <th>科目の追加</th>
+    <form action="{% url 'index' %}" method = "post">
+      {% csrf_token %}
+      {{ form_subject.as_table }}
+      <tr><td></td><td><input type="submit" name="create_subject" value="click"></td></tr>
     </form>
   </table>
 </div>
 
 <!-- スクロールで高さを出すためのsectionタグ -->
 <section></section>
-<!--htmlの後に読み込まないとエラーになる。あとファイルの分け方がわからない。。。-->
-  <script>
-    // ボタン、モダル、モダルの閉じるボタン、オーバーレイを変数に格納
-const btn = document.querySelector('.btn');
-const modal = document.querySelector('.modal');
-const closeBtn = document.querySelector('.close');
-const overlay = document.querySelector('.overlay');
-
-// ボタンをクリックしたら、モダルとオーバーレイに.activeを付ける
-btn.addEventListener('click', function(e){
-  // aタグのデフォルトの機能を停止する
-  e.preventDefault();
-  　// モーダルとオーバーレイにactiveクラスを付与する
-  modal.classList.add('active');
-  overlay.classList.add('active');
-});
-
-// モダルの閉じるボタンをクリックしたら、モダルとオーバーレイのactiveクラスを外す
-closeBtn.addEventListener('click', function(){
-  modal.classList.remove('active');
-  overlay.classList.remove('active');
-});
-
-// オーバーレイをクリックしたら、モダルとオーバーレイのactiveクラスを外す
-overlay.addEventListener('click', function() {
-  modal.classList.remove('active');
-  overlay.classList.remove('active');
-});
+<!--htmlの後に読み込まないとエラーになる。-->
+  <script src="{% static 'js/modal2.js' %}">
   </script>
+
+<!-- bootstrapを使ったモーダル -->
+<div id="calendarModal" class="modal fade">
+  <div class="modal-dialog modal-dialog-center">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">×</span>
+          <span class="sr-only">close</span>
+        </button>
+        <span id="modalTitle" class="modal-title"></span>
+      </div>
+      <div id="modalBody" class="modal-body"></div>
+      <div id="modalFooter" class="modal-footer"></div>
+    </div>
+  </div>
+</div>
+</body>
 </html>
+{% endblock %}
+

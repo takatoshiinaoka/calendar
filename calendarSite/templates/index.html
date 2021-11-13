@@ -15,9 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
   <title>user</title>
-  <script>
-    console.log(response_data.writers)
-  </script>
+  
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       var events = []
@@ -28,7 +26,7 @@
           id: 'cale.id',
           title: '{{cale.subject_id.name}}:{{cale.name}}',
           start: '{{cale.created_at | date:"Y-m-d" }}',
-          //url: '?subject={{subject_id}}&task={{cale.id}}'
+          url: '?subject={{subject_id}}&task={{cale.id}}'
           },
         )
       {% endfor %}
@@ -167,6 +165,23 @@
 <!--htmlの後に読み込まないとエラーになる。-->
   <script src="{% static 'js/modal2.js' %}">
   </script>
+
+<!-- bootstrapを使ったモーダル -->
+<div id="calendarModal" class="modal fade">
+  <div class="modal-dialog modal-dialog-center">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">
+          <span aria-hidden="true">×</span>
+          <span class="sr-only">close</span>
+        </button>
+        <span id="modalTitle" class="modal-title"></span>
+      </div>
+      <div id="modalBody" class="modal-body"></div>
+      <div id="modalFooter" class="modal-footer"></div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
 {% endblock %}
