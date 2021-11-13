@@ -70,3 +70,21 @@ td{
   width:40vw;
   background-color: var(--accent-color);
 }
+
+/* report.html用*/
+.task_list{
+  position:fixed;
+  top:8vh;
+  left:20vw;
+  height:92vh;
+  width:30vw;
+  background-color:rgb(40,40,40);
+}
+.debug{
+  position:fixed;
+  top:8vh;
+  left:50vw;
+  height:92vh;
+  width:50vw;
+  background-color:rgb(2,34,82);
+}

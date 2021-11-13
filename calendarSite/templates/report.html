@@ -16,98 +16,11 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
   <title>user</title>
   
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var events = []
-      
-      {% for cale in tasks %}
-        events.push(
-          {
-          id: 'cale.id',
-          title: '{{cale.subject_id.name}}:{{cale.name}}',
-          start: '{{cale.created_at | date:"Y-m-d" }}',
-          //url: '?subject={{subject_id}}&task={{cale.id}}'
-          },
-        )
-      {% endfor %}
-     
-        
-        
-        /*
-        <tr v-for="writer in response_data.writers">
-            <td>[[writer.subject]]</td>
-            <td>[[writer.task]]</td>
-          </tr>
-        */
-       
-      var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      eventClick: function(info) {
-      var eventObj = info.event;
-
-        if (eventObj.url) {
-          alert(
-            'Clicked ' + eventObj.title + '.\n' +
-            'Will open ' + eventObj.url + ' in a new tab'
-          );
-
-          window.open(eventObj.url);
-
-          info.jsEvent.preventDefault(); // prevents browser from following link in current tab.
-        } else {
-          alert('Clicked ' + eventObj.title);
-        }
-      },
-      locale: 'ja',
-      height: 'auto',
-      headerToolbar: {
-        left: "dayGridMonth,listMonth",
-        center: "title",
-        right: "today prev,next"
-      },
-      buttonText: {
-        prev: '<',
-        next: '>',
-        prevYear: '<<',
-        nextYear: '>>',
-        today: '今日',
-        month: '月',
-        week: '週',
-        day: '日',
-        list: '一覧'
-      },
-    
-       
-      initialView: 'dayGridMonth',
-      events: events
-    });
-    calendar.render();
-      });
-  </script>
-  <style>
-    #calendar {
-      position:fixed;
-      top:8vh;
-      left:20vw;
-      width: 60vw;
-      height:92vh;
-      overflow-y:scroll;
-      background-color:rgb(55,55,55);
-    }
-    #calendar::-webkit-scrollbar {  /* Chrome, Safari 対応 */
-      display:none;
-    }
-    #calendar th.fc-day{
-      background-color:rgb(55,55,55);
-    }
-    #calendar td.fc-day-today{
-      background-color:rgb(255,165,0);
-    }
-  </style>
 </head>
 
 <body>
   <div class = "main">
+    <div id="app">
       <div class = "side">
         <table>
           <tr>
@@ -115,11 +28,7 @@
           </tr>
           {% for item in subjects %}
             <tr>
-              {% if item.id == subject_id_i %}
-              <td><a href="?subject={{item.id}}" class="highlight">{{item.name}}</td>
-              {% else %}
-              <td><a href="?subject={{item.id}}">{{item.name}}</td>
-              {% endif %}
+              <td><button v-on:click="getData({{item.id}})">{{item.name}}</button></td>
             </tr>   
           {% endfor %}
         </table>
@@ -127,60 +36,48 @@
         <a href="#" class="btn">課題を追加</a>
         <p>{{task_id}}</p>
       </div>
-      <ul>
-          <div id="calendar"></div>
+      <div class="task_list">
+        <table border="1">
+          <tr>
+            <th>科目名</th>
+            <th>課題名</th>
+            <th>最終更新日</th>
+          </tr>
+          <tr v-for="writer in response_data.writers">
+            <td>[[writer.subject]]</td>
+            <td><button v-on:click="getTask([[writer.id]])">[[writer.task]]</button></td>
+            <td>[[writer.updated_at]]</td>
+          </tr>
+        </table>
       </ul>     
-      <div class="debug_area">
+      <div class="debug">
         <h1 style="text-align: center;">デバッグエリア</h1>
-
+        <table border="1">
+          <tr>
+            <th>科目名</th>
+            <th>課題名</th>
+            <th>内容</th>
+            <th>作成者</th>
+            <th>作成日</th>
+            <th>最終更新日</th>
+          </tr>
+          <tr v-for="writer in response_data.datas">
+            <td>[[writer.subject]]</td>
+            <td>[[writer.task]]</td>
+            <td>[[writer.contents]]</td>
+            <td>[[writer.author]]</td>
+            <td>[[writer.created_at]]</td>
+            <td>[[writer.updated_at]]</td>
+          </tr>
+        </table>
       </div>
+    </div>
   </div>
 
-<!-- オーバーレイ -->
-<div class="overlay"></div>
 
-<!-- モーダルウィンドウ -->
-<div class="modal">
-  <div class="close">&times</div>
-  <h1>{{title}}</h1>
- 
-  <table>
-    <th>課題の追加</th>
-    <form action="{% url 'index' %}" method = "post">
-      {% csrf_token %}
-      {{ form_task.as_table }}
-      <tr><td></td><td><input type="submit" name="create_task" value="click"></td></tr>
-    </form>
-    <th>科目の追加</th>
-    <form action="{% url 'index' %}" method = "post">
-      {% csrf_token %}
-      {{ form_subject.as_table }}
-      <tr><td></td><td><input type="submit" name="create_subject" value="click"></td></tr>
-    </form>
-  </table>
-</div>
 
 <!-- スクロールで高さを出すためのsectionタグ -->
 <section></section>
-<!--htmlの後に読み込まないとエラーになる。-->
-  <script src="{% static 'js/modal2.js' %}">
-  </script>
-
-<!-- bootstrapを使ったモーダル -->
-<div id="calendarModal" class="modal fade">
-  <div class="modal-dialog modal-dialog-center">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">
-          <span aria-hidden="true">×</span>
-          <span class="sr-only">close</span>
-        </button>
-        <span id="modalTitle" class="modal-title"></span>
-      </div>
-      <div id="modalBody" class="modal-body"></div>
-      <div id="modalFooter" class="modal-footer"></div>
-    </div>
-  </div>
 </div>
 </body>
 </html>

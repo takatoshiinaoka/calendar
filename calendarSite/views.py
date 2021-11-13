@@ -31,21 +31,24 @@ def index(request):#トップページ(科目を指定しない場合)
    print("caleList")
    user = request.user #現在ログインしているアカウント
    if(request.method == 'POST'):
+      response = redirect('/')
+      get_params = request.GET.urlencode()
+      response['location'] += '?'+get_params#クエリパラメータを引き継ぎたいけどうまくいかない
       if 'create_task' in request.POST:
          obj = Task(author = request.user)
          task = TaskForm(request.POST,instance=obj)
          task.save()
-         return redirect(to = 'index')
+         return response
       if 'edit_task' in request.POST:
          obj = Task(author = request.user)
          task = TaskForm(request.POST,instance=obj)
          task.save()
-         return redirect(to = 'index')
+         return response
       elif 'create_subject' in request.POST:
          obj = Subject()
          subject = SubjectForm(request.POST,instance=obj)
          subject.save()
-         return redirect(to = 'index')
+         return response
    dbData={
          "tasks":tasks,
          "user":user,
