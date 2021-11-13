@@ -35,8 +35,7 @@ body{
   left:80vw;
   width:20vw;
   height: 92vh;
-  background-color: antiquewhite;
-  color:black;
+  background-color: rgb(2,34,82);
 }
 /*スクロールバー非表示*/
 .side::-webkit-scrollbar {  /* Chrome, Safari 対応 */

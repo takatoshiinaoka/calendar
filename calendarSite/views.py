@@ -34,12 +34,16 @@ def index(request):#トップページ(科目を指定しない場合)
          task = TaskForm(request.POST,instance=obj)
          task.save()
          return redirect(to = 'index')
+      if 'edit_task' in request.POST:
+         obj = Task(author = request.user)
+         task = TaskForm(request.POST,instance=obj)
+         task.save()
+         return redirect(to = 'index')
       elif 'create_subject' in request.POST:
          obj = Subject()
          subject = SubjectForm(request.POST,instance=obj)
          subject.save()
          return redirect(to = 'index')
-   
    dbData={
          "tasks":tasks,
          "user":user,
@@ -52,6 +56,9 @@ def index(request):#トップページ(科目を指定しない場合)
          'subject_id_i':int(subject_id),
          'task_id_i':int(task_id),
    }
+   if task_id != '0':
+      obj=Task.objects.get(id=task_id)
+      dbData['form_editTask']=TaskForm(instance=obj)
    return render(request, 'index.html',dbData)
 
 
@@ -250,7 +257,7 @@ def edit_task(request,num):
 def delete_task(request,num):#todo ユーザーに確認するページを追加
    task = Task.objects.get(id=num)
    task.delete()
-   return redirect(to = '/task/1')
+   return redirect(to = '/')
 
 def create_subject(request):
    if (request.method == 'POST'):

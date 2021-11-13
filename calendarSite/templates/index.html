@@ -117,12 +117,23 @@
       <div class="debug_area">
         <h1 style="text-align: center;">デバッグエリア</h1>
       {% for item in task %}
-        <p>課題名：{{item.name}}</p>
-        <p>科目名：{{item.subject_id.name}}</p>
-        <p>内容；{{item.contents}}</p>
-        <p>作成者{{item.author}}</p>
-        <p>作成日：{{item.created_at | date:'Y/m/d H:i'}}</p>
+        <h3>課題名：{{item.name}}</h3>
+        <h3>科目名：{{item.subject_id.name}}</h3>
+        <h3>内容；{{item.contents}}</h3>
+        <h3>作成者{{item.author}}</h3>
+        <h3>作成日：{{item.created_at | date:'Y/m/d H:i'}}</h3>
+        <form action="{% url 'index' %}" method = "post">
+        {% csrf_token %}
+        {{ form_editTask.as_table }}
+        <tr><td></td><td><input type="submit" name="edit_task" value="更新"></td></tr>
+      </form>
+        <a href="{% url 'delete_task' item.id %}">削除</a>
+        <a link href="/"　style="color:black">戻る</a>
+      {% empty %}
+        <h3>課題が選択されていません</h3>
       {% endfor %}
+    
+      
       </div>
   </div>
 

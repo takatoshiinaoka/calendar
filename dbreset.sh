@@ -9,3 +9,4 @@ rm -d -r db.sqlite3
 
 
 # bash dbreset.sh で実行
+ 
