@@ -16,6 +16,15 @@ body {
   background: linear-gradient(to right bottom, #FFA500, #FF6347);
   border-radius: 5px;
   color: #fff;
+  text-align:center;
+  position:fixed;
+  top:80vh;
+  left:70vw;
+  height:5vh;
+  width:10vw;
+  z-index:20;
+  padding:1vh 0;
+  font-size:1rem;
 }
 
 .btn:hover {
