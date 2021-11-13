@@ -30,6 +30,7 @@
           },
         )
       {% endfor %}
+
      
         
         
@@ -104,8 +105,11 @@
               {% else %}
               <td><a href="?subject={{item.id}}">{{item.name}}</td>
               {% endif %}
-            </tr>   
+            </tr>
+          {% empty %}
+            <tr><td>現在登録されている科目がありません</td></tr>
           {% endfor %}
+          
         </table>
         <!-- クリックしたらモーダルを表示するボタン -->
         <a href="#" class="btn">課題を追加</a>
