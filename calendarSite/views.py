@@ -17,11 +17,13 @@ from calendarSite.models import Subject
 def index(request):#トップページ(科目を指定しない場合)
    subject_id = '0'
    task_id = '0'
+   modal_flag= False
    if 'subject' in request.GET:
       subject_id = request.GET['subject']
   
    if 'task' in request.GET:
       task_id = request.GET['task']
+      modal_flag = True
   
    tasks = Task.objects.filter(subject_id=subject_id).all() 
    task = Task.objects.filter(id=task_id).all() 
@@ -55,6 +57,7 @@ def index(request):#トップページ(科目を指定しない場合)
          'form_subject': SubjectForm(),
          'subject_id_i':int(subject_id),
          'task_id_i':int(task_id),
+         'modal_flag':modal_flag
    }
    if task_id != '0':
       obj=Task.objects.get(id=task_id)

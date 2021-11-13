@@ -53,3 +53,20 @@ td{
   background-color: var(--accent-color);
 }
 
+.over_lay{
+  position:fixed;
+  top:0;
+  left:0;
+  height:100vh;
+  width:100vw;
+  background-color: black;
+  opacity:0.4;
+}
+.test_modal{
+  position:fixed;
+  top:30vh;
+  left:30vw;
+  height:40vh;
+  width:40vw;
+  background-color: var(--accent-color);
+}
