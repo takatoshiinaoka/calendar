@@ -22,16 +22,17 @@
     document.addEventListener('DOMContentLoaded', function () {
       var events = []
       
-      response_data.writers.forEach(writer => 
+      {% for cale in tasks %}
         events.push(
-            {
-          id: '[[writer.id]]',
-          title: '[[writer.subject]]:[[writer.task]]',
-          start: '[[writer.created_at | date:"Y-m-d" ]]',
-          }
+          {
+          id: 'cale.id',
+          title: '{{cale.subject_id.name}}:{{cale.name}}',
+          start: '{{cale.created_at | date:"Y-m-d" }}',
+          //url: '?subject={{subject_id}}&task={{cale.id}}'
+          },
         )
-      );
-       
+      {% endfor %}
+     
         
         
         /*
@@ -43,6 +44,22 @@
        
       var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
+      eventClick: function(info) {
+      var eventObj = info.event;
+
+        if (eventObj.url) {
+          alert(
+            'Clicked ' + eventObj.title + '.\n' +
+            'Will open ' + eventObj.url + ' in a new tab'
+          );
+
+          window.open(eventObj.url);
+
+          info.jsEvent.preventDefault(); // prevents browser from following link in current tab.
+        } else {
+          alert('Clicked ' + eventObj.title);
+        }
+      },
       locale: 'ja',
       height: 'auto',
       headerToolbar: {
@@ -61,6 +78,8 @@
         day: '日',
         list: '一覧'
       },
+    
+       
       initialView: 'dayGridMonth',
       events: events
     });
@@ -91,7 +110,6 @@
 
 <body>
   <div class = "main">
-    <div id="app">
       <div class = "side">
         <table>
           <tr>
@@ -99,14 +117,11 @@
           </tr>
           {% for item in subjects %}
             <tr>
-              <td><button v-on:click="getData({{item.id}})">{{item.name}}</button></td>
-              <!--
               {% if item.id == subject_id_i %}
               <td><a href="?subject={{item.id}}" class="highlight">{{item.name}}</td>
               {% else %}
               <td><a href="?subject={{item.id}}">{{item.name}}</td>
               {% endif %}
-              -->
             </tr>   
           {% endfor %}
         </table>
@@ -119,25 +134,8 @@
       </ul>     
       <div class="debug_area">
         <h1 style="text-align: center;">デバッグエリア</h1>
-        <table border="1">
-          <tr>
-            <th>ID</th>
-            <th>NAME</th>
-          </tr>
-          <tr v-for="writer in response_data.writers">
-            <td>[[writer.subject]]</td>
-            <td>[[writer.name]]</td>
-          </tr>
-        </table>
-        <p>↑これをカレンダーに表示させたい</p>
-        <p>ページ更新せずに課題を科目で絞り込む機能の実装を試みた</p>
-        <p>課題１：ブラウザのセキュリティ制約によりJSONファイルの読み込みがブロックされる。
-          <br>制約を回避するためのコードが必要</p>
-        <p>課題２：データ更新時にカレンダーが再レンダリングされない</p>
-        <br>
-        <div>message:[[ response_data.writers ]]</div>
+
       </div>
-    </div>
   </div>
 
 <!-- オーバーレイ -->

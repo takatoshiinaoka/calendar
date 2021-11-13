@@ -40,4 +40,5 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('accounts/login/', TemplateView.as_view(template_name = 'login.html'), name='login'),
     path('app/', include('calendarSite.urls')),
+
 ]
