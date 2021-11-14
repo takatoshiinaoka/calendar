@@ -2,7 +2,7 @@
 {% block content %}
 {% load static %}
 <!DOCTYPE html>
-<head>
+<div id="app">
   <meta charset='utf-8' />
   <link href="{% static 'css/mordal.css' %}" rel="stylesheet" /><!--モーダル-->
   <link href="{% static 'css/index.css' %}" rel="stylesheet" />
@@ -25,12 +25,12 @@
           id: 'cale.id',
           title: '{{cale.subject_id.name}}:{{cale.name}}',
           start: '{{cale.created_at | date:"Y-m-d" }}',
-          url: '?subject={{subject_id}}&task={{cale.id}}'
+          //url: '?subject={{subject_id}}&task={{cale.id}}'
           },
         )
       {% endfor %}
 
-     
+        
         
         
         /*
@@ -42,6 +42,16 @@
        
       var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
+      eventClick: function(info) {
+        alert('Event: ' + info.event.title);
+        alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+        alert('View: ' + info.view.type);
+        alert(response_data.subject_id)
+        getData('36');
+        // change the border color just for fun
+        info.el.style.borderColor = 'red';
+        
+      },
       locale: 'ja',
       height: 'auto',
       headerToolbar: {
@@ -88,25 +98,22 @@
       background-color:rgb(255,165,0);
     }
   </style>
-</head>
 
 <body>
   <div class = "main">
-    <div id="app">
       <div class = "side">
         <table>
           <tr>
             <th>科目一覧</th>
+            <th>カレンダー用</th>
           </tr>
           {% for item in subjects %}
             <tr>
               <td><button v-on:click="getData({{item.id}})">{{item.name}}</button></td>
+              <td><a href="?subject={{item.id}}">表示</a></td>
             </tr>   
           {% endfor %}
         </table>
-        <!-- クリックしたらモーダルを表示するボタン -->
-        <a href="#" class="btn">課題を追加</a>
-        <p>{{task_id}}</p>
       </div>
       <div class="task_list">
         <h1>科目ID:[[response_data.subject_id]]</h1>
@@ -127,26 +134,14 @@
       </div>     
       <div class="debug">
         <h1>課題ID:[[response_data.task_id]]</h1>
-        <table border="1">
-          <tr>
-            <th>科目名</th>
-            <th>課題名</th>
-            <th>内容</th>
-            <th>作成者</th>
-            <th>作成日</th>
-            <th>最終更新日</th>
-          </tr>
-          <tr v-for="writer in response_data.datas">
-            <td>[[writer.subject]]</td>
-            <td>[[writer.task]]</td>
-            <td>[[writer.contents]]</td>
-            <td>[[writer.author]]</td>
-            <td>[[writer.created_at]]</td>
-            <td>[[writer.updated_at]]</td>
-          </tr>
-        </table>
+        <div v-for="writer in response_data.datas">
+        <p>科目名:[[writer.subject]]</p>
+        <p>課題名：[[writer.task]]</p>
+        <p>内容：[[writer.contents]]</p>
+        <p>作成者：[[writer.author]]</p>
+        <p>作成日：[[writer.created_at]]</p>
+        <p>更新日：[[writer.updated_at]]</p>
       </div>
-    </div>
   </div>
 
 
@@ -155,6 +150,7 @@
 <section></section>
 </div>
 </body>
+</div>
 </html>
 {% endblock %}
 
