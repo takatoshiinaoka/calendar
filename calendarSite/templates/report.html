@@ -16,10 +16,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
   
   <script>
-    function debug(pass){
-      alert("カレンダーイベントのクリックを検出しました。")
+    function get_tasks(pass){
+      //alert("カレンダーイベントのクリックを検出しました。")
       //ここでリクエストを送る処理をかければうまくいくはず
-      alert("localhost:8000"+pass+"からデータを取得します。")
+      //alert("localhost:8000"+pass+"からデータを取得します。")
       fetch(pass)
       .then(response => {
 
@@ -38,13 +38,16 @@
         console.log("課題ID:"+data.task.id);
         console.log("課題名:"+data.task.task);
         console.log("科目名:"+data.task.subject);
+        var str = "課題ID:"+data.task.id+"<br>課題名:"+data.task.task+"<br>科目名:"+data.task.subject;
+        document.getElementById('task_detail').innerHTML = str ;
       })
       .catch(error => {
         // (5) エラーを受け取ったらコンソール出力
         console.error(error);
       });
-      alert("コンソールの出力を確認してください。")
+      //alert("コンソールの出力を確認してください。")
     }
+    
     document.addEventListener('DOMContentLoaded', function () {
       var events = []
       
@@ -72,9 +75,8 @@
       var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       eventClick: function(info) {
-        debug(info.event.id);
+        get_tasks(info.event.id);
         // change the border color just for fun
-        info.el.style.borderColor = 'red';
       },
       locale: 'ja',
       height: 'auto',
@@ -134,7 +136,7 @@
           {% for item in subjects %}
             <tr>
               <td><button v-on:click="getData({{item.id}})">{{item.name}}</button></td>
-              <td><a href="?subject={{item.id}}">表示</a></td>
+              <td><a href="?subject={{item.id}}" onclick="get_tasks('/app/get_tasks?subject='+subject_id)">表示</a></td>
             </tr>   
           {% endfor %}
         </table>
@@ -157,13 +159,13 @@
         <div id="calendar"></div>
       </div>     
       <div class="debug">
-        <h1>課題ID:[[response_data.task_id]]</h1>
-       
+        
+        <div id="task_detail"></div>
+
       </div>
   </div>
 
-
-
+  
 <!-- スクロールで高さを出すためのsectionタグ -->
 <section></section>
 </div>
