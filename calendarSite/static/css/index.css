@@ -77,14 +77,14 @@ td{
   top:8vh;
   left:20vw;
   height:92vh;
-  width:30vw;
+  width:60vw;
   background-color:rgb(40,40,40);
 }
 .debug{
   position:fixed;
   top:8vh;
-  left:50vw;
+  left:80vw;
   height:92vh;
-  width:50vw;
+  width:20vw;
   background-color:rgb(2,34,82);
 }

@@ -14,8 +14,80 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
-  <title>user</title>
   
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var events = []
+      
+      {% for cale in tasks %}
+        events.push(
+          {
+          id: 'cale.id',
+          title: '{{cale.subject_id.name}}:{{cale.name}}',
+          start: '{{cale.created_at | date:"Y-m-d" }}',
+          url: '?subject={{subject_id}}&task={{cale.id}}'
+          },
+        )
+      {% endfor %}
+
+     
+        
+        
+        /*
+        <tr v-for="writer in response_data.writers">
+            <td>[[writer.subject]]</td>
+            <td>[[writer.task]]</td>
+          </tr>
+        */
+       
+      var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      locale: 'ja',
+      height: 'auto',
+      headerToolbar: {
+        left: "dayGridMonth,listMonth",
+        center: "title",
+        right: "today prev,next"
+      },
+      buttonText: {
+        prev: '<',
+        next: '>',
+        prevYear: '<<',
+        nextYear: '>>',
+        today: '今日',
+        month: '月',
+        week: '週',
+        day: '日',
+        list: '一覧'
+      },
+    
+       
+      initialView: 'dayGridMonth',
+      events: events
+    });
+    calendar.render();
+      });
+  </script>
+  <style>
+    #calendar {
+      position:fixed;
+      top:40vh;
+      left:20vw;
+      width: 60vw;
+      height:92vh;
+      overflow-y:scroll;
+      background-color:rgb(55,55,55);
+    }
+    #calendar::-webkit-scrollbar {  /* Chrome, Safari 対応 */
+      display:none;
+    }
+    #calendar th.fc-day{
+      background-color:rgb(55,55,55);
+    }
+    #calendar td.fc-day-today{
+      background-color:rgb(255,165,0);
+    }
+  </style>
 </head>
 
 <body>
@@ -51,9 +123,10 @@
             <td>[[writer.updated_at]]</td>
           </tr>
         </table>
-      </ul>     
+        <div id="calendar"></div>
+      </div>     
       <div class="debug">
-        <h1 style="text-align: center;">デバッグエリア</h1>
+        <h1>課題ID:[[response_data.task_id]]</h1>
         <table border="1">
           <tr>
             <th>科目名</th>
