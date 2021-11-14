@@ -16,6 +16,7 @@ def get_tasks(request):
         "task_id":task_id,
         "writers": [],
         "datas": [],
+        "task":'0',
     }
     objs = Task.objects.filter(subject_id=subject_id).all()
     for obj in objs:
@@ -23,7 +24,8 @@ def get_tasks(request):
 
     if task_id!= '0':
         task = Task.objects.get(id=task_id)
-        response_data["datas"].append(to_detail_dict(task))
+        response_data["task"]=(to_detail_dict(task))
+
     return JsonResponse(response_data)
 
 

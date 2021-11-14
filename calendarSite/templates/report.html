@@ -16,10 +16,34 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
   
   <script>
-    function debug(){
+    function debug(pass){
       alert("カレンダーイベントのクリックを検出しました。")
       //ここでリクエストを送る処理をかければうまくいくはず
+      alert("localhost:8000"+pass+"からデータを取得します。")
+      fetch(pass)
+      .then(response => {
 
+        // (1) 通信が成功したか確認する
+        if (!response.ok) {
+
+          // (2) 通信に失敗したときはエラーを発生させる
+          throw new Error('Not ok');
+        }
+        // (3) レスポンスデータからJSONデータを取得
+        return response.json();
+      })
+      .then(data => {
+        // (4) 受け取ったデータをコンソール出力
+        console.log(data);
+        console.log("課題ID:"+data.task.id);
+        console.log("課題名:"+data.task.task);
+        console.log("科目名:"+data.task.subject);
+      })
+      .catch(error => {
+        // (5) エラーを受け取ったらコンソール出力
+        console.error(error);
+      });
+      alert("コンソールの出力を確認してください。")
     }
     document.addEventListener('DOMContentLoaded', function () {
       var events = []
@@ -27,7 +51,7 @@
       {% for cale in tasks %}
         events.push(
           {
-          id: '?subject={{subject_id}}&task={{cale.id}}',//todo とりあえず使わない要素にURLを入れてる
+          id: '/app/get_tasks?subject={{subject_id}}&task={{cale.id}}',//todo とりあえず使わない要素にURLを入れてる
           title: '{{cale.subject_id.name}}:{{cale.name}}',
           start: '{{cale.created_at | date:"Y-m-d" }}',
           subject:'{{cale.id}}',
@@ -48,14 +72,9 @@
       var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       eventClick: function(info) {
-        debug();
-        alert('Event: ' + info.event.title);
-        alert('URL: ' + info.event.id);
-        alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-        alert('View: ' + info.view.type);
+        debug(info.event.id);
         // change the border color just for fun
         info.el.style.borderColor = 'red';
-        e.preventDefault();
       },
       locale: 'ja',
       height: 'auto',
@@ -139,13 +158,7 @@
       </div>     
       <div class="debug">
         <h1>課題ID:[[response_data.task_id]]</h1>
-        <div v-for="writer in response_data.datas">
-        <p>科目名:[[writer.subject]]</p>
-        <p>課題名：[[writer.task]]</p>
-        <p>内容：[[writer.contents]]</p>
-        <p>作成者：[[writer.author]]</p>
-        <p>作成日：[[writer.created_at]]</p>
-        <p>更新日：[[writer.updated_at]]</p>
+       
       </div>
   </div>
 
