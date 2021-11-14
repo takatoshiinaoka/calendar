@@ -37,6 +37,7 @@
         <p>{{task_id}}</p>
       </div>
       <div class="task_list">
+        <h1>科目ID:[[response_data.subject_id]]</h1>
         <table border="1">
           <tr>
             <th>科目名</th>
@@ -45,7 +46,7 @@
           </tr>
           <tr v-for="writer in response_data.writers">
             <td>[[writer.subject]]</td>
-            <td><button v-on:click="getTask([[writer.id]])">[[writer.task]]</button></td>
+            <td><button v-on:click="getTask([[response_data.subject_id]],[[writer.id]])">[[writer.task]]</button></td>
             <td>[[writer.updated_at]]</td>
           </tr>
         </table>

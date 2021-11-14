@@ -5,15 +5,15 @@ var app = new Vue({
     response_data: 'hello vueJS!!',
   },
   methods: {
-    getData: function (num) {
+    getData: function (subject) {
       axios
-        .get('/app/get_tasks/'+num)
+        .get('/app/get_tasks?subject='+subject)
         .then(response => (this.response_data = response.data))
         .catch(error => console.log(error))
     },
-    getTask: function (task) {
+    getTask: function (subject,task) {
       axios
-        .get('/app/get_task/'+task)
+        .get('/app/get_tasks?subject='+subject+'&task='+task)
         .then(response => (this.response_data = response.data))
         .catch(error => console.log(error))
     }
