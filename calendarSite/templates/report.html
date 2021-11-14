@@ -16,16 +16,21 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
   
   <script>
+    function debug(){
+      alert("カレンダーイベントのクリックを検出しました。")
+      //ここでリクエストを送る処理をかければうまくいくはず
+
+    }
     document.addEventListener('DOMContentLoaded', function () {
       var events = []
       
       {% for cale in tasks %}
         events.push(
           {
-          id: 'cale.id',
+          id: '?subject={{subject_id}}&task={{cale.id}}',//todo とりあえず使わない要素にURLを入れてる
           title: '{{cale.subject_id.name}}:{{cale.name}}',
           start: '{{cale.created_at | date:"Y-m-d" }}',
-          //url: '?subject={{subject_id}}&task={{cale.id}}'
+          subject:'{{cale.id}}',
           },
         )
       {% endfor %}
@@ -43,14 +48,14 @@
       var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       eventClick: function(info) {
+        debug();
         alert('Event: ' + info.event.title);
+        alert('URL: ' + info.event.id);
         alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
         alert('View: ' + info.view.type);
-        alert(response_data.subject_id)
-        getData('36');
         // change the border color just for fun
         info.el.style.borderColor = 'red';
-        
+        e.preventDefault();
       },
       locale: 'ja',
       height: 'auto',
