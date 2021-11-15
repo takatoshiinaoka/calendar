@@ -5,6 +5,7 @@
 <head>
   <meta charset='utf-8' />
   <link href="{% static 'css/modal.css' %}" rel="stylesheet" /><!--モーダル-->
+  <link href="{% static 'css/edit_modal.css' %}" rel="stylesheet" /><!--モーダル-->
   <link href="{% static 'css/index.css' %}" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
   <link href='fullcalendar/core/main.css' rel='stylesheet' />
@@ -17,13 +18,44 @@
   <title>user</title>
   
   <script>
+    function get_tasks(pass){
+      //alert("カレンダーイベントのクリックを検出しました。")
+      //ここでリクエストを送る処理をかければうまくいくはず
+      //alert("localhost:8000"+pass+"からデータを取得します。")
+      fetch(pass)
+      .then(response => {
+
+        // (1) 通信が成功したか確認する
+        if (!response.ok) {
+
+          // (2) 通信に失敗したときはエラーを発生させる
+          throw new Error('Not ok');
+        }
+        // (3) レスポンスデータからJSONデータを取得
+        return response.json();
+      })
+      .then(data => {
+        // (4) 受け取ったデータをコンソール出力
+        console.log(data);
+        console.log("課題ID:"+data.task.id);
+        console.log("課題名:"+data.task.task);
+        console.log("科目名:"+data.task.subject);
+        var str = "課題ID:"+data.task.id+"<br>課題名:"+data.task.task+"<br>科目名:"+data.task.subject;
+        document.getElementById('task_detail').innerHTML = str ;
+      })
+      .catch(error => {
+        // (5) エラーを受け取ったらコンソール出力
+        console.error(error);
+      });
+      //alert("コンソールの出力を確認してください。")
+    }
     document.addEventListener('DOMContentLoaded', function () {
       var events = []
       
       {% for cale in tasks %}
         events.push(
           {
-          id: 'cale.id',
+          id: '/app/get_tasks?subject={{subject_id}}&task={{cale.id}}',
           title: '{{cale.subject_id.name}}:{{cale.name}}',
           start: '{{cale.created_at | date:"Y-m-d" }}',
           //url: '?subject={{subject_id}}&task={{cale.id}}'
@@ -44,8 +76,9 @@
       var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       eventClick: function(info) {
-        modal.classList.add('active');
-        overlay.classList.add('active');
+        get_tasks(info.event.id);
+        edit_modal.classList.add('active');
+        edit_overlay.classList.add('active');
       },
       locale: 'ja',
       height: 'auto',
@@ -174,14 +207,16 @@
 <div class="edit_modal">
   <div class="edit_close">&times</div>
   <h1>編集モーダル</h1>
+  <div id="task_detail"></div>
 </div>
 
 <!-- スクロールで高さを出すためのsectionタグ -->
 <section></section>
 <!--htmlの後に読み込まないとエラーになる。-->
-  <script src="{% static 'js/modal2.js' %}">
-  </script>
-
+<script src="{% static 'js/modal2.js' %}">
+</script>
+<script src="{% static 'js/edit_modal.js' %}">
+</script>
 
 </body>
 </html>
