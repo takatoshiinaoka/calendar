@@ -29,6 +29,14 @@ body{
   background-color:var(--sub-color);
   overflow-y:scroll;
 }
+.debug_area{
+  position:fixed;
+  top:8vh;
+  left:80vw;
+  width:20vw;
+  height: 92vh;
+  background-color: rgb(2,34,82);
+}
 /*スクロールバー非表示*/
 .side::-webkit-scrollbar {  /* Chrome, Safari 対応 */
   display:none;
@@ -45,3 +53,38 @@ td{
   background-color: var(--accent-color);
 }
 
+.over_lay{
+  position:fixed;
+  top:0;
+  left:0;
+  height:100vh;
+  width:100vw;
+  background-color: black;
+  opacity:0.4;
+}
+.test_modal{
+  position:fixed;
+  top:30vh;
+  left:30vw;
+  height:40vh;
+  width:40vw;
+  background-color: var(--accent-color);
+}
+
+/* report.html用*/
+.task_list{
+  position:fixed;
+  top:8vh;
+  left:20vw;
+  height:92vh;
+  width:60vw;
+  background-color:rgb(40,40,40);
+}
+.debug{
+  position:fixed;
+  top:8vh;
+  left:80vw;
+  height:92vh;
+  width:20vw;
+  background-color:rgb(2,34,82);
+}

@@ -15,63 +15,58 @@ from calendarSite.models import Subject
 
 
 def index(request):#トップページ(科目を指定しない場合)
-
-   caleList = Task.objects.all()
-   data = Subject.objects.all()
-
+   subject_id = '0'
+   task_id = '0'
+   modal_flag= False
+   if 'subject' in request.GET:
+      subject_id = request.GET['subject']
+  
+   if 'task' in request.GET:
+      task_id = request.GET['task']
+      modal_flag = True
+  
+   tasks = Task.objects.filter(subject_id=subject_id).all() 
+   task = Task.objects.filter(id=task_id).all() 
+   subjects = Subject.objects.all()
    print("caleList")
-   print(caleList)
-   user = request.user
+   user = request.user #現在ログインしているアカウント
    if(request.method == 'POST'):
+      response = redirect('/')
+      get_params = request.GET.urlencode()
+      response['location'] += '?'+get_params#クエリパラメータを引き継ぎたいけどうまくいかない
       if 'create_task' in request.POST:
          obj = Task(author = request.user)
          task = TaskForm(request.POST,instance=obj)
          task.save()
-         return redirect(to = 'index')
-      elif 'create_subject' in request.POST:
-         obj = Subject()
-         subject = SubjectForm(request.POST,instance=obj)
-         subject.save()
-         return redirect(to = 'index')
-   dbData={
-         "caleList":caleList,
-         "user":user,
-         "data":data,
-         'title' : '',
-         'form_task' : TaskForm(),
-         'form_subject': SubjectForm(),
-   }
-   return render(request, 'index.html',dbData)
- 
-def sub(request,num):#トップページ(科目を指定する場合)
-   caleList = Task.objects.filter(subject_id=num).all()
-   data = Subject.objects.all()
-
-   print("caleList")
-   print(caleList)
-   user = request.user
-   if(request.method == 'POST'):
-      if 'create_task' in request.POST:
+         return response
+      if 'edit_task' in request.POST:
          obj = Task(author = request.user)
          task = TaskForm(request.POST,instance=obj)
          task.save()
-         return redirect(to = 'index')
+         return response
       elif 'create_subject' in request.POST:
          obj = Subject()
          subject = SubjectForm(request.POST,instance=obj)
          subject.save()
-         return redirect(to = 'index')
+         return response
    dbData={
-         "caleList":caleList,
+         "tasks":tasks,
          "user":user,
-         "data":data,
-         'title' : '',
+         "subjects":subjects,
+         'subject_id' : subject_id,
+         'task_id':task_id,
+         'task':task,
          'form_task' : TaskForm(),
          'form_subject': SubjectForm(),
-         'select':num,#ここだけindexと違う
+         'subject_id_i':int(subject_id),
+         'task_id_i':int(task_id),
+         'modal_flag':modal_flag
    }
-
+   if task_id != '0':
+      obj=Task.objects.get(id=task_id)
+      dbData['form_editTask']=TaskForm(instance=obj)
    return render(request, 'index.html',dbData)
+
 
 def task(request):
    if request.POST:
@@ -174,16 +169,44 @@ def subject(request):
    return render(request, 'subject.html',params)
 
 def report(request):
+   subject_id = '0'
+   task_id = '0'
+   if 'subject' in request.GET:
+      subject_id = request.GET['subject']
+  
+   if 'task' in request.GET:
+      task_id = request.GET['task']
+  
+   tasks = Task.objects.filter(subject_id=subject_id).all() 
+   task = Task.objects.filter(id=task_id).all() 
+   subjects = Subject.objects.all()
+   print("caleList")
+   user = request.user #現在ログインしているアカウント
    if(request.method == 'POST'):
-      obj = Task(author = request.user)
-      task = TaskForm(request.POST,instance=obj)
-      task.save()
-      return redirect(to = '/report')
-   params = {
-      'title' : '課題の作成',
-      'form' : TaskForm(),
+      if 'create_task' in request.POST:
+         obj = Task(author = request.user)
+         task = TaskForm(request.POST,instance=obj)
+         task.save()
+         return redirect(to = 'report')
+      elif 'create_subject' in request.POST:
+         obj = Subject()
+         subject = SubjectForm(request.POST,instance=obj)
+         subject.save()
+         return redirect(to = 'report')
+   
+   dbData={
+         "tasks":tasks,
+         "user":user,
+         "subjects":subjects,
+         'subject_id' : subject_id,
+         'task_id':task_id,
+         'task':task,
+         'form_task' : TaskForm(),
+         'form_subject': SubjectForm(),
+         'subject_id_i':int(subject_id),
+         'task_id_i':int(task_id),
    }
-   return render(request, 'report.html',params)
+   return render(request, 'report.html',dbData)
 
 from django.core.paginator import Paginator
 
@@ -240,7 +263,7 @@ def edit_task(request,num):
 def delete_task(request,num):#todo ユーザーに確認するページを追加
    task = Task.objects.get(id=num)
    task.delete()
-   return redirect(to = '/task/1')
+   return redirect(to = '/')
 
 def create_subject(request):
    if (request.method == 'POST'):

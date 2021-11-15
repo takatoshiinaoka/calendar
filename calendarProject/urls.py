@@ -23,7 +23,6 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', views.index,  name="index"),
-    path('<int:num>', views.sub,  name="sub"),
     path('admin/', admin.site.urls),
     path('addData', views.addData, name="addData"),
     path('task', views.task, name="task"),
@@ -40,5 +39,6 @@ urlpatterns = [
     path('delete_subject/<int:num>', views.delete_subject, name="delete_subject"),
     path('accounts/', include('allauth.urls')),
     path('accounts/login/', TemplateView.as_view(template_name = 'login.html'), name='login'),
+    path('app/', include('calendarSite.urls')),
 
 ]
