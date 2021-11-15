@@ -26,7 +26,7 @@
           id: 'cale.id',
           title: '{{cale.subject_id.name}}:{{cale.name}}',
           start: '{{cale.created_at | date:"Y-m-d" }}',
-          url: '?subject={{subject_id}}&task={{cale.id}}'
+          //url: '?subject={{subject_id}}&task={{cale.id}}'
           },
         )
       {% endfor %}
@@ -43,6 +43,10 @@
        
       var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
+      eventClick: function(info) {
+        modal.classList.add('active');
+        overlay.classList.add('active');
+      },
       locale: 'ja',
       height: 'auto',
       headerToolbar: {
@@ -143,7 +147,7 @@
 <!-- オーバーレイ -->
 <div class="overlay"></div>
 
-<!-- モーダルウィンドウ -->
+<!-- モーダルウィンドウ（作成） -->
 <div class="modal">
   <div class="close">&times</div>
   <h1>{{title}}</h1>
@@ -162,6 +166,14 @@
       <tr><td></td><td><input type="submit" name="create_subject" value="click"></td></tr>
     </form>
   </table>
+</div>
+
+<div class="edit_overlay"></div>
+
+<!-- モーダルウィンドウ（編集） -->
+<div class="edit_modal">
+  <div class="edit_close">&times</div>
+  <h1>編集モーダル</h1>
 </div>
 
 <!-- スクロールで高さを出すためのsectionタグ -->

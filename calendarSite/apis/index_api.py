@@ -46,3 +46,4 @@ def to_detail_dict(data):
         "updated_at":data.updated_at,
     }
 
+
