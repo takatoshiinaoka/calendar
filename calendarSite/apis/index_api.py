@@ -14,13 +14,13 @@ def get_tasks(request):
     response_data = {
         "subject_id": subject_id,
         "task_id":task_id,
-        "writers": [],
+        "tasks": [],
         "datas": [],
         "task":'0',
     }
     objs = Task.objects.filter(subject_id=subject_id).all()
     for obj in objs:
-        response_data["writers"].append(to_dict(obj))
+        response_data["tasks"].append(to_dict(obj))
 
     if task_id!= '0':
         task = Task.objects.get(id=task_id)

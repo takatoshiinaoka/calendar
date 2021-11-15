@@ -62,21 +62,11 @@
         )
       {% endfor %}
 
-        
-        
-        
-        /*
-        <tr v-for="writer in response_data.writers">
-            <td>[[writer.subject]]</td>
-            <td>[[writer.task]]</td>
-          </tr>
-        */
        
       var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       eventClick: function(info) {
         get_tasks(info.event.id);
-        // change the border color just for fun
       },
       locale: 'ja',
       height: 'auto',
@@ -150,10 +140,10 @@
             <th>課題名</th>
             <th>最終更新日</th>
           </tr>
-          <tr v-for="writer in response_data.writers">
-            <td>[[writer.subject]]</td>
-            <td><button v-on:click="getTask([[response_data.subject_id]],[[writer.id]])">[[writer.task]]</button></td>
-            <td>[[writer.updated_at]]</td>
+          <tr v-for="task in response_data.tasks">
+            <td>[[task.subject]]</td>
+            <td><button v-on:click="getTask([[response_data.subject_id]],[[task.id]])">[[task.task]]</button></td>
+            <td>[[task.updated_at]]</td>
           </tr>
         </table>
         <div id="calendar"></div>
