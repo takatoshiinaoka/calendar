@@ -35,10 +35,10 @@
       .then(data => {
         // (4) 受け取ったデータをコンソール出力
         console.log(data);
-        console.log("課題ID:"+data.task.id);
-        console.log("課題名:"+data.task.task);
+        console.log("課題ID:"+data.task_id);
+        console.log("課題名:"+data.task.name);
         console.log("科目名:"+data.task.subject);
-        var str = "課題ID:"+data.task.id+"<br>課題名:"+data.task.task+"<br>科目名:"+data.task.subject;
+        var str = "課題ID:"+data.task_id+"<br>課題名:"+data.task.name+"<br>科目名:"+data.task.subject;
         document.getElementById('task_detail').innerHTML = str ;
       })
       .catch(error => {
@@ -55,7 +55,7 @@
         events.push(
           {
           id: '/app/get_tasks?subject={{subject_id}}&task={{cale.id}}',//todo とりあえず使わない要素にURLを入れてる
-          title: '{{cale.subject_id.name}}:{{cale.name}}',
+          title: '{{cale.name}}:{{cale.subject_id.name}}:',
           start: '{{cale.created_at | date:"Y-m-d" }}',
           subject:'{{cale.id}}',
           },
@@ -142,7 +142,7 @@
           </tr>
           <tr v-for="task in response_data.tasks">
             <td>[[task.subject]]</td>
-            <td><button v-on:click="getTask([[response_data.subject_id]],[[task.id]])">[[task.task]]</button></td>
+            <td><button v-on:click="getTask([[response_data.subject_id]],[[task_id]])">[[task.task]]</button></td>
             <td>[[task.updated_at]]</td>
           </tr>
         </table>

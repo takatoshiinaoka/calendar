@@ -38,7 +38,7 @@ def to_detail_dict(data):
   
     return {
         "subject": data.subject_id.name,
-        "task": data.name,
+        "name": data.name,
         "contents":data.contents,
         "author":data.author,
         "created_at":data.created_at,

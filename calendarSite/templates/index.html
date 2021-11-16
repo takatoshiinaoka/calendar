@@ -23,7 +23,6 @@
     var task_id;
     function get_tasks(pass){
       //alert("カレンダーイベントのクリックを検出しました。")
-      //ここでリクエストを送る処理をかければうまくいくはず
       //alert("localhost:8000"+pass+"からデータを取得します。")
       fetch(pass)
       .then(response => {
@@ -41,9 +40,9 @@
         // (4) 受け取ったデータをコンソール出力
         console.log(data);
         console.log("課題ID:"+data.task_id);
-        console.log("課題名:"+data.task.task);
+        console.log("課題名:"+data.task.name);
         console.log("科目名:"+data.task.subject);
-        var str = "課題ID:"+data.task_id+"<br>課題名:"+data.task.task+"<br>科目名:"+data.task.subject;
+        var str = "<h1>"+data.task.name+"</h1><p>課題ID:"+data.task_id+"</p><p>科目名:"+data.task.subject+"</p><p>作成者:"+data.task.author+"</p>";//課題編集モーダルに表示する内容
         document.getElementById('task_detail').innerHTML = str ;
         subject_name = data.task.subject;
         subject_id = data.subject_id;
@@ -231,7 +230,7 @@
 <!-- モーダルウィンドウ（編集） -->
 <div class="edit_modal">
   <div class="edit_close">&times</div>
-  <h1>編集モーダル</h1>
+  <p>編集モーダル</p>
   <div id="task_detail"></div>
 </div>
 
