@@ -18,6 +18,9 @@
   <title>user</title>
   
   <script>
+    var subject_name;
+    var subject_id;
+    var task_id;
     function get_tasks(pass){
       //alert("カレンダーイベントのクリックを検出しました。")
       //ここでリクエストを送る処理をかければうまくいくはず
@@ -42,6 +45,9 @@
         console.log("科目名:"+data.task.subject);
         var str = "課題ID:"+data.task.id+"<br>課題名:"+data.task.task+"<br>科目名:"+data.task.subject;
         document.getElementById('task_detail').innerHTML = str ;
+        subject_name = data.task.subject;
+        subject_id = data.subject_id;
+        task_id = data.task_id;
       })
       .catch(error => {
         // (5) エラーを受け取ったらコンソール出力
@@ -49,6 +55,7 @@
       });
       //alert("コンソールの出力を確認してください。")
     }
+    
     document.addEventListener('DOMContentLoaded', function () {
       var events = []
       
@@ -56,15 +63,23 @@
         events.push(
           {
           id: '/app/get_tasks?subject={{subject_id}}&task={{cale.id}}',
-          title: '{{cale.subject_id.name}}:{{cale.name}}',
+          title: '{{cale.name}}',
           start: '{{cale.created_at | date:"Y-m-d" }}',
           //url: '?subject={{subject_id}}&task={{cale.id}}'
           },
         )
       {% endfor %}
-
-     
-        
+      
+      events.push(
+        {
+          id: '/app/get_tasks?subject='+subject_id+'&task='+task_id,
+          title: '実験:直前に選択した課題を表示します：'+subject_name,
+          start: '2021-11-07',
+          end: '2021-11-13',
+          color: '#ff0000',
+          url: '#'
+        },
+      )
         
         /*
         <tr v-for="writer in response_data.writers">
@@ -79,6 +94,16 @@
         get_tasks(info.event.id);
         edit_modal.classList.add('active');
         edit_overlay.classList.add('active');
+        events.push(
+        {
+          id: 'cale.id',
+          title: 'クラウドアプリ開発入門',
+          start: '2021-10-26',
+          end: '2021-11-03',
+          color: '#ff0000',
+          url: '#'
+        },
+      )
       },
       locale: 'ja',
       height: 'auto',
