@@ -14,10 +14,59 @@ from calendarSite.models import Subject
 # Create your views here.
 
 
-def index(request):
-   
-   return render(request, 'index.html')
-   
+def index(request):#トップページ(科目を指定しない場合)
+   subject_id = '0'
+   task_id = '0'
+   modal_flag= False
+   if 'subject' in request.GET:
+      subject_id = request.GET['subject']
+  
+   if 'task' in request.GET:
+      task_id = request.GET['task']
+      modal_flag = True
+  
+   tasks = Task.objects.filter(subject_id=subject_id).all() 
+   task = Task.objects.filter(id=task_id).all() 
+   subjects = Subject.objects.all()
+   print("caleList")
+   user = request.user #現在ログインしているアカウント
+   if(request.method == 'POST'):
+      response = redirect('/')
+      get_params = request.GET.urlencode()
+      response['location'] += '?'+get_params#クエリパラメータを引き継ぎたいけどうまくいかない
+      if 'create_task' in request.POST:
+         obj = Task(author = request.user)
+         task = TaskForm(request.POST,instance=obj)
+         task.save()
+         return response
+      if 'edit_task' in request.POST:
+         obj = Task(author = request.user)
+         task = TaskForm(request.POST,instance=obj)
+         task.save()
+         return response
+      elif 'create_subject' in request.POST:
+         obj = Subject()
+         subject = SubjectForm(request.POST,instance=obj)
+         subject.save()
+         return response
+   dbData={
+         "tasks":tasks,
+         "user":user,
+         "subjects":subjects,
+         'subject_id' : subject_id,
+         'task_id':task_id,
+         'task':task,
+         'form_task' : TaskForm(),
+         'form_subject': SubjectForm(),
+         'subject_id_i':int(subject_id),
+         'task_id_i':int(task_id),
+         'modal_flag':modal_flag
+   }
+   if task_id != '0':
+      obj=Task.objects.get(id=task_id)
+      dbData['form_editTask']=TaskForm(instance=obj)
+   return render(request, 'index.html',dbData)
+
 
 def task(request):
    if request.POST:
@@ -120,26 +169,65 @@ def subject(request):
    return render(request, 'subject.html',params)
 
 def report(request):
-    return render(request, 'report.html')
-    
+   subject_id = '0'
+   task_id = '0'
+   if 'subject' in request.GET:
+      subject_id = request.GET['subject']
+  
+   if 'task' in request.GET:
+      task_id = request.GET['task']
+  
+   tasks = Task.objects.filter(subject_id=subject_id).all() 
+   task = Task.objects.filter(id=task_id).all() 
+   subjects = Subject.objects.all()
+   print("caleList")
+   user = request.user #現在ログインしているアカウント
+   if(request.method == 'POST'):
+      if 'create_task' in request.POST:
+         obj = Task(author = request.user)
+         task = TaskForm(request.POST,instance=obj)
+         task.save()
+         return redirect(to = 'report')
+      elif 'create_subject' in request.POST:
+         obj = Subject()
+         subject = SubjectForm(request.POST,instance=obj)
+         subject.save()
+         return redirect(to = 'report')
+   
+   dbData={
+         "tasks":tasks,
+         "user":user,
+         "subjects":subjects,
+         'subject_id' : subject_id,
+         'task_id':task_id,
+         'task':task,
+         'form_task' : TaskForm(),
+         'form_subject': SubjectForm(),
+         'subject_id_i':int(subject_id),
+         'task_id_i':int(task_id),
+   }
+   return render(request, 'report.html',dbData)
+
 from django.core.paginator import Paginator
 
 #todo クラスベースビューに書き換える
 #課題の一覧表示
 def task(request,num=1):
-   #課題のデータをすべて変数dataに入れる(要素はmodels.py参照)※importを忘れずに！
-   data = Task.objects.all()
+   if(request.method == 'POST'):
+      #課題のデータをすべて変数dataに入れる(要素はmodels.py参照)※importを忘れずに！
+      data = Task.objects.filter(subject_id=4).all()
+   else:
+      data = Task.objects.all()
    page = Paginator(data,3)
    #表示に使いたい情報を配列(辞書)paramsに代入
    params = {
-      'title':'課題リスト',
+      'title':'課題一覧',
       'data': page.get_page(num),
       'form':SubjectForm(),#forms.py参照 ※これもimportしないと使えない
-      'find':'',
    }
    #フォームから入力情報が送信されたら辞書に入力情報を代入
-   if(request.method == 'POST'):
-      params['find']=request.POST['name']
+   
+      
 
    #第２引数でテンプレートの指定、第3引数にテンプレートで使う情報を入れる
    return render(request, 'task.html',params)
@@ -175,7 +263,7 @@ def edit_task(request,num):
 def delete_task(request,num):#todo ユーザーに確認するページを追加
    task = Task.objects.get(id=num)
    task.delete()
-   return redirect(to = '/task/1')
+   return redirect(to = '/')
 
 def create_subject(request):
    if (request.method == 'POST'):
@@ -216,7 +304,7 @@ class SubjectView(ListView):
    template_name = "subject.html"
    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs) # はじめに継承元のメソッドを呼び出す
-        context["title"] = "科目リスト"
+        context["title"] = "科目一覧"
         return context
 
 class TaskDetailView(DetailView):

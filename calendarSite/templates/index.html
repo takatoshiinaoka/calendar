@@ -4,47 +4,44 @@
 <!DOCTYPE html>
 <head>
   <meta charset='utf-8' />
+  <link href="{% static 'css/modal.css' %}" rel="stylesheet" /><!--モーダル-->
   <link href="{% static 'css/index.css' %}" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
   <link href='fullcalendar/core/main.css' rel='stylesheet' />
   <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
- 
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
   <title>user</title>
+  
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      var events = [
-        {
-          id: 'cale.id',
-          title: 'クラウドアプリ開発入門',
-          start: '2021-08-26',
-          end: '2021-09-03',
-          color: '#ff0000',
-          url: '#'
-        },
-        {
-          id: 'cale.id',
-          title: 'プロジェクト型演習頑張ろう！',
-          start: '2021-11-09',
-          end: '2022-02-01',
-          color: '#008000',
-          url: '#'
-        },
-        {% for cale in caleList %}
+      var events = []
+      
+      {% for cale in tasks %}
+        events.push(
           {
           id: 'cale.id',
           title: '{{cale.subject_id.name}}:{{cale.name}}',
           start: '{{cale.created_at | date:"Y-m-d" }}',
-          url: '/taskDetail/{{cale.id}}'
+          url: '?subject={{subject_id}}&task={{cale.id}}'
           },
-        {% endfor %}
-        ]
+        )
+      {% endfor %}
 
-        var calendarEl = document.getElementById('calendar');
+     
+        
+        
+        /*
+        <tr v-for="writer in response_data.writers">
+            <td>[[writer.subject]]</td>
+            <td>[[writer.task]]</td>
+          </tr>
+        */
+       
+      var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       locale: 'ja',
       height: 'auto',
@@ -64,6 +61,8 @@
         day: '日',
         list: '一覧'
       },
+    
+       
       initialView: 'dayGridMonth',
       events: events
     });
@@ -72,27 +71,106 @@
   </script>
   <style>
     #calendar {
-      width: 1000px;
-      height:600px;
+      position:fixed;
+      top:8vh;
+      left:20vw;
+      width: 80vw;
+      height:92vh;
+      overflow-y:scroll;
       background-color:rgb(55,55,55);
+    }
+    #calendar::-webkit-scrollbar {  /* Chrome, Safari 対応 */
+      display:none;
+    }
+    #calendar th.fc-day{
+      background-color:rgb(55,55,55);
+    }
+    #calendar td.fc-day-today{
+      background-color:rgb(255,165,0);
     }
   </style>
 </head>
 
 <body>
   <div class = "main">
-      <ul style="width:1000px,height:600px">
-          <div id="calendar"></div>
-      </ul>
-
       <div class = "side">
-          <div class="menu">
-              <a href = "{% url 'addData' %}" class="button">スケジュール</a><br><br>
-              <a href = "{% url 'task' 1 %}" class="button">課題</a><br><br>
-              <a href = "{% url 'report' %}" class="button">Report</a>
-          </div>
+        <table>
+          <tr>
+            <th>科目一覧</th>
+          </tr>
+          {% for item in subjects %}
+            <tr>
+              {% if item.id == subject_id_i %}
+              <td><a href="?subject={{item.id}}" class="highlight">{{item.name}}</td>
+              {% else %}
+              <td><a href="?subject={{item.id}}">{{item.name}}</td>
+              {% endif %}
+            </tr>
+          {% empty %}
+            <tr><td>現在登録されている科目がありません</td></tr>
+          {% endfor %}
+          
+        </table>
+        <!-- クリックしたらモーダルを表示するボタン -->
+        <a href="#" class="btn">課題を追加</a>
       </div>
+      <ul>
+          <div id="calendar"></div>
+      </ul>     
   </div>
+  {% if modal_flag %}
+    <a href="?subject={{subject_id}}" class="over_lay">
+    </a>
+    <div class = "test_modal">
+      {% for item in task %}
+        <h3>課題名：{{item.name}}</h3>
+        <h3>科目名：{{item.subject_id.name}}</h3>
+        <h3>内容：{{item.contents}}</h3>
+        <h3>作成者：{{item.author}}</h3>
+        <h3>作成日：{{item.created_at | date:'Y/m/d H:i'}}</h3>
+        <form action="{% url 'index' %}" method = "post">
+        {% csrf_token %}
+        {{ form_editTask.as_table }}
+        <tr><td></td><td><input type="submit" name="edit_task" value="更新"></td></tr>
+      </form>
+        <a href="{% url 'delete_task' item.id %}">削除</a>
+        <a link href="/"　style="color:black">戻る</a>
+      {% empty %}
+        <h3>課題が選択されていません</h3>
+      {% endfor %}
+    </div>
+  {% endif %}
+<!-- オーバーレイ -->
+<div class="overlay"></div>
+
+<!-- モーダルウィンドウ -->
+<div class="modal">
+  <div class="close">&times</div>
+  <h1>{{title}}</h1>
+ 
+  <table>
+    <th>課題の追加</th>
+    <form action="{% url 'index' %}" method = "post">
+      {% csrf_token %}
+      {{ form_task.as_table }}
+      <tr><td></td><td><input type="submit" name="create_task" value="click"></td></tr>
+    </form>
+    <th>科目の追加</th>
+    <form action="{% url 'index' %}" method = "post">
+      {% csrf_token %}
+      {{ form_subject.as_table }}
+      <tr><td></td><td><input type="submit" name="create_subject" value="click"></td></tr>
+    </form>
+  </table>
+</div>
+
+<!-- スクロールで高さを出すためのsectionタグ -->
+<section></section>
+<!--htmlの後に読み込まないとエラーになる。-->
+  <script src="{% static 'js/modal2.js' %}">
+  </script>
+
+
 </body>
 </html>
 {% endblock %}

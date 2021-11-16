@@ -1,32 +1,90 @@
-
+:root {
+  --accent-color: rgb(255,165,0);
+  --base-color:rgb(1,4,9);
+  --sub-color:rgb(13,17,23);
+  --text-color:white;
+}
+body{
+  overflow-y:hidden;
+}
 .main{
-  top:10vh;
+  top:8vh;
   bottom:2vh;
   left:0;
   width:100vw;
   position:fixed;
-  height:70vh;
+  height:92vh;
   display:flex;
   flex-direction:row;
   justify-content: space-between;
 }
-
+.main::-webkit-scrollbar {  /* Chrome, Safari 対応 */
+  display:none;
+}
 .side{
-  margin: 2.5vh 3vw 0;
-  width:25vw;
-  height:40vw;
-  
-  color:rgb(250,83,22);
+  width:20vw;
+  height: 92vh;
+  color:var(--text-color);
+  font-size:1.5rem;
+  background-color:var(--sub-color);
+  overflow-y:scroll;
 }
-.menu{
-  margin-right:2vw;
-  text-decoration: none;
-  align-items:center; 
-  padding:1rem 0.5rem 1rem;
-  background-color:var(--sub-color); 
-  font-size:1.3em;
-  text-align: center;
-  font-family:sans-serif;
-  font-weight: 1000;
+.debug_area{
+  position:fixed;
+  top:8vh;
+  left:80vw;
+  width:20vw;
+  height: 92vh;
+  background-color: rgb(2,34,82);
+}
+/*スクロールバー非表示*/
+.side::-webkit-scrollbar {  /* Chrome, Safari 対応 */
+  display:none;
+}
+th{
+  font-size:2rem;
+  padding:1rem 0;
+}
+td{
+  padding:1rem 0;
 }
 
+.highlight{
+  background-color: var(--accent-color);
+}
+
+.over_lay{
+  position:fixed;
+  top:0;
+  left:0;
+  height:100vh;
+  width:100vw;
+  background-color: black;
+  opacity:0.4;
+}
+.test_modal{
+  position:fixed;
+  top:30vh;
+  left:30vw;
+  height:40vh;
+  width:40vw;
+  background-color: var(--accent-color);
+}
+
+/* report.html用*/
+.task_list{
+  position:fixed;
+  top:8vh;
+  left:20vw;
+  height:92vh;
+  width:60vw;
+  background-color:rgb(40,40,40);
+}
+.debug{
+  position:fixed;
+  top:8vh;
+  left:80vw;
+  height:92vh;
+  width:20vw;
+  background-color:rgb(2,34,82);
+}

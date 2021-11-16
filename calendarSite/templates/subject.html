@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static%}
-<!DOCTYPE html>
-  <head>
-    <title> チャット </title> 
-        <link href="{% static 'css/table.css' %}" rel="stylesheet" />
-  </head>
+<head>
+  <title> チャット </title> 
+      <link href="{% static 'css/table.css' %}" rel="stylesheet" />
+      <link href="{% static 'css/subject.css' %}" rel="stylesheet" />
+
+</head>
+<div class="subjectlist">
+  
   <body>
     <h1>{{title}}</h1>
     <a href="{% url 'task' 1 %}">課題リスト</a>
@@ -26,5 +29,5 @@
    
     <a href="{% url 'create_subject' %}">新規作成</a>
   </body>
-</html>
+</div>
 {% endblock %}
