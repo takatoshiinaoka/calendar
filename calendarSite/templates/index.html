@@ -40,10 +40,10 @@
       .then(data => {
         // (4) 受け取ったデータをコンソール出力
         console.log(data);
-        console.log("課題ID:"+data.task.id);
+        console.log("課題ID:"+data.task_id);
         console.log("課題名:"+data.task.task);
         console.log("科目名:"+data.task.subject);
-        var str = "課題ID:"+data.task.id+"<br>課題名:"+data.task.task+"<br>科目名:"+data.task.subject;
+        var str = "課題ID:"+data.task_id+"<br>課題名:"+data.task.task+"<br>科目名:"+data.task.subject;
         document.getElementById('task_detail').innerHTML = str ;
         subject_name = data.task.subject;
         subject_id = data.subject_id;
