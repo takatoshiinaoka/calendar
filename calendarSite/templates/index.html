@@ -15,10 +15,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
   <title>user</title>
   
   <script>
-    
+    var subject_name;
+    var subject_id;
+    var task_id;
     function get_tasks(path){
       //alert("カレンダーイベントのクリックを検出しました。")
       //alert("localhost:8000"+path+"からデータを取得します。")
@@ -42,7 +46,10 @@
         console.log("科目名:"+data.task.subject);
         var str = "<h1>"+data.task.name+"</h1><p>課題ID:"+data.task_id+"</p><p>科目名:"+data.task.subject+"</p><p>作成者:"+data.task.author+"</p>";//課題編集モーダルに表示する内容
         document.getElementById('task_detail').innerHTML = str ;
-        
+        subject_name = data.task.subject;
+        subject_id = data.subject_id;
+        task_id = data.task_id;
+        $('#debug').text(data.task.name);
       })
       .catch(error => {
         // (5) エラーを受け取ったらコンソール出力
@@ -50,7 +57,7 @@
       });
       //alert("コンソールの出力を確認してください。")
     }
-    
+    $('.debug').text('こんにちは');
     document.addEventListener('DOMContentLoaded', function () {
       var events = []
       
@@ -140,6 +147,7 @@
 <body>
   <div class = "main">
       <div class = "side">
+        <h1 id="debug">test</h1>
         <table>
           <tr>
             <th>科目一覧</th>
