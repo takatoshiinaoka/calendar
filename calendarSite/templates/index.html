@@ -21,10 +21,10 @@
     var subject_name;
     var subject_id;
     var task_id;
-    function get_tasks(pass){
+    function get_tasks(path){
       //alert("カレンダーイベントのクリックを検出しました。")
-      //alert("localhost:8000"+pass+"からデータを取得します。")
-      fetch(pass)
+      //alert("localhost:8000"+path+"からデータを取得します。")
+      fetch(path)
       .then(response => {
 
         // (1) 通信が成功したか確認する

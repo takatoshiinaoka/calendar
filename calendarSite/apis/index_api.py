@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from calendarSite.models import Task
+from calendarSite.forms import TaskForm
 
 
 def get_tasks(request):
@@ -15,7 +16,6 @@ def get_tasks(request):
         "subject_id": subject_id,
         "task_id":task_id,
         "tasks": [],
-        "datas": [],
         "task":'0',
     }
     objs = Task.objects.filter(subject_id=subject_id).all()
@@ -35,7 +35,7 @@ def to_dict(data):
     return {"id":data.id,"subject": data.subject_id.name, "task": data.name,"updated_at":data.updated_at}
 
 def to_detail_dict(data):
-  
+    obj = Task.objects.get(id=data.id)
     return {
         "subject": data.subject_id.name,
         "name": data.name,
@@ -43,6 +43,7 @@ def to_detail_dict(data):
         "author":data.author,
         "created_at":data.created_at,
         "updated_at":data.updated_at,
+        #"form":TaskForm(request.POST,instance=obj),
     }
 
 
