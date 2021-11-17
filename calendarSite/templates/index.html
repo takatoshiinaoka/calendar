@@ -20,9 +20,39 @@
   <title>user</title>
   
   <script>
-    var subject_name;
-    var subject_id;
-    var task_id;
+    var subject_name="";
+    var subject_id="";
+    var task_id="";
+    var tasks=[];
+    function filter(val){
+      console.log(val)
+      path="/app/get_tasks?subject="+val
+      fetch(path)
+      .then(response => {
+
+        // (1) 通信が成功したか確認する
+        if (!response.ok) {
+
+          // (2) 通信に失敗したときはエラーを発生させる
+          throw new Error('Not ok');
+        }
+        // (3) レスポンスデータからJSONデータを取得
+        return response.json();
+      })
+      .then(data => {
+        // (4) 受け取ったデータをコンソール出力
+        console.log(data);
+        console.log("課目ID:"+data.subject_id);
+        console.log("科目名:"+data.subject_name);
+        tasks = data.tasks;
+        subject_id=data.subject_id
+        console.log(tasks)
+      })
+      .catch(error => {
+        // (5) エラーを受け取ったらコンソール出力
+        console.error(error);
+      });
+    }
     function get_tasks(path){
       //alert("カレンダーイベントのクリックを検出しました。")
       //alert("localhost:8000"+path+"からデータを取得します。")
@@ -44,8 +74,9 @@
         console.log("課題ID:"+data.task_id);
         console.log("課題名:"+data.task.name);
         console.log("科目名:"+data.task.subject);
-        var str = "<h1>"+data.task.name+"</h1><p>課題ID:"+data.task_id+"</p><p>科目名:"+data.task.subject+"</p><p>作成者:"+data.task.author+"</p>";//課題編集モーダルに表示する内容
-        document.getElementById('task_detail').innerHTML = str ;
+        if(data.task_id!='0')
+          var str = "<h1>"+data.task.name+"</h1><p>課題ID:"+data.task_id+"</p><p>科目名:"+data.task.subject+"</p><p>作成者:"+data.task.author+"</p>";//課題編集モーダルに表示する内容
+          document.getElementById('task_detail').innerHTML = str ;
         subject_name = data.task.subject;
         subject_id = data.subject_id;
         task_id = data.task_id;
@@ -56,27 +87,33 @@
       });
       //alert("コンソールの出力を確認してください。")
     }
-    document.addEventListener('DOMContentLoaded', function () {
-      var events = []
+    document.addEventListener('click', function () {
       
-      {% for cale in tasks %}
+      //filter('40')
+      var events = []
+      events.push(
+        {
+          id: 'cale.id',
+          title: 'クラウドアプリ開発入門'+subject_id+tasks,
+          start: '2021-10-26',
+          end: '2021-11-03',
+          color: '#ff0000',
+          url: '#'
+        },
+      )
+      tasks.forEach(element => 
         events.push(
-          {
-          id: '/app/get_tasks?subject={{subject_id}}&task={{cale.id}}',
-          title: '{{cale.name}}',
-          start: '{{cale.created_at | date:"Y-m-d" }}',
-          //url: '?subject={{subject_id}}&task={{cale.id}}'
-          },
+            {
+            id: '/app/get_tasks?subject='+subject_id+'&task='+element.id,
+            title: element.task,
+            start: element.updated_at,
+            end: element.updated_at,
+            url: '#'
+            },
         )
-      {% endfor %}
-        
-        /*
-        <tr v-for="writer in response_data.writers">
-            <td>[[writer.subject]]</td>
-            <td>[[writer.task]]</td>
-          </tr>
-        */
-       
+      )
+            
+     
       var calendarEl = document.getElementById('calendar');
     var calendar = new FullCalendar.Calendar(calendarEl, {
       eventClick: function(info) {
@@ -153,9 +190,9 @@
           {% for item in subjects %}
             <tr>
               {% if item.id == subject_id_i %}
-              <td><a href="?subject={{item.id}}" class="highlight">{{item.name}}</td>
+              <td class="highlight" onclick="(function(){var val = '{{item.id}}';filter(val);})();">{{item.name}}</td>
               {% else %}
-              <td><a href="?subject={{item.id}}">{{item.name}}</td>
+              <td onclick="(function(){var val = '{{item.id}}';filter(val);})();">{{item.name}}</td>
               {% endif %}
             </tr>
           {% empty %}
