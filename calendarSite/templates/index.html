@@ -49,7 +49,6 @@
         subject_name = data.task.subject;
         subject_id = data.subject_id;
         task_id = data.task_id;
-        $('#debug').text(data.task.name);
       })
       .catch(error => {
         // (5) エラーを受け取ったらコンソール出力
@@ -57,7 +56,6 @@
       });
       //alert("コンソールの出力を確認してください。")
     }
-    $('.debug').text('こんにちは');
     document.addEventListener('DOMContentLoaded', function () {
       var events = []
       
@@ -94,7 +92,8 @@
           color: '#ff0000',
           url: '#'
         },
-      )
+        )
+        calendar.render();
       },
       locale: 'ja',
       height: 'auto',
@@ -147,7 +146,6 @@
 <body>
   <div class = "main">
       <div class = "side">
-        <h1 id="debug">test</h1>
         <table>
           <tr>
             <th>科目一覧</th>
