@@ -72,20 +72,9 @@
             get_tasks(info.event.id);
             edit_modal.classList.add('active');
             edit_overlay.classList.add('active');
-            events.push(
-              {
-                id: 'cale.id',
-                title: 'クラウドアプリ開発入門',
-                start: '2021-10-26',
-                end: '2021-11-03',
-                color: '#ff0000',
-                url: '#'
-              },
-            )
-            calendar.render();
           },
           eventAdd: function(obj) { // イベントが追加すると発生するイベント
-          console.log(obj);
+            save_task(obj.event.id)
           },
           eventChange: function(obj) { // イベントが修正されたら発生するイベント
             console.log(obj);
@@ -94,12 +83,13 @@
             console.log(obj);
           },
           select: function(arg) { // カレンダーでドラックでイベントを生成することが可能。
-          var title = prompt('Event Title:');
-          var task = prompt('課題名:');
+          var title = prompt('課題名:');
           var contents = prompt('内容：');
           if (title) {
             calendar.addEvent({
-              id:'/app/get_tasks?subject='+'0'+'&task='+task,
+              id:'/app/save_task?subject='+{{subject_id}}
+              +'&name='+title
+              ,
               title: title,
               start: arg.start,
               end: arg.end,
@@ -212,6 +202,29 @@
         console.error(error);
       });
       //alert("コンソールの出力を確認してください。")
+    }
+    function save_task(path){
+      //alert("カレンダーイベントのクリックを検出しました。")
+      //alert("localhost:8000"+path+"からデータを取得します。")
+      fetch(path)
+      .then(response => {
+
+        // (1) 通信が成功したか確認する
+        if (!response.ok) {
+
+          // (2) 通信に失敗したときはエラーを発生させる
+          throw new Error('Not ok');
+        }
+        // (3) レスポンスデータからJSONデータを取得
+        return response.json();
+      })
+      .then(data => {
+        
+         
+      })
+      .catch(error => {
+        console.error(error);
+      });
     }
   </script>
   <style>

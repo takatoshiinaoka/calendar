@@ -67,3 +67,14 @@ def delete_task(request):#todo ユーザーに確認するページを追加
         task.delete()
     
     return redirect(to=path)
+
+def save_task(request):
+    
+    if 'subject' in request.GET:
+        subject_id = request.GET['subject']
+    if 'name' in request.GET:
+        name = request.GET['name']
+    subject=Subject.objects.get(id=subject_id)
+    obj = Task(subject_id=subject,name=name,author = request.user,)
+    obj.save()
+    return redirect(to="/")
