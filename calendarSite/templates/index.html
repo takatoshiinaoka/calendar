@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
-  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+
 
   <title>user</title>
   
@@ -24,6 +24,125 @@
     var subject_id="";
     var task_id="";
     var tasks=[];
+    
+    
+    document.addEventListener
+    //('DOMContentLoaded', function () 
+    ('DOMContentLoaded', function () 
+      { 
+        //filter('40')
+        var events = []
+
+        events.push(
+          {
+            id: '/app/get_tasks?subject=37&task=70',
+            title: 'クラウドアプリ開発入門'+subject_id+tasks,
+            start: '2021-10-26',
+            end: '2021-11-03',
+            color: '#ff0000',
+            url: '#'
+          },
+        )
+        {% for cale in tasks %}
+        events.push(
+          {
+          id: '/app/get_tasks?subject={{subject_id}}&task={{cale.id}}',
+          title: '{{cale.name}}',
+          start: '{{cale.created_at | date:"Y-m-d" }}',
+          //url: '?subject={{subject_id}}&task={{cale.id}}'
+          },
+        )
+        {% endfor %}
+        // tasks.forEach(element => 
+        //   events.push(
+        //       {
+        //       id: '/app/get_tasks?subject='+subject_id+'&task='+element.id,
+        //       title: element.task+" "+subject_id+ " " +  element.id,
+        //       start: element.updated_at,
+        //       end: element.updated_at,
+        //       url: '#'
+        //       },
+        //   )
+        // )
+                
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+          
+          eventClick: function(info) {
+            get_tasks(info.event.id);
+            edit_modal.classList.add('active');
+            edit_overlay.classList.add('active');
+            events.push(
+              {
+                id: 'cale.id',
+                title: 'クラウドアプリ開発入門',
+                start: '2021-10-26',
+                end: '2021-11-03',
+                color: '#ff0000',
+                url: '#'
+              },
+            )
+            calendar.render();
+          },
+          eventAdd: function(obj) { // イベントが追加すると発生するイベント
+          console.log(obj);
+          },
+          eventChange: function(obj) { // イベントが修正されたら発生するイベント
+            console.log(obj);
+          },
+          eventRemove: function(obj){ // イベントが削除すると発生するイベント
+            console.log(obj);
+          },
+          select: function(arg) { // カレンダーでドラックでイベントを生成することが可能。
+          var title = prompt('Event Title:');
+          var task = prompt('課題名:');
+          var contents = prompt('内容：');
+          if (title) {
+            calendar.addEvent({
+              id:'/app/get_tasks?subject='+'0'+'&task='+task,
+              title: title,
+              start: arg.start,
+              end: arg.end,
+              allDay: arg.allDay
+            })
+          }
+          calendar.unselect()
+          } ,
+          height: '700px', // calendarの高さ設定
+          expandRows: true, // 画面に合わせて高さを再設定
+          slotMinTime: '08:00', // Dayカレンダーに開始時間
+          slotMaxTime: '20:00', // Dayカレンダーに終了時間
+          locale: 'ja',
+          headerToolbar: {
+            left: "dayGridMonth,listMonth",
+            center: "title",
+            right: "today prev,next"
+          },
+          buttonText: {
+            prev: '<',
+            next: '>',
+            prevYear: '<<',
+            nextYear: '>>',
+            today: '今日',
+            month: '月',
+            week: '週',
+            day: '日',
+            list: '一覧'
+          },
+        
+          navLinks: true, // 日付を選択するとDayカレンダーやWeekカレンダーにリンク
+          editable: true, // 修正可能
+          selectable: true, // カレンダーのドラッグ設定可能
+          nowIndicator: true, // 現在時間マーク
+          dayMaxEvents: true, // イベントの数がオバーすると高さの制限(+のマークと何個式で表現)
+          initialView: 'dayGridMonth',
+          events: events
+        });
+        calendar.render();
+        document.addEventListener
+        
+      }
+    );
     function filter(val){
       console.log(val)
       path="/app/get_tasks?subject="+val
@@ -47,6 +166,9 @@
         tasks = data.tasks;
         subject_id=data.subject_id
         console.log(tasks)
+        calendar.render()//機能してない
+        //calender.fullCalendar( 'rerenderEvents' );
+        
       })
       .catch(error => {
         // (5) エラーを受け取ったらコンソール出力
@@ -75,10 +197,11 @@
         console.log("課題名:"+data.task.name);
         console.log("科目名:"+data.task.subject);
         if(data.task_id!='0')
-          var str = "<h1>"+data.task.name+"</h1><p>課題ID:"+data.task_id+"</p><p>科目名:"+data.task.subject+"</p><p>作成者:"+data.task.author+"</p>";//課題編集モーダルに表示する内容
+          //課題編集モーダルに表示する内容
+          var str = "<h1>"+data.task.name+"</h1><p>課題ID:"+data.task_id+"</p><p>科目名:"+data.task.subject+"</p><p>作成者:"+data.task.author+"</p>";
           document.getElementById('task_detail').innerHTML = str ;
         subject_name = data.task.subject;
-        subject_id = data.subject_id;
+        subject_id = data.subject.id;
         task_id = data.task_id;
       })
       .catch(error => {
@@ -87,76 +210,6 @@
       });
       //alert("コンソールの出力を確認してください。")
     }
-    document.addEventListener('click', function () {
-      
-      //filter('40')
-      var events = []
-      events.push(
-        {
-          id: 'cale.id',
-          title: 'クラウドアプリ開発入門'+subject_id+tasks,
-          start: '2021-10-26',
-          end: '2021-11-03',
-          color: '#ff0000',
-          url: '#'
-        },
-      )
-      tasks.forEach(element => 
-        events.push(
-            {
-            id: '/app/get_tasks?subject='+subject_id+'&task='+element.id,
-            title: element.task,
-            start: element.updated_at,
-            end: element.updated_at,
-            url: '#'
-            },
-        )
-      )
-            
-     
-      var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      eventClick: function(info) {
-        get_tasks(info.event.id);
-        edit_modal.classList.add('active');
-        edit_overlay.classList.add('active');
-        events.push(
-        {
-          id: 'cale.id',
-          title: 'クラウドアプリ開発入門',
-          start: '2021-10-26',
-          end: '2021-11-03',
-          color: '#ff0000',
-          url: '#'
-        },
-        )
-        calendar.render();
-      },
-      locale: 'ja',
-      height: 'auto',
-      headerToolbar: {
-        left: "dayGridMonth,listMonth",
-        center: "title",
-        right: "today prev,next"
-      },
-      buttonText: {
-        prev: '<',
-        next: '>',
-        prevYear: '<<',
-        nextYear: '>>',
-        today: '今日',
-        month: '月',
-        week: '週',
-        day: '日',
-        list: '一覧'
-      },
-    
-       
-      initialView: 'dayGridMonth',
-      events: events
-    });
-    calendar.render();
-      });
   </script>
   <style>
     #calendar {
@@ -177,6 +230,8 @@
     #calendar td.fc-day-today{
       background-color:rgb(255,165,0);
     }
+  
+ 
   </style>
 </head>
 
@@ -188,16 +243,16 @@
             <th>科目一覧</th>
           </tr>
           {% for item in subjects %}
-            <tr>
-              {% if item.id == subject_id_i %}
-              <td class="highlight" onclick="(function(){var val = '{{item.id}}';filter(val);})();">{{item.name}}</td>
-              {% else %}
-              <td onclick="(function(){var val = '{{item.id}}';filter(val);})();">{{item.name}}</td>
-              {% endif %}
-            </tr>
-          {% empty %}
-            <tr><td>現在登録されている科目がありません</td></tr>
-          {% endfor %}
+          <tr>
+            {% if item.id == subject_id_i %}
+            <td><a href="?subject={{item.id}}" class="highlight">{{item.name}}</td>
+            {% else %}
+            <td><a href="?subject={{item.id}}">{{item.name}}</td>
+            {% endif %}
+          </tr>
+        {% empty %}
+          <tr><td>現在登録されている科目がありません</td></tr>
+        {% endfor %}
           
         </table>
         <!-- クリックしたらモーダルを表示するボタン -->

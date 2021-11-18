@@ -15,11 +15,15 @@ def get_tasks(request):
     
     response_data = {
         "subject_id": subject_id,
-        "subject_name": Subject.objects.get(id=subject_id).name,
+        "subject": '',
         "task_id":task_id,
         "tasks": [],
         "task":'0',
     }
+
+    
+    subject = Subject.objects.get(id=subject_id)
+    response_data["subject"]=(subject_to_dict(subject))
     objs = Task.objects.filter(subject_id=subject_id).all()
     for obj in objs:
         response_data["tasks"].append(to_dict(obj))
@@ -30,7 +34,8 @@ def get_tasks(request):
 
     return JsonResponse(response_data)
 
-
+def subject_to_dict(data):
+    return {"id":data.id,"name":data.name}
 
 def to_dict(data):
 
@@ -40,7 +45,6 @@ def to_detail_dict(data):
     obj = Task.objects.get(id=data.id)
     return {
         "subject": data.subject_id.name,
-        "subject_id":data.task.subject_id,
         "name": data.name,
         "contents":data.contents,
         "author":data.author,
