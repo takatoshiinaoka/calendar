@@ -165,10 +165,7 @@
         console.log("科目名:"+data.subject_name);
         tasks = data.tasks;
         subject_id=data.subject_id
-        console.log(tasks)
-        calendar.render()//機能してない
-        //calender.fullCalendar( 'rerenderEvents' );
-        
+        console.log(tasks)  
       })
       .catch(error => {
         // (5) エラーを受け取ったらコンソール出力
@@ -198,7 +195,13 @@
         console.log("科目名:"+data.task.subject);
         if(data.task_id!='0')
           //課題編集モーダルに表示する内容
-          var str = "<h1>"+data.task.name+"</h1><p>課題ID:"+data.task_id+"</p><p>科目名:"+data.task.subject+"</p><p>作成者:"+data.task.author+"</p>";
+          var str = "<h1>"+data.task.name+"</h1><p>課題ID:"
+            +data.task_id+"</p><p>科目名:"
+            +data.task.subject+"</p><p>作成者:"
+            +data.task.author+"</p><a href='/app/delete_task?task="
+            +data.task_id
+            +"&subject="+data.subject.id
+            +"'>削除</a>"
           document.getElementById('task_detail').innerHTML = str ;
         subject_name = data.task.subject;
         subject_id = data.subject.id;
@@ -294,7 +297,7 @@
  
   <table>
     <th>課題の追加</th>
-    <form action="{% url 'index' %}" method = "post">
+    <form action="/create_task?subject={{subject_id}}" method = "post">
       {% csrf_token %}
       {{ form_task.as_table }}
       <tr><td></td><td><input type="submit" name="create_task" value="click"></td></tr>

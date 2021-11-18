@@ -53,4 +53,17 @@ def to_detail_dict(data):
         #"form":TaskForm(request.POST,instance=obj),
     }
 
+from django.shortcuts import redirect
 
+def delete_task(request):#todo ユーザーに確認するページを追加
+    path='/'
+    num='0'
+    if 'subject' in request.GET:
+        subject_id = request.GET['subject']
+        path='/?subject='+subject_id
+    if 'task' in request.GET:
+        num = request.GET['task']
+        task = Task.objects.get(id=num)
+        task.delete()
+    
+    return redirect(to=path)

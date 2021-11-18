@@ -234,11 +234,16 @@ def task(request,num=1):
 
 #課題の作成
 def create_task(request):
+   path='/task/1'
+   if 'subject' in request.GET:
+      subject_id = request.GET['subject']
+      path='/?subject='+subject_id
    if(request.method == 'POST'):
       obj = Task(author = request.user)
       task = TaskForm(request.POST,instance=obj)
       task.save()
-      return redirect(to = '/task/1')
+      return redirect(to = path)
+
    params = {
       'title' : '課題の作成',
       'form' : TaskForm(),
