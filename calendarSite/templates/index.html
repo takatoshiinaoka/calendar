@@ -84,27 +84,34 @@
             console.log(obj);
           },
           select: function(arg) { // カレンダーでドラックでイベントを生成することが可能。
-          var title = prompt('課題名:');
-          var contents = prompt('内容：');
-          if (title) {
-            calendar.addEvent({
-              id:'/app/save_task?subject='+{{subject_id}}
-              +'&name='+title
-              +'&start='+ arg.start
-              +'&goal='+arg.end
-              ,
-              title: title,
-              start: arg.start,
-              end: arg.end,
-              allDay: arg.allDay
-            })
-          }
-          calendar.unselect()
+            var title = prompt('課題名:');
+            var contents = prompt('内容：');
+            let _start=arg.start.toISOString().split("T");//toISOString()のT部分でスプリット
+            console.log(_start)
+            let _goal=arg.end.toISOString().split("T");//toISOString()のT部分でスプリット
+            console.log(_goal)
+            if (title) {
+              calendar.addEvent({
+                id:'/app/save_task?subject='+{{subject_id}}
+                +'&name='+title
+                +'&start='+ _start[0]
+                +'&goal='+ _goal[0]
+                ,
+                title: title,
+                start: arg.start,
+                end: arg.end,
+                allDay: arg.allDay
+              })
+            }
+            calendar.unselect()
+            var path=""
+            path = path + "?subject=" + {{subject_id}} 
+            window.location.href = ''; //todo カレンダーを再レンダリングしたい
           } ,
           height: '700px', // calendarの高さ設定
           expandRows: true, // 画面に合わせて高さを再設定
-          slotMinTime: '08:00', // Dayカレンダーに開始時間
-          slotMaxTime: '20:00', // Dayカレンダーに終了時間
+          slotMinTime: '12:00', // Dayカレンダーに開始時間
+          slotMaxTime: '12:00', // Dayカレンダーに終了時間
           locale: 'ja',
           headerToolbar: {
             left: "dayGridMonth,listMonth",
