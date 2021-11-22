@@ -48,7 +48,8 @@
           {
           id: '/app/get_tasks?subject={{subject_id}}&task={{cale.id}}',
           title: '{{cale.name}}',
-          start: '{{cale.created_at | date:"Y-m-d" }}',
+          start: '{{cale.start | date:"Y-m-d" }}',
+          end: '{{cale.goal | date:"Y-m-d" }}',
           //url: '?subject={{subject_id}}&task={{cale.id}}'
           },
         )
@@ -89,6 +90,8 @@
             calendar.addEvent({
               id:'/app/save_task?subject='+{{subject_id}}
               +'&name='+title
+              +'&start='+ arg.start
+              +'&goal='+arg.end
               ,
               title: title,
               start: arg.start,

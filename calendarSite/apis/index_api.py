@@ -74,7 +74,12 @@ def save_task(request):
         subject_id = request.GET['subject']
     if 'name' in request.GET:
         name = request.GET['name']
+    if 'start' in request.GET:
+        start = request.GET['start']
+    if 'goal' in request.GET:
+        goal = request.GET['goal']
+    print(start+"これはprintによる出力です")
     subject=Subject.objects.get(id=subject_id)
-    obj = Task(subject_id=subject,name=name,author = request.user,)
+    obj = Task(subject_id=subject,name=name,author = request.user,start=start,goal=goal)
     obj.save()
     return redirect(to="/")
