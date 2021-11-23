@@ -50,6 +50,8 @@ def to_detail_dict(data):
         "author":data.author,
         "created_at":data.created_at,
         "updated_at":data.updated_at,
+        "start":data.start,
+        "goal":data.goal,
         #"form":TaskForm(request.POST,instance=obj),
     }
 

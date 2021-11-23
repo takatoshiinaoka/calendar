@@ -156,7 +156,7 @@
             calendar.unselect()
             var path=""
             path = path + "?subject=" + {{subject_id}} 
-            //window.location.href = path; //todo カレンダーを再レンダリングしたい
+            window.location.href = path; //todo カレンダーを再レンダリングしたい
           } ,
           height: '700px', // calendarの高さ設定
           expandRows: true, // 画面に合わせて高さを再設定
@@ -243,15 +243,27 @@
         console.log("課題ID:"+data.task_id);
         console.log("課題名:"+data.task.name);
         console.log("科目名:"+data.task.subject);
+        editQuery=
+        "task="+data.task_id
+        +"&subject="+data.subject_id
+        +"&start="+data.task.start
+        +"&goal="+data.task.goal
+        +"&created_at="+data.task.created_at
+
         if(data.task_id!='0')
           //課題編集モーダルに表示する内容
-          var str = "<h1>"+data.task.name+"</h1><p>課題ID:"
-            +data.task_id+"</p><p>科目名:"
-            +data.task.subject+"</p><p>作成者:"
-            +data.task.author+"</p><a style='color:red' href='/app/delete_task?task="
-            +data.task_id
-            +"&subject="+data.subject.id
-            +"'>削除</a>"
+          var str = 
+          "<h1>"+data.task.name+"</h1>"
+          +"<p>課題ID:"+data.task_id+"</p>"
+          +"<p>科目名:"+data.task.subject+"</p>"
+          +"<p>作成者:"+data.task.author+"</p>"
+          +"<label for='name"+data.task_id+"''>課題名:</label>"
+          +"<input type='text' id='name"+data.task_id+"'><br>"
+          +"<label for='content"+data.task_id+"''>内容:</label>"
+          +"<input type='text' id='content"+data.task_id+"'><br>"
+          +"<div onclick='edit()'>送信</div>"
+          +"<a style='color:red' href='/app/delete_task?task="+data.task_id+"&subject="+data.subject.id+"'>削除</a>"
+
           document.getElementById('task_detail').innerHTML = str ;
         subject_name = data.task.subject;
         subject_id = data.subject.id;
@@ -284,6 +296,28 @@
       })
       .catch(error => {
         console.error(error);
+      });
+    }
+    function edit(){
+      console.log("a")
+      path = '/app/save_task?'+editQuery
+      if(document.getElementById("name"+task_id)===null){
+        return 0
+      }  
+      path = path + "&name=" + document.getElementById("name"+task_id).value
+      console.log(path)
+      fetch(path)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Not ok');
+        }
+      })
+      .then(data => {
+        window.location.href = "?subject={{subject_id}}";
+      })
+      .catch(error => {
+        console.error(error);
+
       });
     }
   </script>
