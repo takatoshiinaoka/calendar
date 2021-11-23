@@ -86,16 +86,20 @@
           select: function(arg) { // カレンダーでドラックでイベントを生成することが可能。
             var title = prompt('課題名:');
             var contents = prompt('内容：');
-            let _start=arg.start.toISOString().split("T");//toISOString()のT部分でスプリット
-            console.log(_start)
-            let _goal=arg.end.toISOString().split("T");//toISOString()のT部分でスプリット
-            console.log(_goal)
+            //日付の形式を変更する処理
+            let s=arg.start.toISOString().split("T");//toISOString()のT部分でスプリット
+            let _start = s[0].split("-");
+            _start[2] = String(Number(_start[2])+1);
+            let g=arg.end.toISOString().split("T");//toISOString()のT部分でスプリット
+            let _goal = g[0].split("-");
+            _goal[2] = String(Number(_goal[2])+1);
+            console.log(g);
             if (title) {
               calendar.addEvent({
                 id:'/app/save_task?subject='+{{subject_id}}
                 +'&name='+title
-                +'&start='+ _start[0]
-                +'&goal='+ _goal[0]
+                +'&start='+ _start.join('-')
+                +'&goal='+ _goal.join('-')
                 ,
                 title: title,
                 start: arg.start,
@@ -106,7 +110,7 @@
             calendar.unselect()
             var path=""
             path = path + "?subject=" + {{subject_id}} 
-            window.location.href = path; //todo カレンダーを再レンダリングしたい
+            //window.location.href = path; //todo カレンダーを再レンダリングしたい
           } ,
           height: '700px', // calendarの高さ設定
           expandRows: true, // 画面に合わせて高さを再設定
