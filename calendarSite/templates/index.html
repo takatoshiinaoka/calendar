@@ -261,7 +261,7 @@
           +"<input type='text' id='name"+data.task_id+"'><br>"
           +"<label for='content"+data.task_id+"''>内容:</label>"
           +"<input type='text' id='content"+data.task_id+"'><br>"
-          +"<div onclick='edit()'>送信</div>"
+          +"<button onclick='edit()'>送信</button>"
           +"<a style='color:red' href='/app/delete_task?task="+data.task_id+"&subject="+data.subject.id+"'>削除</a>"
 
           document.getElementById('task_detail').innerHTML = str ;

@@ -50,6 +50,9 @@ def index(request):#トップページ(科目を指定しない場合)
          subject.save()
          return response
    print(tasks)
+   initial_dict={
+      'subject_id' : subject_id,
+   }
    dbData={
          "tasks":tasks,
          "user":user,
@@ -57,7 +60,7 @@ def index(request):#トップページ(科目を指定しない場合)
          'subject_id' : subject_id,
          'task_id':task_id,
          'task':task,
-         'form_task' : TaskForm(),
+         'form_task' : TaskForm(initial=initial_dict),
          'form_subject': SubjectForm(),
          'subject_id_i':int(subject_id),
          'task_id_i':int(task_id),
