@@ -43,10 +43,41 @@
             url: '#'
           },
         )
+        let tmp = []
+        let s = []
+        let g = []
+        let c = []
+        let item = ""
         {% for cale in tasks %}
+        // todo 後で関数に
+        item="{{cale.start}}"
+        tmp=item.split("年")
+        s[0]=tmp[0]
+        tmp=tmp[1].split("月")
+        s[1]=tmp[0]
+        tmp=tmp[1].split("日")
+        s[2]=tmp[0]
+
+        item="{{cale.goal}}"
+        tmp=item.split("年")
+        g[0]=tmp[0]
+        tmp=tmp[1].split("月")
+        g[1]=tmp[0]
+        tmp=tmp[1].split("日")
+        g[2]=tmp[0]
+        
+        item="{{cale.created_at}}"
+        tmp=item.split("年")
+        c[0]=tmp[0]
+        tmp=tmp[1].split("月")
+        c[1]=tmp[0]
+        tmp=tmp[1].split("日")
+        c[2]=tmp[0]
+
         events.push(
           {
-          id: '/app/get_tasks?subject={{subject_id}}&task={{cale.id}}',
+          id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&start='
+          +s.join('-')+'&goal='+g.join('-')+'&created_at='+c.join('-'),
           title: '{{cale.name}}',
           start: '{{cale.start | date:"Y-m-d" }}',
           end: '{{cale.goal | date:"Y-m-d" }}',
@@ -70,33 +101,48 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
           
           eventClick: function(info) {
-            get_tasks(info.event.id);
+            get_tasks('/app/get_tasks'+info.event.id);
             edit_modal.classList.add('active');
             edit_overlay.classList.add('active');
           },
           eventAdd: function(obj) { // イベントが追加すると発生するイベント
-            save_task(obj.event.id)
+            save_task('/app/save_task'+obj.event.id)
           },
           eventChange: function(obj) { // イベントが修正されたら発生するイベント
-            console.log(obj);
+            let s=obj.event.start.toISOString().split("T");//toISOString()のT部分でスプリット
+            let _start = s[0].split("-");
+            _start[2] = String(Number(_start[2])+1);
+            let g=obj.event.end.toISOString().split("T");//toISOString()のT部分でスプリット
+            let _goal = g[0].split("-");
+            _goal[2] = String(Number(_goal[2])+1);
+            
+            let query = obj.event.id.split('&')
+            query[3]="start="+_start.join('-')//todo            
+            query[4]="goal="+_goal.join('-')//todo            
+
+            save_task('/app/save_task'+query.join('&'))
+
           },
-          eventRemove: function(obj){ // イベントが削除すると発生するイベント
+          eventRemove: function(obj){ // イベントを削除すると発生するイベント
             console.log(obj);
           },
           select: function(arg) { // カレンダーでドラックでイベントを生成することが可能。
             var title = prompt('課題名:');
             var contents = prompt('内容：');
             //日付の形式を変更する処理
+            //todo
             let s=arg.start.toISOString().split("T");//toISOString()のT部分でスプリット
+            console.log(s)
             let _start = s[0].split("-");
             _start[2] = String(Number(_start[2])+1);
             let g=arg.end.toISOString().split("T");//toISOString()のT部分でスプリット
+            console.log(g)
             let _goal = g[0].split("-");
             _goal[2] = String(Number(_goal[2])+1);
             console.log(g);
             if (title) {
               calendar.addEvent({
-                id:'/app/save_task?subject='+{{subject_id}}
+                id:'?subject='+{{subject_id}}
                 +'&name='+title
                 +'&start='+ _start.join('-')
                 +'&goal='+ _goal.join('-')
@@ -202,7 +248,7 @@
           var str = "<h1>"+data.task.name+"</h1><p>課題ID:"
             +data.task_id+"</p><p>科目名:"
             +data.task.subject+"</p><p>作成者:"
-            +data.task.author+"</p><a href='/app/delete_task?task="
+            +data.task.author+"</p><a style='color:red' href='/app/delete_task?task="
             +data.task_id
             +"&subject="+data.subject.id
             +"'>削除</a>"

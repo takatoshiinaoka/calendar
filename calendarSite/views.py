@@ -49,6 +49,7 @@ def index(request):#トップページ(科目を指定しない場合)
          subject = SubjectForm(request.POST,instance=obj)
          subject.save()
          return response
+   print(tasks)
    dbData={
          "tasks":tasks,
          "user":user,
