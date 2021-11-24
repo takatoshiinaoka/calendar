@@ -44,28 +44,20 @@
           },
         )
         let tmp = []
-        let s = []
-        let g = []
+        let e = []
         let c = []
         let item = ""
         {% for cale in tasks %}
         // todo 後で関数に
-        console.log("{{cale.start}}")
-        item="{{cale.start}}"
-        tmp=item.split("年")
-        s[0]=tmp[0]
-        tmp=tmp[1].split("月")
-        s[1]=tmp[0]
-        tmp=tmp[1].split("日")
-        s[2]=tmp[0]
+       
 
-        item="{{cale.goal}}"
+        item="{{cale.end}}"
         tmp=item.split("年")
-        g[0]=tmp[0]
+        e[0]=tmp[0]
         tmp=tmp[1].split("月")
-        g[1]=tmp[0]
+        e[1]=tmp[0]
         tmp=tmp[1].split("日")
-        g[2]=tmp[0]
+        e[2]=tmp[0]
         
         item="{{cale.created_at}}"
         tmp=item.split("年")
@@ -77,11 +69,10 @@
 
         events.push(
           {
-          id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&start='
-          +s.join('-')+'&goal='+g.join('-')+'&created_at='+c.join('-'),
+          id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&end='
+          +e.join('-')+'&created_at='+c.join('-'),
           title: '{{cale.name}}',
-          start: '{{cale.start | date:"Y-m-d" }}',
-          end: '{{cale.goal | date:"Y-m-d" }}',
+          start: e.join('-'),
           //url: '?subject={{subject_id}}&task={{cale.id}}'
           },
         )
@@ -108,17 +99,13 @@
           },
           
           eventChange: function(obj) { // イベントが修正されたら発生するイベント
-            let s=obj.event.start.toISOString().split("T");//toISOString()のT部分でスプリット
-            let _start = s[0].split("-");
-            _start[2] = String(Number(_start[2])+1);
-            let g=obj.event.end.toISOString().split("T");//toISOString()のT部分でスプリット
-            let _goal = g[0].split("-");
-            _goal[2] = String(Number(_goal[2])+1);
-            
+            console.log(obj.event.start)
+            let e=obj.event.start.toISOString().split("T");//toISOString()のT部分でスプリット
+            let _end = e[0].split("-");
+            _end[2] = String(Number(_end[2])+1);
+          
             let query = obj.event.id.split('&')
-            query[3]="start="+_start.join('-')//todo            
-            query[4]="goal="+_goal.join('-')//todo            
-
+            query[3]="end="+_end.join('-')//todo            
             save_task('/app/save_task'+query.join('&'))
 
           },
@@ -213,8 +200,7 @@
         editQuery=
         "task="+data.task_id
         +"&subject="+data.subject_id
-        +"&start="+data.task.start
-        +"&goal="+data.task.goal
+        +"&end="+data.task.end
         +"&created_at="+data.task.created_at
 
         if(data.task_id!='0')

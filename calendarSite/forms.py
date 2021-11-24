@@ -70,5 +70,5 @@ class SubjectForm(forms.ModelForm):
 class TaskForm(forms.ModelForm):
     class Meta:
         model = Task
-        fields = ['subject_id','name','contents','start','goal']
+        fields = ['subject_id','name','contents','end']
 
