@@ -106,9 +106,7 @@
             edit_modal.classList.add('active');
             edit_overlay.classList.add('active');
           },
-          eventAdd: function(obj) { // イベントが追加すると発生するイベント
-            save_task('/app/save_task'+obj.event.id)
-          },
+          
           eventChange: function(obj) { // イベントが修正されたら発生するイベント
             let s=obj.event.start.toISOString().split("T");//toISOString()のT部分でスプリット
             let _start = s[0].split("-");
@@ -127,38 +125,7 @@
           eventRemove: function(obj){ // イベントを削除すると発生するイベント
             console.log(obj);
           },
-          select: function(arg) { // カレンダーでドラックでイベントを生成することが可能。
-            var title = prompt('課題名:');
-            var contents = prompt('内容：');
-            //日付の形式を変更する処理
-            //todo
-            let s=arg.start.toISOString().split("T");//toISOString()のT部分でスプリット
-            console.log(s)
-            let _start = s[0].split("-");
-            _start[2] = String(Number(_start[2])+1);
-            let g=arg.end.toISOString().split("T");//toISOString()のT部分でスプリット
-            console.log(g)
-            let _goal = g[0].split("-");
-            _goal[2] = String(Number(_goal[2])+1);
-            console.log(g);
-            if (title) {
-              calendar.addEvent({
-                id:'?subject='+{{subject_id}}
-                +'&name='+title
-                +'&start='+ _start.join('-')
-                +'&goal='+ _goal.join('-')
-                ,
-                title: title,
-                start: arg.start,
-                end: arg.end,
-                allDay: arg.allDay
-              })
-            }
-            calendar.unselect()
-            var path=""
-            path = path + "?subject=" + {{subject_id}} 
-            window.location.href = path; //todo カレンダーを再レンダリングしたい
-          } ,
+         
           height: '700px', // calendarの高さ設定
           expandRows: true, // 画面に合わせて高さを再設定
           slotMinTime: '12:00', // Dayカレンダーに開始時間
@@ -183,7 +150,6 @@
         
           navLinks: true, // 日付を選択するとDayカレンダーやWeekカレンダーにリンク
           editable: true, // 修正可能
-          selectable: true, // カレンダーのドラッグ設定可能
           nowIndicator: true, // 現在時間マーク
           dayMaxEvents: true, // イベントの数がオバーすると高さの制限(+のマークと何個式で表現)
           initialView: 'dayGridMonth',
