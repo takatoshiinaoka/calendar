@@ -33,16 +33,16 @@
         //filter('40')
         var events = []
 
-        events.push(
-          {
-            id: '/app/get_tasks?subject=37&task=70',
-            title: ''+subject_id+tasks,
-            start: '2021-10-10',
-            end: '2022-01-26',
-            color: '#007000',
-            url: '#'
-          },
-        )
+        // events.push(
+        //   {
+        //     id: '/app/get_tasks?subject=37&task=70',
+        //     title: ''+subject_id+tasks,
+        //     start: '2021-10-10',
+        //     end: '2022-01-26',
+        //     color: '#007000',
+        //     url: '#'
+        //   },
+        // )
         let tmp = []
         let e = []
         let c = []
@@ -66,13 +66,12 @@
         c[1]=tmp[0]
         tmp=tmp[1].split("日")
         c[2]=tmp[0]
-
         events.push(
           {
           id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&end='
           +e.join('-')+'&created_at='+c.join('-'),
           title: '{{cale.name}}',
-          start: e.join('-'),
+          start: '{{cale.end | date:"Y-m-d" }}',
           //url: '?subject={{subject_id}}&task={{cale.id}}'
           },
         )
@@ -100,12 +99,14 @@
           
           eventChange: function(obj) { // イベントが修正されたら発生するイベント
             console.log(obj.event.start)
-            let e=obj.event.start.toISOString().split("T");//toISOString()のT部分でスプリット
-            let _end = e[0].split("-");
-            _end[2] = String(Number(_end[2])+1);
+            let s=obj.event.start.toISOString().split("T");//toISOString()のT部分でスプリット
+            let _start = s[0].split("-");
+            _start[2] = String(Number(_start[2])+1);
+            console.log(obj.event.end)//なんかnulになってる
           
             let query = obj.event.id.split('&')
-            query[3]="end="+_end.join('-')//todo            
+            query[3]="end="+_start.join('-')//todo            
+            console.log(s)
             save_task('/app/save_task'+query.join('&'))
 
           },
