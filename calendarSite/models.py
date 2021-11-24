@@ -28,6 +28,8 @@ class Task(models.Model):
     contents = models.CharField(blank=True,default='',max_length=100)
     created_at = models.DateTimeField(auto_now_add=True, help_text='作成日')
     updated_at = models.DateTimeField(auto_now=True, help_text='更新日')
+    start = models.DateTimeField(default=timezone.now())
+    goal = models.DateTimeField(default=timezone.now())
     
 
 

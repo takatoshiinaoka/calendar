@@ -49,6 +49,10 @@ def index(request):#トップページ(科目を指定しない場合)
          subject = SubjectForm(request.POST,instance=obj)
          subject.save()
          return response
+   print(tasks)
+   initial_dict={
+      'subject_id' : subject_id,
+   }
    dbData={
          "tasks":tasks,
          "user":user,
@@ -56,7 +60,7 @@ def index(request):#トップページ(科目を指定しない場合)
          'subject_id' : subject_id,
          'task_id':task_id,
          'task':task,
-         'form_task' : TaskForm(),
+         'form_task' : TaskForm(initial=initial_dict),
          'form_subject': SubjectForm(),
          'subject_id_i':int(subject_id),
          'task_id_i':int(task_id),
@@ -234,11 +238,16 @@ def task(request,num=1):
 
 #課題の作成
 def create_task(request):
+   path='/task/1'
+   if 'subject' in request.GET:
+      subject_id = request.GET['subject']
+      path='/?subject='+subject_id
    if(request.method == 'POST'):
       obj = Task(author = request.user)
       task = TaskForm(request.POST,instance=obj)
       task.save()
-      return redirect(to = '/task/1')
+      return redirect(to = path)
+
    params = {
       'title' : '課題の作成',
       'form' : TaskForm(),
