@@ -36,10 +36,10 @@
         events.push(
           {
             id: '/app/get_tasks?subject=37&task=70',
-            title: 'クラウドアプリ開発入門'+subject_id+tasks,
-            start: '2021-10-26',
-            end: '2021-11-03',
-            color: '#ff0000',
+            title: ''+subject_id+tasks,
+            start: '2021-10-10',
+            end: '2022-01-26',
+            color: '#007000',
             url: '#'
           },
         )
@@ -50,6 +50,7 @@
         let item = ""
         {% for cale in tasks %}
         // todo 後で関数に
+        console.log("{{cale.start}}")
         item="{{cale.start}}"
         tmp=item.split("年")
         s[0]=tmp[0]
