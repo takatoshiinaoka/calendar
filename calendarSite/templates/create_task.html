@@ -14,6 +14,7 @@
         <a href="{% url 'create_subject' %}">科目の追加</a>
         {% csrf_token %}
         {{ form.as_table }}
+        <input type = 'date' name='end'>
         <tr><td></td><td><input type="submit" value="click"></td></tr>
       </form>
     </table>
