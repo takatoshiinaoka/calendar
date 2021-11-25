@@ -340,6 +340,8 @@
     <form action="/create_task?subject={{subject_id}}" method = "post">
       {% csrf_token %}
       {{ form_task.as_table }}
+      <label for="start">締め切り日:</label>
+      <input type="date" id="end" name="end" value="2021-11-25">
       <tr><td></td><td><input type="submit" name="create_task" value="click"></td></tr>
     </form>
     <th>科目の追加</th>

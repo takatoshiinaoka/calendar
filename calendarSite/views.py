@@ -32,21 +32,13 @@ def index(request):#トップページ(科目を指定しない場合)
       response = redirect('/')
       get_params = request.GET.urlencode()
       response['location'] += '?'+get_params#クエリパラメータを引き継ぎたいけどうまくいかない
-      if 'create_task' in request.POST:
-         obj = Task(author = request.user)
-         task = TaskForm(request.POST,instance=obj)
-         task.save()
-         return response
-      if 'edit_task' in request.POST:
-         obj = Task(author = request.user)
-         task = TaskForm(request.POST,instance=obj)
-         task.save()
-         return response
-      elif 'create_subject' in request.POST:
+   
+   if 'create_subject' in request.POST:
          obj = Subject()
          subject = SubjectForm(request.POST,instance=obj)
          subject.save()
          return response
+         
    print(tasks)
    initial_dict={
       'subject_id' : subject_id,
@@ -240,7 +232,7 @@ def create_task(request):
       subject_id = request.GET['subject']
       path='/?subject='+subject_id
    if(request.method == 'POST'):
-      obj = Task(author = request.user)
+      obj = Task(author = request.user,end=request.POST['end'])
       task = TaskForm(request.POST,instance=obj)
       task.save()
       return redirect(to = path)
