@@ -50,8 +50,7 @@ def to_detail_dict(data):
         "author":data.author,
         "created_at":data.created_at,
         "updated_at":data.updated_at,
-        "start":data.start,
-        "goal":data.goal,
+        "end":data.end,
         #"form":TaskForm(request.POST,instance=obj),
     }
 
@@ -76,20 +75,19 @@ def save_task(request):
         subject_id = request.GET['subject']
     if 'name' in request.GET:
         name = request.GET['name']
-    if 'start' in request.GET:
-        start = request.GET['start']
-    if 'goal' in request.GET:
-        goal = request.GET['goal']
+    if 'end' in request.GET:
+        end = request.GET['end']
+    
     if 'created_at' in request.GET:
         created_at = request.GET['created_at']
     
     subject=Subject.objects.get(id=subject_id)
     if 'task' in request.GET:
         id = request.GET['task']
-        obj = Task(id=id,subject_id=subject,name=name,author = request.user,start=start,goal=goal,created_at=created_at)#todo
+        obj = Task(id=id,subject_id=subject,name=name,author = request.user,end=end,created_at=created_at)#todo
         print("課題の編集を行います")
     else:
-        obj = Task(subject_id=subject,name=name,author = request.user,start=start,goal=goal)
+        obj = Task(subject_id=subject,name=name,author = request.user,end=end)
         print("課題の作成を行います")
     obj.save()
     return redirect(to="/")
