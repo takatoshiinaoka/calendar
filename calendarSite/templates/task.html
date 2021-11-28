@@ -32,7 +32,7 @@
           <tr>
             <td>{{item.name}}</td>
             <td><a href="/taskDetail/{{ item.id }}">{{item.subject_id.name}}</a></td>
-            <td>{{item.author}}</td>
+            <td>{{item.subject_id}}</td>
             <td>{{item.created_at | date:'Y/m/d H:i'}}</td>
             <td>{{item.updated_at | date:'Y/m/d H:i'}}</td>
             <td><a href="/taskDetail/{{ item.id }}">詳細</a></td>

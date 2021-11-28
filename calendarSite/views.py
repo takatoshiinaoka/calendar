@@ -17,13 +17,11 @@ from calendarSite.models import Subject
 def index(request):#トップページ(科目を指定しない場合)
    subject_id = '0'
    task_id = '0'
-   modal_flag= False
    if 'subject' in request.GET:
       subject_id = request.GET['subject']
   
    if 'task' in request.GET:
       task_id = request.GET['task']
-      modal_flag = True
   
    tasks = Task.objects.filter(subject_id=subject_id).all() 
    task = Task.objects.filter(id=task_id).all() 
@@ -34,21 +32,17 @@ def index(request):#トップページ(科目を指定しない場合)
       response = redirect('/')
       get_params = request.GET.urlencode()
       response['location'] += '?'+get_params#クエリパラメータを引き継ぎたいけどうまくいかない
-      if 'create_task' in request.POST:
-         obj = Task(author = request.user)
-         task = TaskForm(request.POST,instance=obj)
-         task.save()
-         return response
-      if 'edit_task' in request.POST:
-         obj = Task(author = request.user)
-         task = TaskForm(request.POST,instance=obj)
-         task.save()
-         return response
-      elif 'create_subject' in request.POST:
+   
+   if 'create_subject' in request.POST:
          obj = Subject()
          subject = SubjectForm(request.POST,instance=obj)
          subject.save()
          return response
+         
+   print(tasks)
+   initial_dict={
+      'subject_id' : subject_id,
+   }
    dbData={
          "tasks":tasks,
          "user":user,
@@ -56,11 +50,10 @@ def index(request):#トップページ(科目を指定しない場合)
          'subject_id' : subject_id,
          'task_id':task_id,
          'task':task,
-         'form_task' : TaskForm(),
+         'form_task' : TaskForm(initial=initial_dict),
          'form_subject': SubjectForm(),
          'subject_id_i':int(subject_id),
          'task_id_i':int(task_id),
-         'modal_flag':modal_flag
    }
    if task_id != '0':
       obj=Task.objects.get(id=task_id)
@@ -234,11 +227,16 @@ def task(request,num=1):
 
 #課題の作成
 def create_task(request):
+   path='/task/1'
+   if 'subject' in request.GET:
+      subject_id = request.GET['subject']
+      path='/?subject='+subject_id
    if(request.method == 'POST'):
-      obj = Task(author = request.user)
+      obj = Task(author = request.user,end=request.POST['end'])
       task = TaskForm(request.POST,instance=obj)
       task.save()
-      return redirect(to = '/task/1')
+      return redirect(to = path)
+
    params = {
       'title' : '課題の作成',
       'form' : TaskForm(),
