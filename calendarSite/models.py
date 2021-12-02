@@ -27,8 +27,6 @@ class Task(models.Model):
     name = models.CharField(max_length=100)
     author = models.CharField(default = '',max_length=100)
     contents = models.CharField(blank=True,default='',max_length=100)
-    created_at = models.DateTimeField(auto_now_add=True, help_text='作成日')
-    updated_at = models.DateTimeField(auto_now=True, help_text='更新日')
     end = models.DateTimeField(default=timezone.now())
     
 class User_Subject(models.Model):
@@ -37,4 +35,9 @@ class User_Subject(models.Model):
     week=models.CharField(max_length=200)
     period=models.CharField(max_length=200)
 
-
+class User_Task(models.Model):
+    user_id=models.CharField(max_length=200)
+    task_id=models.CharField(max_length=200)
+    done=models.CharField(max_length=200)
+    notice=models.CharField(max_length=200)
+    howlong=models.CharField(max_length=200)
