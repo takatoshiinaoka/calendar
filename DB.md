@@ -4,6 +4,7 @@
 |--|--|--|
 |id|int|user_id|
 |name|str|user_name|
+|twitter_id|str| |
 
 ## Subject
 |カラム名|データ型|説明|

@@ -37,9 +37,7 @@
 
         activate env
 
-5. clone後**初めて**VSCodeを開く場合は、以下のコマンドを打つ!(2回目以降はしなくてよい)
-   
-        python manage.py migrate
+
 
 6. django-alauthをインストールしていなければ、以下のコマンドを打つ
 
@@ -91,9 +89,16 @@
 3.mainブランチに移動し，フォーク元の差分をマージする
 
     git merge upstream/main
-4.Dangoのユーザー機能のインストール
+
+4 **DBファイル**「db.sqlite3」と **マイグレーションファイル** 「000X~」の削除
          
-    pip install django-allauth
+5.マイグレーションファイルの作成
+
+    python manage.py makemigrations
+
+6.DBの作成
+   
+    python manage.py migrate
 
 ## 8. 編集
 担当になった機能を実装します．変更したら，自分のリモートリポジトリにプッシュします．
