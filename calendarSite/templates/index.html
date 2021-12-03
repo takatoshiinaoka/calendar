@@ -2,10 +2,13 @@
 {% block content %}
 {% load static %}
 <!DOCTYPE html>
+
 <head>
   <meta charset='utf-8' />
-  <link href="{% static 'css/modal.css' %}" rel="stylesheet" /><!--モーダル-->
-  <link href="{% static 'css/edit_modal.css' %}" rel="stylesheet" /><!--モーダル-->
+  <link href="{% static 'css/modal.css' %}" rel="stylesheet" />
+  <!--モーダル-->
+  <link href="{% static 'css/edit_modal.css' %}" rel="stylesheet" />
+  <!--モーダル-->
   <link href="{% static 'css/index.css' %}" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
   <link href='fullcalendar/core/main.css' rel='stylesheet' />
@@ -18,18 +21,17 @@
 
 
   <title>user</title>
-  
+
   <script>
-    var subject_name="";
-    var subject_id="";
-    var task_id="";
-    var tasks=[];
-    
-    
+    var subject_name = "";
+    var subject_id = "";
+    var task_id = "";
+    var tasks = [];
+
+
     document.addEventListener
-    //('DOMContentLoaded', function () 
-    ('DOMContentLoaded', function () 
-      { 
+      //('DOMContentLoaded', function () 
+      ('DOMContentLoaded', function () {
         //filter('40')
         var events = []
 
@@ -49,30 +51,30 @@
         let item = ""
         {% for cale in tasks %}
         // todo 後で関数に
-       
 
-        item="{{cale.end}}"
-        tmp=item.split("年")
-        e[0]=tmp[0]
-        tmp=tmp[1].split("月")
-        e[1]=tmp[0]
-        tmp=tmp[1].split("日")
-        e[2]=tmp[0]
-        
-        item="{{cale.created_at}}"
-        tmp=item.split("年")
-        c[0]=tmp[0]
-        tmp=tmp[1].split("月")
-        c[1]=tmp[0]
-        tmp=tmp[1].split("日")
-        c[2]=tmp[0]
+
+        item = "{{cale.end}}"
+        tmp = item.split("年")
+        e[0] = tmp[0]
+        tmp = tmp[1].split("月")
+        e[1] = tmp[0]
+        tmp = tmp[1].split("日")
+        e[2] = tmp[0]
+
+        item = "{{cale.created_at}}"
+        tmp = item.split("年")
+        c[0] = tmp[0]
+        tmp = tmp[1].split("月")
+        c[1] = tmp[0]
+        tmp = tmp[1].split("日")
+        c[2] = tmp[0]
         events.push(
           {
-          id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&end='
-          +e.join('-')+'&created_at='+c.join('-'),
-          title: '{{cale.name}}',
-          start: '{{cale.end | date:"Y-m-d" }}',
-          //url: '?subject={{subject_id}}&task={{cale.id}}'
+            id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&end='
+              + e.join('-') + '&created_at=' + c.join('-'),
+            title: '{{cale.name}}',
+            start: '{{cale.end | date:"Y-m-d" }}',
+            //url: '?subject={{subject_id}}&task={{cale.id}}'
           },
         )
         {% endfor %}
@@ -87,33 +89,33 @@
         //       },
         //   )
         // )
-                
+
         var calendarEl = document.getElementById('calendar');
         var calendar = new FullCalendar.Calendar(calendarEl, {
-          
-          eventClick: function(info) {
-            get_tasks('/app/get_tasks'+info.event.id);
+
+          eventClick: function (info) {
+            get_tasks('/app/get_tasks' + info.event.id);
             edit_modal.classList.add('active');
             edit_overlay.classList.add('active');
           },
-          
-          eventChange: function(obj) { // イベントが修正されたら発生するイベント
+
+          eventChange: function (obj) { // イベントが修正されたら発生するイベント
             console.log(obj.event.start)
-            let s=obj.event.start.toISOString().split("T");//toISOString()のT部分でスプリット
+            let s = obj.event.start.toISOString().split("T");//toISOString()のT部分でスプリット
             let _start = s[0].split("-");
-            _start[2] = String(Number(_start[2])+1);
+            _start[2] = String(Number(_start[2]) + 1);
             console.log(obj.event.end)//なんかnulになってる
-          
+
             let query = obj.event.id.split('&')
-            query[3]="end="+_start.join('-')//todo            
+            query[3] = "end=" + _start.join('-')//todo            
             console.log(s)
-            save_task('/app/save_task'+query.join('&'))
+            save_task('/app/save_task' + query.join('&'))
 
           },
-          eventRemove: function(obj){ // イベントを削除すると発生するイベント
+          eventRemove: function (obj) { // イベントを削除すると発生するイベント
             console.log(obj);
           },
-         
+
           height: '700px', // calendarの高さ設定
           expandRows: true, // 画面に合わせて高さを再設定
           slotMinTime: '12:00', // Dayカレンダーに開始時間
@@ -135,7 +137,7 @@
             day: '日',
             list: '一覧'
           },
-        
+
           navLinks: true, // 日付を選択するとDayカレンダーやWeekカレンダーにリンク
           editable: true, // 修正可能
           nowIndicator: true, // 現在時間マーク
@@ -145,232 +147,243 @@
         });
         calendar.render();
         document.addEventListener
-        
+
       }
-    );
-    function filter(val){
+      );
+    function filter(val) {
       console.log(val)
-      path="/app/get_tasks?subject="+val
+      path = "/app/get_tasks?subject=" + val
       fetch(path)
-      .then(response => {
+        .then(response => {
 
-        // (1) 通信が成功したか確認する
-        if (!response.ok) {
+          // (1) 通信が成功したか確認する
+          if (!response.ok) {
 
-          // (2) 通信に失敗したときはエラーを発生させる
-          throw new Error('Not ok');
-        }
-        // (3) レスポンスデータからJSONデータを取得
-        return response.json();
-      })
-      .then(data => {
-        // (4) 受け取ったデータをコンソール出力
-        console.log(data);
-        console.log("課目ID:"+data.subject_id);
-        console.log("科目名:"+data.subject_name);
-        tasks = data.tasks;
-        subject_id=data.subject_id
-        console.log(tasks)  
-      })
-      .catch(error => {
-        // (5) エラーを受け取ったらコンソール出力
-        console.error(error);
-      });
+            // (2) 通信に失敗したときはエラーを発生させる
+            throw new Error('Not ok');
+          }
+          // (3) レスポンスデータからJSONデータを取得
+          return response.json();
+        })
+        .then(data => {
+          // (4) 受け取ったデータをコンソール出力
+          console.log(data);
+          console.log("課目ID:" + data.subject_id);
+          console.log("科目名:" + data.subject_name);
+          tasks = data.tasks;
+          subject_id = data.subject_id
+          console.log(tasks)
+        })
+        .catch(error => {
+          // (5) エラーを受け取ったらコンソール出力
+          console.error(error);
+        });
     }
-    function get_tasks(path){
+    function get_tasks(path) {
       //alert("カレンダーイベントのクリックを検出しました。")
       //alert("localhost:8000"+path+"からデータを取得します。")
       fetch(path)
-      .then(response => {
+        .then(response => {
 
-        // (1) 通信が成功したか確認する
-        if (!response.ok) {
+          // (1) 通信が成功したか確認する
+          if (!response.ok) {
 
-          // (2) 通信に失敗したときはエラーを発生させる
-          throw new Error('Not ok');
-        }
-        // (3) レスポンスデータからJSONデータを取得
-        return response.json();
-      })
-      .then(data => {
-        // (4) 受け取ったデータをコンソール出力
-        console.log(data);
-        console.log("課題ID:"+data.task_id);
-        console.log("課題名:"+data.task.name);
-        console.log("科目名:"+data.task.subject);
-        editQuery=
-        "task="+data.task_id
-        +"&subject="+data.subject_id
-        +"&end="+data.task.end
-        +"&created_at="+data.task.created_at
+            // (2) 通信に失敗したときはエラーを発生させる
+            throw new Error('Not ok');
+          }
+          // (3) レスポンスデータからJSONデータを取得
+          return response.json();
+        })
+        .then(data => {
+          // (4) 受け取ったデータをコンソール出力
+          console.log(data);
+          console.log("課題ID:" + data.task_id);
+          console.log("課題名:" + data.task.name);
+          console.log("科目名:" + data.task.subject);
+          editQuery =
+            "task=" + data.task_id
+            + "&subject=" + data.subject_id
+            + "&end=" + data.task.end
+            + "&created_at=" + data.task.created_at
 
-        if(data.task_id!='0')
-          //課題編集モーダルに表示する内容
-          var str = 
-          "<h1>"+data.task.name+"</h1>"
-          +"<p>課題ID:"+data.task_id+"</p>"
-          +"<p>科目名:"+data.task.subject+"</p>"
-          +"<p>作成者:"+data.task.author+"</p>"
-          +"<label for='name"+data.task_id+"''>課題名:</label>"
-          +"<input type='text' id='name"+data.task_id+"'><br>"
-          +"<label for='content"+data.task_id+"''>内容:</label>"
-          +"<input type='text' id='content"+data.task_id+"'><br>"
-          +"<button onclick='edit()'>送信</button>"
-          +"<a style='color:red' href='/app/delete_task?task="+data.task_id+"&subject="+data.subject.id+"'>削除</a>"
+          if (data.task_id != '0')
+            //課題編集モーダルに表示する内容
+            var str =
+              "<h1>" + data.task.name + "</h1>"
+              + "<p>課題ID:" + data.task_id + "</p>"
+              + "<p>科目名:" + data.task.subject + "</p>"
+              + "<p>作成者:" + data.task.author + "</p>"
+              + "<label for='name" + data.task_id + "''>課題名:</label>"
+              + "<input type='text' id='name" + data.task_id + "'><br>"
+              + "<label for='content" + data.task_id + "''>内容:</label>"
+              + "<input type='text' id='content" + data.task_id + "'><br>"
+              + "<button onclick='edit()'>送信</button>"
+              + "<a style='color:red' href='/app/delete_task?task=" + data.task_id + "&subject=" + data.subject.id + "'>削除</a>"
 
-          document.getElementById('task_detail').innerHTML = str ;
-        subject_name = data.task.subject;
-        subject_id = data.subject.id;
-        task_id = data.task_id;
-      })
-      .catch(error => {
-        // (5) エラーを受け取ったらコンソール出力
-        console.error(error);
-      });
+          document.getElementById('task_detail').innerHTML = str;
+          subject_name = data.task.subject;
+          subject_id = data.subject.id;
+          task_id = data.task_id;
+        })
+        .catch(error => {
+          // (5) エラーを受け取ったらコンソール出力
+          console.error(error);
+        });
       //alert("コンソールの出力を確認してください。")
     }
-    function save_task(path){
+    function save_task(path) {
       //alert("カレンダーイベントのクリックを検出しました。")
       //alert("localhost:8000"+path+"からデータを取得します。")
       fetch(path)
-      .then(response => {
+        .then(response => {
 
-        // (1) 通信が成功したか確認する
-        if (!response.ok) {
+          // (1) 通信が成功したか確認する
+          if (!response.ok) {
 
-          // (2) 通信に失敗したときはエラーを発生させる
-          throw new Error('Not ok');
-        }
-        // (3) レスポンスデータからJSONデータを取得
-        return response.json();
-      })
-      .then(data => {
-        
-         
-      })
-      .catch(error => {
-        console.error(error);
-      });
+            // (2) 通信に失敗したときはエラーを発生させる
+            throw new Error('Not ok');
+          }
+          // (3) レスポンスデータからJSONデータを取得
+          return response.json();
+        })
+        .then(data => {
+
+
+        })
+        .catch(error => {
+          console.error(error);
+        });
     }
-    function edit(){
+    function edit() {
       console.log("a")
-      path = '/app/save_task?'+editQuery
-      if(document.getElementById("name"+task_id)===null){
+      path = '/app/save_task?' + editQuery
+      if (document.getElementById("name" + task_id) === null) {
         return 0
-      }  
-      path = path + "&name=" + document.getElementById("name"+task_id).value
+      }
+      path = path + "&name=" + document.getElementById("name" + task_id).value
       console.log(path)
       fetch(path)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Not ok');
-        }
-      })
-      .then(data => {
-        window.location.href = "?subject={{subject_id}}";
-      })
-      .catch(error => {
-        console.error(error);
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Not ok');
+          }
+        })
+        .then(data => {
+          window.location.href = "?subject={{subject_id}}";
+        })
+        .catch(error => {
+          console.error(error);
 
-      });
+        });
     }
   </script>
   <style>
     #calendar {
-      position:fixed;
-      top:8vh;
-      left:20vw;
+      position: fixed;
+      top: 8vh;
+      left: 20vw;
       width: 80vw;
-      height:92vh;
-      overflow-y:scroll;
-      background-color:rgb(55,55,55);
+      height: 92vh;
+      overflow-y: scroll;
+      background-color: rgb(55, 55, 55);
     }
-    #calendar::-webkit-scrollbar {  /* Chrome, Safari 対応 */
-      display:none;
+
+    #calendar::-webkit-scrollbar {
+      /* Chrome, Safari 対応 */
+      display: none;
     }
-    #calendar th.fc-day{
-      background-color:rgb(55,55,55);
+
+    #calendar th.fc-day {
+      background-color: rgb(55, 55, 55);
     }
-    #calendar td.fc-day-today{
-      background-color:rgb(255,165,0);
+
+    #calendar td.fc-day-today {
+      background-color: rgb(255, 165, 0);
     }
-  
- 
   </style>
 </head>
 
 <body>
-  <div class = "main">
-      <div class = "side">
-        <table>
-          <tr>
-            <th>科目一覧</th>
-          </tr>
-          {% for item in subjects %}
-          <tr>
-            {% if item.id == subject_id_i %}
-            <td><a href="?subject={{item.id}}" class="highlight">{{item.name}}</td>
-            {% else %}
-            <td><a href="?subject={{item.id}}">{{item.name}}</td>
-            {% endif %}
-          </tr>
+  <div class="main">
+    <div class="side">
+      <table>
+        <ul>
+          <p class="subject-title">科目一覧</p>
+        </ul>
+        {% for item in subjects %}
+        <ul>
+          {% if item.id == subject_id_i %}
+          <li><a class="highlight" href="?subject={{item.id}}">{{item.name}}</li>
+          {% else %}
+          <li><a href="?subject={{item.id}}" class="sticky-note">{{item.name}}</li>
+          {% endif %}
+        </ul>
         {% empty %}
-          <tr><td>現在登録されている科目がありません</td></tr>
+        <ul>
+          <li>現在登録されている科目がありません</li>
+        </ul>
         {% endfor %}
-          
-        </table>
-        <!-- クリックしたらモーダルを表示するボタン -->
-        <a href="#" class="btn">課題を追加</a>
-      </div>
-      <ul>
-          <div id="calendar"></div>
-      </ul>     
+
+      </table>
+      <!-- クリックしたらモーダルを表示するボタン -->
+      <a href="#" class="btn">課題を追加</a>
+    </div>
+    <ul>
+      <!-- <div id="calendar"></div> -->
+    </ul>
   </div>
- 
-<!-- オーバーレイ -->
-<div class="overlay"></div>
 
-<!-- モーダルウィンドウ（作成） -->
-<div class="modal">
-  <div class="close">&times</div>
-  <h1>{{title}}</h1>
- 
-  <table>
-    <th>課題の追加</th>
-    <form action="/create_task?subject={{subject_id}}" method = "post">
-      {% csrf_token %}
-      {{ form_task.as_table }}
-      <label for="start">締め切り日:</label>
-      <input type="date" id="end" name="end"><!--todo:デフォルト値は今日にしたい-->
-      <tr><td></td><td><input type="submit" name="create_task" value="click"></td></tr>
-    </form>
-    <th>科目の追加</th>
-    <form action="{% url 'index' %}" method = "post">
-      {% csrf_token %}
-      {{ form_subject.as_table }}
-      <tr><td></td><td><input type="submit" name="create_subject" value="click"></td></tr>
-    </form>
-  </table>
-</div>
+  <!-- オーバーレイ -->
+  <div class="overlay"></div>
 
-<div class="edit_overlay"></div>
+  <!-- モーダルウィンドウ（作成） -->
+  <div class="modal">
+    <div class="close">&times</div>
+    <h1>{{title}}</h1>
 
-<!-- モーダルウィンドウ（編集） -->
-<div class="edit_modal">
-  <div class="edit_close">&times</div>
-  <p>編集モーダル</p>
-  <div id="task_detail"></div>
-</div>
+    <table>
+      <th>課題の追加</th>
+      <form action="/create_task?subject={{subject_id}}" method="post">
+        {% csrf_token %}
+        {{ form_task.as_table }}
+        <label for="start">締め切り日:</label>
+        <input type="date" id="end" name="end">
+        <!--todo:デフォルト値は今日にしたい-->
+        <tr>
+          <td></td>
+          <td><input type="submit" name="create_task" value="click"></td>
+        </tr>
+      </form>
+      <th>科目の追加</th>
+      <form action="{% url 'index' %}" method="post">
+        {% csrf_token %}
+        {{ form_subject.as_table }}
+        <tr>
+          <td></td>
+          <td><input type="submit" name="create_subject" value="click"></td>
+        </tr>
+      </form>
+    </table>
+  </div>
 
-<!-- スクロールで高さを出すためのsectionタグ -->
-<section></section>
-<!--htmlの後に読み込まないとエラーになる。-->
-<script src="{% static 'js/modal2.js' %}">
-</script>
-<script src="{% static 'js/edit_modal.js' %}">
-</script>
+  <div class="edit_overlay"></div>
+
+  <!-- モーダルウィンドウ（編集） -->
+  <div class="edit_modal">
+    <div class="edit_close">&times</div>
+    <p>編集モーダル</p>
+    <div id="task_detail"></div>
+  </div>
+
+  <!-- スクロールで高さを出すためのsectionタグ -->
+  <section></section>
+  <!--htmlの後に読み込まないとエラーになる。-->
+  <script src="{% static 'js/modal2.js' %}">
+  </script>
+  <script src="{% static 'js/edit_modal.js' %}">
+  </script>
 
 </body>
+
 </html>
 {% endblock %}
-

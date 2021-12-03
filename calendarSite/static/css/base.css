@@ -18,7 +18,7 @@ html{
   flex-direction:row;
   justify-content: space-between;
   align-items:center; 
-  background-color:var(--head-color);
+  background-color:#383838;
   height:8vh;
   width:100vw;
   font-size:2rem;
