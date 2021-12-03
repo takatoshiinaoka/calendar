@@ -137,7 +137,9 @@
             day: '日',
             list: '一覧'
           },
-
+          dayCellContent: function (e) {
+            e.dayNumberText = e.dayNumberText.replace('日', '');
+          },
           navLinks: true, // 日付を選択するとDayカレンダーやWeekカレンダーにリンク
           editable: true, // 修正可能
           nowIndicator: true, // 現在時間マーク
