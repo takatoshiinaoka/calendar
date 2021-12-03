@@ -58,18 +58,11 @@
         e[1]=tmp[0]
         tmp=tmp[1].split("日")
         e[2]=tmp[0]
-        
-        item="{{cale.created_at}}"
-        tmp=item.split("年")
-        c[0]=tmp[0]
-        tmp=tmp[1].split("月")
-        c[1]=tmp[0]
-        tmp=tmp[1].split("日")
-        c[2]=tmp[0]
+       
         events.push(
           {
           id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&end='
-          +e.join('-')+'&created_at='+c.join('-'),
+          +e.join('-'),
           title: '{{cale.name}}',
           start: '{{cale.end | date:"Y-m-d" }}',
           //url: '?subject={{subject_id}}&task={{cale.id}}'
