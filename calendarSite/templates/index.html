@@ -9,6 +9,7 @@
   <!--モーダル-->
   <link href="{% static 'css/edit_modal.css' %}" rel="stylesheet" />
   <!--モーダル-->
+  <link href="{% static 'css/base.css' %}" rel="stylesheet" />
   <link href="{% static 'css/index.css' %}" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
   <link href='fullcalendar/core/main.css' rel='stylesheet' />
@@ -306,25 +307,18 @@
 <body>
   <div class="main">
     <div class="side">
-      <table>
-        <ul>
-          <p class="subject-title">科目一覧</p>
-        </ul>
+      <p class="subject-title">科目一覧</p>
+      <ul>
         {% for item in subjects %}
-        <ul>
-          {% if item.id == subject_id_i %}
-          <li><a class="highlight" href="?subject={{item.id}}">{{item.name}}</li>
-          {% else %}
-          <li><a href="?subject={{item.id}}" class="sticky-note">{{item.name}}</li>
-          {% endif %}
-        </ul>
+        {% if item.id == subject_id_i %}
+        <li class="highlight"><a href="?subject={{item.id}}">{{item.name}}</li>
+        {% else %}
+        <li><a href="?subject={{item.id}}">{{item.name}}</li>
+        {% endif %}
         {% empty %}
-        <ul>
-          <li>現在登録されている科目がありません</li>
-        </ul>
+        <li>現在登録されている科目がありません</li>
         {% endfor %}
-
-      </table>
+      </ul>
       <!-- クリックしたらモーダルを表示するボタン -->
       <a href="#" class="btn">課題を追加</a>
     </div>

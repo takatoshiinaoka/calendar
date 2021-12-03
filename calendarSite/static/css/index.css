@@ -91,24 +91,32 @@ p.subject-title{
   margin: 10px 20px 10px 0;
   font-size: 24px;
 }
-
-ul, ol {
-  padding: 0;
+ul{
   position: relative;
+	padding: 0;
+	list-style-type: none;
 }
-
-ul li, ol li {
-  color: black;
-  border-left: solid 8px orange;/*左側の線*/
-  background: whitesmoke;/*背景色*/
-  margin-bottom: 5px;/*下のバーとの余白*/
-  line-height: 1.5;
-  border-radius: 10px;
+ul li {
+	padding: 0.5em;
+	margin-bottom: 3px;
+	line-height: 1.5;
+	border-left: solid 6px #1A237E;
+	background: #80DEEA;
+	color:#1A237E;
+}
+li.highlight{
   padding: 0.5em;
-  list-style-type: none!important;
-  margin: 12px;
-  width: 470px;
-  height: 50px;
+	margin-bottom: 3px;
+	line-height: 1.5;
+	border-left: solid 6px #80DEEA;
+	background: #8f8f8f;
+	color:#1A237E;
 }
-
+.highlight{
+  color: black;
+  padding: 0 0 10px 0;
+}
+a.sticky-note{
+  color: black;
+}
 
