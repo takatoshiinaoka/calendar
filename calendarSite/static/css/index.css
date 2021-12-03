@@ -27,7 +27,7 @@ body{
   background-color:#383838;
   overflow-y:scroll;
   margin: 30px 60px 25px 60px;
-  height: 80vh;
+  height: 84vh;
   width: 500px;
   border-radius: 10px;
 }
@@ -102,7 +102,7 @@ ul li {
 	padding: 0.5em;
 	margin-bottom: 3px;
 	line-height: 1.5;
-	border-left: solid 16px #71b4b1;
+	border-left: solid 16px #b7b7b7;
 	background: #FFFFFF;
   color:#C3C3C3;
   width: 470px;
@@ -113,15 +113,15 @@ li.highlight{
   padding: 0.5em;
 	margin-bottom: 3px;
 	line-height: 1.5;
-	border-left: solid 6px #80DEEA;
-	background: #8f8f8f;
-	color:#1A237E;
+	border-left: solid 16px #71b4b1;
+	background: #FFFFFF;
+	color:#c3c3c3;
 }
 a.normal-text{
-  color: ;
+  color:#8f8f8f;
 }
 a.highlight-text{
-  color:#acacac;
+  color:#8f8f8f;
   padding: 0 0 10px 0;
 }
 
