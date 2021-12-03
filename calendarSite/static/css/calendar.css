@@ -5,13 +5,9 @@
   width: 60vw;
   height:92vh;
   overflow-y:scroll;
-  background-color:rgb(55,55,55);
 }
 #calendar::-webkit-scrollbar {  /* Chrome, Safari 対応 */
   display:none;
-}
-#calendar th.fc-day{
-  background-color:rgb(55,55,55);
 }
 #calendar td.fc-day-today{
   background-color:rgb(255,165,0);
