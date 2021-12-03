@@ -3,7 +3,7 @@
   top:8vh;
   left:20vw;
   width: 60vw;
-  height:92vh;
+  height:80vh;
   overflow-y:scroll;
 }
 #calendar::-webkit-scrollbar {  /* Chrome, Safari 対応 */
