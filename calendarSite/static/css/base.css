@@ -21,7 +21,7 @@ html{
   background-color:#383838;
   height:8vh;
   width:100vw;
-  font-size:2rem;
+  font-size:1rem;
   overflow-y:hidden;
 }
 body{
@@ -41,11 +41,9 @@ body{
   border:2px solid var(--accent-color);
   padding:0 0.5rem;
   background-color:var(--base-color); 
-  font-size:1.3em;
   cursor: pointer;
   color:var(--text-color);
   font-family:sans-serif;
-  font-weight: 1000;
 }
 .button:hover{
   transition:0.5s;
