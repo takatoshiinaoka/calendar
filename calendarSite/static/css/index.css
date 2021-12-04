@@ -124,4 +124,15 @@ a.highlight-text{
   color:#8f8f8f;
   padding: 0 0 10px 0;
 }
-
+.fc .fc-button-primary:not(:disabled).fc-button-active, 
+.fc .fc-button-primary:not(:disabled):active {
+  color: #fff;
+  color: var(--fc-button-text-color,#fff);
+  background-color: #8b8b8b;
+  background-color: var(--fc-button-active-bg-color,#3c3c3c);
+} 
+.fc .fc-button-primary {
+    color: #fff;
+    color: var(--fc-button-text-color,#fff);
+    background-color: #8b8b8b;
+}
