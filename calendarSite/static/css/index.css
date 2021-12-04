@@ -136,3 +136,18 @@ a.highlight-text{
     color: var(--fc-button-text-color,#fff);
     background-color: #8b8b8b;
 }
+.btn-tsk {
+    text-decoration: none;
+    background: linear-gradient(to right bottom, #FFA500, #FF6347);
+    border-radius: 5px;
+    color: #fff;
+    text-align: center;
+    height: 5vh;
+    width: 10vw;
+    z-index: 20;
+    padding: 1vh 0;
+    font-size: 1rem;
+    position: fixed;
+    right: 30px;
+    bottom: 30px;
+}
