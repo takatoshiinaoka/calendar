@@ -38,16 +38,23 @@ body{
 .button{
   margin-right:2vw;
   text-decoration: none;
-  border:2px solid var(--accent-color);
-  padding:0 0.5rem;
-  background-color:var(--base-color); 
+  border:2px solid #71b4b1;
+  padding:4px 15px;
+  background-color:#71b4b1; 
   cursor: pointer;
   color:var(--text-color);
   font-family:sans-serif;
+  position :fixed;
+  right:20px;
+  font-size: 22px;
+  border-radius: 50px;
+  font-weight: 500;
 }
 .button:hover{
   transition:0.5s;
-  background-color:var(--accent-color);
+  background-color:#ffffff;
+  color: #383838;
+  border: 2px solid #ffffff;
 }
 #header-tag{
   margin:0 20px;
