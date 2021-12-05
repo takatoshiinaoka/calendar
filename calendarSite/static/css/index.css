@@ -138,7 +138,7 @@ a.highlight-text{
 }
 .btn-tsk {
     text-decoration: none;
-    background: linear-gradient(to right bottom, #FFA500, #FF6347);
+    background: #8b8b8b;
     border-radius: 5px;
     color: #fff;
     text-align: center;
