@@ -1,19 +1,24 @@
 {% load static %}
 <!DOCTYPE html>
 
+
 <head>
     <title> カレンダー </title>
     <link href="{% static 'css/base.css' %}" rel="stylesheet" />
     <link href="{% static 'css/normalize.css' %}" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
     <div class="header">
-        <a class="title" id="header-tab" href="{% url 'index' %}">楽学{{title}}</a>
-        <a href="/subject" class="subject">科目一覧</a><br><br>
-        <a href="{% url 'task' 1 %}" id="header-tab" class="task">課題一覧</a><br><br>
-        <a href="{% url 'report' %}" id="header-tab">Ajax実験用</a>
+        <a class="title" href="{% url 'index' %}">楽学{{title}}</a>
+        <a href="/subject" id="header-tag" class="subject">科目</a><br><br>
+        <a href="{% url 'task' 1 %}" id="header-tag" class="task">課題</a><br><br>
+        <a href="{% url 'report' %}" id="header-tag">Ajax実験用</a>
         {% if user.is_authenticated %}
         <a class="button" href="/accounts/logout">ログアウト</a>
         {% load account %}
