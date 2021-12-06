@@ -78,13 +78,13 @@ def save_task(request):
     if 'end' in request.GET:
         end = request.GET['end']
     
-    if 'created_at' in request.GET:
-        created_at = request.GET['created_at']
-    
+
     subject=Subject.objects.get(id=subject_id)
+    
     if 'task' in request.GET:
         id = request.GET['task']
-        obj = Task(id=id,subject_id=subject,name=name,author = request.user,end=end,created_at=created_at)#todo
+        task = Task.objects.get(id=id)
+        obj = Task(id=id,subject_id=subject,name=name,author = task.author,end=end)#todo
         print("課題の編集を行います")
     else:
         obj = Task(subject_id=subject,name=name,author = request.user,end=end)
