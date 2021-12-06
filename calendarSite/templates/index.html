@@ -56,29 +56,24 @@
         {% for cale in tasks %}
         // todo 後で関数に
 
+       
 
-        item = "{{cale.end}}"
-        tmp = item.split("年")
-        e[0] = tmp[0]
-        tmp = tmp[1].split("月")
-        e[1] = tmp[0]
-        tmp = tmp[1].split("日")
-        e[2] = tmp[0]
-
-        item = "{{cale.created_at}}"
-        tmp = item.split("年")
-        c[0] = tmp[0]
-        tmp = tmp[1].split("月")
-        c[1] = tmp[0]
-        tmp = tmp[1].split("日")
-        c[2] = tmp[0]
+        item="{{cale.end}}"
+        tmp=item.split("年")
+        e[0]=tmp[0]
+        tmp=tmp[1].split("月")
+        e[1]=tmp[0]
+        tmp=tmp[1].split("日")
+        e[2]=tmp[0]
+       
         events.push(
           {
-            id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&end='
-              + e.join('-') + '&created_at=' + c.join('-'),
-            title: '{{cale.name}}',
-            start: '{{cale.end | date:"Y-m-d" }}',
-            //url: '?subject={{subject_id}}&task={{cale.id}}'
+          id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&end='
+          +e.join('-'),
+          title: '{{cale.name}}',
+          start: '{{cale.end | date:"Y-m-d" }}',
+          //url: '?subject={{subject_id}}&task={{cale.id}}'
+
           },
         )
         {% endfor %}
@@ -188,52 +183,56 @@
       //alert("カレンダーイベントのクリックを検出しました。")
       //alert("localhost:8000"+path+"からデータを取得します。")
       fetch(path)
-        .then(response => {
 
-          // (1) 通信が成功したか確認する
-          if (!response.ok) {
+      .then(response => {
 
-            // (2) 通信に失敗したときはエラーを発生させる
-            throw new Error('Not ok');
-          }
-          // (3) レスポンスデータからJSONデータを取得
-          return response.json();
-        })
-        .then(data => {
-          // (4) 受け取ったデータをコンソール出力
-          console.log(data);
-          console.log("課題ID:" + data.task_id);
-          console.log("課題名:" + data.task.name);
-          console.log("科目名:" + data.task.subject);
-          editQuery =
-            "task=" + data.task_id
-            + "&subject=" + data.subject_id
-            + "&end=" + data.task.end
-            + "&created_at=" + data.task.created_at
+        // (1) 通信が成功したか確認する
+        if (!response.ok) {
 
-          if (data.task_id != '0')
-            //課題編集モーダルに表示する内容
-            var str =
-              "<h1>" + data.task.name + "</h1>"
-              + "<p>課題ID:" + data.task_id + "</p>"
-              + "<p>科目名:" + data.task.subject + "</p>"
-              + "<p>作成者:" + data.task.author + "</p>"
-              + "<label for='name" + data.task_id + "''>課題名:</label>"
-              + "<input type='text' id='name" + data.task_id + "'><br>"
-              + "<label for='content" + data.task_id + "''>内容:</label>"
-              + "<input type='text' id='content" + data.task_id + "'><br>"
-              + "<button onclick='edit()'>送信</button>"
-              + "<a style='color:red' href='/app/delete_task?task=" + data.task_id + "&subject=" + data.subject.id + "'>削除</a>"
+          // (2) 通信に失敗したときはエラーを発生させる
+          throw new Error('Not ok');
+        }
+        // (3) レスポンスデータからJSONデータを取得
+        return response.json();
+      })
+      .then(data => {
+        // (4) 受け取ったデータをコンソール出力
+        console.log(data);
+        console.log("課題ID:"+data.task_id);
+        console.log("課題名:"+data.task.name);
+        console.log("科目名:"+data.task.subject);
+        editQuery=
+        "task="+data.task_id
+        +"&subject="+data.subject_id
+        +"&end="+data.task.end
+      
 
-          document.getElementById('task_detail').innerHTML = str;
-          subject_name = data.task.subject;
-          subject_id = data.subject.id;
-          task_id = data.task_id;
-        })
-        .catch(error => {
-          // (5) エラーを受け取ったらコンソール出力
-          console.error(error);
-        });
+        if(data.task_id!='0')
+          //課題編集モーダルに表示する内容
+          var str = 
+          "<h1>"+data.task.name+"</h1>"
+          +"<p>課題ID:"+data.task_id+"</p>"
+          +"<p>科目名:"+data.task.subject+"</p>"
+          +"<p>作成者:"+data.task.author+"</p>"
+          +"<p>締切日："+data.task.end+"</p>"
+          +"<p>内容:"+data.task.contents+"</p>"
+          +"<label for='name"+data.task_id+"''>課題名:</label>"
+          +"<input type='text' id='name"+data.task_id+"'><br>"
+          +"<label for='content"+data.task_id+"''>内容:</label>"
+          +"<input type='text' id='content"+data.task_id+"'><br>"
+          +"<button onclick='edit()'>送信</button>"
+          +"<a style='color:red' href='/app/delete_task?task="+data.task_id+"&subject="+data.subject.id+"'>削除</a>"
+
+          document.getElementById('task_detail').innerHTML = str ;
+        subject_name = data.task.subject;
+        subject_id = data.subject.id;
+        task_id = data.task_id;
+      })
+      .catch(error => {
+        // (5) エラーを受け取ったらコンソール出力
+        console.error(error);
+      });
+
       //alert("コンソールの出力を確認してください。")
     }
     function save_task(path) {
