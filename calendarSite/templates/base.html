@@ -18,7 +18,9 @@
         <a class="title" href="{% url 'index' %}">楽学{{title}}</a>
         <a href="/subject" id="header-tag" class="subject">科目</a><br><br>
         <a href="{% url 'task' 1 %}" id="header-tag" class="task">課題</a><br><br>
+        <a href="" id="header-tag">科目登録</a><br><br>
         <a href="{% url 'report' %}" id="header-tag">Ajax実験用</a>
+
         {% if user.is_authenticated %}
         <a class="button" href="/accounts/logout">ログアウト</a>
         {% load account %}
