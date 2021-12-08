@@ -32,6 +32,11 @@ class indexForm(forms.Form):
     data=()
     user=()
 
+class subject_manageForm(forms.Form):
+    subject=()
+    title=()
+    data=()
+    user=()
 
 
 class subjectForm(forms.Form):
