@@ -8,6 +8,7 @@ from calendarSite.forms import TaskForm
 from calendarSite.models import Calendar
 from calendarSite.models import Task
 from calendarSite.models import Subject
+from calendarSite.forms import subject_manageForm
 
 
 
@@ -160,6 +161,10 @@ def subject(request):
       'data' : data,
    }
    return render(request, 'subject.html',params)
+
+def subject_manage(request):
+   form = subject_manageForm(request.POST or None)
+   return render(request, 'subject_manage.html')
 
 def report(request):
    subject_id = '0'
