@@ -6,6 +6,8 @@
   <title> カレンダー </title>
   <link href="{% static 'css/base.css' %}" rel="stylesheet" />
   <link href="{% static 'css/normalize.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/index.css' %}" rel="stylesheet" />
+  <link href="{% static 'css/subject_manage.css' %}" rel="stylesheet" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
@@ -27,12 +29,36 @@
     <a class="button" href="/accounts/login">ログイン</a>
     {% endif %}
 
-
     {% block content %}{% endblock %}
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{% static 'js/ajax.js' %}"></script>
-
+    <div class="main">
+      <div class="side">
+        <p class="subject-title">履修管理</p>
+        <ul>
+          {% for item in subjects %}
+          {% if item.id == subject_id_i %}
+          <label>
+            <input type="checkbox" />
+            <li class="highlight"><a class="normal-text" href="?subject={{item.id}}">{{item.name}}</li>
+          </label>
+          {% else %}
+          <label>
+            <input type="checkbox" />
+            <li><a class="highlight-text" href="?subject={{item.id}}">{{item.name}}</li>
+          </label>
+          {% endif %}
+          {% empty %}
+          <label>
+            <input id="box" type="checkbox" />
+            <li>現在登録されている科目がありません</li>
+          </label>
+          {% endfor %}
+          <input type="submit" value="登録">
+        </ul>
+      </div>
+      <ul>
 
 
 </body>
