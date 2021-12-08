@@ -1,5 +1,5 @@
    // ボタン、モダル、モダルの閉じるボタン、オーバーレイを変数に格納
-   const btn = document.querySelector('.btn');
+   const btn = document.querySelector('.btn-tsk');
    const modal = document.querySelector('.modal');
    const closeBtn = document.querySelector('.close');
    const overlay = document.querySelector('.overlay');
