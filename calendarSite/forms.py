@@ -37,6 +37,9 @@ class subject_manageForm(forms.Form):
     title=()
     data=()
     user=()
+    chk=forms.CharField(
+        widget=forms.CheckboxInput
+    )
 
 
 class subjectForm(forms.Form):
