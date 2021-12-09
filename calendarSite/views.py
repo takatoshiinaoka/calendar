@@ -8,8 +8,21 @@ from calendarSite.forms import TaskForm
 from calendarSite.models import Calendar
 from calendarSite.models import Task
 from calendarSite.models import Subject
+from calendarSite.models import User_Subject
 from calendarSite.forms import subject_manageForm
+# -*- coding: utf-8
+# import sqlite3
 
+# # データベース開く
+# db = sqlite3.connect("C:/cloud_app_development/vscode/Workspace/calendar/db.sqlite3")
+# c = db.cursor()
+# import sqlite3
+
+# #データベース読み込み
+# db = sqlite3.connect(
+#     "db.sqlite3",              #ファイル名
+#     isolation_level=None,
+# )
 
 
 # Create your views here.
@@ -163,8 +176,37 @@ def subject(request):
    return render(request, 'subject.html',params)
 
 def subject_manage(request):
-   form = subject_manageForm(request.POST or None)
-   return render(request, 'subject_manage.html')
+   
+   form = subject_manageForm(request.GET or None)
+   print(form)
+   user = request.user.id
+   print(user)
+   subjectid= form.data or ''
+   print("これ")
+   
+   # print(subjectid)
+   # print('test')
+   print(dict(subjectid))
+
+   if(form != None and dict(subjectid)!={}):
+      # データ更新
+      sql = 'DELETE FROM calendarSite_user_subject where user_id = "{{user}}"'
+      #c.execute(sql)
+      # db.execute(sql) #sql文を実行
+      # db.close()      #データベースを閉じる
+      User_Subject.objects.filter(user_id=str(user)).delete()
+      for inaoka in dict(subjectid)['chk']:
+         print(inaoka)
+         User_SubjectModel = User_Subject(user_id=str(user),subject_id=inaoka,week="week",period="period")
+         User_SubjectModel.save()
+   
+
+   
+   params={
+      'title':'科目管理',
+      'data': Subject.objects.all(),
+   }
+   return render(request, 'subject_manage.html',params)
 
 def report(request):
    subject_id = '0'
