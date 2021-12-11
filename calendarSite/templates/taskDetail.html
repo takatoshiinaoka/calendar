@@ -5,31 +5,6 @@
   <link href="{% static 'css/table.css' %}" rel="stylesheet" />
   <link href="{% static 'css/task.css' %}" rel="stylesheet" />
 </head>
-<<<<<<< HEAD
-<table>
-  <tr>
-    <th>課題</th>
-    <th>科目</th>
-    <th>作成者</th>
-    <th>内容</th>
-    <th>作成日</th>
-    <th>最終更新日</th>
-    <th></th>
-    <th></th>
-  </tr>
-  <tr>
-    <td>{{task.name}}</td>
-    <td>{{task.subject_id.name}}</td>
-    <td>{{task.author}}</td>
-    <td>{{task.contents}}</td>
-    <td>{{task.created_at | date:'Y/m/d H:i'}}</td>
-    <td>{{task.updated_at | date:'Y/m/d H:i'}}</td>
-    <td><a href="{% url 'edit_task' task.id %}">編集</a></td>
-    <td><a href="{% url 'delete_task' task.id %}">削除</a></td>
-  </tr>
-</table>
-<a href="{% url 'task' 1 %}">一覧に戻る</a>
-=======
 <div class="tasklist">
   <table>
     <tr>
@@ -55,5 +30,5 @@
   </table>
   <a href="{% url 'task' 1 %}" class="button">一覧に戻る</a>
 </div>
->>>>>>> upstream/main
+
 {% endblock %}
