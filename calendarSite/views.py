@@ -10,25 +10,51 @@ from calendarSite.models import Task
 from calendarSite.models import Subject
 from calendarSite.models import User_Subject
 from calendarSite.forms import subject_manageForm
-# -*- coding: utf-8
-# import sqlite3
-
-# # データベース開く
-# db = sqlite3.connect("C:/cloud_app_development/vscode/Workspace/calendar/db.sqlite3")
-# c = db.cursor()
-# import sqlite3
-
-# #データベース読み込み
-# db = sqlite3.connect(
-#     "db.sqlite3",              #ファイル名
-#     isolation_level=None,
-# )
+#以下メール用
+import pandas as pd
+import datetime #日付や時間を指定するモジュール
+import smtplib #メールさメールサーバーを操作してメールを送信する SMTP
+import ssl #暗号化や認証の仕組み
+from email.mime.text import MIMEText #メールを日本語で送信できるようにするためのモジュール
+import sys, codecs
+sys.stdout = codecs.getwriter("utf-8")(sys.stdout)
+from email.mime.multipart import MIMEMultipart #メール本文以外に添付ファイルを送信できるようにする
+from email.mime.base import MIMEBase #添付ファイルの形式を指定する
+from email import encoders #添付ファイルをメールで送ることができるようにする
 
 
-# Create your views here.
+gmail_account = "pbl2021team1@gmail.com"
+gmail_password = "fitrakugaku"
+# mail_to = "s20a2005@gmail.com"
+# send_name = "稲岡天駿"
+today_date = datetime.date.today()
 
+#gmailを送る関数
+def gmail_send(send_name, mail_to, task, delivery_date ):
 
-def index(request):#トップページ(科目を指定しない場合)
+  subject = "{0}様、{1}の課題の締め切りが近づいています。".format(send_name,task)
+  body = '''課題締め切りのお知らせをします。<br>
+            myFITをご確認ください。<br>
+            {0}の期限は{1}となります。<br><br>
+            プロジェクト型演習team1メンバーより'''.format(task,delivery_date)
+  msg=MIMEMultipart()
+
+  msg['Subject'] = subject
+  msg['To'] = mail_to
+  msg['From'] = gmail_account
+  msg_body = MIMEText(body, "html")
+
+  msg.attach(msg_body)
+
+  server = smtplib.SMTP_SSL("smtp.gmail.com", 465, context=ssl.create_default_context())
+  server.login(gmail_account, gmail_password)
+  server.send_message(msg)
+  server.close()
+#   print(send_name,'様：送信完了')
+
+#トップページ(科目を指定しない場合)
+def index(request):
+   #gmail_send("s20a2005", "s20a2005@bene.fit.ac.jp", "課題:メールを送る関数を定義する", "2021/12/11" )
    subject_id = '0'
    task_id = '0'
    if 'subject' in request.GET:
@@ -40,7 +66,6 @@ def index(request):#トップページ(科目を指定しない場合)
    tasks = Task.objects.filter(subject_id=subject_id).all() 
    task = Task.objects.filter(id=task_id).all() 
    subjects = Subject.objects.all()
-   print("caleList")
    user = request.user #現在ログインしているアカウント
    if(request.method == 'POST'):
       response = redirect('/')
@@ -53,7 +78,7 @@ def index(request):#トップページ(科目を指定しない場合)
          subject.save()
          return response
          
-   print(tasks)
+
    initial_dict={
       'subject_id' : subject_id,
    }
