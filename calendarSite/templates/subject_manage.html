@@ -12,6 +12,34 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+  <script>
+    function save(){
+      var path ="/app/save_User_Subject?";
+      {% for item in data %}
+      path = path + "answer{{item.id}}="
+      + document.getElementById("answer"+{{item.id}}).checked +"&"
+     
+      {% endfor %}
+      fetch(path)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Not ok');
+          }
+          return response.json();
+  
+        })
+        .then(data => {
+          alert("科目が登録されました")
+  
+        })
+        .catch(error => {
+          console.error(error);
+  
+        });
+    }
+    
+  
+  </script>
 </head>
 
 <body>
@@ -38,28 +66,19 @@
       <div class="side">
         <p class="subject-title">{{title}}</p>
         <ul>
-          <form method = "GET">
             {% for item in data %}
             {{item.id}}
-            {% if item.id == subject_id_i %}
             <label>
-              <input type="checkbox" name="chk" value="{{item.id}}" />
+              <input type="checkbox" name="answer" id="answer{{item.id}}" />
               <li class="highlight"><a class="normal-text">{{item.name}}</li>
             </label>
-            {% else %}
-            <label>
-              <input type="checkbox" name="chk" value="{{item.id}}" />
-              <li><a class="highlight-text" >{{item.name}}</li>
-            </label>
-            {% endif %}
             {% empty %}
             <label>
               <input id="box" type="checkbox" />
               <li>現在登録されている科目がありません</li>
             </label>
             {% endfor %}
-            <input type="submit" value="登録">
-          </form>  
+            <div onclick="save()">送信</div>
         </ul>
       </div>
       <ul>

@@ -36,8 +36,8 @@ class Task(models.Model):
 class User_Subject(models.Model):
     user_id=models.CharField(max_length=200)
     subject_id=models.CharField(max_length=200)
-    week=models.CharField(max_length=200)
-    period=models.CharField(max_length=200)
+    # week=models.CharField(max_length=200)
+    # period=models.CharField(max_length=200)
 
 class User_Task(models.Model):
     user_id=models.CharField(max_length=200)

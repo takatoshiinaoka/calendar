@@ -65,7 +65,7 @@ def index(request):
   
    tasks = Task.objects.filter(subject_id=subject_id).all() 
    task = Task.objects.filter(id=task_id).all() 
-   subjects = Subject.objects.all()
+   mysubjects = User_Subject.objects.filter(user_id=request.user)
    user = request.user #現在ログインしているアカウント
    if(request.method == 'POST'):
       response = redirect('/')
@@ -85,7 +85,7 @@ def index(request):
    dbData={
          "tasks":tasks,
          "user":user,
-         "subjects":subjects,
+         "mysubjects":mysubjects,
          'subject_id' : subject_id,
          'task_id':task_id,
          'task':task,
@@ -203,15 +203,15 @@ def subject(request):
 def subject_manage(request):
    
    form = subject_manageForm(request.GET or None)
-   print(form)
+   # print(form)
    user = request.user.id
-   print(user)
+   # print(user)
    subjectid= form.data or ''
-   print("これ")
+   # print("これ")
    
    # print(subjectid)
    # print('test')
-   print(dict(subjectid))
+   # print(dict(subjectid))
 
    if(form != None and dict(subjectid)!={}):
       # データ更新
@@ -245,7 +245,6 @@ def report(request):
    tasks = Task.objects.filter(subject_id=subject_id).all() 
    task = Task.objects.filter(id=task_id).all() 
    subjects = Subject.objects.all()
-   print("caleList")
    user = request.user #現在ログインしているアカウント
    if(request.method == 'POST'):
       if 'create_task' in request.POST:
