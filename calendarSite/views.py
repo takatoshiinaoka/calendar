@@ -10,7 +10,7 @@ from calendarSite.models import Subject
 from calendarSite.models import User_Subject
 from calendarSite.forms import subject_manageForm
 #以下メール用
-import pandas as pd
+#import pandas as pd
 import datetime #日付や時間を指定するモジュール
 import smtplib #メールさメールサーバーを操作してメールを送信する SMTP
 import ssl #暗号化や認証の仕組み
