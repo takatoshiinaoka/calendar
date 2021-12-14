@@ -2,163 +2,19 @@
 {% block content %}
 {% load static %}
 <!DOCTYPE html>
-<div id="app">
+
   <meta charset='utf-8' />
-  <link href="{% static 'css/mordal.css' %}" rel="stylesheet" /><!--モーダル-->
   <link href="{% static 'css/index.css' %}" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
-  <link href='fullcalendar/core/main.css' rel='stylesheet' />
-  <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.js"></script>
-  
-  <script>
-    function get_tasks(pass){
-      //alert("カレンダーイベントのクリックを検出しました。")
-      //ここでリクエストを送る処理をかければうまくいくはず
-      //alert("localhost:8000"+pass+"からデータを取得します。")
-      fetch(pass)
-      .then(response => {
 
-        // (1) 通信が成功したか確認する
-        if (!response.ok) {
-
-          // (2) 通信に失敗したときはエラーを発生させる
-          throw new Error('Not ok');
-        }
-        // (3) レスポンスデータからJSONデータを取得
-        return response.json();
-      })
-      .then(data => {
-        // (4) 受け取ったデータをコンソール出力
-        console.log(data);
-        console.log("課題ID:"+data.task_id);
-        console.log("課題名:"+data.task.name);
-        console.log("科目名:"+data.task.subject);
-        var str = "課題ID:"+data.task_id+"<br>課題名:"+data.task.name+"<br>科目名:"+data.task.subject;
-        document.getElementById('task_detail').innerHTML = str ;
-      })
-      .catch(error => {
-        // (5) エラーを受け取ったらコンソール出力
-        console.error(error);
-      });
-      //alert("コンソールの出力を確認してください。")
-    }
-    
-    document.addEventListener('DOMContentLoaded', function () {
-      var events = []
-      
-      {% for cale in tasks %}
-        events.push(
-          {
-          id: '/app/get_tasks?subject={{subject_id}}&task={{cale.id}}',//todo とりあえず使わない要素にURLを入れてる
-          title: '{{cale.name}}:{{cale.subject_id.name}}:',
-          start: '{{cale.created_at | date:"Y-m-d" }}',
-          subject:'{{cale.id}}',
-          },
-        )
-      {% endfor %}
-
-       
-      var calendarEl = document.getElementById('calendar');
-    var calendar = new FullCalendar.Calendar(calendarEl, {
-      eventClick: function(info) {
-        get_tasks(info.event.id);
-      },
-      locale: 'ja',
-      height: 'auto',
-      headerToolbar: {
-        left: "dayGridMonth,listMonth",
-        center: "title",
-        right: "today prev,next"
-      },
-      buttonText: {
-        prev: '<',
-        next: '>',
-        prevYear: '<<',
-        nextYear: '>>',
-        today: '今日',
-        month: '月',
-        week: '週',
-        day: '日',
-        list: '一覧'
-      },
-    
-       
-      initialView: 'dayGridMonth',
-      events: events
-    });
-    calendar.render();
-      });
-  </script>
-  <style>
-    #calendar {
-      position:fixed;
-      top:40vh;
-      left:20vw;
-      width: 60vw;
-      height:92vh;
-      overflow-y:scroll;
-      background-color:rgb(55,55,55);
-    }
-    #calendar::-webkit-scrollbar {  /* Chrome, Safari 対応 */
-      display:none;
-    }
-    #calendar th.fc-day{
-      background-color:rgb(55,55,55);
-    }
-    #calendar td.fc-day-today{
-      background-color:rgb(255,165,0);
-    }
-  </style>
 
 <body>
   <div class = "main">
-      <div class = "side">
-        <table>
-          <tr>
-            <th>科目一覧</th>
-            <th>カレンダー用</th>
-          </tr>
-          {% for item in subjects %}
-            <tr>
-              <td><button v-on:click="getData({{item.id}})">{{item.name}}</button></td>
-              <td><a href="?subject={{item.id}}" onclick="get_tasks('/app/get_tasks?subject='+subject_id)">表示</a></td>
-            </tr>   
-          {% endfor %}
-        </table>
-      </div>
-      <div class="task_list">
-        <h1>科目ID:[[response_data.subject_id]]</h1>
-        
-        <table border="1">
-          <tr>
-            <th>科目名</th>
-            <th>課題名</th>
-            <th>最終更新日</th>
-          </tr>
-          <tr v-for="task in response_data.tasks">
-            <td>[[task.subject]]</td>
-            <td><button v-on:click="getTask([[response_data.subject_id]],[[task_id]])">[[task.task]]</button></td>
-            <td>[[task.updated_at]]</td>
-          </tr>
-        </table>
-        <div id="calendar"></div>
-      </div>     
-      <div class="debug">
-        
-        <div id="task_detail"></div>
-
-      </div>
+    test
+   
   </div>
-
-
-</div>
+  
 </body>
-</div>
+
 </html>
 {% endblock %}
 

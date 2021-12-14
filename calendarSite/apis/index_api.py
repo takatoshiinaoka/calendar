@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from calendarSite.models import Task
 from calendarSite.models import Subject
+from calendarSite.models import User_Subject
 from calendarSite.forms import TaskForm
 
 
@@ -91,3 +92,18 @@ def save_task(request):
         print("課題の作成を行います")
     obj.save()
     return redirect(to="/")
+
+def save_User_Subject(request):
+    subjects = Subject.objects.all()
+    for i in subjects:
+      if 'answer'+str(i.id) in request.GET:
+        answer = request.GET['answer'+str(i.id)]
+        if answer=="true":
+            if not(User_Subject.objects.filter(user_id=request.user,subject_id=i).exists()):
+                obj=User_Subject(user_id=request.user,subject_id=i)
+                obj.save()
+        elif User_Subject.objects.filter(user_id=request.user,subject_id=i).exists():
+            obj=User_Subject.objects.filter(user_id=request.user,subject_id=i)
+            obj.delete()
+    
+    return JsonResponse({'test':0})

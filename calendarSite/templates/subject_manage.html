@@ -41,16 +41,17 @@
           <form method = "GET">
             {% for item in data %}
             {{item.id}}
-           
+            {% if item in mysubjects %}
             <label>
-              {% if item in mysubjects %}
-              <input type="checkbox" name="chk" value="{{item.id}}" checked="checked"/><!--登録済みの科目-->
-              {% else %}
-              <input type="checkbox" name="chk" value="{{item.id}}" /><!--未登録の科目-->
-              {% endif %}
+              <input type="checkbox" name="chk" value="{{item.id}}" checked="checked"/>
               <li class="highlight"><a class="normal-text">{{item.name}}</li>
             </label>
-          
+            {% else %}
+            <label>
+              <input type="checkbox" name="chk" value="{{item.id}}" />
+              <li class="highlight"><a class="normal-text">{{item.name}}</li>
+            </label>
+            {% endif %}
             {% empty %}
             <label>
               <input id="box" type="checkbox" />

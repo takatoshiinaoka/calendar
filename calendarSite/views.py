@@ -65,10 +65,12 @@ def index(request):
   
    tasks = Task.objects.filter(subject_id=subject_id).all() 
    task = Task.objects.filter(id=task_id).all() 
+
    mysubjects = User_Subject.objects.filter(user_id=str(request.user.id)).all()#今ログインしているユーザーの履修情報を取得
    subjects =[]#ログイン中のユーザーが履修している科目データをすべてリストに格納
    for i in mysubjects:
       subjects.append(Subject.objects.get(id=i.subject_id))
+
 
    user = request.user #現在ログインしているアカウント
    if(request.method == 'POST'):
@@ -207,6 +209,7 @@ def subject(request):
 def subject_manage(request):
    
    form = subject_manageForm(request.GET or None)
+
    #print(form)
    user = request.user.id
    #print(user)
@@ -216,6 +219,7 @@ def subject_manage(request):
    # print(subjectid)
    # print('test')
    #print(dict(subjectid))
+
 
    if(form != None and dict(subjectid)!={}):
       # データ更新 226行目で全く同じ処理をしているので必要なし
@@ -256,7 +260,6 @@ def report(request):
    tasks = Task.objects.filter(subject_id=subject_id).all() 
    task = Task.objects.filter(id=task_id).all() 
    subjects = Subject.objects.all()
-   print("caleList")
    user = request.user #現在ログインしているアカウント
    if(request.method == 'POST'):
       if 'create_task' in request.POST:
