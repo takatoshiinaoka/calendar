@@ -17,7 +17,9 @@ class User(models.Model):
 
 class Subject(models.Model):
     name = models.CharField(max_length=100)
-    
+    week = models.CharField(max_length=200)
+    period=models.CharField(max_length=200)
+
     def __str__(self):#表示を決める部分
         return self.name
 
@@ -32,8 +34,7 @@ class Task(models.Model):
 class User_Subject(models.Model):
     user_id=models.CharField(max_length=200)
     subject_id=models.CharField(max_length=200)
-    week=models.CharField(max_length=200)
-    period=models.CharField(max_length=200)
+    
 
 class User_Task(models.Model):
     user_id=models.CharField(max_length=200)
