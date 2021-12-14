@@ -3,7 +3,6 @@ from django.shortcuts import redirect
 from calendarSite.forms import addDataForm
 from calendarSite.forms import SubjectForm
 from calendarSite.forms import taskForm
-from calendarSite.forms import subjectForm
 from calendarSite.forms import TaskForm
 from calendarSite.models import Calendar
 from calendarSite.models import Task
