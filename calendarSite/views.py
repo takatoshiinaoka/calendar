@@ -202,15 +202,11 @@ def subject(request):
 def subject_manage(request):
    
    form = subject_manageForm(request.GET or None)
-   print(form)
    user = request.user.id
-   print(user)
    subjectid= form.data or ''
-   print("これ")
+
    
-   # print(subjectid)
-   # print('test')
-   print(dict(subjectid))
+
 
    if(form != None and dict(subjectid)!={}):
       # データ更新
