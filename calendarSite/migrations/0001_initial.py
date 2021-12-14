@@ -67,7 +67,11 @@ class Migration(migrations.Migration):
                 ('name', models.CharField(max_length=100)),
                 ('author', models.CharField(default='', max_length=100)),
                 ('contents', models.CharField(blank=True, default='', max_length=100)),
+<<<<<<< HEAD
                 ('end', models.DateTimeField(default=datetime.datetime(2021, 12, 14, 14, 10, 23, 461956))),
+=======
+                ('end', models.DateTimeField(default=datetime.datetime(2021, 12, 14, 14, 7, 10, 190350))),
+>>>>>>> 9902127304fd6efb7ed7e81e9ee028d523cfbc9b
                 ('subject_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='calendarSite.subject')),
             ],
         ),
