@@ -183,7 +183,7 @@ def user(request):
 
 
 def subject(request):
-   form = subjectForm(request.POST or None)
+   form = SubjectForm(request.POST or None)
    subject = form['subject'].data or ''
    print(str(subject))
    if(subject !=''):
