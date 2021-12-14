@@ -310,7 +310,7 @@
     <div class="side">
       <p class="subject-title">科目一覧</p>
       <ul>
-        {% for item in subjects %}
+        {% for item in subjects %}<!--選択している科目は異なる色で表示する-->
         {% if item.id == subject_id_i %}
         <li class="highlight"><a class="normal-text" href="?subject={{item.id}}">{{item.name}}</li>
         {% else %}
