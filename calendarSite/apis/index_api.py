@@ -86,10 +86,10 @@ def save_task(request):
         id = request.GET['task']
         task = Task.objects.get(id=id)
         obj = Task(id=id,subject_id=subject,name=name,author = task.author,end=end)#todo
-        print("課題の編集を行います")
+        #print("課題の編集を行います")
     else:
         obj = Task(subject_id=subject,name=name,author = request.user,end=end)
-        print("課題の作成を行います")
+        #print("課題の作成を行います")
     obj.save()
     return redirect(to="/")
 

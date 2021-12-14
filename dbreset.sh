@@ -1,8 +1,8 @@
-cd calendaarProject
+cd calendarProject
 
 rm -d -r migrations
 cd ..
-rm -d -r db.sqlite3
+rm -r db.sqlite3
 
 python manage.py makemigrations calendarSite
 python manage.py migrate
