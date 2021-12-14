@@ -228,12 +228,19 @@ def subject_manage(request):
          #print(inaoka)
          User_SubjectModel = User_Subject(user_id=str(user),subject_id=inaoka,week="week",period="period")
          User_SubjectModel.save()
-      
+   
+   
+   list = User_Subject.objects.filter(user_id=str(user))
+   mysubjects = []#現在履修している科目は最初からチェックをつけておく
+   for i in list:
+      mysubjects.append(Subject.objects.get(id=i.subject_id))
+       
 
    
    params={
       'title':'科目管理',
       'data': Subject.objects.all(),
+      'mysubjects':mysubjects,
    }
    return render(request, 'subject_manage.html',params)
 
