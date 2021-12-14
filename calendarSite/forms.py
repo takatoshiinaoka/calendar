@@ -35,7 +35,6 @@ class indexForm(forms.Form):
 class subject_manageForm(forms.Form):
     subject=()
     title=()
-    data=()
     user=()
     chk=forms.CharField(
         widget=forms.CheckboxInput
