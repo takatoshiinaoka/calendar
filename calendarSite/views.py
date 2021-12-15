@@ -265,7 +265,7 @@ def subject_manage(request):
    #print(dict(subjectid))
    user = request.user.id
    subjectid= form.data or ''
-¥
+
    if(form != None and dict(subjectid)!={}):
       #sql = 'DELETE FROM calendarSite_user_subject where user_id = "{{user}}"'
       #c.execute(sql)
