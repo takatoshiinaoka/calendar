@@ -56,23 +56,23 @@
         {% for cale in tasks %}
         // todo 後で関数に
 
-       
 
-        item="{{cale.end}}"
-        tmp=item.split("年")
-        e[0]=tmp[0]
-        tmp=tmp[1].split("月")
-        e[1]=tmp[0]
-        tmp=tmp[1].split("日")
-        e[2]=tmp[0]
-       
+
+        item = "{{cale.end}}"
+        tmp = item.split("年")
+        e[0] = tmp[0]
+        tmp = tmp[1].split("月")
+        e[1] = tmp[0]
+        tmp = tmp[1].split("日")
+        e[2] = tmp[0]
+
         events.push(
           {
-          id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&end='
-          +e.join('-'),
-          title: '{{cale.name}}',
-          start: '{{cale.end | date:"Y-m-d" }}',
-          //url: '?subject={{subject_id}}&task={{cale.id}}'
+            id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&end='
+              + e.join('-'),
+            title: '{{cale.name}}',
+            start: '{{cale.end | date:"Y-m-d" }}',
+            //url: '?subject={{subject_id}}&task={{cale.id}}'
 
           },
         )
@@ -184,54 +184,54 @@
       //alert("localhost:8000"+path+"からデータを取得します。")
       fetch(path)
 
-      .then(response => {
+        .then(response => {
 
-        // (1) 通信が成功したか確認する
-        if (!response.ok) {
+          // (1) 通信が成功したか確認する
+          if (!response.ok) {
 
-          // (2) 通信に失敗したときはエラーを発生させる
-          throw new Error('Not ok');
-        }
-        // (3) レスポンスデータからJSONデータを取得
-        return response.json();
-      })
-      .then(data => {
-        // (4) 受け取ったデータをコンソール出力
-        console.log(data);
-        console.log("課題ID:"+data.task_id);
-        console.log("課題名:"+data.task.name);
-        console.log("科目名:"+data.task.subject);
-        editQuery=
-        "task="+data.task_id
-        +"&subject="+data.subject_id
-        +"&end="+data.task.end
-      
+            // (2) 通信に失敗したときはエラーを発生させる
+            throw new Error('Not ok');
+          }
+          // (3) レスポンスデータからJSONデータを取得
+          return response.json();
+        })
+        .then(data => {
+          // (4) 受け取ったデータをコンソール出力
+          console.log(data);
+          console.log("課題ID:" + data.task_id);
+          console.log("課題名:" + data.task.name);
+          console.log("科目名:" + data.task.subject);
+          editQuery =
+            "task=" + data.task_id
+            + "&subject=" + data.subject_id
+            + "&end=" + data.task.end
 
-        if(data.task_id!='0')
-          //課題編集モーダルに表示する内容
-          var str = 
-          "<h1>"+data.task.name+"</h1>"
-          +"<p>課題ID:"+data.task_id+"</p>"
-          +"<p>科目名:"+data.task.subject+"</p>"
-          +"<p>作成者:"+data.task.author+"</p>"
-          +"<p>締切日："+data.task.end+"</p>"
-          +"<p>内容:"+data.task.contents+"</p>"
-          +"<label for='name"+data.task_id+"''>課題名:</label>"
-          +"<input type='text' id='name"+data.task_id+"'><br>"
-          +"<label for='content"+data.task_id+"''>内容:</label>"
-          +"<input type='text' id='content"+data.task_id+"'><br>"
-          +"<button onclick='edit()'>送信</button>"
-          +"<a style='color:red' href='/app/delete_task?task="+data.task_id+"&subject="+data.subject.id+"'>削除</a>"
 
-          document.getElementById('task_detail').innerHTML = str ;
-        subject_name = data.task.subject;
-        subject_id = data.subject.id;
-        task_id = data.task_id;
-      })
-      .catch(error => {
-        // (5) エラーを受け取ったらコンソール出力
-        console.error(error);
-      });
+          if (data.task_id != '0')
+            //課題編集モーダルに表示する内容
+            var str =
+              "<h1>" + data.task.name + "</h1>"
+              + "<p>課題ID:" + data.task_id + "</p>"
+              + "<p>科目名:" + data.task.subject + "</p>"
+              + "<p>作成者:" + data.task.author + "</p>"
+              + "<p>締切日：" + data.task.end + "</p>"
+              + "<p>内容:" + data.task.contents + "</p>"
+              + "<label for='name" + data.task_id + "''>課題名:</label>"
+              + "<input type='text' id='name" + data.task_id + "'><br>"
+              + "<label for='content" + data.task_id + "''>内容:</label>"
+              + "<input type='text' id='content" + data.task_id + "'><br>"
+              + "<button onclick='edit()'>送信</button>"
+              + "<a style='color:red' href='/app/delete_task?task=" + data.task_id + "&subject=" + data.subject.id + "'>削除</a>"
+
+          document.getElementById('task_detail').innerHTML = str;
+          subject_name = data.task.subject;
+          subject_id = data.subject.id;
+          task_id = data.task_id;
+        })
+        .catch(error => {
+          // (5) エラーを受け取ったらコンソール出力
+          console.error(error);
+        });
 
       //alert("コンソールの出力を確認してください。")
     }
@@ -306,78 +306,86 @@
 </head>
 
 <body>
-  <div class="main">
-    <div class="side">
-      <p class="subject-title">科目一覧</p>
+  <div class="forLandscape">
+    <!-- 横長画面用のコンテンツ -->
+    <div class="main">
+      <div class="side">
+        <p class="subject-title">科目一覧</p>
+        <ul>
+          {% for item in subjects %}
+          {% if item.id == subject_id_i %}
+          <li class="highlight"><a class="normal-text" href="?subject={{item.id}}">{{item.name}}</li>
+          {% else %}
+          <li><a class="highlight-text" href="?subject={{item.id}}">{{item.name}}</li>
+          {% endif %}
+          {% empty %}
+          <li>現在登録されている科目がありません</li>
+          {% endfor %}
+        </ul>
+      </div>
       <ul>
-        {% for item in subjects %}
-        {% if item.id == subject_id_i %}
-        <li class="highlight"><a class="normal-text" href="?subject={{item.id}}">{{item.name}}</li>
-        {% else %}
-        <li><a class="highlight-text" href="?subject={{item.id}}">{{item.name}}</li>
-        {% endif %}
-        {% empty %}
-        <li>現在登録されている科目がありません</li>
-        {% endfor %}
+        <div id="calendar"></div>
       </ul>
     </div>
-    <ul>
-      <div id="calendar"></div>
-    </ul>
+    <!-- クリックしたらモーダルを表示するボタン -->
+    <a href="#" class="btn-tsk">課題を追加</a>
+
+    <!-- オーバーレイ -->
+    <div class="overlay"></div>
+
+    <!-- モーダルウィンドウ（作成） -->
+    <div class="modal">
+      <div class="close">&times</div>
+      <h1>{{title}}</h1>
+
+      <table>
+        <th>課題の追加</th>
+        <form action="/create_task?subject={{subject_id}}" method="post">
+          {% csrf_token %}
+          {{ form_task.as_table }}
+          <label for="start">締め切り日:</label>
+          <input type="date" id="end" name="end">
+          <!--todo:デフォルト値は今日にしたい-->
+          <tr>
+            <td></td>
+            <td><input type="submit" name="create_task" value="click"></td>
+          </tr>
+        </form>
+        <th>科目の追加</th>
+        <form action="{% url 'index' %}" method="post">
+          {% csrf_token %}
+          {{ form_subject.as_table }}
+          <tr>
+            <td></td>
+            <td><input type="submit" name="create_subject" value="click"></td>
+          </tr>
+        </form>
+      </table>
+    </div>
+
+    <div class="edit_overlay"></div>
+
+    <!-- モーダルウィンドウ（編集） -->
+    <div class="edit_modal">
+      <div class="edit_close">&times</div>
+      <p>編集モーダル</p>
+      <div id="task_detail"></div>
+    </div>
+
+    <!-- スクロールで高さを出すためのsectionタグ -->
+    <section></section>
+    <!--htmlの後に読み込まないとエラーになる。-->
+    <script src="{% static 'js/modal2.js' %}">
+    </script>
+    <script src="{% static 'js/edit_modal.js' %}">
+    </script>
   </div>
-  <!-- クリックしたらモーダルを表示するボタン -->
-  <a href="#" class="btn-tsk">課題を追加</a>
-
-  <!-- オーバーレイ -->
-  <div class="overlay"></div>
-
-  <!-- モーダルウィンドウ（作成） -->
-  <div class="modal">
-    <div class="close">&times</div>
-    <h1>{{title}}</h1>
-
-    <table>
-      <th>課題の追加</th>
-      <form action="/create_task?subject={{subject_id}}" method="post">
-        {% csrf_token %}
-        {{ form_task.as_table }}
-        <label for="start">締め切り日:</label>
-        <input type="date" id="end" name="end">
-        <!--todo:デフォルト値は今日にしたい-->
-        <tr>
-          <td></td>
-          <td><input type="submit" name="create_task" value="click"></td>
-        </tr>
-      </form>
-      <th>科目の追加</th>
-      <form action="{% url 'index' %}" method="post">
-        {% csrf_token %}
-        {{ form_subject.as_table }}
-        <tr>
-          <td></td>
-          <td><input type="submit" name="create_subject" value="click"></td>
-        </tr>
-      </form>
-    </table>
+  <div class="forPortrait">
+    <!-- 縦長画面用のコンテンツ -->
+    <p class="note">
+      モバイル端末をお使いの場合は、画面を横向きにしてください。
+    </p>
   </div>
-
-  <div class="edit_overlay"></div>
-
-  <!-- モーダルウィンドウ（編集） -->
-  <div class="edit_modal">
-    <div class="edit_close">&times</div>
-    <p>編集モーダル</p>
-    <div id="task_detail"></div>
-  </div>
-
-  <!-- スクロールで高さを出すためのsectionタグ -->
-  <section></section>
-  <!--htmlの後に読み込まないとエラーになる。-->
-  <script src="{% static 'js/modal2.js' %}">
-  </script>
-  <script src="{% static 'js/edit_modal.js' %}">
-  </script>
-
 </body>
 
 </html>
