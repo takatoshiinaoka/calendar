@@ -35,12 +35,13 @@ def get_tasks(request):
 
     return JsonResponse(response_data)
 
+
 def subject_to_dict(data):
     return {"id":data.id,"name":data.name}
 
 def to_dict(data):
 
-    return {"id":data.id,"subject": data.subject_id.name, "task": data.name,"updated_at":data.updated_at}
+    return {"id":data.id,"subject": data.subject_id.name, "task": data.name}
 
 def to_detail_dict(data):
     obj = Task.objects.get(id=data.id)
@@ -49,8 +50,8 @@ def to_detail_dict(data):
         "name": data.name,
         "contents":data.contents,
         "author":data.author,
-        "created_at":data.created_at,
-        "updated_at":data.updated_at,
+        # "created_at":data.created_at,
+        # "updated_at":data.updated_at,
         "end":data.end,
         #"form":TaskForm(request.POST,instance=obj),
     }
