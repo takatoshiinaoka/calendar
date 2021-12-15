@@ -94,7 +94,6 @@ def index(request):
          'subject_id' : subject_id,
          'task_id':task_id,
          'task':task,
-         'form_task' : TaskForm(initial=initial_dict),
          'form_subject': SubjectForm(),
          'subject_id_i':int(subject_id),
          'task_id_i':int(task_id),
