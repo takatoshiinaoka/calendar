@@ -358,7 +358,11 @@
         <div><tr><td>詳細内容：</td><td><input type="text" id="contents" name="contents" ></td></tr></div>
         <tr></tr>          
         <div><tr><td>締め切り：</td><td><input type="date" id="end" name="end" required></td></tr></div>
-        <tr></tr>        
+        <tr></tr>
+          <td></td>
+          <td><input type="submit" name="create_task" value="click"></td>
+        </tr>
+        
       </form>
     </table>
     <a href="{% url 'create_subject' %}">科目の追加</a>
