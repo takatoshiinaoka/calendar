@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from calendarSite.models import Task
 from calendarSite.models import Subject
+from calendarSite.models import User_Subject
 from calendarSite.forms import TaskForm
 
 
@@ -34,12 +35,13 @@ def get_tasks(request):
 
     return JsonResponse(response_data)
 
+
 def subject_to_dict(data):
     return {"id":data.id,"name":data.name}
 
 def to_dict(data):
 
-    return {"id":data.id,"subject": data.subject_id.name, "task": data.name,"updated_at":data.updated_at}
+    return {"id":data.id,"subject": data.subject_id.name, "task": data.name}
 
 def to_detail_dict(data):
     obj = Task.objects.get(id=data.id)
@@ -48,8 +50,8 @@ def to_detail_dict(data):
         "name": data.name,
         "contents":data.contents,
         "author":data.author,
-        "created_at":data.created_at,
-        "updated_at":data.updated_at,
+        # "created_at":data.created_at,
+        # "updated_at":data.updated_at,
         "end":data.end,
         #"form":TaskForm(request.POST,instance=obj),
     }
@@ -85,9 +87,24 @@ def save_task(request):
         id = request.GET['task']
         task = Task.objects.get(id=id)
         obj = Task(id=id,subject_id=subject,name=name,author = task.author,end=end)#todo
-        print("課題の編集を行います")
+        #print("課題の編集を行います")
     else:
         obj = Task(subject_id=subject,name=name,author = request.user,end=end)
-        print("課題の作成を行います")
+        #print("課題の作成を行います")
     obj.save()
     return redirect(to="/")
+
+def save_User_Subject(request):
+    subjects = Subject.objects.all()
+    for i in subjects:
+      if 'answer'+str(i.id) in request.GET:
+        answer = request.GET['answer'+str(i.id)]
+        if answer=="true":
+            if not(User_Subject.objects.filter(user_id=request.user,subject_id=i).exists()):
+                obj=User_Subject(user_id=request.user,subject_id=i)
+                obj.save()
+        elif User_Subject.objects.filter(user_id=request.user,subject_id=i).exists():
+            obj=User_Subject.objects.filter(user_id=request.user,subject_id=i)
+            obj.delete()
+    
+    return JsonResponse({'test':0})
