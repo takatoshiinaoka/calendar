@@ -7,11 +7,6 @@ ul li {
     color: #C3C3C3;
     margin: 10px 15px 8px 13px;
 }
-/*送信ボタン*/
-button, [type="button"], [type="reset"], [type="submit"] {
-    -webkit-appearance: button;
-    border-radius: 10px;
-}
 /* 元々のチェックボックス（非表示） */
 .mycheckbox input[type="checkbox"]{
     display: none;
@@ -63,4 +58,22 @@ a.highlight-text {
 a.normal-text {
     color: #8f8f8f;
     padding: 0 0 10px 5px;
+}
+.side {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    background-color: #383838;
+    overflow-y: scroll;
+    margin: 30px 60px 25px 60px;
+    height: 84vh;
+    width: 30vw;
+    border-radius: 10px;
+}
+/*送信ボタン*/
+button, [type="button"], [type="reset"], [type="submit"] {
+    -webkit-appearance: button;
+    border-radius: 10px;
+    position: fixed;
+    bottom: 45px;
+    left: 75px;
 }
