@@ -337,18 +337,32 @@
     <h1>{{title}}</h1>
 
     <table>
-      課題の追加
-      <tr>
+      <th>課題の追加</th>
       <form action="/create_task?subject={{subject_id}}" method="post">
         {% csrf_token %}
-        <br>締め切り日:<input type="date" id="end" name="end">
- 
-        <center><input type="submit" name="create_task" value="click"></center>
-
+        
+        
+        <!--todo:デフォルト値は今日にしたい-->
+        <tr>
+          <td>
+              <div class="col-6">
+                <input type="date" id="end" name="end">
+              </div>
+          </td>
+          <td>{{ form_task.as_table }}</td>
+          <td></td>
+          <td><input type="submit" name="create_task" value="click"></td>
+        </tr>
       </form>
-      
-      <br><a href="{% url 'create_subject' %}">科目の追加</a>
-    </tr>
+      <th>科目の追加</th>
+      <form action="{% url 'index' %}" method="post">
+        {% csrf_token %}
+        {{ form_subject.as_table }}
+        <tr>
+          <td></td>
+          <td><input type="submit" name="create_subject" value="click"></td>
+        </tr>
+      </form>
     </table>
   </div>
 

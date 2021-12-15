@@ -66,7 +66,7 @@ class testForm(forms.Form):
 class SubjectForm(forms.ModelForm):
     class Meta:
         model = Subject
-        fields = ['name']
+        fields = ['name','week','period']
 
 class TaskForm(forms.ModelForm):
     class Meta:
