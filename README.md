@@ -2,10 +2,10 @@
 
 # calender 環境
 
-- python                    3.7.9                
-- django                    3.1.2                        
-- django-allauth            0.41.0   
-- markdown                  3.2.2                   
+- python                    :3.7.9                
+- django                    :3.1.2                        
+- django-allauth            :0.41.0   
+- markdown                  :3.2.2                   
 
 
 ## 1. はじめに
