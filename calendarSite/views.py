@@ -225,7 +225,6 @@ def subject_manage(request):
 
 
    if(form != None and dict(subjectid)!={}):
-      # データ更新 226行目で全く同じ処理をしているので必要なし
       #sql = 'DELETE FROM calendarSite_user_subject where user_id = "{{user}}"'
       #c.execute(sql)
       # db.execute(sql) #sql文を実行
