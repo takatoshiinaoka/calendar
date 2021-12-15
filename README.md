@@ -1,10 +1,12 @@
+# calendar
+
 サイトにアクセス[pblsrv.cs.fit.ac.jp:18000/](http://pblsrv.cs.fit.ac.jp:18000/)
 
-# calender 環境
+# 環境
 
 - python                    :3.7.9                
 - django                    :3.1.2                        
-- django-allauth            :0.41.0   
+- django-allauth            :0.47.0   
 - markdown                  :3.2.2                   
 
 
