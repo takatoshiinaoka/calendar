@@ -53,6 +53,7 @@ def gmail_send(send_name, mail_to, task, delivery_date ):
 
 #トップページ(科目を指定しない場合)
 def index(request):
+   #print("hello")
    #gmail_send("s20a2005", "s20a2005@bene.fit.ac.jp", "課題:メールを送る関数を定義する", "2021/12/11" )
    subject_id = '0'
    task_id = '0'
@@ -87,6 +88,7 @@ def index(request):
    initial_dict={
       'subject_id' : subject_id,
    }
+   subjectsnull=None
    dbData={
          "tasks":tasks,
          "user":user,
@@ -94,10 +96,13 @@ def index(request):
          'subject_id' : subject_id,
          'task_id':task_id,
          'task':task,
+         'subjectsnull':subjectsnull,
          'form_subject': SubjectForm(),
          'subject_id_i':int(subject_id),
          'task_id_i':int(task_id),
    }
+
+#   print(str(subjects))
    if task_id != '0':
       obj=Task.objects.get(id=task_id)
       dbData['form_editTask']=TaskForm(instance=obj)
@@ -188,7 +193,7 @@ def user(request):
 
 
 def subject(request):
-   form = subjectForm(request.POST or None)
+   form = SubjectForm(request.POST or None)
    subject = form['subject'].data or ''
    print(str(subject))
    if(subject !=''):
