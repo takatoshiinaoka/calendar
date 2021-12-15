@@ -48,7 +48,7 @@
         python manage.py runserver
         
 8. localhostにアクセスする
-
+Cancel changes
     [localhost:8000](http://localhost:8000/)　　　
     ※サーバーを閉じるときは「Ctrlキー + C」
 
@@ -99,6 +99,10 @@
 6.DBの作成
    
     python manage.py migrate
+    
+7.ブランチ更新
+
+      git pull origin main
 
 ## 8. 編集
 担当になった機能を実装します．変更したら，自分のリモートリポジトリにプッシュします．
