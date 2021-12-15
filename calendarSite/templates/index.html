@@ -25,287 +25,293 @@
 
 
   <title>user</title>
-
-  <script>
-    var subject_name = "";
-    var subject_id = "";
-    var task_id = "";
-    var tasks = [];
-
-
-    document.addEventListener
-      //('DOMContentLoaded', function () 
-      ('DOMContentLoaded', function () {
-        //filter('40')
-        var events = []
-
-        // events.push(
-        //   {
-        //     id: '/app/get_tasks?subject=37&task=70',
-        //     title: ''+subject_id+tasks,
-        //     start: '2021-10-10',
-        //     end: '2022-01-26',
-        //     color: '#007000',
-        //     url: '#'
-        //   },
-        // )
-        let tmp = []
-        let e = []
-        let c = []
-        let item = ""
-        {% for cale in tasks %}
-        // todo 後で関数に
+</head>
+<script>
+  var subject_name = "";
+  var subject_id = "";
+  var task_id = "";
+  var tasks = [];
 
 
+  document.addEventListener
+    //('DOMContentLoaded', function () 
+    ('DOMContentLoaded', function () {
+      //filter('40')
+      var events = []
 
-        item = "{{cale.end}}"
-        tmp = item.split("年")
-        e[0] = tmp[0]
-        tmp = tmp[1].split("月")
-        e[1] = tmp[0]
-        tmp = tmp[1].split("日")
-        e[2] = tmp[0]
+      // events.push(
+      //   {
+      //     id: '/app/get_tasks?subject=37&task=70',
+      //     title: ''+subject_id+tasks,
+      //     start: '2021-10-10',
+      //     end: '2022-01-26',
+      //     color: '#007000',
+      //     url: '#'
+      //   },
+      // )
+      let tmp = []
+      let e = []
+      let c = []
+      let item = ""
+      {% for cale in tasks %}
+      // todo 後で関数に
 
-        events.push(
-          {
-            id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&end='
-              + e.join('-'),
-            title: '{{cale.name}}',
-            start: '{{cale.end | date:"Y-m-d" }}',
-            //url: '?subject={{subject_id}}&task={{cale.id}}'
 
-          },
-        )
-        {% endfor %}
-        // tasks.forEach(element => 
-        //   events.push(
-        //       {
-        //       id: '/app/get_tasks?subject='+subject_id+'&task='+element.id,
-        //       title: element.task+" "+subject_id+ " " +  element.id,
-        //       start: element.updated_at,
-        //       end: element.updated_at,
-        //       url: '#'
-        //       },
-        //   )
-        // )
 
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+      item = "{{cale.end}}"
+      tmp = item.split("年")
+      e[0] = tmp[0]
+      tmp = tmp[1].split("月")
+      e[1] = tmp[0]
+      tmp = tmp[1].split("日")
+      e[2] = tmp[0]
 
-          eventClick: function (info) {
-            get_tasks('/app/get_tasks' + info.event.id);
-            edit_modal.classList.add('active');
-            edit_overlay.classList.add('active');
-          },
+      events.push(
+        {
+          id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&end='
+            + e.join('-'),
+          title: '{{cale.name}}',
+          start: '{{cale.end | date:"Y-m-d" }}',
+          //url: '?subject={{subject_id}}&task={{cale.id}}'
 
-          eventChange: function (obj) { // イベントが修正されたら発生するイベント
-            console.log(obj.event.start)
-            let s = obj.event.start.toISOString().split("T");//toISOString()のT部分でスプリット
-            let _start = s[0].split("-");
-            _start[2] = String(Number(_start[2]) + 1);
-            console.log(obj.event.end)//なんかnulになってる
+        },
+      )
+      {% endfor %}
+      // tasks.forEach(element => 
+      //   events.push(
+      //       {
+      //       id: '/app/get_tasks?subject='+subject_id+'&task='+element.id,
+      //       title: element.task+" "+subject_id+ " " +  element.id,
+      //       start: element.updated_at,
+      //       end: element.updated_at,
+      //       url: '#'
+      //       },
+      //   )
+      // )
 
-            let query = obj.event.id.split('&')
-            query[3] = "end=" + _start.join('-')//todo            
-            console.log(s)
-            save_task('/app/save_task' + query.join('&'))
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
 
-          },
-          eventRemove: function (obj) { // イベントを削除すると発生するイベント
-            console.log(obj);
-          },
+        eventClick: function (info) {
+          get_tasks('/app/get_tasks' + info.event.id);
+          edit_modal.classList.add('active');
+          edit_overlay.classList.add('active');
+        },
 
-          expandRows: true, // 画面に合わせて高さを再設定
-          slotMinTime: '12:00', // Dayカレンダーに開始時間
-          slotMaxTime: '12:00', // Dayカレンダーに終了時間
-          locale: 'ja',
-          headerToolbar: {
-            left: "dayGridMonth,listMonth",
-            center: "title",
-            right: "today prev,next"
-          },
-          buttonText: {
-            prev: '<',
-            next: '>',
-            prevYear: '<<',
-            nextYear: '>>',
-            today: '今日',
-            month: '月',
-            week: '週',
-            day: '日',
-            list: '一覧'
-          },
-          dayCellContent: function (e) {
-            e.dayNumberText = e.dayNumberText.replace('日', '');
-          },
-          navLinks: true, // 日付を選択するとDayカレンダーやWeekカレンダーにリンク
-          editable: true, // 修正可能
-          nowIndicator: true, // 現在時間マーク
-          dayMaxEvents: true, // イベントの数がオバーすると高さの制限(+のマークと何個式で表現)
-          initialView: 'dayGridMonth',
-          events: events
-        });
-        calendar.render();
-        document.addEventListener
+        eventChange: function (obj) { // イベントが修正されたら発生するイベント
+          console.log(obj.event.start)
+          let s = obj.event.start.toISOString().split("T");//toISOString()のT部分でスプリット
+          let _start = s[0].split("-");
+          _start[2] = String(Number(_start[2]) + 1);
+          console.log(obj.event.end)//なんかnulになってる
 
-      }
-      );
-    function filter(val) {
-      console.log(val)
-      path = "/app/get_tasks?subject=" + val
-      fetch(path)
-        .then(response => {
+          let query = obj.event.id.split('&')
+          query[3] = "end=" + _start.join('-')//todo            
+          console.log(s)
+          save_task('/app/save_task' + query.join('&'))
 
-          // (1) 通信が成功したか確認する
-          if (!response.ok) {
+        },
+        eventRemove: function (obj) { // イベントを削除すると発生するイベント
+          console.log(obj);
+        },
 
-            // (2) 通信に失敗したときはエラーを発生させる
-            throw new Error('Not ok');
-          }
-          // (3) レスポンスデータからJSONデータを取得
-          return response.json();
-        })
-        .then(data => {
-          // (4) 受け取ったデータをコンソール出力
-          console.log(data);
-          console.log("課目ID:" + data.subject_id);
-          console.log("科目名:" + data.subject_name);
-          tasks = data.tasks;
-          subject_id = data.subject_id
-          console.log(tasks)
-        })
-        .catch(error => {
-          // (5) エラーを受け取ったらコンソール出力
-          console.error(error);
-        });
+        expandRows: true, // 画面に合わせて高さを再設定
+        slotMinTime: '12:00', // Dayカレンダーに開始時間
+        slotMaxTime: '12:00', // Dayカレンダーに終了時間
+        locale: 'ja',
+        headerToolbar: {
+          left: "dayGridMonth,listMonth",
+          center: "title",
+          right: "today prev,next"
+        },
+        buttonText: {
+          prev: '<',
+          next: '>',
+          prevYear: '<<',
+          nextYear: '>>',
+          today: '今日',
+          month: '月',
+          week: '週',
+          day: '日',
+          list: '一覧'
+        },
+        dayCellContent: function (e) {
+          e.dayNumberText = e.dayNumberText.replace('日', '');
+        },
+        navLinks: true, // 日付を選択するとDayカレンダーやWeekカレンダーにリンク
+        editable: true, // 修正可能
+        nowIndicator: true, // 現在時間マーク
+        dayMaxEvents: true, // イベントの数がオバーすると高さの制限(+のマークと何個式で表現)
+        initialView: 'dayGridMonth',
+        events: events
+      });
+      calendar.render();
+      document.addEventListener
+
     }
-    function get_tasks(path) {
-      //alert("カレンダーイベントのクリックを検出しました。")
-      //alert("localhost:8000"+path+"からデータを取得します。")
-      fetch(path)
+    );
+  function filter(val) {
+    console.log(val)
+    path = "/app/get_tasks?subject=" + val
+    fetch(path)
+      .then(response => {
 
-        .then(response => {
+        // (1) 通信が成功したか確認する
+        if (!response.ok) {
 
-          // (1) 通信が成功したか確認する
-          if (!response.ok) {
+          // (2) 通信に失敗したときはエラーを発生させる
+          throw new Error('Not ok');
+        }
+        // (3) レスポンスデータからJSONデータを取得
+        return response.json();
+      })
+      .then(data => {
+        // (4) 受け取ったデータをコンソール出力
+        console.log(data);
+        console.log("課目ID:" + data.subject_id);
+        console.log("科目名:" + data.subject_name);
+        tasks = data.tasks;
+        subject_id = data.subject_id
+        console.log(tasks)
+      })
+      .catch(error => {
+        // (5) エラーを受け取ったらコンソール出力
+        console.error(error);
+      });
+  }
+  function get_tasks(path) {
+    //alert("カレンダーイベントのクリックを検出しました。")
+    //alert("localhost:8000"+path+"からデータを取得します。")
+    fetch(path)
 
-            // (2) 通信に失敗したときはエラーを発生させる
-            throw new Error('Not ok');
-          }
-          // (3) レスポンスデータからJSONデータを取得
-          return response.json();
-        })
-        .then(data => {
-          // (4) 受け取ったデータをコンソール出力
-          console.log(data);
-          console.log("課題ID:" + data.task_id);
-          console.log("課題名:" + data.task.name);
-          console.log("科目名:" + data.task.subject);
-          editQuery =
-            "task=" + data.task_id
-            + "&subject=" + data.subject_id
-            + "&end=" + data.task.end
+      .then(response => {
+
+        // (1) 通信が成功したか確認する
+        if (!response.ok) {
+
+          // (2) 通信に失敗したときはエラーを発生させる
+          throw new Error('Not ok');
+        }
+        // (3) レスポンスデータからJSONデータを取得
+        return response.json();
+      })
+      .then(data => {
+        // (4) 受け取ったデータをコンソール出力
+        console.log(data);
+        console.log("課題ID:" + data.task_id);
+        console.log("課題名:" + data.task.name);
+        console.log("科目名:" + data.task.subject);
+        editQuery =
+          "task=" + data.task_id
+          + "&subject=" + data.subject_id
+          + "&end=" + data.task.end
 
 
-          if (data.task_id != '0')
-            //課題編集モーダルに表示する内容
-            var str =
-              "<h1>" + data.task.name + "</h1>"
-              + "<p>課題ID:" + data.task_id + "</p>"
-              + "<p>科目名:" + data.task.subject + "</p>"
-              + "<p>作成者:" + data.task.author + "</p>"
-              + "<p>締切日：" + data.task.end + "</p>"
-              + "<p>内容:" + data.task.contents + "</p>"
-              + "<label for='name" + data.task_id + "''>課題名:</label>"
-              + "<input type='text' id='name" + data.task_id + "'><br>"
-              + "<label for='content" + data.task_id + "''>内容:</label>"
-              + "<input type='text' id='content" + data.task_id + "'><br>"
-              + "<button onclick='edit()'>送信</button>"
-              + "<a style='color:red' href='/app/delete_task?task=" + data.task_id + "&subject=" + data.subject.id + "'>削除</a>"
+        if (data.task_id != '0')
+          //課題編集モーダルに表示する内容
+          var str =
+            "<h1>" + data.task.name + "</h1>"
+            + "<p>課題ID:" + data.task_id + "</p>"
+            + "<p>科目名:" + data.task.subject + "</p>"
+            + "<p>作成者:" + data.task.author + "</p>"
+            + "<p>締切日：" + data.task.end + "</p>"
+            + "<p>内容:" + data.task.contents + "</p>"
+            + "<label for='name" + data.task_id + "''>課題名:</label>"
+            + "<input type='text' id='name" + data.task_id + "'><br>"
+            + "<label for='content" + data.task_id + "''>内容:</label>"
+            + "<input type='text' id='content" + data.task_id + "'><br>"
+            + "<button onclick='edit()'>送信</button>"
+            + "<a style='color:red' href='/app/delete_task?task=" + data.task_id + "&subject=" + data.subject.id + "'>削除</a>"
 
-          document.getElementById('task_detail').innerHTML = str;
-          subject_name = data.task.subject;
-          subject_id = data.subject.id;
-          task_id = data.task_id;
-        })
-        .catch(error => {
-          // (5) エラーを受け取ったらコンソール出力
-          console.error(error);
-        });
+        document.getElementById('task_detail').innerHTML = str;
+        subject_name = data.task.subject;
+        subject_id = data.subject.id;
+        task_id = data.task_id;
+      })
+      .catch(error => {
+        // (5) エラーを受け取ったらコンソール出力
+        console.error(error);
+      });
 
-      //alert("コンソールの出力を確認してください。")
+    //alert("コンソールの出力を確認してください。")
+  }
+  function save_task(path) {
+    //alert("カレンダーイベントのクリックを検出しました。")
+    //alert("localhost:8000"+path+"からデータを取得します。")
+    fetch(path)
+      .then(response => {
+
+        // (1) 通信が成功したか確認する
+        if (!response.ok) {
+
+          // (2) 通信に失敗したときはエラーを発生させる
+          throw new Error('Not ok');
+        }
+        // (3) レスポンスデータからJSONデータを取得
+        return response.json();
+      })
+      .then(data => {
+
+
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+  function edit() {
+    console.log("a")
+    path = '/app/save_task?' + editQuery
+    if (document.getElementById("name" + task_id) === null) {
+      return 0
     }
-    function save_task(path) {
-      //alert("カレンダーイベントのクリックを検出しました。")
-      //alert("localhost:8000"+path+"からデータを取得します。")
-      fetch(path)
-        .then(response => {
+    path = path + "&name=" + document.getElementById("name" + task_id).value
+    console.log(path)
+    fetch(path)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Not ok');
+        }
+      })
+      .then(data => {
+        window.location.href = "?subject={{subject_id}}";
+      })
+      .catch(error => {
+        console.error(error);
 
-          // (1) 通信が成功したか確認する
-          if (!response.ok) {
+      });
+  }
+</script>
+<style>
+  #calendar {
+    position: fixed;
+    top: 7vw;
+    left: 40vw;
+    width: 55vw;
+    /*55vw*/
+    height: 35vw;
+    /*35vw*/
+    overflow-y: scroll;
+    font-family: 'M PLUS Rounded 1c', sans-serif;
+  }
 
-            // (2) 通信に失敗したときはエラーを発生させる
-            throw new Error('Not ok');
-          }
-          // (3) レスポンスデータからJSONデータを取得
-          return response.json();
-        })
-        .then(data => {
+  #calendar::-webkit-scrollbar {
+    /* Chrome, Safari 対応 */
+    display: none;
+  }
 
-
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    }
-    function edit() {
-      console.log("a")
-      path = '/app/save_task?' + editQuery
-      if (document.getElementById("name" + task_id) === null) {
-        return 0
-      }
-      path = path + "&name=" + document.getElementById("name" + task_id).value
-      console.log(path)
-      fetch(path)
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Not ok');
-          }
-        })
-        .then(data => {
-          window.location.href = "?subject={{subject_id}}";
-        })
-        .catch(error => {
-          console.error(error);
-
-        });
-    }
-  </script>
-  <style>
-    #calendar {
-      position: fixed;
-      top: 8vw;
-      left: 40vw;
-      width: 55vw;
-      /*55vw*/
-      height: 35vw;
-      /*35vw*/
-      overflow-y: scroll;
-      font-family: 'M PLUS Rounded 1c', sans-serif;
-    }
-
-    #calendar::-webkit-scrollbar {
-      /* Chrome, Safari 対応 */
-      display: none;
-    }
-
-    #calendar td.fc-day-today {
-      background-color: #71b4b1;
-    }
-  </style>
+  #calendar td.fc-day-today {
+    background-color: #71b4b1;
+  }
+</style>
 </head>
 
 <body>
+  <div class="forPortrait">
+    <!-- 縦長画面用のコンテンツ -->
+    <p class="note">
+      モバイル端末をお使いの場合は、<br>画面を横向きにしてください。
+    </p>
+  </div>
   <div class="forLandscape">
     <!-- 横長画面用のコンテンツ -->
     <div class="main">
@@ -379,12 +385,6 @@
     </script>
     <script src="{% static 'js/edit_modal.js' %}">
     </script>
-  </div>
-  <div class="forPortrait">
-    <!-- 縦長画面用のコンテンツ -->
-    <p class="note">
-      モバイル端末をお使いの場合は、画面を横向きにしてください。
-    </p>
   </div>
 </body>
 
