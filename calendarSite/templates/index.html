@@ -345,7 +345,6 @@
 
     <table>
       <font size=6px>課題の追加</font><br>
-      {{subject_id}}
       <form action="/create_task?subject={{subject_id}}" method="post">
         {% csrf_token %}
 
