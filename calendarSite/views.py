@@ -210,7 +210,7 @@ def subject_manage(request):
 
    if(form != None and dict(subjectid)!={}):
       # データ更新
-      sql = 'DELETE FROM calendarSite_user_subject where user_id = "{{user}}"'
+      #sql = 'DELETE FROM calendarSite_user_subject where user_id = "{{user}}"'
       #c.execute(sql)
       # db.execute(sql) #sql文を実行
       # db.close()      #データベースを閉じる
