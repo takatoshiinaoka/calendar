@@ -1,7 +1,12 @@
+サイトにアクセス[pblsrv.cs.fit.ac.jp:18000/](http://pblsrv.cs.fit.ac.jp:18000/)
 
-# calender 環境設定の手順
+# calender 環境
 
-[pblsrv.cs.fit.ac.jp:18000/](http://pblsrv.cs.fit.ac.jp:18000/)
+- python                    :3.7.9                
+- django                    :3.1.2                        
+- django-allauth            :0.41.0   
+- markdown                  :3.2.2                   
+
 
 ## 1. はじめに
 今回は2021年クラウドアプリ開発入門講座を受講し，独自のアプリ開発をすることになった．その報告会に向けた成果物として今回のカレンダープロジェクトを行っていく．
@@ -48,7 +53,7 @@
         python manage.py runserver
         
 8. localhostにアクセスする
-
+Cancel changes
     [localhost:8000](http://localhost:8000/)　　　
     ※サーバーを閉じるときは「Ctrlキー + C」
 
@@ -99,6 +104,10 @@
 6.DBの作成
    
     python manage.py migrate
+    
+7.ブランチ更新
+
+      git pull origin main
 
 ## 8. 編集
 担当になった機能を実装します．変更したら，自分のリモートリポジトリにプッシュします．

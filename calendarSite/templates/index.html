@@ -27,6 +27,7 @@
   <title>user</title>
 
   <script>
+    
     var subject_name = "";
     var subject_id = "";
     var task_id = "";
@@ -93,6 +94,7 @@
         var calendar = new FullCalendar.Calendar(calendarEl, {
 
           eventClick: function (info) {
+            
             get_tasks('/app/get_tasks' + info.event.id);
             edit_modal.classList.add('active');
             edit_overlay.classList.add('active');
@@ -146,7 +148,7 @@
           events: events
         });
         calendar.render();
-        document.addEventListener
+        
 
       }
       );
@@ -310,20 +312,23 @@
     <div class="side">
       <p class="subject-title">科目一覧</p>
       <ul>
-        {% for item in subjects %}
-        {% if item.id == subject_id_i %}
-        <li class="highlight"><a class="normal-text" href="?subject={{item.id}}">{{item.name}}</li>
-        {% else %}
-        <li><a class="highlight-text" href="?subject={{item.id}}">{{item.name}}</li>
-        {% endif %}
+       
+        {% for item in subjects %}<!--選択している科目は異なる色で表示する-->
+          {% if item.id == subject_id_i %}
+            <li class="highlight"><a class="normal-text" href="?subject={{item.id}}">{{item.name}}</a></li>
+          {% else %}
+            <li><a class="highlight-text" href="?subject={{item.id}}">{{item.name}}</a></li>
+          {% endif %}
+
         {% empty %}
         <li>現在登録されている科目がありません</li>
         {% endfor %}
+        
       </ul>
-    </div>
-    <ul>
-      <div id="calendar"></div>
-    </ul>
+      <ul>
+        <div id="calendar"></div>
+      </ul>
+    </div> 
   </div>
   <!-- クリックしたらモーダルを表示するボタン -->
   <a href="#" class="btn-tsk">課題を追加</a>
