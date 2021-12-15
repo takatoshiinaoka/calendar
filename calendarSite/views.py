@@ -232,7 +232,7 @@ def subject_manage(request):
       User_Subject.objects.filter(user_id=str(user)).delete()#まずログインユーザーの履修データをすべて消す
       for inaoka in dict(subjectid)['chk']:
          #print(inaoka)
-         User_SubjectModel = User_Subject(user_id=str(user),subject_id=inaoka,week="week",period="period")
+         User_SubjectModel = User_Subject(user_id=str(user),subject_id=inaoka)
          User_SubjectModel.save()
    
    
