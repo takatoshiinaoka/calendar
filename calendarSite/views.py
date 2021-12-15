@@ -88,7 +88,6 @@ def index(request):
    initial_dict={
       'subject_id' : subject_id,
    }
-   subjectsnull=None
    dbData={
          "tasks":tasks,
          "user":user,
@@ -96,7 +95,6 @@ def index(request):
          'subject_id' : subject_id,
          'task_id':task_id,
          'task':task,
-         'subjectsnull':subjectsnull,
          'form_subject': SubjectForm(),
          'subject_id_i':int(subject_id),
          'task_id_i':int(task_id),
