@@ -69,7 +69,12 @@ class SubjectForm(forms.ModelForm):
         fields = ['name','week','period']
 
 class TaskForm(forms.ModelForm):
-    class Meta:
-        model = Task
-        fields = ['subject_id','name','contents']
+    subject_id  = forms.CharField(max_length=200,required=True)
+    name        = forms.CharField(max_length=200,required=True)
+    author      = forms.CharField(max_length=200,required=True)
+    contents    = forms.CharField(max_length=200,required=True)
+    end = forms.DateField(
+        widget=forms.DateInput(attrs={"type":"date"}),
+        input_formats=['%Y-%m-%d']
+    )
 

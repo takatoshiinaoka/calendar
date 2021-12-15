@@ -332,24 +332,35 @@
       </ul>
     </div> 
   </div>
+
+
   <!-- クリックしたらモーダルを表示するボタン -->
   <a href="#" class="btn-tsk">課題を追加</a>
-
   <!-- オーバーレイ -->
   <div class="overlay"></div>
-
   <!-- モーダルウィンドウ（作成） -->
   <div class="modal">
     <div class="close">&times</div>
     <h1>{{title}}</h1>
 
     <table>
-      <th>課題の追加</th>
+      <font size=6px>課題の追加</font><br>
+      {{subject_id}}
       <form action="/create_task?subject={{subject_id}}" method="post">
         {% csrf_token %}
-        
-        
-        <!--todo:デフォルト値は今日にしたい-->
+
+        <tr><td>user: {{user}}</td></tr>
+        <div><tr><td>科目名：</td><td><select name="subject_id">
+          {% for x in subjects %}
+            <option value="">{{x.name}}</option>
+          {% endfor %}
+        </select></td></tr></div>
+        <div><tr><td>タイトル：</td><td><input type="text" id="name" name="name" required></td></tr></div>
+        <div><tr><td>詳細内容：</td><td><input type="text" id="contents" name="contents" ></td></tr></div>
+        <tr></tr>          
+        <div><tr><td>締め切り：</td><td><input type="date" id="end" name="end" required></td></tr></div>
+        <tr></tr>
+
         <tr>
           <td>
               <div class="col-6">
@@ -360,17 +371,10 @@
           <td></td>
           <td><input type="submit" name="create_task" value="click"></td>
         </tr>
-      </form>
-      <th>科目の追加</th>
-      <form action="{% url 'index' %}" method="post">
-        {% csrf_token %}
-        {{ form_subject.as_table }}
-        <tr>
-          <td></td>
-          <td><input type="submit" name="create_subject" value="click"></td>
-        </tr>
+        
       </form>
     </table>
+    <a href="{% url 'create_subject' %}">科目の追加</a>
   </div>
 
   <div class="edit_overlay"></div>
