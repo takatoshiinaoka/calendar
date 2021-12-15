@@ -72,8 +72,13 @@ a.normal-text {
 /*送信ボタン*/
 button, [type="button"], [type="reset"], [type="submit"] {
     -webkit-appearance: button;
-    border-radius: 10px;
+    border-radius: 50px;
     position: fixed;
-    bottom: 45px;
-    left: 75px;
+    bottom: 30px;
+    left: 60px;
+    background-color:#71b4b1;
+    color: #fff;
+    margin: 15px;
+    padding: 5px 15px;
+    border: none;
 }
