@@ -88,6 +88,7 @@ def index(request):
          subject.save()
          return response
 
+
    if 'finish' in request.GET:
       obj=User_Task(user_id=str(request.user),
       task_id=request.GET["finish"],
@@ -96,6 +97,7 @@ def index(request):
       howlong="",
       )
       obj.save()
+
 
    initial_dict={
       'subject_id' : subject_id,
@@ -150,11 +152,9 @@ def task(request):
 
 def addData(request):
    date=0
-   user='かいた'
-   subject='おーいお茶'
-   title='伊藤園'
-
-
+   user=''
+   subject=''
+   title=''
    #フォームを持って来る
    form=addDataForm(request.POST or None)
    #フォームからデータを取得
@@ -174,7 +174,6 @@ def addData(request):
       calendarModel.save()
 
    caleList = Calendar.objects.all()
-
    print(caleList)
 
    dbData={
@@ -202,7 +201,8 @@ def user(request):
 
 
 def subject(request):
-   form = subjectForm(request.POST or None)
+   print("subject_page")
+   form = SubjectForm(request.POST or None)
    subject = form['subject'].data or ''
    print(str(subject))
    if(subject !=''):
@@ -218,6 +218,37 @@ def subject(request):
    }
    return render(request, 'subject.html',params)
 
+def create_subject(request):
+   if (request.method == 'POST'):
+      obj = Subject()
+      subject = SubjectForm(request.POST,instance=obj)
+      subject.save()
+      return redirect(to = '/subject')
+   params = {
+      'title' : '科目の作成',
+      'form' : SubjectForm(),
+      'data': Subject.objects.all()
+   }
+   return render(request,'create_subject.html',params)
+
+def edit_subject(request,num):
+   obj = Subject.objects.get(id=num)
+   if(request.method == 'POST'):
+      subject = SubjectForm(request.POST,instance=obj)
+      subject.save()
+      return redirect(to='/subject')
+   params ={
+      'title':'科目の編集',
+      'id':num,
+      'form':SubjectForm(instance=obj),
+   }
+   return render(request,'edit_subject.html',params)
+
+def delete_subject(request,num):#todo ユーザーに確認するページを追加
+   subject = Subject.objects.get(id=num)
+   subject.delete()
+   return redirect(to = '/subject')
+
 def subject_manage(request):
    
    form = subject_manageForm(request.GET or None)
@@ -226,6 +257,7 @@ def subject_manage(request):
    user = request.user.id
    #print(user)
    subjectid= form.data or ''
+
    #print("これ")
    
    # print(subjectid)
@@ -233,6 +265,7 @@ def subject_manage(request):
    #print(dict(subjectid))
    user = request.user.id
    subjectid= form.data or ''
+¥
    if(form != None and dict(subjectid)!={}):
       #sql = 'DELETE FROM calendarSite_user_subject where user_id = "{{user}}"'
       #c.execute(sql)
@@ -244,6 +277,7 @@ def subject_manage(request):
          User_SubjectModel = User_Subject(user_id=str(user),subject_id=inaoka)
          User_SubjectModel.save()
    
+
    
    list = User_Subject.objects.filter(user_id=str(user))
    mysubjects = []#現在履修している科目は最初からチェックをつけておく
@@ -365,6 +399,7 @@ def delete_task(request,num):#todo ユーザーに確認するページを追加
    task.delete()
    return redirect(to = '/')
 
+
 def create_subject(request):
    if (request.method == 'POST'):
       obj = Subject()
@@ -396,6 +431,7 @@ def delete_subject(request,num):#todo ユーザーに確認するページを追
    subject = Subject.objects.get(id=num)
    subject.delete()
    return redirect(to = '/subject')
+
 
 from django.views.generic import ListView
 from django.views.generic import DetailView

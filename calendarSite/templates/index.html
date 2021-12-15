@@ -347,11 +347,16 @@
       <th>課題の追加</th>
       <form action="/create_task?subject={{subject_id}}" method="post">
         {% csrf_token %}
-        {{ form_task.as_table }}
-        <label for="start">締め切り日:</label>
-        <input type="date" id="end" name="end">
+        
+        
         <!--todo:デフォルト値は今日にしたい-->
         <tr>
+          <td>
+              <div class="col-6">
+                <input type="date" id="end" name="end">
+              </div>
+          </td>
+          <td>{{ form_task.as_table }}</td>
           <td></td>
           <td><input type="submit" name="create_task" value="click"></td>
         </tr>
