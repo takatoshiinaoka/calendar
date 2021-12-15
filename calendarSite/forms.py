@@ -41,13 +41,6 @@ class subject_manageForm(forms.Form):
         widget=forms.CheckboxInput
     )
 
-
-class subjectForm(forms.Form):
-    subject = forms.CharField(
-        max_length=200,
-    )
-    
-
 class taskForm(forms.Form):
     subject=()
     title=()

@@ -3,7 +3,6 @@ from django.shortcuts import redirect
 from calendarSite.forms import addDataForm
 from calendarSite.forms import SubjectForm
 from calendarSite.forms import taskForm
-from calendarSite.forms import subjectForm
 from calendarSite.forms import TaskForm
 from calendarSite.models import Calendar
 from calendarSite.models import Task
@@ -11,7 +10,7 @@ from calendarSite.models import Subject
 from calendarSite.models import User_Subject
 from calendarSite.forms import subject_manageForm
 #以下メール用
-import pandas as pd
+#import pandas as pd
 import datetime #日付や時間を指定するモジュール
 import smtplib #メールさメールサーバーを操作してメールを送信する SMTP
 import ssl #暗号化や認証の仕組み
@@ -219,6 +218,10 @@ def subject_manage(request):
    # print(subjectid)
    # print('test')
    #print(dict(subjectid))
+   user = request.user.id
+   subjectid= form.data or ''
+
+   
 
 
    if(form != None and dict(subjectid)!={}):
