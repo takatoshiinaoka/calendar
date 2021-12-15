@@ -41,15 +41,15 @@
           <form method = "GET">
             {% for item in data %}
             {{item.id}}
-            {% if item.id == subject_id_i %}
+            {% if item in mysubjects %}
             <label>
-              <input type="checkbox" name="chk" value="{{item.id}}" />
+              <input type="checkbox" name="chk" value="{{item.id}}" checked="checked"/>
               <li class="highlight"><a class="normal-text">{{item.name}}</li>
             </label>
             {% else %}
             <label>
               <input type="checkbox" name="chk" value="{{item.id}}" />
-              <li><a class="highlight-text" >{{item.name}}</li>
+              <li class="highlight"><a class="normal-text">{{item.name}}</li>
             </label>
             {% endif %}
             {% empty %}
