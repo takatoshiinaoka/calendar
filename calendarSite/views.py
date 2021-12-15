@@ -6,6 +6,7 @@ from calendarSite.forms import taskForm
 from calendarSite.forms import TaskForm
 from calendarSite.models import Calendar
 from calendarSite.models import Task
+from calendarSite.models import User_Task
 from calendarSite.models import Subject
 from calendarSite.models import User_Subject
 from calendarSite.forms import subject_manageForm
@@ -61,8 +62,12 @@ def index(request):
   
    if 'task' in request.GET:
       task_id = request.GET['task']
-  
-   tasks = Task.objects.filter(subject_id=subject_id).all() 
+   if subject_id == '0':
+      tasks = Task.objects.filter().all() 
+   else:
+      tasks = Task.objects.filter(subject_id=subject_id).all()
+
+
    task = Task.objects.filter(id=task_id).all() 
 
    mysubjects = User_Subject.objects.filter(user_id=str(request.user.id)).all()#今ログインしているユーザーの履修情報を取得
@@ -82,7 +87,15 @@ def index(request):
          subject = SubjectForm(request.POST,instance=obj)
          subject.save()
          return response
-         
+
+   if 'finish' in request.GET:
+      obj=User_Task(user_id=str(request.user),
+      task_id=request.GET["finish"],
+      done="true",
+      notice="",
+      howlong="",
+      )
+      obj.save()
 
    initial_dict={
       'subject_id' : subject_id,
@@ -220,10 +233,6 @@ def subject_manage(request):
    #print(dict(subjectid))
    user = request.user.id
    subjectid= form.data or ''
-
-   
-
-
    if(form != None and dict(subjectid)!={}):
       #sql = 'DELETE FROM calendarSite_user_subject where user_id = "{{user}}"'
       #c.execute(sql)
@@ -346,7 +355,12 @@ def edit_task(request,num):
    }
    return render(request,'edit_task.html',params)
 
+# def edit_task2(request):
+#    if(request.method == 'GET'):
+
+
 def delete_task(request,num):#todo ユーザーに確認するページを追加
+   User_Task.objects.filter(task_id=num).delete()
    task = Task.objects.get(id=num)
    task.delete()
    return redirect(to = '/')
@@ -378,6 +392,7 @@ def edit_subject(request,num):
    return render(request,'edit_subject.html',params)
 
 def delete_subject(request,num):#todo ユーザーに確認するページを追加
+   User_Subject.objects.filter(subject_id=num).delete()
    subject = Subject.objects.get(id=num)
    subject.delete()
    return redirect(to = '/subject')
