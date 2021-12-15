@@ -148,7 +148,7 @@
           events: events
         });
         calendar.render();
-        document.addEventListener
+        
 
       }
       );
@@ -315,19 +315,20 @@
        
         {% for item in subjects %}<!--選択している科目は異なる色で表示する-->
           {% if item.id == subject_id_i %}
-            <li class="highlight"><a class="normal-text" href="?subject={{item.id}}">{{item.name}}</li>
+            <li class="highlight"><a class="normal-text" href="?subject={{item.id}}">{{item.name}}</a></li>
           {% else %}
-            <li><a class="highlight-text" href="?subject={{item.id}}">{{item.name}}</li>
+            <li><a class="highlight-text" href="?subject={{item.id}}">{{item.name}}</a></li>
           {% endif %}
 
         {% empty %}
         <li>現在登録されている科目がありません</li>
         {% endfor %}
+        
       </ul>
-    </div>
-    <ul>
-      <div id="calendar"></div>
-    </ul>
+      <ul>
+        <div id="calendar"></div>
+      </ul>
+    </div> 
   </div>
   <!-- クリックしたらモーダルを表示するボタン -->
   <a href="#" class="btn-tsk">課題を追加</a>
