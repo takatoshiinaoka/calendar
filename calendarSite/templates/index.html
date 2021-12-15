@@ -212,19 +212,21 @@
         if(data.task_id!='0')
           //課題編集モーダルに表示する内容
           var str = 
-          "<h1>"+data.task.name+"</h1>"
+          "<form method = 'GET'>"
+          +"<h1>"+data.task.name+"</h1>"
           +"<p>課題ID:"+data.task_id+"</p>"
           +"<p>科目名:"+data.task.subject+"</p>"
           +"<p>作成者:"+data.task.author+"</p>"
           +"<p>締切日："+data.task.end+"</p>"
           +"<p>内容:"+data.task.contents+"</p>"
-          +"<label for='name"+data.task_id+"''>課題名:</label>"
+          +"<label for='name"+data.task_id+"''>課題名変更:</label>"
           +"<input type='text' id='name"+data.task_id+"'><br>"
-          +"<label for='content"+data.task_id+"''>内容:</label>"
+          +"<label for='content"+data.task_id+"''>内容変更:</label>"
           +"<input type='text' id='content"+data.task_id+"'><br>"
-          +"<button onclick='edit()'>送信</button>"
+          +"<input type='checkbox' name='finish' value='"+data.task_id+"'><br>"
+          +"<input type='submit' value='登録'><br>"
           +"<a style='color:red' href='/app/delete_task?task="+data.task_id+"&subject="+data.subject.id+"'>削除</a>"
-
+          
           document.getElementById('task_detail').innerHTML = str ;
         subject_name = data.task.subject;
         subject_id = data.subject.id;
