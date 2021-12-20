@@ -90,14 +90,31 @@ def index(request):
          return response
 
 
-   if 'finish' in request.GET:
-      obj=User_Task(user_id=str(request.user),
-      task_id=request.GET["finish"],
-      done="true",
-      notice="",
-      howlong="",
+   if 'edit_task' in request.GET:
+  
+      task_id = request.GET["edit_task"]
+      user_task = User_Task(user_id=str(request.user),
+      task_id = task_id,
+      done = "true",
+      notice = "",
+      howlong = "",
+      )
+      user_task.save()
+      task = Task.objects.get(id=request.GET['edit_task'])
+      contents=''
+      if 'contents' in request.GET:
+         contents = request.GET['contents']
+      obj = Task(
+         id = task_id,
+         subject_id=task.subject_id,
+         name = request.GET['name'],
+         author = task.author,
+         contents = contents,
+         end = task.end,
       )
       obj.save()
+      return redirect('/?subject='+str(task.subject_id.id))
+   
 
 
    initial_dict={
