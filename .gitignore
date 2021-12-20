@@ -153,3 +153,4 @@ cython_debug/
 # End of https://www.toptal.com/developers/gitignore/api/django
 .vscode/settings.json
 piplist.txt
+calendarSite/migrations/0001_initial.py
