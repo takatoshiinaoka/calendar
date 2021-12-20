@@ -93,13 +93,16 @@ def index(request):
    if 'edit_task' in request.GET:
   
       task_id = request.GET["edit_task"]
-      user_task = User_Task(user_id=str(request.user),
-      task_id = task_id,
-      done = "true",
-      notice = "",
-      howlong = "",
-      )
-      user_task.save()
+      
+      num = User_Task.objects.filter(user_id=str(request.user),task_id = task_id).count()
+      if num == 0:
+         user_task = User_Task(user_id=str(request.user),
+         task_id = task_id,
+         done = "true",
+         notice = "",
+         howlong = "",
+         )
+         user_task.save()
       task = Task.objects.get(id=request.GET['edit_task'])
       contents=''
       if 'contents' in request.GET:
