@@ -30,14 +30,29 @@
             {% if item in mysubjects %}
             <label>
               <input type="checkbox" name="chk" value="{{item.id}}" checked="checked"/>
-              <li class="highlight"><a class="normal-text">{{item.name}}</li>
+              <li class="highlight"><a class="normal-text" id="subject_info{{item.id}}"></li>
+                
             </label>
             {% else %}
             <label>
               <input type="checkbox" name="chk" value="{{item.id}}" />
-              <li class="highlight"><a class="normal-text">{{item.name}}</li>
+              <li class="highlight"><a class="normal-text" id="subject_info{{item.id}}"></li>
             </label>
             {% endif %}
+            <script>
+              var week_num = "{{item.week}}";
+              var week = "";
+              switch(Number(week_num)){
+                case 1 : week = "日曜";break;
+                case 2 : week = "月曜";break;
+                case 3 : week = "火曜";break;
+                case 4 : week = "水曜";break;
+                case 5 : week = "木曜";break;
+                case 6 : week = "金曜";break;
+                case 7 : week = "土曜";break;
+              }
+              document.getElementById('subject_info{{item.id}}').innerHTML = "{{item.name}} " + week + " {{item.period}}限" ;
+            </script>
             {% empty %}
             <label>
               <input id="box" type="checkbox" />
