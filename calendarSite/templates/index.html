@@ -211,19 +211,20 @@
         if(data.task_id!='0')
           //課題編集モーダルに表示する内容
           var str = 
-          "<form method = 'GET'>"
           +"<h1>"+data.task.name+"</h1>"
           +"<p>課題ID:"+data.task_id+"</p>"
           +"<p>科目名:"+data.task.subject+"</p>"
           +"<p>作成者:"+data.task.author+"</p>"
           +"<p>締切日："+data.task.end+"</p>"
           +"<p>内容:"+data.task.contents+"</p>"
-          +"<label for='name"+data.task_id+"''>課題名変更:</label>"
-          +"<input type='text' id='name"+data.task_id+"'><br>"
-          +"<label for='content"+data.task_id+"''>内容変更:</label>"
-          +"<input type='text' id='content"+data.task_id+"'><br>"
-          +"<input type='checkbox' name='finish' value='"+data.task_id+"'><br>"
-          +"<input type='submit' value='登録'><br>"
+          +"<form method = 'GET'>"
+          +"  <label for='name"+data.task_id+"''>課題名変更:</label>"
+          +"  <input type='text' id='name"+data.task_id+"'><br>"
+          +"  <label for='content"+data.task_id+"''>内容変更:</label>"
+          +"  <input type='text' id='content"+data.task_id+"'><br>"
+          +"  <input type='checkbox' name='finish' value='"+data.task_id+"'><br>"
+          +"  <input type='submit' value='登録'><br>"
+          +"</form>"
           +"<a style='color:red' href='/app/delete_task?task="+data.task_id+"&subject="+data.subject.id+"'>削除</a>"
           
           document.getElementById('task_detail').innerHTML = str ;
@@ -350,7 +351,7 @@
         <tr><td>user: {{user}}</td></tr>
         <div><tr><td>科目名：</td><td><select name="subject_id">
           {% for x in subjects %}
-            <option value="">{{x.name}}</option>
+            <option value="{{x.id}}">{{x.name}}</option>
           {% endfor %}
         </select></td></tr></div>
         <div><tr><td>タイトル：</td><td><input type="text" id="name" name="name" required></td></tr></div>
@@ -361,13 +362,11 @@
 
         <tr>
           <td>
-              <div class="col-6">
-                <input type="date" id="end" name="end">
-              </div>
+            
           </td>
-          <td>{{ form_task.as_table }}</td>
           <td></td>
-          <td><input type="submit" name="create_task" value="click"></td>
+          <td></td>
+          <td><input type="submit"></td>
         </tr>
         
       </form>

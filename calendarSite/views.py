@@ -330,9 +330,14 @@ def create_task(request):
       subject_id = request.GET['subject']
       path='/?subject='+subject_id
    if(request.method == 'POST'):
-      obj = Task(author = request.user,end=request.POST['end'])
-      task = TaskForm(request.POST,instance=obj)
-      task.save()
+      obj = Task(
+      subject_id=Subject(id=request.POST['subject_id']),
+      name=request.POST['contents'],
+      contents=request.POST['contents'],
+      author = request.user,
+      end=request.POST['end'],
+      )
+      obj.save()
       return redirect(to = path)
 
    params = {
