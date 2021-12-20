@@ -22,12 +22,12 @@ def get_tasks(request):
         "task":'0',
     }
 
-    
-    subject = Subject.objects.get(id=subject_id)
-    response_data["subject"]=(subject_to_dict(subject))
-    objs = Task.objects.filter(subject_id=subject_id).all()
-    for obj in objs:
-        response_data["tasks"].append(to_dict(obj))
+    if(subject_id!='0'):
+        subject = Subject.objects.get(id=subject_id)
+        response_data["subject"]=(subject_to_dict(subject))
+        objs = Task.objects.filter(subject_id=subject_id).all()
+        for obj in objs:
+            response_data["tasks"].append(to_dict(obj))
 
     if task_id!= '0':
         task = Task.objects.get(id=task_id)
