@@ -296,43 +296,8 @@ def subject_manage(request):
    return render(request, 'subject_manage.html',params)
 
 def report(request):
-   subject_id = '0'
-   task_id = '0'
-   if 'subject' in request.GET:
-      subject_id = request.GET['subject']
-  
-   if 'task' in request.GET:
-      task_id = request.GET['task']
-  
-   tasks = Task.objects.filter(subject_id=subject_id).all() 
-   task = Task.objects.filter(id=task_id).all() 
-   subjects = Subject.objects.all()
-   user = request.user #現在ログインしているアカウント
-   if(request.method == 'POST'):
-      if 'create_task' in request.POST:
-         obj = Task(author = request.user)
-         task = TaskForm(request.POST,instance=obj)
-         task.save()
-         return redirect(to = 'report')
-      elif 'create_subject' in request.POST:
-         obj = Subject()
-         subject = SubjectForm(request.POST,instance=obj)
-         subject.save()
-         return redirect(to = 'report')
    
-   dbData={
-         "tasks":tasks,
-         "user":user,
-         "subjects":subjects,
-         'subject_id' : subject_id,
-         'task_id':task_id,
-         'task':task,
-         'form_task' : TaskForm(),
-         'form_subject': SubjectForm(),
-         'subject_id_i':int(subject_id),
-         'task_id_i':int(task_id),
-   }
-   return render(request, 'report.html',dbData)
+   return render(request, 'report.html')
 
 from django.core.paginator import Paginator
 
