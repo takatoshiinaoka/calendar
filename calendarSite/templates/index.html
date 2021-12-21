@@ -219,9 +219,9 @@
           +"<p>内容:"+data.task.contents+"</p>"
           +"<form method = 'GET'>"
           +"  <label for='name'>課題名変更:</label>"
-          +"  <input type='text' id='name' name='name' required><br>"
+          +"  <input type='text' id='name' name='name' value='"+data.task.name+"'><br>"
           +"  <label for='content'>内容変更:</label>"
-          +"  <input type='text' id='contents' name = 'contents'><br>"
+          +"  <input type='text' id='contents' name = 'contents' value='"+data.task.contents+"'><br>"
           +"  完了：<input type='checkbox' name='task_id' value='"+data.task_id+"'><br>"
           +"  <input type='hidden' name='edit_task' value='"+data.task_id+"'>"
           +"  <input type='submit' value='登録'><br>"
@@ -352,7 +352,11 @@
         <tr><td>user: {{user}}</td></tr>
         <div><tr><td>科目名：</td><td><select name="subject_id">
           {% for x in subjects %}
-            <option value="{{x.id}}">{{x.name}}</option>
+            {% if x.id == subject_id_i %}
+              <option value="{{x.id}}" selected>{{x.name}}</option>    
+            {% else %}
+              <option value="{{x.id}}">{{x.name}}</option>
+            {% endif %}
           {% endfor %}
         </select></td></tr></div>
         <div><tr><td>タイトル：</td><td><input type="text" id="name" name="name" required></td></tr></div>
