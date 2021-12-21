@@ -6,7 +6,7 @@ from calendarSite.forms import addDataForm
 from calendarSite.forms import SubjectForm
 from calendarSite.forms import taskForm
 from calendarSite.forms import TaskForm
-from calendarSite.models import Calendar
+from calendarSite.models import Calendar, User
 from calendarSite.models import Task
 from calendarSite.models import User_Task
 from calendarSite.models import Subject
@@ -124,8 +124,13 @@ def index(request):
       )
       obj.save()
       return redirect('/?subject='+str(task.subject_id.id))
-   
 
+   yet_tasks = []
+   yet = User_Task.objects.filter(user_id=str(request.user.id)).all()
+   for i in yet:
+      id = int(i.task_id)
+      obj = Task.objects.get(id = id)
+      yet_tasks.append(obj.id)
 
    initial_dict={
       'subject_id' : subject_id,
@@ -140,8 +145,9 @@ def index(request):
          'form_subject': SubjectForm(),
          'subject_id_i':int(subject_id),
          'task_id_i':int(task_id),
+         'yet_tasks':yet_tasks,
    }
-
+   
 #   print(str(subjects))
    if task_id != '0':
       obj=Task.objects.get(id=task_id)

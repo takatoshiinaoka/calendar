@@ -53,6 +53,7 @@
         let e = []
         let c = []
         let item = ""
+        console.log("{{leave_tasks}}")
         {% for cale in tasks %}
         // todo 後で関数に
 
@@ -65,13 +66,18 @@
         e[1]=tmp[0]
         tmp=tmp[1].split("日")
         e[2]=tmp[0]
-       
+        
         events.push(
           {
           id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&end='
           +e.join('-'),
           title: '{{cale.name}}',
           start: '{{cale.end | date:"Y-m-d" }}',
+          {% if cale.id in yet_tasks %}
+          color:'red',
+          {% else %}
+          color:'gray',
+          {% endif %}
           //url: '?subject={{subject_id}}&task={{cale.id}}'
 
           },
