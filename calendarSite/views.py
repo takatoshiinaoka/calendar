@@ -1,3 +1,5 @@
+from django.http.response import JsonResponse
+from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
 from calendarSite.forms import addDataForm
@@ -93,16 +95,21 @@ def index(request):
    if 'edit_task' in request.GET:
   
       task_id = request.GET["edit_task"]
-      
-      num = User_Task.objects.filter(user_id=str(request.user),task_id = task_id).count()
-      if num == 0:
-         user_task = User_Task(user_id=str(request.user),
-         task_id = task_id,
-         done = "true",
-         notice = "",
-         howlong = "",
-         )
-         user_task.save()
+      if 'task_id' in request.GET:
+         if User_Task.objects.filter(user_id=str(request.user.id),task_id = str(task_id)).count() != 0:
+            obj = User_Task.objects.get(user_id=str(request.user.id),task_id = str(task_id))
+            obj.delete()
+      else:
+         num = User_Task.objects.filter(user_id=str(request.user.id),task_id = str(task_id)).count()
+         if num == 0:
+            user_task = User_Task(
+               user_id= str(request.user.id),
+               task_id = str(task_id),
+               done = "true",
+               notice = "",
+               howlong = "",
+            )
+            user_task.save()
       task = Task.objects.get(id=request.GET['edit_task'])
       contents=''
       if 'contents' in request.GET:
@@ -357,31 +364,23 @@ def create_task(request):
       author = request.user,
       end=request.POST['end'],
       )
-      #print("課題の作成を行います")
-      # 登録したいモデルから最後のデータを引っ張り出す
-      LastID = Task.objects.order_by('-pk')[:1].values()[0]['id']
+     
       
-      # 新規登録したいID
-      RegistID = LastID + 1
+    
       
-      # 念の為、そのIDに何も入ってないか確認
-      ConfirmationModel = Task.objects.filter( pk = RegistID )
-      
-      if len(ConfirmationModel) != 0:
-         print('登録エラー(課題)')
-      else:
-         # 登録
-         obj.save()
-         users = User_Subject.objects.filter(subject_id=request.POST['subject_id'])
-         for i in users:
-            yet = User_Task(
-               user_id = str(i.user_id),
-               task_id = str(RegistID),
-               done = 'true',
-               notice = '',
-               howlong = '',
-            )
-            yet.save()
+      # 登録
+      obj.save()
+      RegistID = Task.objects.get(name=request.POST['name']).id#todo 同じ名前の課題を登録するとエラーページにとぶ
+      users = User_Subject.objects.filter(subject_id=request.POST['subject_id'])
+      for i in users:
+         yet = User_Task(
+            user_id = str(i.user_id),
+            task_id = str(RegistID),
+            done = 'true',
+            notice = '',
+            howlong = '',
+         )
+         yet.save()
 
       return redirect(to = path)
 
