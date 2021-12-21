@@ -352,12 +352,37 @@ def create_task(request):
    if(request.method == 'POST'):
       obj = Task(
       subject_id=Subject(id=request.POST['subject_id']),
-      name=request.POST['contents'],
+      name=request.POST['name'],
       contents=request.POST['contents'],
       author = request.user,
       end=request.POST['end'],
       )
-      obj.save()
+      #print("課題の作成を行います")
+      # 登録したいモデルから最後のデータを引っ張り出す
+      LastID = Task.objects.order_by('-pk')[:1].values()[0]['id']
+      
+      # 新規登録したいID
+      RegistID = LastID + 1
+      
+      # 念の為、そのIDに何も入ってないか確認
+      ConfirmationModel = Task.objects.filter( pk = RegistID )
+      
+      if len(ConfirmationModel) != 0:
+         print('登録エラー(課題)')
+      else:
+         # 登録
+         obj.save()
+         users = User_Subject.objects.filter(subject_id=request.POST['subject_id'])
+         for i in users:
+            yet = User_Task(
+               user_id = str(i.user_id),
+               task_id = str(RegistID),
+               done = 'true',
+               notice = '',
+               howlong = '',
+            )
+            yet.save()
+
       return redirect(to = path)
 
    params = {
