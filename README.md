@@ -22,27 +22,7 @@
     * [キャッシュの削除](https://qiita.com/fuwamaki/items/3ed021163e50beab7154)
 
 
-## 2. 自分のリポジトリにフォークする
-右上の **Folk** から **自分のリポジトリにフォーク** してください．それをクローンしてください．
 
-
-## 3. ローカルにリポジトリを保存する(cloneする)
-コマンドプロンプトを開く．以下のコマンドを実行し，リポジトリをクローンしたいディレクトリに移動する．(1の開発環境以外の場所にある場合は各自で変更お願いします)
-    
-    cd C://Django/vscode/Workspace
- 
-リポジトリをクローンする．(URLは各自で変更してください)
-
-    git clone https://github.com/自分のGithub_id/calendar.git
-    
-## 4.VScodeの開き方
-1. **C://Django/vscode/VisualStudioCode.bat** ファイルをクリック。すると、VSCodeが開く!(batファイルから開かないと，5.のactivate envができません．)
-
-2. ファイル → Open Folder → vscode/Workspace/calendarを選択。
-3. ターミナルを開き、「powershell」になっている人は、「cmd」に変更！
-4. 「cmd」になっている事を確認したら、activate envのコマンドを打つ!      
-
-        activate env
 
 
 
