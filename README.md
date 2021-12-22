@@ -23,9 +23,6 @@
 
 
 
-
-
-
 6. django-alauthをインストールしていなければ、以下のコマンドを打つ
 
         pip install django-allauth
