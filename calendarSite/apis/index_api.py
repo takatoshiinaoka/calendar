@@ -114,3 +114,12 @@ def save_User_Subject(request):
             obj.delete()
     
     return JsonResponse({'test':0})
+
+def test(request):
+    response_data = {
+        "tasks":[]
+    }
+    objs = Task.objects.all()
+    for obj in objs:
+        response_data["tasks"].append(to_dict(obj))
+    return JsonResponse(response_data)

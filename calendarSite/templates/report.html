@@ -1,20 +1,39 @@
-{% extends "base.html" %}
-{% block content %}
-{% load static %}
-<!DOCTYPE html>
 
-  <meta charset='utf-8' />
-  <link href="{% static 'css/index.css' %}" rel="stylesheet" />
+<script>
+  function hoge() {
+    str = "";
+    fetch('app/test')
+        .then(response => {
 
+          // (1) 通信が成功したか確認する
+          if (!response.ok) {
 
-<body>
-  <div class = "main">
-    test
-   
-  </div>
+            // (2) 通信に失敗したときはエラーを発生させる
+            throw new Error('Not ok');
+          }
+          // (3) レスポンスデータからJSONデータを取得
+          return response.json();
+        })
+        .then(data => {
+          console.log(data.tasks);
+          for(let i = 0; i < data.tasks.length; i++) {
+            console.log(data.tasks[i])
+            str += data.tasks[i].task+","
+          }
+          document.getElementById('test').innerHTML = str ;
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    
+
+    setTimeout(function() {hoge()},1000);
+  }
+  document.addEventListener
+  ('DOMContentLoaded', function () { 
+        hoge();
+  })
   
-</body>
-
-</html>
-{% endblock %}
+</script>
+<h1 id="test"></h1>
 
