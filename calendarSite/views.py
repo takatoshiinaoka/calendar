@@ -296,7 +296,8 @@ def subject_manage(request):
          #print(inaoka)
          User_SubjectModel = User_Subject(user_id=str(user),subject_id=inaoka)
          User_SubjectModel.save()
-   
+      return redirect('index')
+
 
    
    list = User_Subject.objects.filter(user_id=str(user))
