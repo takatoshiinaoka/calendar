@@ -154,3 +154,4 @@ cython_debug/
 .vscode/settings.json
 piplist.txt
 calendarSite/migrations/0001_initial.py
+run.sh
