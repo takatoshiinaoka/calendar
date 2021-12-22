@@ -1,10 +1,12 @@
+from django.http.response import JsonResponse
+from django.http.response import HttpResponse
 from django.shortcuts import render
 from django.shortcuts import redirect
 from calendarSite.forms import addDataForm
 from calendarSite.forms import SubjectForm
 from calendarSite.forms import taskForm
 from calendarSite.forms import TaskForm
-from calendarSite.models import Calendar
+from calendarSite.models import Calendar, User
 from calendarSite.models import Task
 from calendarSite.models import User_Task
 from calendarSite.models import Subject
@@ -57,12 +59,13 @@ def index(request):
    #print("hello")
    #gmail_send("s20a2005", "s20a2005@bene.fit.ac.jp", "課題:メールを送る関数を定義する", "2021/12/11" )
    subject_id = '0'
-   task_id = '0'
+   task_id = 0
    if 'subject' in request.GET:
-      subject_id = request.GET['subject']
+      if request.GET['subject'] != 'undefined':
+         subject_id = request.GET['subject']
   
    if 'task' in request.GET:
-      task_id = request.GET['task']
+      task_id = int(request.GET['task'])
    if subject_id == '0':
       tasks = Task.objects.filter().all() 
    else:
@@ -90,15 +93,45 @@ def index(request):
          return response
 
 
-   if 'finish' in request.GET:
-      obj=User_Task(user_id=str(request.user),
-      task_id=request.GET["finish"],
-      done="true",
-      notice="",
-      howlong="",
+   if 'edit_task' in request.GET:
+  
+      task_id = int(request.GET["edit_task"])
+      if 'task_id' in request.GET:
+         if User_Task.objects.filter(user_id=str(request.user.id),task_id = Task.objects.get(id=task_id)).count() != 0:
+            obj = User_Task.objects.get(user_id=str(request.user.id),task_id = Task.objects.get(id=task_id))
+            obj.delete()
+      else:
+         num = User_Task.objects.filter(user_id=str(request.user.id),task_id = Task.objects.get(id=task_id)).count()
+         if num == 0:
+            user_task = User_Task(
+               user_id= str(request.user.id),
+               task_id = Task.objects.get(id=task_id),
+               done = "true",
+               notice = "",
+               howlong = "",
+            )
+            user_task.save()
+      task = Task.objects.get(id=request.GET['edit_task'])
+      contents=''
+      if 'contents' in request.GET:
+         contents = request.GET['contents']
+      obj = Task(
+         id = task_id,
+         subject_id=task.subject_id,
+         name = request.GET['name'],
+         author = task.author,
+         contents = contents,
+         end = task.end,
       )
       obj.save()
+      return redirect('/?subject='+str(task.subject_id.id))
 
+   yet_tasks = []
+   yet = User_Task.objects.filter(user_id=str(request.user.id)).all()
+   for i in yet:
+      task = i.task_id
+      obj = Task.objects.get(id = task.id)
+      yet_tasks.append(obj.id)
 
    initial_dict={
       'subject_id' : subject_id,
@@ -113,11 +146,12 @@ def index(request):
          'form_subject': SubjectForm(),
          'subject_id_i':int(subject_id),
          'task_id_i':int(task_id),
+         'yet_tasks':yet_tasks,
    }
-
+   
 #   print(str(subjects))
-   if task_id != '0':
-      obj=Task.objects.get(id=task_id)
+   if task_id != 0:
+      obj=Task.objects.get(id=str(task_id))
       dbData['form_editTask']=TaskForm(instance=obj)
    return render(request, 'index.html',dbData)
 
@@ -202,23 +236,7 @@ def user(request):
    return render(request,'user.html',dbData)
 
 
-def subject(request):
 
-   form = SubjectForm(request.POST or None)
-   subject = form['subject'].data or ''
-   print(str(subject))
-   if(subject !=''):
-     SubjectModel = Subject(subject=subject)
-     SubjectModel.save()
-
-   data = Subject.objects.all()
-   print("data:")
-   print(str(data))
-   params = {
-      'name' : '科目登録',
-      'data' : data,
-   }
-   return render(request, 'subject.html',params)
 
 def create_subject(request):
    if (request.method == 'POST'):
@@ -278,7 +296,8 @@ def subject_manage(request):
          #print(inaoka)
          User_SubjectModel = User_Subject(user_id=str(user),subject_id=inaoka)
          User_SubjectModel.save()
-   
+      return redirect('index')
+
 
    
    list = User_Subject.objects.filter(user_id=str(user))
@@ -296,43 +315,8 @@ def subject_manage(request):
    return render(request, 'subject_manage.html',params)
 
 def report(request):
-   subject_id = '0'
-   task_id = '0'
-   if 'subject' in request.GET:
-      subject_id = request.GET['subject']
-  
-   if 'task' in request.GET:
-      task_id = request.GET['task']
-  
-   tasks = Task.objects.filter(subject_id=subject_id).all() 
-   task = Task.objects.filter(id=task_id).all() 
-   subjects = Subject.objects.all()
-   user = request.user #現在ログインしているアカウント
-   if(request.method == 'POST'):
-      if 'create_task' in request.POST:
-         obj = Task(author = request.user)
-         task = TaskForm(request.POST,instance=obj)
-         task.save()
-         return redirect(to = 'report')
-      elif 'create_subject' in request.POST:
-         obj = Subject()
-         subject = SubjectForm(request.POST,instance=obj)
-         subject.save()
-         return redirect(to = 'report')
    
-   dbData={
-         "tasks":tasks,
-         "user":user,
-         "subjects":subjects,
-         'subject_id' : subject_id,
-         'task_id':task_id,
-         'task':task,
-         'form_task' : TaskForm(),
-         'form_subject': SubjectForm(),
-         'subject_id_i':int(subject_id),
-         'task_id_i':int(task_id),
-   }
-   return render(request, 'report.html',dbData)
+   return render(request, 'report.html')
 
 from django.core.paginator import Paginator
 
@@ -365,14 +349,36 @@ def create_task(request):
       subject_id = request.GET['subject']
       path='/?subject='+subject_id
    if(request.method == 'POST'):
-      obj = Task(author = request.user,end=request.POST['end'])
-      task = TaskForm(request.POST,instance=obj)
-      task.save()
+      obj = Task(
+      subject_id=Subject(id=request.POST['subject_id']),
+      name=request.POST['name'],
+      contents=request.POST['contents'],
+      author = request.user,
+      end=request.POST['end'],
+      )
+     
+      
+    
+      
+      # 登録
+      obj.save()
+      RegistID = Task.objects.get(name=request.POST['name'],subject_id=request.POST['subject_id']).id#todo 同じ名前の課題を登録するとエラーページにとぶ
+      users = User_Subject.objects.filter(subject_id=request.POST['subject_id'])
+      for i in users:
+         yet = User_Task(
+            user_id = str(i.user_id),
+            task_id = Task.objects.get(id=RegistID),
+            done = 'true',
+            notice = '',
+            howlong = '',
+         )
+         yet.save()
+
       return redirect(to = path)
 
    params = {
       'title' : '課題の作成',
-      'form' : TaskForm(),
+      # 'form' : TaskForm(),
       'data': Subject.objects.all()
    }
    return render(request,'create_task.html',params)
@@ -396,7 +402,7 @@ def edit_task(request,num):
 
 
 def delete_task(request,num):#todo ユーザーに確認するページを追加
-   User_Task.objects.filter(task_id=num).delete()
+   User_Task.objects.filter(task_id=Task.objects.get(id=num)).delete()
    task = Task.objects.get(id=num)
    task.delete()
    return redirect(to = '/')

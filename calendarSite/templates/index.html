@@ -13,7 +13,6 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.css">
   <link href="{% static 'css/index.css' %}" rel="stylesheet" />
   <link href='fullcalendar/core/main.css' rel='stylesheet' />
-  <link href='fullcalendar/daygrid/main.css' rel='stylesheet' />
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/main.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.9.0/locales-all.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick.min.css">
@@ -54,6 +53,7 @@
         let e = []
         let c = []
         let item = ""
+        console.log("{{leave_tasks}}")
         {% for cale in tasks %}
         // todo 後で関数に
 
@@ -66,13 +66,18 @@
         e[1]=tmp[0]
         tmp=tmp[1].split("日")
         e[2]=tmp[0]
-       
+        
         events.push(
           {
           id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&end='
           +e.join('-'),
           title: '{{cale.name}}',
           start: '{{cale.end | date:"Y-m-d" }}',
+          {% if cale.id in yet_tasks %}
+          color:'red',
+          {% else %}
+          color:'gray',
+          {% endif %}
           //url: '?subject={{subject_id}}&task={{cale.id}}'
 
           },
@@ -212,19 +217,21 @@
         if(data.task_id!='0')
           //課題編集モーダルに表示する内容
           var str = 
-          "<form method = 'GET'>"
-          +"<h1>"+data.task.name+"</h1>"
+          "<h1>"+data.task.name+"</h1>"
           +"<p>課題ID:"+data.task_id+"</p>"
           +"<p>科目名:"+data.task.subject+"</p>"
           +"<p>作成者:"+data.task.author+"</p>"
           +"<p>締切日："+data.task.end+"</p>"
           +"<p>内容:"+data.task.contents+"</p>"
-          +"<label for='name"+data.task_id+"''>課題名変更:</label>"
-          +"<input type='text' id='name"+data.task_id+"'><br>"
-          +"<label for='content"+data.task_id+"''>内容変更:</label>"
-          +"<input type='text' id='content"+data.task_id+"'><br>"
-          +"<input type='checkbox' name='finish' value='"+data.task_id+"'><br>"
-          +"<input type='submit' value='登録'><br>"
+          +"<form method = 'GET'>"
+          +"  <label for='name'>課題名変更:</label>"
+          +"  <input type='text' id='name' name='name' value='"+data.task.name+"'><br>"
+          +"  <label for='content'>内容変更:</label>"
+          +"  <input type='text' id='contents' name = 'contents' value='"+data.task.contents+"'><br>"
+          +"  完了：<input type='checkbox' name='task_id' value='"+data.task_id+"' "+data.done+"><br>"
+          +"  <input type='hidden' name='edit_task' value='"+data.task_id+"'>"
+          +"  <input type='submit' value='登録'><br>"
+          +"</form>"
           +"<a style='color:red' href='/app/delete_task?task="+data.task_id+"&subject="+data.subject.id+"'>削除</a>"
           
           document.getElementById('task_detail').innerHTML = str ;
@@ -351,7 +358,11 @@
         <tr><td>user: {{user}}</td></tr>
         <div><tr><td>科目名：</td><td><select name="subject_id">
           {% for x in subjects %}
-            <option value="">{{x.name}}</option>
+            {% if x.id == subject_id_i %}
+              <option value="{{x.id}}" selected>{{x.name}}</option>    
+            {% else %}
+              <option value="{{x.id}}">{{x.name}}</option>
+            {% endif %}
           {% endfor %}
         </select></td></tr></div>
         <div><tr><td>タイトル：</td><td><input type="text" id="name" name="name" required></td></tr></div>
@@ -359,8 +370,15 @@
         <tr></tr>          
         <div><tr><td>締め切り：</td><td><input type="date" id="end" name="end" required></td></tr></div>
         <tr></tr>
+<
+
+        <tr>
+          <td>
+            
+          </td>
           <td></td>
-          <td><input type="submit" name="create_task" value="click"></td>
+          <td></td>
+          <td><input type="submit"></td>
         </tr>
         
       </form>
