@@ -361,7 +361,7 @@ def create_task(request):
       
       # 登録
       obj.save()
-      RegistID = Task.objects.get(name=request.POST['name']).id#todo 同じ名前の課題を登録するとエラーページにとぶ
+      RegistID = Task.objects.get(name=request.POST['name'],subject_id=request.POST['subject_id']).id#todo 同じ名前の課題を登録するとエラーページにとぶ
       users = User_Subject.objects.filter(subject_id=request.POST['subject_id'])
       for i in users:
          yet = User_Task(
@@ -377,7 +377,7 @@ def create_task(request):
 
    params = {
       'title' : '課題の作成',
-      'form' : TaskForm(),
+      # 'form' : TaskForm(),
       'data': Subject.objects.all()
    }
    return render(request,'create_task.html',params)
