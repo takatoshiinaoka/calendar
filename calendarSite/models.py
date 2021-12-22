@@ -47,7 +47,17 @@ class User_Task(models.Model):
     notice=models.CharField(max_length=200)
     howlong=models.CharField(max_length=200)
 
+
+
 class Log(models.Model):
+    user_id = models.CharField(max_length=200)
     subject_id = models.ForeignKey(Subject,on_delete=models.CASCADE)
-    log = models.CharField(max_length=200)
+    task_id = models.ForeignKey(Task,on_delete=models.CASCADE)
+    action = models.CharField(max_length=200)
+    
+    #action:done,create,edit,delete,cansel,
+    #created_at
+    #
+    #good_count
+    #[user]が[subject]の[task]を[action]しました。
 
