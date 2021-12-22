@@ -33,7 +33,7 @@ class Task(models.Model):
     name = models.CharField(max_length=100)
     author = models.CharField(default = '',max_length=100)
     contents = models.CharField(blank=True,default='',max_length=100)
-    end = models.DateTimeField(default=timezone.now())
+    end = models.DateTimeField(default=timezone.now)
     
 class User_Subject(models.Model):
     user_id=models.CharField(max_length=200)
