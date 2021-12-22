@@ -64,7 +64,7 @@ class testForm(forms.Form):
 
 
 class SubjectForm(forms.Form):
-    name = forms.CharField(label='Name')
+    name = forms.CharField(label='科目名')
     week = forms.fields.ChoiceField(
         choices = (
             ('2', '月曜'),
@@ -76,7 +76,8 @@ class SubjectForm(forms.Form):
             ('1', '日曜'),
         ),
         required=True,
-        widget=forms.widgets.Select
+        widget=forms.widgets.Select,
+        label='曜日'
     )
     period = forms.fields.ChoiceField(
         choices = (
@@ -88,7 +89,8 @@ class SubjectForm(forms.Form):
           
         ),
         required=True,
-        widget=forms.widgets.Select
+        widget=forms.widgets.Select,
+        label='時限'
     )
 
 class TaskForm(forms.ModelForm):
