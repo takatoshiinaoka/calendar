@@ -63,10 +63,33 @@ class testForm(forms.Form):
     birthday = forms.DateField(label='Birth')
 
 
-class SubjectForm(forms.ModelForm):
-    class Meta:
-        model = Subject
-        fields = ['name','week','period']
+class SubjectForm(forms.Form):
+    name = forms.CharField(label='Name')
+    week = forms.fields.ChoiceField(
+        choices = (
+            ('2', '月曜'),
+            ('3', '火曜'),
+            ('4', '水曜'),
+            ('5', '木曜'),
+            ('6', '金曜'),
+            ('7', '土曜'),
+            ('1', '日曜'),
+        ),
+        required=True,
+        widget=forms.widgets.Select
+    )
+    period = forms.fields.ChoiceField(
+        choices = (
+            ('1', '1'),
+            ('2', '2'),
+            ('3', '3'),
+            ('4', '4'),
+            ('5', '5'),
+          
+        ),
+        required=True,
+        widget=forms.widgets.Select
+    )
 
 class TaskForm(forms.ModelForm):
     name        = forms.CharField(max_length=200,required=True)

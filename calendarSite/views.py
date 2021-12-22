@@ -408,8 +408,7 @@ def delete_task(request,num):#todo ユーザーに確認するページを追加
 
 def create_subject(request):
    if (request.method == 'POST'):
-      obj = Subject()
-      subject = SubjectForm(request.POST,instance=obj)
+      subject = Subject(name = request.POST['name'],week=request.POST['week'],period=request.POST['period'])
       subject.save()
       return redirect(to = '/subject')
    params = {
@@ -420,15 +419,14 @@ def create_subject(request):
    return render(request,'create_subject.html',params)
 
 def edit_subject(request,num):
-   obj = Subject.objects.get(id=num)
    if(request.method == 'POST'):
-      subject = SubjectForm(request.POST,instance=obj)
+      subject = Subject(name = request.POST['name'],week=request.POST['week'],period=request.POST['period'])
       subject.save()
       return redirect(to='/subject')
    params ={
       'title':'科目の編集',
       'id':num,
-      'form':SubjectForm(instance=obj),
+      'form':SubjectForm(),
    }
    return render(request,'edit_subject.html',params)
 
