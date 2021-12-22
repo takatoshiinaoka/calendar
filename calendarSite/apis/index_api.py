@@ -3,6 +3,7 @@ from calendarSite.models import Task
 from calendarSite.models import Subject
 from calendarSite.models import User_Subject
 from calendarSite.models import User_Task
+from calendarSite.models import Log
 
 from calendarSite.forms import TaskForm
 
@@ -117,9 +118,13 @@ def save_User_Subject(request):
 
 def test(request):
     response_data = {
-        "tasks":[]
+        "logs":[]
     }
-    objs = Task.objects.all()
+    objs = Log.objects.all()
     for obj in objs:
-        response_data["tasks"].append(to_dict(obj))
+        response_data["logs"].append(log_to_dict(obj))
     return JsonResponse(response_data)
+
+def log_to_dict(data):
+  
+    return {"id":data.id,"user":data.user_id,"subject": data.subject_id.name,"task":data.task_id.name,"action":data.action}

@@ -11,6 +11,7 @@ from calendarSite.models import Task
 from calendarSite.models import User_Task
 from calendarSite.models import Subject
 from calendarSite.models import User_Subject
+from calendarSite.models import Log
 from calendarSite.forms import subject_manageForm
 #以下メール用
 #import pandas as pd
@@ -346,22 +347,22 @@ def create_task(request):
    if 'subject' in request.GET:
       subject_id = request.GET['subject']
       path='/?subject='+subject_id
+   subject = Subject(id=request.POST['subject_id'])
    if(request.method == 'POST'):
       obj = Task(
-      subject_id=Subject(id=request.POST['subject_id']),
+      subject_id=subject,
       name=request.POST['name'],
       contents=request.POST['contents'],
       author = request.user,
       end=request.POST['end'],
       )
      
-      
-    
-      
+         
       # 登録
       obj.save()     
       RegistID = Task.objects.order_by('-pk')[:1].values()[0]['id']
-      
+      log = Log(user_id=str(request.user),subject_id=subject,task_id=Task.objects.get(id=RegistID),action="追加")
+      log.save()
       users = User_Subject.objects.filter(subject_id=request.POST['subject_id'])
       for i in users:
          yet = User_Task(

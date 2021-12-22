@@ -16,9 +16,10 @@
         })
         .then(data => {
           // console.log(data.tasks);
-          for(let i = 0; i < data.tasks.length; i++) {
+          for(let i = 0; i < data.logs.length; i++) {
             // console.log(data.tasks[i])
-            str += "<h2>"+data.tasks[i].task+"</h2>"
+            obj = data.logs[i]
+            str += "<h2>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました</h2>"
           }
           document.getElementById('test').innerHTML = str ;
         })
@@ -35,6 +36,6 @@
   })
   
 </script>
-<h1>チャット</h1>
+<h1>ログ</h1>
 <div id="test"></div>
 
