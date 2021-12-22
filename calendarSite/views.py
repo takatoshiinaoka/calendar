@@ -308,7 +308,6 @@ def subject_manage(request):
 
    
    params={
-      'title':'科目管理',
       'data': Subject.objects.all(),
       'mysubjects':mysubjects,
    }
@@ -331,7 +330,6 @@ def task(request,num=1):
    page = Paginator(data,3)
    #表示に使いたい情報を配列(辞書)paramsに代入
    params = {
-      'title':'課題一覧',
       'data': page.get_page(num),
       'form':SubjectForm(),#forms.py参照 ※これもimportしないと使えない
    }
@@ -449,7 +447,6 @@ class SubjectView(ListView):
    template_name = "subject.html"
    def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs) # はじめに継承元のメソッドを呼び出す
-        context["title"] = "科目一覧"
         return context
 
 class TaskDetailView(DetailView):
