@@ -15,10 +15,10 @@
           return response.json();
         })
         .then(data => {
-          console.log(data.tasks);
+          // console.log(data.tasks);
           for(let i = 0; i < data.tasks.length; i++) {
-            console.log(data.tasks[i])
-            str += data.tasks[i].task+","
+            // console.log(data.tasks[i])
+            str += "<h2>"+data.tasks[i].task+"</h2>"
           }
           document.getElementById('test').innerHTML = str ;
         })
@@ -35,5 +35,6 @@
   })
   
 </script>
-<h1 id="test"></h1>
+<h1>チャット</h1>
+<div id="test"></div>
 
