@@ -46,3 +46,8 @@ class User_Task(models.Model):
     done=models.CharField(max_length=200)
     notice=models.CharField(max_length=200)
     howlong=models.CharField(max_length=200)
+
+class Log(models.Model):
+    subject_id = models.ForeignKey(Subject,on_delete=models.CASCADE)
+    log = models.CharField(max_length=200)
+
