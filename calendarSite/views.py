@@ -236,23 +236,7 @@ def user(request):
    return render(request,'user.html',dbData)
 
 
-def subject(request):
 
-   form = SubjectForm(request.POST or None)
-   subject = form['subject'].data or ''
-   print(str(subject))
-   if(subject !=''):
-     SubjectModel = Subject(subject=subject)
-     SubjectModel.save()
-
-   data = Subject.objects.all()
-   print("data:")
-   print(str(data))
-   params = {
-      'name' : '科目登録',
-      'data' : data,
-   }
-   return render(request, 'subject.html',params)
 
 def create_subject(request):
    if (request.method == 'POST'):
