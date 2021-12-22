@@ -423,10 +423,20 @@ def edit_subject(request,num):
       subject = Subject(name = request.POST['name'],week=request.POST['week'],period=request.POST['period'])
       subject.save()
       return redirect(to='/subject')
+   try:
+      subject = Subject.objects.get(id=num)
+      subject_form = SubjectForm(initial = {
+         'name': subject.name,   # 初期値
+         'week': subject.week,
+         'period':subject.period,
+      })
+    #  取得できなければ初期値を設定しない
+   except:
+      subject_form = SubjectForm()
    params ={
       'title':'科目の編集',
       'id':num,
-      'form':SubjectForm(),
+      'form':subject_form,
    }
    return render(request,'edit_subject.html',params)
 
