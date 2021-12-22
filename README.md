@@ -23,13 +23,7 @@
 
 
 
-6. django-alauthをインストールしていなければ、以下のコマンドを打つ
 
-        pip install django-allauth
-
-7. 以下のコマンドを打ちサーバを立ち上げる!
-
-        python manage.py runserver
         
 8. localhostにアクセスする
 Cancel changes
