@@ -14,3 +14,5 @@ python manage.py runserver
 
 # bash dbreset.sh で実行
  
+
+ 

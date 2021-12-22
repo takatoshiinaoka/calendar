@@ -155,3 +155,7 @@ cython_debug/
 piplist.txt
 calendarSite/migrations/0001_initial.py
 run.sh
+runtime.txt
+Procfile
+.gitignore
+dbreset.sh
