@@ -42,7 +42,7 @@ class User_Subject(models.Model):
 
 class User_Task(models.Model):
     user_id=models.CharField(max_length=200)
-    task_id=models.CharField(max_length=200)
+    task_id=models.ForeignKey(Task,on_delete=models.CASCADE)
     done=models.CharField(max_length=200)
     notice=models.CharField(max_length=200)
     howlong=models.CharField(max_length=200)

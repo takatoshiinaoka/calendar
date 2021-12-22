@@ -59,12 +59,13 @@ def index(request):
    #print("hello")
    #gmail_send("s20a2005", "s20a2005@bene.fit.ac.jp", "課題:メールを送る関数を定義する", "2021/12/11" )
    subject_id = '0'
-   task_id = '0'
+   task_id = 0
    if 'subject' in request.GET:
-      subject_id = request.GET['subject']
+      if request.GET['subject'] != 'undefined':
+         subject_id = request.GET['subject']
   
    if 'task' in request.GET:
-      task_id = request.GET['task']
+      task_id = int(request.GET['task'])
    if subject_id == '0':
       tasks = Task.objects.filter().all() 
    else:
@@ -94,17 +95,17 @@ def index(request):
 
    if 'edit_task' in request.GET:
   
-      task_id = request.GET["edit_task"]
+      task_id = int(request.GET["edit_task"])
       if 'task_id' in request.GET:
-         if User_Task.objects.filter(user_id=str(request.user.id),task_id = str(task_id)).count() != 0:
-            obj = User_Task.objects.get(user_id=str(request.user.id),task_id = str(task_id))
+         if User_Task.objects.filter(user_id=str(request.user.id),task_id = Task.objects.get(id=task_id)).count() != 0:
+            obj = User_Task.objects.get(user_id=str(request.user.id),task_id = Task.objects.get(id=task_id))
             obj.delete()
       else:
-         num = User_Task.objects.filter(user_id=str(request.user.id),task_id = str(task_id)).count()
+         num = User_Task.objects.filter(user_id=str(request.user.id),task_id = Task.objects.get(id=task_id)).count()
          if num == 0:
             user_task = User_Task(
                user_id= str(request.user.id),
-               task_id = str(task_id),
+               task_id = Task.objects.get(id=task_id),
                done = "true",
                notice = "",
                howlong = "",
@@ -128,8 +129,8 @@ def index(request):
    yet_tasks = []
    yet = User_Task.objects.filter(user_id=str(request.user.id)).all()
    for i in yet:
-      id = int(i.task_id)
-      obj = Task.objects.get(id = id)
+      task = i.task_id
+      obj = Task.objects.get(id = task.id)
       yet_tasks.append(obj.id)
 
    initial_dict={
@@ -149,8 +150,8 @@ def index(request):
    }
    
 #   print(str(subjects))
-   if task_id != '0':
-      obj=Task.objects.get(id=task_id)
+   if task_id != 0:
+      obj=Task.objects.get(id=str(task_id))
       dbData['form_editTask']=TaskForm(instance=obj)
    return render(request, 'index.html',dbData)
 
@@ -381,7 +382,7 @@ def create_task(request):
       for i in users:
          yet = User_Task(
             user_id = str(i.user_id),
-            task_id = str(RegistID),
+            task_id = Task.objects.get(id=RegistID),
             done = 'true',
             notice = '',
             howlong = '',
@@ -416,7 +417,7 @@ def edit_task(request,num):
 
 
 def delete_task(request,num):#todo ユーザーに確認するページを追加
-   User_Task.objects.filter(task_id=num).delete()
+   User_Task.objects.filter(task_id=Task.objects.get(id=num)).delete()
    task = Task.objects.get(id=num)
    task.delete()
    return redirect(to = '/')
