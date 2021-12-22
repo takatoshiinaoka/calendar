@@ -359,12 +359,9 @@ def create_task(request):
     
       
       # 登録
-      obj.save()
-      RegistID = 0
-      tasks = Task.objects.filter(name=request.POST['name'],subject_id=request.POST['subject_id'])
-      for i in tasks:
-         if i.id > RegistID:
-            RegistID = i.id
+      obj.save()     
+      RegistID = Task.objects.order_by('-pk')[:1].values()[0]['id']
+      
       users = User_Subject.objects.filter(subject_id=request.POST['subject_id'])
       for i in users:
          yet = User_Task(
