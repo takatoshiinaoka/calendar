@@ -56,11 +56,13 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'calendarProject.urls'
-
+import os
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,"templates"),
+                os.path.join(BASE_DIR,"templates","allauth"), # ←追加
+                ],  
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
