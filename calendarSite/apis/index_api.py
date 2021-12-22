@@ -2,6 +2,8 @@ from django.http import JsonResponse
 from calendarSite.models import Task
 from calendarSite.models import Subject
 from calendarSite.models import User_Subject
+from calendarSite.models import User_Task
+
 from calendarSite.forms import TaskForm
 
 
@@ -13,13 +15,17 @@ def get_tasks(request):
 
     if 'task' in request.GET:
       task_id = request.GET['task']
-    
+    yet=User_Task.objects.filter(user_id=str(request.user.id),task_id=Task.objects.get(id=int(task_id))).exists()
+    done=""
+    if not(yet):
+        done="checked='checked'"
     response_data = {
         "subject_id": subject_id,
         "subject": '',
         "task_id":task_id,
         "tasks": [],
         "task":'0',
+        "done":done,
     }
 
     if(subject_id!='0'):
