@@ -19,8 +19,8 @@
       {% for item in subject_list %}
         <tr>
           <td>{{item.name}}</td>
-          <td><a href="{% url 'edit_subject' item.id %}">Edit</a></td>
-          <td><a href="{% url 'delete_subject' item.id %}">Delete</a></td>
+          <td><a href="{% url 'edit_subject' item.id %}">編集</a></td>
+          <td><a href="{% url 'delete_subject' item.id %}">削除</a></td>
         </tr>
       {% endfor %}
     </table>
