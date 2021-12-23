@@ -20,7 +20,7 @@
           for(let i = 0; i < data.logs.length; i++) {
             // console.log(data.tasks[i])
             obj = data.logs[i]
-            str += "<h2>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました"+obj.created_at+"</h2>"
+            str += "<h2><a href='/?subject={{subject_id}}'>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました"+obj.created_at+"</a></h2>"
             +"<p>"+obj.num+"人中"+obj.done_num+"人完了</p>"
           }
           document.getElementById('logs').innerHTML = str ;
