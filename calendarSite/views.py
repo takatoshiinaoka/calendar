@@ -12,6 +12,7 @@ from calendarSite.models import User_Task
 from calendarSite.models import Subject
 from calendarSite.models import User_Subject
 from calendarSite.models import Log
+from calendarSite.models import Comment
 from calendarSite.forms import subject_manageForm
 #以下メール用
 #import pandas as pd
@@ -315,7 +316,14 @@ def subject_manage(request):
    return render(request, 'subject_manage.html',params)
 
 def report(request):
-   
+   if 'message' in request.GET:
+      message = request.GET['message']
+      subject_id = Subject.objects.get(id = request.GET['subject'])
+      author = request.user
+      comment = Comment(message = message,subject_id = subject_id,author = author)
+      comment.save()
+      return JsonResponse({"test":0})
+
    return render(request, 'report.html')
 
 from django.core.paginator import Paginator

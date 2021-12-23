@@ -1,7 +1,8 @@
 
 <script>
-  function hoge() {
+  function load_data() {
     str = "";
+    show_comments = ""
     fetch('app/test')
         .then(response => {
 
@@ -21,21 +22,81 @@
             obj = data.logs[i]
             str += "<h2>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました</h2>"
           }
-          document.getElementById('test').innerHTML = str ;
+          document.getElementById('logs').innerHTML = str ;
+          console.log(data.comments);
+          for(let i = 0; i < data.comments.length; i++) {
+            obj = data.comments[i]
+            show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"
+          }
+          document.getElementById('comments').innerHTML = show_comments ;
         })
         .catch(error => {
           console.error(error);
         });
     
 
-    setTimeout(function() {hoge()},1000);
+    setTimeout(function() {load_data()},10);
+  }
+  function save_comments(){
+    
+    message = document.getElementById('message').value
+    path = "report?subject=1&message="+message
+    fetch(path)
+        .then(response => {
+
+          // (1) 通信が成功したか確認する
+          if (!response.ok) {
+
+            // (2) 通信に失敗したときはエラーを発生させる
+            throw new Error('Not ok');
+          }
+          // (3) レスポンスデータからJSONデータを取得
+          return response.json();
+        })
+        .then(data => {
+          console.log(data);
+          
+        })
+        .catch(error => {
+          console.error(error);
+        });
+  }
+  function delete_all_comments(){
+    
+    
+    path = "app/test?delete=all"
+    alert(path)
+    fetch(path)
+        .then(response => {
+
+          // (1) 通信が成功したか確認する
+          if (!response.ok) {
+
+            // (2) 通信に失敗したときはエラーを発生させる
+            throw new Error('Not ok');
+          }
+          // (3) レスポンスデータからJSONデータを取得
+          return response.json();
+        })
+        .then(data => {
+          console.log(data);
+          
+        })
+        .catch(error => {
+          console.error(error);
+        });
   }
   document.addEventListener
   ('DOMContentLoaded', function () { 
-        hoge();
+        load_data();
   })
   
 </script>
 <h1>ログ</h1>
-<div id="test"></div>
+<div id="logs"></div>
+<h1>コメント</h1>
+<input type="text" id="message">
+<button onclick="save_comments()">送信</button>
+<button onclick="delete_all_comments()">全消し</button>
+<div id="comments"></div>
 

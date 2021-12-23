@@ -4,6 +4,7 @@ from calendarSite.models import Subject
 from calendarSite.models import User_Subject
 from calendarSite.models import User_Task
 from calendarSite.models import Log
+from calendarSite.models import Comment
 
 from calendarSite.forms import TaskForm
 
@@ -118,13 +119,24 @@ def save_User_Subject(request):
 
 def test(request):
     response_data = {
-        "logs":[]
+        "logs":[],
+        "comments":[],
     }
     objs = Log.objects.all()
     for obj in objs:
         response_data["logs"].append(log_to_dict(obj))
+    comments = Comment.objects.all()
+    if 'delete' in request.GET:
+        for i in comments:
+            i.delete()
+    for i in comments:
+        response_data["comments"].append(comments_to_dict(i))
     return JsonResponse(response_data)
 
 def log_to_dict(data):
   
     return {"id":data.id,"user":data.user_id,"subject": data.subject_id.name,"task":data.task_id.name,"action":data.action}
+
+def comments_to_dict(data):
+  
+    return {"id":data.id,"author":data.author,"subject": data.subject_id.name,"message":data.message,"created_at":data.created_at}
