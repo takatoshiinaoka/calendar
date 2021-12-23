@@ -421,7 +421,7 @@ def create_subject(request):
 
 def edit_subject(request,num):
    if(request.method == 'POST'):
-      subject = Subject(name = request.POST['name'],week=request.POST['week'],period=request.POST['period'])
+      subject = Subject(id=num,name = request.POST['name'],week=request.POST['week'],period=request.POST['period'])
       subject.save()
       return redirect(to='/subject')
    try:
