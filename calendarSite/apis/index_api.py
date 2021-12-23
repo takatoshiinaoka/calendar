@@ -122,20 +122,22 @@ def test(request):
         "logs":[],
         "comments":[],
     }
-    objs = Log.objects.all()
-    for obj in objs:
-        response_data["logs"].append(log_to_dict(obj))
-    comments = Comment.objects.all()
-    if 'delete' in request.GET:
+    if 'subject' in request.GET:
+        subject_id=request.GET['subject']
+        objs = Log.objects.filter(subject_id=subject_id).all()
+        for obj in objs:
+            response_data["logs"].append(log_to_dict(obj))
+        comments = Comment.objects.filter(subject_id=subject_id).all()
+        if 'delete' in request.GET:
+            for i in comments:
+                i.delete()
         for i in comments:
-            i.delete()
-    for i in comments:
-        response_data["comments"].append(comments_to_dict(i))
+            response_data["comments"].append(comments_to_dict(i))
     return JsonResponse(response_data)
 
 def log_to_dict(data):
   
-    return {"id":data.id,"user":data.user_id,"subject": data.subject_id.name,"task":data.task_id.name,"action":data.action}
+    return {"id":data.id,"user":data.user_id,"subject": data.subject_id.name,"task":data.task_id.name,"action":data.action,"created_at":data.created_at}
 
 def comments_to_dict(data):
   

@@ -3,7 +3,7 @@
   function load_data() {
     str = "";
     show_comments = ""
-    fetch('app/test')
+    fetch('app/test?subject={{subject_id}}')
         .then(response => {
 
           // (1) 通信が成功したか確認する
@@ -20,13 +20,14 @@
           for(let i = 0; i < data.logs.length; i++) {
             // console.log(data.tasks[i])
             obj = data.logs[i]
-            str += "<h2>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました</h2>"
+            str += "<h2>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました"+obj.created_at+"</h2>"
           }
           document.getElementById('logs').innerHTML = str ;
           console.log(data.comments);
           for(let i = 0; i < data.comments.length; i++) {
             obj = data.comments[i]
-            show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"
+            show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"+
+            "<p>"+obj.created_at+"</p>"
           }
           document.getElementById('comments').innerHTML = show_comments ;
         })
@@ -35,12 +36,12 @@
         });
     
 
-    setTimeout(function() {load_data()},10);
+    setTimeout(function() {load_data()},2000);
   }
   function save_comments(){
     
     message = document.getElementById('message').value
-    path = "report?subject=1&message="+message
+    path = "report?subject={{subject_id}}&message="+message
     fetch(path)
         .then(response => {
 
@@ -92,11 +93,18 @@
   })
   
 </script>
-<h1>ログ</h1>
-<div id="logs"></div>
-<h1>コメント</h1>
-<input type="text" id="message">
-<button onclick="save_comments()">送信</button>
-<button onclick="delete_all_comments()">全消し</button>
-<div id="comments"></div>
+{% if subject_id == "0" %}
+  <h3>ルームを選んでください</h3>
+{% else %}
+  <h1>ログ</h1>
+  <div id="logs"></div>
+  <h1>コメント</h1>
+  <input type="text" id="message">
+  <button onclick="save_comments()">送信</button>
+  <button onclick="delete_all_comments()">全消し</button>
+  <div id="comments"></div>
+{% endif %}
+{% for i in subjects %}
+  <a href="/report?subject={{i.id}}">{{i.name}}</p>
+{% endfor %}
 
