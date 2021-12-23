@@ -32,7 +32,7 @@ urlpatterns = [
     path('create_task', views.create_task, name="create_task"),
     path('edit_task/<int:num>',views.edit_task,name='edit_task'),
     path('delete_task/<int:num>',views.delete_task,name='delete_task'),
-    path('subject', SubjectView.as_view()),
+    path('subject', SubjectView.as_view(),name="subject"),
     path('taskDetail/<int:pk>', TaskDetailView.as_view()),
     path('create_subject', views.create_subject, name="create_subject"),
     path('edit_subject/<int:num>',views.edit_subject,name='edit_subject'),
