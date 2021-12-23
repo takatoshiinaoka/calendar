@@ -47,3 +47,19 @@ class SubjectListTests(TestCase):
       """
       post1 = Subject.objects.create(name='人工知能応用')
       post2 = Subject.objects.create(name='プロジェクト型演習')
+
+class SubjectManageTests(TestCase):
+
+  def test_get(self):
+    """科目管理ページ(subject_manage)にアクセスしてステータスコード200を返されることを確認"""
+    response = self.client.get(reverse('subject_manage'))
+    self.assertEqual(response.status_code, 200)
+
+class CreateSubjectTests(TestCase):
+
+  def test_get(self):
+    """科目作成ページにアクセスしてステータスコード200を返されることを確認"""
+    response = self.client.get(reverse('create_subject'))
+    self.assertEqual(response.status_code, 200)
+
+
