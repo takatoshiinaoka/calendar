@@ -21,6 +21,7 @@
             // console.log(data.tasks[i])
             obj = data.logs[i]
             str += "<h2>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました"+obj.created_at+"</h2>"
+            +"<p>"+obj.num+"人中"+obj.done_num+"人完了</p>"
           }
           document.getElementById('logs').innerHTML = str ;
           console.log(data.comments);

@@ -136,8 +136,12 @@ def test(request):
     return JsonResponse(response_data)
 
 def log_to_dict(data):
-  
-    return {"id":data.id,"user":data.user_id,"subject": data.subject_id.name,"task":data.task_id.name,"action":data.action,"created_at":data.created_at}
+    num = User_Subject.objects.filter(subject_id=str(data.subject_id.id)).count()
+    yet_num = User_Task.objects.filter(task_id=data.task_id).count()
+    return {"id":data.id,"user":data.user_id,"subject": data.subject_id.name,
+    "task":data.task_id.name,"action":data.action,"created_at":data.created_at,
+    "done_num":num-yet_num,"num":num
+    }
 
 def comments_to_dict(data):
   
