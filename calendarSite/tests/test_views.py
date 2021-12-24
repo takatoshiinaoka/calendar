@@ -7,8 +7,8 @@ from calendarSite.models import Task
 from calendarSite.models import User_Task
 from calendarSite.models import Subject
 from calendarSite.models import User_Subject
-from calendarSite.models import Log
-from calendarSite.models import Comment
+from chat.models import Log
+from chat.models import Comment
 
 class IndexTests(TestCase):
   """IndexViewのテストクラス"""

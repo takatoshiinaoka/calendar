@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'calendarSite',
+    'chat',
     'accounts',                #追加
     'django.contrib.sites',    #追加
     'allauth',                 #追加

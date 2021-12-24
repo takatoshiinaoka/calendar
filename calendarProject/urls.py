@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from calendarSite import views
+
 from django.urls import include, path
 from calendarSite.views import SubjectView
 from calendarSite.views import TaskDetailView
@@ -27,7 +28,6 @@ urlpatterns = [
     path('addData', views.addData, name="addData"),
     path('task', views.task, name="task"),
     path('user', views.user, name="user"),
-    path('report', views.report, name="report"),
     path('task/<int:num>', views.task, name="task"),
     path('create_task', views.create_task, name="create_task"),
     path('edit_task/<int:num>',views.edit_task,name='edit_task'),
@@ -40,6 +40,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('accounts/login/', TemplateView.as_view(template_name = 'login.html'), name='login'),
     path('app/', include('calendarSite.urls')),
+    path('chat/', include('chat.urls')),
     path('subject_manage', views.subject_manage, name = "subject_manage"),
 
 ]

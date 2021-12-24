@@ -3,7 +3,7 @@
   function load_data() {
     str = "";
     show_comments = ""
-    fetch('app/test?subject={{subject_id}}')
+    fetch('getLog?subject={{subject_id}}')
         .then(response => {
 
           // (1) 通信が成功したか確認する
@@ -20,7 +20,7 @@
           for(let i = 0; i < data.logs.length; i++) {
             // console.log(data.tasks[i])
             obj = data.logs[i]
-            str += "<h2><a href='/?subject={{subject_id}}'>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました"+obj.created_at+"</a></h2>"
+            str += "<h2><a href='../?subject={{subject_id}}'>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました"+obj.created_at+"</a></h2>"
             +"<p>"+obj.num+"人中"+obj.done_num+"人完了</p>"
           }
           document.getElementById('logs').innerHTML = str ;
@@ -42,7 +42,7 @@
   function save_comments(){
     
     message = document.getElementById('message').value
-    path = "report?subject={{subject_id}}&message="+message
+    path = "?subject={{subject_id}}&message="+message
     fetch(path)
         .then(response => {
 
@@ -106,6 +106,6 @@
   <div id="comments"></div>
 {% endif %}
 {% for i in subjects %}
-  <a href="/report?subject={{i.id}}">{{i.name}}</p>
+  <a href="?subject={{i.id}}">{{i.name}}</p>
 {% endfor %}
 

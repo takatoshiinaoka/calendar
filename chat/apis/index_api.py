@@ -1,0 +1,47 @@
+from django.shortcuts import render
+from django.http.response import JsonResponse
+from django.http.response import HttpResponse
+from django.shortcuts import render
+from django.shortcuts import redirect
+from calendarSite.forms import addDataForm
+from calendarSite.forms import SubjectForm
+from calendarSite.forms import taskForm
+from calendarSite.forms import TaskForm
+from calendarSite.models import Calendar, User
+from calendarSite.models import Task
+from calendarSite.models import User_Task
+from calendarSite.models import Subject
+from calendarSite.models import User_Subject
+from chat.models import Log
+from chat.models import Comment
+from calendarSite.forms import subject_manageForm
+
+def getLog(request):
+    response_data = {
+        "logs":[],
+        "comments":[],
+    }
+    if 'subject' in request.GET:
+        subject_id=request.GET['subject']
+        objs = Log.objects.filter(subject_id=subject_id).all()
+        for obj in objs:
+            response_data["logs"].append(log_to_dict(obj))
+        comments = Comment.objects.filter(subject_id=subject_id).all()
+        if 'delete' in request.GET:
+            for i in comments:
+                i.delete()
+        for i in comments:
+            response_data["comments"].append(comments_to_dict(i))
+    return JsonResponse(response_data)
+
+def log_to_dict(data):
+    num = User_Subject.objects.filter(subject_id=str(data.subject_id.id)).count()
+    yet_num = User_Task.objects.filter(task_id=data.task_id).count()
+    return {"id":data.id,"user":data.user_id,"subject": data.subject_id.name,
+    "task":data.task_id.name,"action":data.action,"created_at":data.created_at,
+    "done_num":num-yet_num,"num":num
+    }
+
+def comments_to_dict(data):
+  
+    return {"id":data.id,"author":data.author,"subject": data.subject_id.name,"message":data.message,"created_at":data.created_at}

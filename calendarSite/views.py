@@ -6,14 +6,14 @@ from calendarSite.forms import addDataForm
 from calendarSite.forms import SubjectForm
 from calendarSite.forms import taskForm
 from calendarSite.forms import TaskForm
-from calendarSite.models import Calendar, User
+from calendarSite.models import Calendar
 from calendarSite.models import Task
 from calendarSite.models import User_Task
 from calendarSite.models import Subject
 from calendarSite.models import User_Subject
-from calendarSite.models import Log
-from calendarSite.models import Comment
 from calendarSite.forms import subject_manageForm
+from chat.models import Log
+from chat.models import Comment
 #以下メール用
 #import pandas as pd
 import datetime #日付や時間を指定するモジュール
@@ -315,26 +315,7 @@ def subject_manage(request):
    }
    return render(request, 'subject_manage.html',params)
 
-def report(request):
-   if 'message' in request.GET:
-      message = request.GET['message']
-      subject_id = Subject.objects.get(id = request.GET['subject'])
-      author = request.user
-      comment = Comment(message = message,subject_id = subject_id,author = author)
-      comment.save()
-      return JsonResponse({"test":0})
-   mysubjects = User_Subject.objects.filter(user_id=str(request.user.id)).all()#今ログインしているユーザーの履修情報を取得
-   subjects =[]#ログイン中のユーザーが履修している科目データをすべてリストに格納
-   for i in mysubjects:
-      subjects.append(Subject.objects.get(id=i.subject_id))
-   subject_id='0'
-   if 'subject' in request.GET:
-      subject_id = request.GET['subject']
-   params = {
-      'subjects':subjects,
-      'subject_id':subject_id,
-   }
-   return render(request, 'report.html',params)
+
 
 from django.core.paginator import Paginator
 
