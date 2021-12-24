@@ -216,6 +216,9 @@
 
         if(data.task_id!='0')
           //課題編集モーダルに表示する内容
+          //-------
+          // ajaxで受け取るjsonを埋め込むためjsで記述
+          //-------
           var str = 
           "<h1>"+data.task.name+"</h1>"
           +"<p>課題ID:"+data.task_id+"</p>"
