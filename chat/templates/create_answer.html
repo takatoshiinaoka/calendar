@@ -6,7 +6,7 @@
   function load_data() {
     str = "";
     show_comments = ""
-    fetch('getLog?subject={{subject_id}}')
+    fetch('getAnswer?question={{question.id}}')
         .then(response => {
 
           // (1) 通信が成功したか確認する
@@ -21,25 +21,24 @@
         .then(data => {
           // console.log(data.tasks);
           
-          console.log(data.comments);
-          for(let i = 0; i < data.comments.length; i++) {
-            obj = data.comments[i]
+          for(let i = 0; i < data.answers.length; i++) {
+            obj = data.answers[i]
             show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"+
             "<p>"+obj.created_at+"</p>"
           }
-          document.getElementById('comments').innerHTML = show_comments ;
+          document.getElementById('questions').innerHTML = show_comments ;
         })
         .catch(error => {
           console.error(error);
         });
     
 
-    setTimeout(function() {load_data()},1000);//todo websocketで必要なときだけデータを受け取る仕様に変更したい
+    setTimeout(function() {load_data()},2000);//todo websocketで必要なときだけデータを受け取る仕様に変更したい
   }
-  function save_comments(){
+  function save_answer(){
     
     message = document.getElementById('message').value
-    path = "?subject={{subject_id}}&message="+message
+    path = "create_answer?question={{question.id}}&message="+message
     fetch(path)
         .then(response => {
 
@@ -60,31 +59,8 @@
           console.error(error);
         });
   }
-  function delete_all_comments(){
-    
-    
-    path = "getLog?subject={{subject_id}}&delete=all"
-    alert(path)
-    fetch(path)
-        .then(response => {
-
-          // (1) 通信が成功したか確認する
-          if (!response.ok) {
-
-            // (2) 通信に失敗したときはエラーを発生させる
-            throw new Error('Not ok');
-          }
-          // (3) レスポンスデータからJSONデータを取得
-          return response.json();
-        })
-        .then(data => {
-          console.log(data);
-          
-        })
-        .catch(error => {
-          console.error(error);
-        });
-  }
+  
+   
   document.addEventListener
   ('DOMContentLoaded', function () { 
         load_data();
@@ -102,12 +78,12 @@
 
   {% else %}
     <div>
-    <h1>コメント</h1>
+    <h1>質問</h1>
+    <h2>{{question.message}}</h2>
     <input type="text" id="message">
-    <button onclick="save_comments()">送信</button>
-    <button onclick="delete_all_comments()">全消し</button>
+    <button onclick="save_answer()">回答</button>
     </div>
-    <div id="comments"></div>
+    <div id="questions"></div>
   {% endif %}
   
 </div>

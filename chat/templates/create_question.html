@@ -6,7 +6,7 @@
   function load_data() {
     str = "";
     show_comments = ""
-    fetch('getLog?subject={{subject_id}}')
+    fetch('getQuestion?subject={{subject_id}}')
         .then(response => {
 
           // (1) 通信が成功したか確認する
@@ -22,12 +22,12 @@
           // console.log(data.tasks);
           
           console.log(data.comments);
-          for(let i = 0; i < data.comments.length; i++) {
-            obj = data.comments[i]
-            show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"+
+          for(let i = 0; i < data.questions.length; i++) {
+            obj = data.questions[i]
+            show_comments += "<a href=create_answer?question="+obj.id+">"+obj.author+":"+obj.message+"</a>"+
             "<p>"+obj.created_at+"</p>"
           }
-          document.getElementById('comments').innerHTML = show_comments ;
+          document.getElementById('questions').innerHTML = show_comments ;
         })
         .catch(error => {
           console.error(error);
@@ -36,10 +36,10 @@
 
     setTimeout(function() {load_data()},1000);//todo websocketで必要なときだけデータを受け取る仕様に変更したい
   }
-  function save_comments(){
+  function save_question(){
     
     message = document.getElementById('message').value
-    path = "?subject={{subject_id}}&message="+message
+    path = "create_question?subject={{subject_id}}&message="+message
     fetch(path)
         .then(response => {
 
@@ -102,12 +102,11 @@
 
   {% else %}
     <div>
-    <h1>コメント</h1>
+    <h1>質問</h1>
     <input type="text" id="message">
-    <button onclick="save_comments()">送信</button>
-    <button onclick="delete_all_comments()">全消し</button>
+    <button onclick="save_question()">投稿</button>
     </div>
-    <div id="comments"></div>
+    <div id="questions"></div>
   {% endif %}
   
 </div>

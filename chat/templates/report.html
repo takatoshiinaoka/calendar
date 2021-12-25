@@ -40,12 +40,12 @@
         });
     
 
-    setTimeout(function() {load_data()},2000);//todo websocketで必要なときだけデータを受け取る仕様に変更したい
+    setTimeout(function() {load_data()},1000);//todo websocketで必要なときだけデータを受け取る仕様に変更したい
   }
   function save_comments(){
     
     message = document.getElementById('message').value
-    path = "?subject={{subject_id}}&message="+message
+    path = "comments?subject={{subject_id}}&message="+message
     fetch(path)
         .then(response => {
 
@@ -107,6 +107,8 @@
     
   {% endif %}
   <a href="comments?subject={{subject_id}}">チャットルームへ</a>
+  <a href="create_question?subject={{subject_id}}">質問ルームへ</a>
+
   {% for i in subjects %}
     <a href="?subject={{i.id}}">{{i.name}}</p>
   {% endfor %}

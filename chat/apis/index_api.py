@@ -14,6 +14,8 @@ from calendarSite.models import Subject
 from calendarSite.models import User_Subject
 from chat.models import Log
 from chat.models import Comment
+from chat.models import Question
+from chat.models import Answer
 from calendarSite.forms import subject_manageForm
 
 def getLog(request):
@@ -34,6 +36,23 @@ def getLog(request):
             response_data["comments"].append(comments_to_dict(i))
     return JsonResponse(response_data)
 
+def getQuestion(request):
+    response_data = {
+        "questions":[],
+    }
+    if 'subject' in request.GET:
+        subject_id=request.GET['subject']
+        questions = Question.objects.filter(subject_id=subject_id).all()
+        for q in questions:
+            response_data["questions"].append(question_to_dict(q))
+        
+        if 'delete' in request.GET:
+            for q in questions:
+                q.delete()
+        
+    return JsonResponse(response_data)
+
+
 def log_to_dict(data):
     num = User_Subject.objects.filter(subject_id=str(data.subject_id.id)).count()
     yet_num = User_Task.objects.filter(task_id=data.task_id).count()
@@ -45,3 +64,24 @@ def log_to_dict(data):
 def comments_to_dict(data):
   
     return {"id":data.id,"author":data.author,"subject": data.subject_id.name,"message":data.message,"created_at":data.created_at}
+
+def question_to_dict(data):
+  
+    return {"id":data.id,"author":data.author,"subject": data.subject_id.name,"message":data.message,"created_at":data.created_at}
+
+def getAnswer(request):
+    response_data = {
+        "answers":[],
+    }
+    if 'question' in request.GET:
+        question_id=request.GET['question']
+        answers = Answer.objects.filter(question_id=question_id).all()
+        for a in answers:
+            response_data["answers"].append(answer_to_dict(a))
+        
+        
+    return JsonResponse(response_data)
+
+def answer_to_dict(data):
+  
+    return {"id":data.id,"author":data.author,"message":data.message,"created_at":data.created_at}
