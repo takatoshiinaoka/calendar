@@ -20,13 +20,7 @@
         })
         .then(data => {
           // console.log(data.tasks);
-          for(let i = 0; i < data.logs.length; i++) {
-            // console.log(data.tasks[i])
-            obj = data.logs[i]
-            str += "<h2><a href='../?subject={{subject_id}}'>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました"+obj.created_at+"</a></h2>"
-            +"<p>"+obj.num+"人中"+obj.done_num+"人完了</p>"
-          }
-          document.getElementById('logs').innerHTML = str ;
+          
           console.log(data.comments);
           for(let i = 0; i < data.comments.length; i++) {
             obj = data.comments[i]
@@ -69,7 +63,7 @@
   function delete_all_comments(){
     
     
-    path = "app/test?delete=all"
+    path = "getLog?subject={{subject_id}}&delete=all"
     alert(path)
     fetch(path)
         .then(response => {
@@ -97,20 +91,26 @@
   })
   
 </script>
+<body>
 <div class="main">
 
   {% if subject_id == "0" %}
     <h3>ルームを選んでください</h3>
-  {% else %}
-    <h1>ログ</h1>
-    <div id="logs"></div>
-    
-  {% endif %}
-  <a href="comments?subject={{subject_id}}">コメント</a>
-  {% for i in subjects %}
+    {% for i in subjects %}
     <a href="?subject={{i.id}}">{{i.name}}</p>
-  {% endfor %}
+    {% endfor %}
 
+  {% else %}
+    <div>
+    <h1>コメント</h1>
+    <input type="text" id="message">
+    <button onclick="save_comments()">送信</button>
+    <button onclick="delete_all_comments()">全消し</button>
+    </div>
+    <div id="comments"></div>
+  {% endif %}
+  
 </div>
+</body>
 
 {% endblock %}

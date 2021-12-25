@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<head>
+    <title> カレンダー </title>
+    <link href="{% static 'css/base.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/normalize.css' %}" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="header">
+        <a class="title" href="{% url 'index' %}">楽学</a>
+        <a href="/subject" id="header-tag" class="subject">科目</a><br><br>
+        <a href="{% url 'task' 1 %}" id="header-tag" class="task">課題</a><br><br>
+        <a href="{% url 'subject_manage' %}" id="header-tag">科目管理</a>
+        <a href="{% url 'chat' %}" id="header-tag">チャット</a>
+
+        
+        {% if user.is_authenticated %}
+        <a class="button" href="/accounts/logout">ログアウト</a>
+        {% load account %}
+        <a class="button" href="/accounts/logout">ユーザー名：{% user_display user %}</a>
+        {% else %}
+        <a class="button" href="/accounts/login">ログイン</a>
+        {% endif %}
+
+
+        {% block content %}{% endblock %}
+
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="{% static 'js/ajax.js' %}"></script>
+</body>
+</html>

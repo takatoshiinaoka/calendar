@@ -7,5 +7,6 @@ from .apis.index_api import getLog
 urlpatterns = [
     path('', views.chat, name='chat'),
     path('getLog', getLog, name='getLog'),
+    path('comments', views.comments, name='comments'),
 
 ]

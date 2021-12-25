@@ -37,4 +37,25 @@ def chat(request):
    }
    return render(request, 'report.html',params)
 
+def comments(request):
+   if 'message' in request.GET:
+      message = request.GET['message']
+      subject_id = Subject.objects.get(id = request.GET['subject'])
+      author = request.user
+      comment = Comment(message = message,subject_id = subject_id,author = author)
+      comment.save()
+      return JsonResponse({"test":0})
+   mysubjects = User_Subject.objects.filter(user_id=str(request.user.id)).all()#今ログインしているユーザーの履修情報を取得
+   subjects =[]#ログイン中のユーザーが履修している科目データをすべてリストに格納
+   for i in mysubjects:
+      subjects.append(Subject.objects.get(id=i.subject_id))
+   subject_id='0'
+   if 'subject' in request.GET:
+      subject_id = request.GET['subject']
+   params = {
+      'subjects':subjects,
+      'subject_id':subject_id,
+   }
+   return render(request, 'comments.html',params)
+
  

@@ -1,0 +1,21 @@
+:root {
+  --accent-color: rgb(255,165,0);
+  --base-color:rgb(1,4,9);
+  --sub-color:rgb(13,17,23);
+  --text-color:white;
+}
+body{
+  overflow-y:hidden;
+}
+.main{
+  top:8vh;
+  bottom:2vh;
+  left:0;
+  width:100vw;
+  position:fixed;
+  height:92vh;
+ 
+}
+.main::-webkit-scrollbar {  /* Chrome, Safari 対応 */
+  display:none;
+}
