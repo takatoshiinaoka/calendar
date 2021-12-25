@@ -24,8 +24,9 @@
           console.log(data.comments);
           for(let i = 0; i < data.questions.length; i++) {
             obj = data.questions[i]
-            show_comments += "<a href=create_answer?question="+obj.id+">"+obj.author+":"+obj.message+"</a>"+
-            "<p>"+obj.created_at+"</p>"
+            show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"+
+            "<p>"+obj.created_at+"</p>"+
+            "<a href=create_answer?question="+obj.id+">回答する</a>"
           }
           document.getElementById('questions').innerHTML = show_comments ;
         })
