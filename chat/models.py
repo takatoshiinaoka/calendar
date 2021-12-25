@@ -24,3 +24,16 @@ class Comment(models.Model):
     message = models.CharField(max_length=200)
     author = models.CharField(default = '',max_length=100)
     created_at = models.DateTimeField(auto_now_add=True, help_text='作成日')
+
+class Question(models.Model):
+    subject_id = models.ForeignKey(Subject,on_delete=models.CASCADE)
+    message = models.CharField(max_length=200)
+    author = models.CharField(default = '',max_length=100)
+    Resolved = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True, help_text='作成日')
+
+class Answer(models.Model):
+    question_id = models.ForeignKey(Subject,on_delete=models.CASCADE)
+    message = models.CharField(max_length=200)
+    author = models.CharField(default = '',max_length=100)
+    created_at = models.DateTimeField(auto_now_add=True, help_text='作成日')
