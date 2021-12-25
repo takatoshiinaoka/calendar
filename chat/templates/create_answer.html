@@ -24,7 +24,8 @@
           for(let i = 0; i < data.answers.length; i++) {
             obj = data.answers[i]
             show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"+
-            "<p>"+obj.created_at+"</p>"
+            "<p>"+obj.created_at+"</p>"+
+            "<a href='#'>いいね！0</a>"
           }
           document.getElementById('questions').innerHTML = show_comments ;
         })
