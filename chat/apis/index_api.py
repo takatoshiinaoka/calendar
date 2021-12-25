@@ -73,14 +73,17 @@ def question_to_dict(data):
 def getAnswer(request):
     response_data = {
         "answers":[],
+        'done':[]
     }
     if 'question' in request.GET:
         question_id=request.GET['question']
         answers = Answer.objects.filter(question_id=question_id).all()
         for a in answers:
             response_data["answers"].append(answer_to_dict(a))
-        
-        
+    objs = ReactionAnswer.objects.filter(user_id= str(request.user.id)).all()
+    for i in objs:
+      response_data["done"].append(i.answer_id.id)
+
     return JsonResponse(response_data)
 
 def answer_to_dict(data):

@@ -25,7 +25,9 @@
             obj = data.answers[i]
             show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"+
             "<p>"+obj.created_at+"</p>"+
-            "<a href='create_answer?good="+obj.id+"&question={{question.id}}"+"'>いいね！"+obj.good_count+"</a>"
+            "<a href='create_answer?good="+obj.id+"&question={{question.id}}"+"'>いいね！"+obj.good_count+"</a>"+
+            data.done.includes(obj.id)
+
           }
           document.getElementById('questions').innerHTML = show_comments ;
         })
