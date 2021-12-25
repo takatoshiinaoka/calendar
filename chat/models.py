@@ -41,5 +41,5 @@ class Answer(models.Model):
 
 class ReactionAnswer(models.Model):
     user_id = models.CharField(default = '',max_length=100)
-    answer_id = models.ForeignKey(Question,on_delete=models.CASCADE)
+    answer_id = models.ForeignKey(Answer,on_delete=models.CASCADE)
     #reaction

@@ -85,10 +85,12 @@ def create_answer(request):
       user = request.user.id
       answer = Answer.objects.get(id=request.GET['good'])
       good_count = answer.good_count
-      Answer(id=answer.id,author=answer.author,
-      question_id=answer.question_id,created_at=answer.created_at,
-      message=answer.message,good_count=good_count+1).save()
-
+      
+      if ReactionAnswer.objects.filter(user_id= str(request.user.id),answer_id=answer.id).all().count() == 0:
+         Answer(id=answer.id,author=answer.author,
+         question_id=answer.question_id,created_at=answer.created_at,
+         message=answer.message,good_count=good_count+1).save()
+      ReactionAnswer(user_id=str(request.user.id),answer_id=answer).save()
       
    if 'question' in request.GET:
       question = Question.objects.get(id=request.GET['question'])
