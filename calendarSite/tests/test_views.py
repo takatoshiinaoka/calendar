@@ -7,8 +7,7 @@ from calendarSite.models import Task
 from calendarSite.models import User_Task
 from calendarSite.models import Subject
 from calendarSite.models import User_Subject
-from chat.models import Log
-from chat.models import Comment
+
 
 class IndexTests(TestCase):
   """IndexViewのテストクラス"""
@@ -93,9 +92,10 @@ class SabjectManageTest(TestCase):
     self.client.login(user_name=self.username,password="kimatsusikenn")
     response = self.client.get(reverse('index'))
     self.assertEqual(response.status_code, 200)
-
-    # self.assertContains(response, '科目1') # html 内に post1 の name が含まれていることを確認
-    # self.assertNotContains(response, '科目2') # html 内に post1 の name が含まれていないことを確認
+    user_subject = User_Subject.objects.filter().all()
+    subject_name = Subject.objects.get(id=user_subject[0].subject_id).name
+    self.assertEqual(subject_name, '科目1') #履修登録ができていることを確認
+    
 
   def tearDown(self):
     """
