@@ -100,13 +100,13 @@
 <div class="main">
 
   {% if subject_id == "0" %}
-    <h3>ルームを選んでください</h3>
+    <h3>ルームを選んでください（ログ）</h3>
   {% else %}
     <h1>ログ</h1>
     <div id="logs"></div>
     
   {% endif %}
-  <a href="comments?subject={{subject_id}}">コメント</a>
+  <a href="comments?subject={{subject_id}}">チャットルームへ</a>
   {% for i in subjects %}
     <a href="?subject={{i.id}}">{{i.name}}</p>
   {% endfor %}
