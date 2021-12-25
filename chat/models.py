@@ -8,7 +8,7 @@ from calendarSite.models import Subject
 from calendarSite.models import User_Subject
 
 class Log(models.Model):
-    user_id = models.CharField(max_length=200)
+    user_id = models.CharField(max_length=200)#非ログイン時に対応するため紐付けない
     subject_id = models.ForeignKey(Subject,on_delete=models.CASCADE)
     task_id = models.ForeignKey(Task,on_delete=models.CASCADE)
     action = models.CharField(max_length=200)
@@ -38,3 +38,8 @@ class Answer(models.Model):
     author = models.CharField(default = '',max_length=100)
     created_at = models.DateTimeField(auto_now_add=True, help_text='作成日')
     good_count = models.IntegerField(default=0)
+
+class ReactionAnswer(models.Model):
+    user_id = models.CharField(default = '',max_length=100)
+    answer_id = models.ForeignKey(Question,on_delete=models.CASCADE)
+    #reaction
