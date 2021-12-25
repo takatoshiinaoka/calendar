@@ -17,6 +17,7 @@ from chat.models import Comment
 from chat.models import Question
 from chat.models import Answer
 from calendarSite.forms import subject_manageForm
+from chat.models import ReactionAnswer
 
 def getLog(request):
     response_data = {
@@ -84,4 +85,4 @@ def getAnswer(request):
 
 def answer_to_dict(data):
   
-    return {"id":data.id,"author":data.author,"message":data.message,"created_at":data.created_at}
+    return {"id":data.id,"author":data.author,"message":data.message,"created_at":data.created_at,"good_count":data.good_count}

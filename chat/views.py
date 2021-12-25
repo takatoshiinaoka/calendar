@@ -16,6 +16,7 @@ from chat.models import Log
 from chat.models import Comment
 from chat.models import Question
 from chat.models import Answer
+from chat.models import ReactionAnswer
 from calendarSite.forms import subject_manageForm
 # Create your views here.
 def chat(request):
@@ -80,8 +81,15 @@ def create_answer(request):
       author = request.user
       Answer(message = message,question_id = Question.objects.get(id=request.GET['question']),author = author,good_count=0).save()
       return JsonResponse({"test":0})
- 
-   
+   if 'good' in request.GET:
+      user = request.user.id
+      answer = Answer.objects.get(id=request.GET['good'])
+      good_count = answer.good_count
+      Answer(id=answer.id,author=answer.author,
+      question_id=answer.question_id,created_at=answer.created_at,
+      message=answer.message,good_count=good_count+1).save()
+
+      
    if 'question' in request.GET:
       question = Question.objects.get(id=request.GET['question'])
    params = {
