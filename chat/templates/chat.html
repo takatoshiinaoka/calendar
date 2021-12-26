@@ -3,6 +3,45 @@
 {% load static %}
 <link href="../static/css/chat.css" rel="stylesheet" />
 <script>
+  function initialize(){
+    str = "";
+    show_comments = ""
+    fetch('getLog?subject={{subject_id}}')
+        .then(response => {
+
+          // (1) 通信が成功したか確認する
+          if (!response.ok) {
+
+            // (2) 通信に失敗したときはエラーを発生させる
+            throw new Error('Not ok');
+          }
+          // (3) レスポンスデータからJSONデータを取得
+          return response.json();
+        })
+        .then(data => {
+          // console.log(data.tasks);
+          
+          console.log(data.comments);
+          for(let i = 0; i < data.comments.length; i++) {
+            obj = data.comments[i]
+            if(i==data.comments.length-1){
+              show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"+
+              "<p>"+obj.created_at+"</p>"
+            }
+            else{
+              show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"+
+              "<p>"+obj.created_at+"</p>"
+            }
+          }
+          const list = document.getElementById('comments');
+          document.getElementById('comments').innerHTML = show_comments ;
+          //スクロールバーの位置をリストの最下部に設定
+          list.scrollTo(0, list.scrollHeight);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+  }
   function load_data() {
     str = "";
     show_comments = ""
@@ -34,14 +73,13 @@
             }
           }
           const list = document.getElementById('comments');
-          list.innerHTML = show_comments ;
-          list.scrollTo(0, list.scrollHeight);
+          document.getElementById('comments').innerHTML = show_comments ;
+          
         })
         .catch(error => {
           console.error(error);
         });
-    
-    
+   
     setTimeout(function() {load_data()},1000);//todo websocketで必要なときだけデータを受け取る仕様に変更したい
   }
   function save_comments(){
@@ -95,6 +133,7 @@
   }
   document.addEventListener
   ('DOMContentLoaded', function () { 
+        initialize();
         load_data();
   })
   

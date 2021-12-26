@@ -3,7 +3,7 @@
 {% load static %}
 <link href="{% static '../static/css/chat.css' %}" rel="stylesheet" />
 <script>
-  function load_data() {
+  function initialize() {
     str = "";
     show_comments = ""
     fetch('getQuestion?subject={{subject_id}}')
@@ -33,6 +33,42 @@
           const list = document.getElementById('questions');
           list.innerHTML = show_comments ;
           list.scrollTo(0, list.scrollHeight);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+    
+
+  }
+  function load_data() {
+    str = "";
+    show_comments = ""
+    fetch('getQuestion?subject={{subject_id}}')
+        .then(response => {
+
+          // (1) 通信が成功したか確認する
+          if (!response.ok) {
+
+            // (2) 通信に失敗したときはエラーを発生させる
+            throw new Error('Not ok');
+          }
+          // (3) レスポンスデータからJSONデータを取得
+          return response.json();
+        })
+        .then(data => {
+          // console.log(data.tasks);
+          
+          for(let i = 0; i < data.questions.length; i++) {
+            obj = data.questions[i]
+            show_comments += "<h2 id="+obj.id+">"+obj.author+":"+obj.message+"</h2>"+
+            "<p>"+obj.created_at+"</p>"+
+            "<a href=create_answer?question="+obj.id+">回答する</a> "
+            show_comments += data.myquestions.includes(obj.id) ? "<a href='create_question?solved="+obj.id+"&subject={{subject_id}}'>解決済みにする</a> ":" "
+            show_comments += obj.resolved ? "解決済み":"未解決"
+          }
+          
+          const list = document.getElementById('questions');
+          list.innerHTML = show_comments ;
         })
         .catch(error => {
           console.error(error);
@@ -92,6 +128,7 @@
   }
   document.addEventListener
   ('DOMContentLoaded', function () { 
+        initialize();
         load_data();
   })
   
