@@ -59,7 +59,7 @@ def create_question(request):
    if 'message' in request.GET:
       message = request.GET['message']
       subject_id = Subject.objects.get(id = request.GET['subject'])
-      author = request.user
+      author = str(request.user)
       Question(message = message,subject_id = subject_id,author = author,resolved=False).save()
       return JsonResponse({"test":0})
    mysubjects = User_Subject.objects.filter(user_id=str(request.user.id)).all()#今ログインしているユーザーの履修情報を取得
@@ -69,6 +69,11 @@ def create_question(request):
    subject_id='0'
    if 'subject' in request.GET:
       subject_id = request.GET['subject']
+   if 'solved' in request.GET:
+      question = Question.objects.get(id = request.GET['solved'])
+      Question(id=question.id,author=question.author,subject_id=question.subject_id,message=question.message,
+      created_at=question.created_at,resolved=True).save()
+
    params = {
       'subjects':subjects,
       'subject_id':subject_id,
@@ -78,7 +83,7 @@ def create_question(request):
 def create_answer(request):
    if 'message' in request.GET:
       message = request.GET['message']
-      author = request.user
+      author = str(request.user)
       Answer(message = message,question_id = Question.objects.get(id=request.GET['question']),author = author,good_count=0).save()
       return JsonResponse({"test":0})
    if 'good' in request.GET:

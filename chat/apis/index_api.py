@@ -40,6 +40,7 @@ def getLog(request):
 def getQuestion(request):
     response_data = {
         "questions":[],
+        "myquestions":[],
     }
     if 'subject' in request.GET:
         subject_id=request.GET['subject']
@@ -50,6 +51,10 @@ def getQuestion(request):
         if 'delete' in request.GET:
             for q in questions:
                 q.delete()
+        myquestions = Question.objects.filter(author=str(request.user))
+        for i in myquestions:
+            if i.resolved == False:
+                response_data["myquestions"].append(i.id)
         
     return JsonResponse(response_data)
 
@@ -68,7 +73,7 @@ def comments_to_dict(data):
 
 def question_to_dict(data):
   
-    return {"id":data.id,"author":data.author,"subject": data.subject_id.name,"message":data.message,"created_at":data.created_at}
+    return {"id":data.id,"author":data.author,"subject": data.subject_id.name,"message":data.message,"created_at":data.created_at,"resolved":data.resolved}
 
 def getAnswer(request):
     response_data = {

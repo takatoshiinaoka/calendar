@@ -21,13 +21,15 @@
         .then(data => {
           // console.log(data.tasks);
           
-          console.log(data.comments);
           for(let i = 0; i < data.questions.length; i++) {
             obj = data.questions[i]
-            show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"+
+            show_comments += "<h2 id="+obj.id+">"+obj.author+":"+obj.message+"</h2>"+
             "<p>"+obj.created_at+"</p>"+
-            "<a href=create_answer?question="+obj.id+">回答する</a>"
+            "<a href=create_answer?question="+obj.id+">回答する</a> "
+            show_comments += data.myquestions.includes(obj.id) ? "<a href='create_question?solved="+obj.id+"&subject={{subject_id}}'>解決済みにする</a> ":" "
+            show_comments += obj.resolved ? "解決済み":"未解決"
           }
+          console.log(data.myquestions)
           document.getElementById('questions').innerHTML = show_comments ;
         })
         .catch(error => {
