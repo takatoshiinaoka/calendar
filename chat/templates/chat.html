@@ -107,7 +107,7 @@
   {% else %}
     <div class="nav-bar">
       <ul>
-        <li><a href="/chat?subject={{subject_id}}">チャット</a></li>
+        <li><a href="/chat?subject={{subject_id}}">チャット〇</a></li>
         <li><a href="create_question?subject={{subject_id}}">質問</a></li>
         <li><a href="log?subject={{subject_id}}">ログ</a></li>
       </ul>
@@ -123,7 +123,6 @@
     <div class="chat">
       <div id="comments"></div>
       <div>
-        <h1>コメント</h1>
         <input type="text" id="message">
         <button onclick="save_comments()">送信</button>
         <button onclick="delete_all_comments()">全消し</button>
