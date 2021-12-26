@@ -126,12 +126,12 @@
       {% endfor %} 
     </ul>
   </div>
-    <div>
-    <h1>質問</h1>
-    <input type="text" id="message">
-    <button onclick="save_question()">投稿</button>
+    <div class="comments" id="questions"></div>
+    <div class="input">
+      <input type="text" id="message">
+      <button onclick="save_question()">投稿</button>
     </div>
-    <div id="questions"></div>
+    
   {% endif %}
   
 </div>

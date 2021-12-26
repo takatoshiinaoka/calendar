@@ -14,8 +14,21 @@ body{
   width:100vw;
   position:fixed;
   height:92vh;
-  display:flex;
-  flex-direction:row;
+}
+.comments{
+  top:8vh;
+  left:50vw;
+  width:50vw;
+  position:fixed;
+  height:85vh;
+  overflow-y: scroll;
+}
+.input{
+  top:93vh;
+  left:50vw;
+  width:50vw;
+  position:fixed;
+  height:7vh;
 }
 
 
