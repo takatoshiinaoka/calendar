@@ -156,4 +156,14 @@ a.highlight-text{
 }
 @media all and (orientation: portrait) {
    /* 縦向きの場合は、横長用を非表示にする */
-   div.forLandscape { display: none; }
+    div.forLandscape {
+      display: none;
+    }
+}
+p.note{
+  text-align: center;
+  font-size: 50px;
+  position: fixed;
+  top: 1000px;
+  left: 0px;
+}
