@@ -52,6 +52,7 @@ def chat(request):
    params = {
       'subjects':subjects,
       'subject_id':subject_id,
+      'subject_id_i':int(subject_id),
    }
    return render(request, 'chat.html',params)
 
@@ -77,6 +78,8 @@ def create_question(request):
    params = {
       'subjects':subjects,
       'subject_id':subject_id,
+      'subject_id_i':int(subject_id),
+
    }
    return render(request, 'create_question.html',params)
 

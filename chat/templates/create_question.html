@@ -116,7 +116,11 @@
     <ul>
       <h3>科目一覧</h3>
       {% for i in subjects %}
+      {% if i.id == subject_id_i %}
+      <li><a href="?subject={{i.id}}">{{i.name}}〇</a></li>
+      {% else %}
       <li><a href="?subject={{i.id}}">{{i.name}}</a></li>
+      {% endif %}
       {% empty %}
       <li>科目が登録されていません</li>
       {% endfor %} 

@@ -116,7 +116,14 @@
       <ul>
         <h3>科目一覧</h3>
         {% for i in subjects %}
+        {% if i.id == subject_id_i %}
+        <li><a href="?subject={{i.id}}">{{i.name}}〇</a></li>
+        {% else %}
         <li><a href="?subject={{i.id}}">{{i.name}}</a></li>
+        <script>
+          console.log("{{i.id}},{{subject_id_i}}")
+        </script>
+        {% endif %}
         {% endfor %} 
       </ul>
     </div>
