@@ -117,6 +117,8 @@
       <h3>科目一覧</h3>
       {% for i in subjects %}
       <li><a href="?subject={{i.id}}">{{i.name}}</a></li>
+      {% empty %}
+      <li>科目が登録されていません</li>
       {% endfor %} 
     </ul>
   </div>

@@ -104,6 +104,8 @@
     <ul>
       {% for i in subjects %}
       <li><a href="?subject={{i.id}}">{{i.name}}</a></li>
+      {% empty %}
+      <li>科目が登録されていません</li>
       {% endfor %}
     </ul>
   {% else %}
