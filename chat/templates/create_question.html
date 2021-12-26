@@ -29,8 +29,10 @@
             show_comments += data.myquestions.includes(obj.id) ? "<a href='create_question?solved="+obj.id+"&subject={{subject_id}}'>解決済みにする</a> ":" "
             show_comments += obj.resolved ? "解決済み":"未解決"
           }
-          console.log(data.myquestions)
-          document.getElementById('questions').innerHTML = show_comments ;
+          
+          const list = document.getElementById('questions');
+          list.innerHTML = show_comments ;
+          list.scrollTo(0, list.scrollHeight);
         })
         .catch(error => {
           console.error(error);

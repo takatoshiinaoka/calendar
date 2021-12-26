@@ -84,13 +84,13 @@
     </ul>
   {% else %}
     
-    <div>
-    <h1>質問</h1>
     <h2>{{question.message}}</h2>
-    <input type="text" id="message">
-    <button onclick="save_answer()">回答</button>
+    <div class="comments" id="questions"></div>
+    <div class="input">
+      <input type="text" id="message">
+      <button onclick="save_answer()">回答</button>
     </div>
-    <div id="questions"></div>
+    
   {% endif %}
   
 </div>
