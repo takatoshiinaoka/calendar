@@ -86,7 +86,13 @@ Cancel changes
       git pull origin main
 
 
-  
+## 8.問題点を検出する
+
+1.自動テストの実行
+testsファイルの中身とtest.pyに書かれたコードを実行し、動作を一部確認できる。
+
+    python manage.py test
+
 
   
    
