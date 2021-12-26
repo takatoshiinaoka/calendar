@@ -26,7 +26,7 @@
   <title>user</title>
 
   <script>
-    
+
     var subject_name = "";
     var subject_id = "";
     var task_id = "";
@@ -57,102 +57,102 @@
         {% for cale in tasks %}
         // todo 後で関数に
 
-       
 
-        item="{{cale.end}}"
-        tmp=item.split("年")
-        e[0]=tmp[0]
-        tmp=tmp[1].split("月")
-        e[1]=tmp[0]
-        tmp=tmp[1].split("日")
-        e[2]=tmp[0]
-        
+
+        item = "{{cale.end}}"
+        tmp = item.split("年")
+        e[0] = tmp[0]
+        tmp = tmp[1].split("月")
+        e[1] = tmp[0]
+        tmp = tmp[1].split("日")
+        e[2] = tmp[0]
+
         events.push(
           {
-          id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&end='
-          +e.join('-'),
-          title: '{{cale.name}}',
-          start: '{{cale.end | date:"Y-m-d" }}',
+            id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&end='
+              + e.join('-'),
+            title: '{{cale.name}}',
+            start: '{{cale.end | date:"Y-m-d" }}',
           {% if cale.id in yet_tasks %}
-          color:'red',
-          {% else %}
-          color:'gray',
-          {% endif %}
+          color: 'red',
+        {% else %}
+        color: 'gray',
+        {% endif %}
           //url: '?subject={{subject_id}}&task={{cale.id}}'
 
           },
-        )
-        {% endfor %}
-        // tasks.forEach(element => 
-        //   events.push(
-        //       {
-        //       id: '/app/get_tasks?subject='+subject_id+'&task='+element.id,
-        //       title: element.task+" "+subject_id+ " " +  element.id,
-        //       start: element.updated_at,
-        //       end: element.updated_at,
-        //       url: '#'
-        //       },
-        //   )
-        // )
+    )
+    {% endfor %}
+    // tasks.forEach(element => 
+    //   events.push(
+    //       {
+    //       id: '/app/get_tasks?subject='+subject_id+'&task='+element.id,
+    //       title: element.task+" "+subject_id+ " " +  element.id,
+    //       start: element.updated_at,
+    //       end: element.updated_at,
+    //       url: '#'
+    //       },
+    //   )
+    // )
 
-        var calendarEl = document.getElementById('calendar');
-        var calendar = new FullCalendar.Calendar(calendarEl, {
+    var calendarEl = document.getElementById('calendar');
+    var calendar = new FullCalendar.Calendar(calendarEl, {
 
-          eventClick: function (info) {
-            
-            get_tasks('/app/get_tasks' + info.event.id);
-            edit_modal.classList.add('active');
-            edit_overlay.classList.add('active');
-          },
+      eventClick: function (info) {
 
-          eventChange: function (obj) { // イベントが修正されたら発生するイベント
-            console.log(obj.event.start)
-            let s = obj.event.start.toISOString().split("T");//toISOString()のT部分でスプリット
-            let _start = s[0].split("-");
-            _start[2] = String(Number(_start[2]) + 1);
-            console.log(obj.event.end)//なんかnulになってる
+        get_tasks('/app/get_tasks' + info.event.id);
+        edit_modal.classList.add('active');
+        edit_overlay.classList.add('active');
+      },
 
-            let query = obj.event.id.split('&')
-            query[3] = "end=" + _start.join('-')//todo            
-            console.log(s)
-            save_task('/app/save_task' + query.join('&'))
+      eventChange: function (obj) { // イベントが修正されたら発生するイベント
+        console.log(obj.event.start)
+        let s = obj.event.start.toISOString().split("T");//toISOString()のT部分でスプリット
+        let _start = s[0].split("-");
+        _start[2] = String(Number(_start[2]) + 1);
+        console.log(obj.event.end)//なんかnulになってる
 
-          },
-          eventRemove: function (obj) { // イベントを削除すると発生するイベント
-            console.log(obj);
-          },
+        let query = obj.event.id.split('&')
+        query[3] = "end=" + _start.join('-')//todo            
+        console.log(s)
+        save_task('/app/save_task' + query.join('&'))
 
-          expandRows: true, // 画面に合わせて高さを再設定
-          slotMinTime: '12:00', // Dayカレンダーに開始時間
-          slotMaxTime: '12:00', // Dayカレンダーに終了時間
-          locale: 'ja',
-          headerToolbar: {
-            left: "dayGridMonth,listMonth",
-            center: "title",
-            right: "today prev,next"
-          },
-          buttonText: {
-            prev: '<',
-            next: '>',
-            prevYear: '<<',
-            nextYear: '>>',
-            today: '今日',
-            month: '月',
-            week: '週',
-            day: '日',
-            list: '一覧'
-          },
-          dayCellContent: function (e) {
-            e.dayNumberText = e.dayNumberText.replace('日', '');
-          },
-          navLinks: true, // 日付を選択するとDayカレンダーやWeekカレンダーにリンク
-          editable: true, // 修正可能
-          nowIndicator: true, // 現在時間マーク
-          dayMaxEvents: true, // イベントの数がオバーすると高さの制限(+のマークと何個式で表現)
-          initialView: 'dayGridMonth',
-          events: events
-        });
-        calendar.render();
+      },
+      eventRemove: function (obj) { // イベントを削除すると発生するイベント
+        console.log(obj);
+      },
+
+      expandRows: true, // 画面に合わせて高さを再設定
+      slotMinTime: '12:00', // Dayカレンダーに開始時間
+      slotMaxTime: '12:00', // Dayカレンダーに終了時間
+      locale: 'ja',
+      headerToolbar: {
+        left: "dayGridMonth,listMonth",
+        center: "title",
+        right: "today prev,next"
+      },
+      buttonText: {
+        prev: '<',
+        next: '>',
+        prevYear: '<<',
+        nextYear: '>>',
+        today: '今日',
+        month: '月',
+        week: '週',
+        day: '日',
+        list: '一覧'
+      },
+      dayCellContent: function (e) {
+        e.dayNumberText = e.dayNumberText.replace('日', '');
+      },
+      navLinks: true, // 日付を選択するとDayカレンダーやWeekカレンダーにリンク
+      editable: true, // 修正可能
+      nowIndicator: true, // 現在時間マーク
+      dayMaxEvents: true, // イベントの数がオバーすると高さの制限(+のマークと何個式で表現)
+      initialView: 'dayGridMonth',
+      events: events
+    });
+    calendar.render();
         
 
       }
@@ -191,61 +191,61 @@
       //alert("localhost:8000"+path+"からデータを取得します。")
       fetch(path)
 
-      .then(response => {
+        .then(response => {
 
-        // (1) 通信が成功したか確認する
-        if (!response.ok) {
+          // (1) 通信が成功したか確認する
+          if (!response.ok) {
 
-          // (2) 通信に失敗したときはエラーを発生させる
-          throw new Error('Not ok');
-        }
-        // (3) レスポンスデータからJSONデータを取得
-        return response.json();
-      })
-      .then(data => {
-        // (4) 受け取ったデータをコンソール出力
-        console.log(data);
-        console.log("課題ID:"+data.task_id);
-        console.log("課題名:"+data.task.name);
-        console.log("科目名:"+data.task.subject);
-        editQuery=
-        "task="+data.task_id
-        +"&subject="+data.subject_id
-        +"&end="+data.task.end
-      
+            // (2) 通信に失敗したときはエラーを発生させる
+            throw new Error('Not ok');
+          }
+          // (3) レスポンスデータからJSONデータを取得
+          return response.json();
+        })
+        .then(data => {
+          // (4) 受け取ったデータをコンソール出力
+          console.log(data);
+          console.log("課題ID:" + data.task_id);
+          console.log("課題名:" + data.task.name);
+          console.log("科目名:" + data.task.subject);
+          editQuery =
+            "task=" + data.task_id
+            + "&subject=" + data.subject_id
+            + "&end=" + data.task.end
 
-        if(data.task_id!='0')
-          //課題編集モーダルに表示する内容
-          //-------
-          // ajaxで受け取るjsonを埋め込むためjsで記述
-          //-------
-          var str = 
-          "<h1>"+data.task.name+"</h1>"
-          +"<p>課題ID:"+data.task_id+"</p>"
-          +"<p>科目名:"+data.task.subject+"</p>"
-          +"<p>作成者:"+data.task.author+"</p>"
-          +"<p>締切日："+data.task.end+"</p>"
-          +"<p>内容:"+data.task.contents+"</p>"
-          +"<form method = 'GET'>"
-          +"  <label for='name'>課題名変更:</label>"
-          +"  <input type='text' id='name' name='name' value='"+data.task.name+"'><br>"
-          +"  <label for='content'>内容変更:</label>"
-          +"  <input type='text' id='contents' name = 'contents' value='"+data.task.contents+"'><br>"
-          +"  完了：<input type='checkbox' name='task_id' value='"+data.task_id+"' "+data.done+"><br>"
-          +"  <input type='hidden' name='edit_task' value='"+data.task_id+"'>"
-          +"  <input type='submit' value='登録'><br>"
-          +"</form>"
-          +"<a style='color:red' href='/app/delete_task?task="+data.task_id+"&subject="+data.subject.id+"'>削除</a>"
-          
-          document.getElementById('task_detail').innerHTML = str ;
-        subject_name = data.task.subject;
-        subject_id = data.subject.id;
-        task_id = data.task_id;
-      })
-      .catch(error => {
-        // (5) エラーを受け取ったらコンソール出力
-        console.error(error);
-      });
+
+          if (data.task_id != '0')
+            //課題編集モーダルに表示する内容
+            //-------
+            // ajaxで受け取るjsonを埋め込むためjsで記述
+            //-------
+            var str =
+              "<h1>" + data.task.name + "</h1>"
+              + "<p>課題ID:" + data.task_id + "</p>"
+              + "<p>科目名:" + data.task.subject + "</p>"
+              + "<p>作成者:" + data.task.author + "</p>"
+              + "<p>締切日：" + data.task.end + "</p>"
+              + "<p>内容:" + data.task.contents + "</p>"
+              + "<form method = 'GET'>"
+              + "  <label for='name'>課題名変更:</label>"
+              + "  <input type='text' id='name' name='name' value='" + data.task.name + "'><br>"
+              + "  <label for='content'>内容変更:</label>"
+              + "  <input type='text' id='contents' name = 'contents' value='" + data.task.contents + "'><br>"
+              + "  完了：<input type='checkbox' name='task_id' value='" + data.task_id + "' " + data.done + "><br>"
+              + "  <input type='hidden' name='edit_task' value='" + data.task_id + "'>"
+              + "  <input type='submit' value='登録'><br>"
+              + "</form>"
+              + "<a style='color:red' href='/app/delete_task?task=" + data.task_id + "&subject=" + data.subject.id + "'>削除</a>"
+
+          document.getElementById('task_detail').innerHTML = str;
+          subject_name = data.task.subject;
+          subject_id = data.subject.id;
+          task_id = data.task_id;
+        })
+        .catch(error => {
+          // (5) エラーを受け取ったらコンソール出力
+          console.error(error);
+        });
 
       //alert("コンソールの出力を確認してください。")
     }
@@ -300,9 +300,9 @@
       position: fixed;
       top: 8vw;
       left: 40vw;
-      width: 850px;
+      width: 55vw;
       /*55vw*/
-      height: 530px;
+      height: 35vw;
       /*35vw*/
       overflow-y: scroll;
       font-family: 'M PLUS Rounded 1c', sans-serif;
@@ -320,30 +320,27 @@
 </head>
 
 <body>
+  <!-- 横長画面用のコンテンツ -->
   <div class="main">
     <div class="side">
       <p class="subject-title">科目一覧</p>
       <ul>
-       
-        {% for item in subjects %}<!--選択している科目は異なる色で表示する-->
-          {% if item.id == subject_id_i %}
-            <li class="highlight"><a class="normal-text" href="?subject={{item.id}}">{{item.name}}</a></li>
-          {% else %}
-            <li><a class="highlight-text" href="?subject={{item.id}}">{{item.name}}</a></li>
-          {% endif %}
-
+        {% for item in subjects %}
+        {% if item.id == subject_id_i %}
+        <li class="highlight"><a class="normal-text" href="?subject={{item.id}}">{{item.name}}</li>
+        {% else %}
+        <li><a class="highlight-text" href="?subject={{item.id}}">{{item.name}}</li>
+        {% endif %}
         {% empty %}
         <li>現在登録されている科目がありません</li>
         {% endfor %}
-        
       </ul>
-      <ul>
-        <div id="calendar"></div>
-      </ul>
-    </div> 
+    </div>
+    <ul>
+      <div id="calendar"></div>
+    </ul>
   </div>
-
-
+  </div>
   <!-- クリックしたらモーダルを表示するボタン -->
   <a href="#" class="btn-tsk">課題を追加</a>
   <!-- オーバーレイ -->
@@ -358,32 +355,54 @@
       <form action="/create_task?subject={{subject_id}}" method="post">
         {% csrf_token %}
 
-        <tr><td>user: {{user}}</td></tr>
-        <div><tr><td>科目名：</td><td><select name="subject_id">
-          {% for x in subjects %}
-            {% if x.id == subject_id_i %}
-              <option value="{{x.id}}" selected>{{x.name}}</option>
-            {% else %}
-              <option value="{{x.id}}">{{x.name}}</option>
-            {% endif %}
-          {% endfor %}
-        </select></td></tr></div>
-        <div><tr><td>タイトル：</td><td><input type="text" id="name" name="name" required></td></tr></div>
-        <div><tr><td>詳細内容：</td><td><input type="text" id="contents" name="contents" ></td></tr></div>
-        <tr></tr>          
-        <div><tr><td>締め切り：</td><td><input type="date" id="end" name="end" required></td></tr></div>
+        <tr>
+          <td>user: {{user}}</td>
+        </tr>
+        <div>
+          <tr>
+            <td>科目名：</td>
+            <td><select name="subject_id">
+                {% for x in subjects %}
+                {% if x.id == subject_id_i %}
+                <option value="{{x.id}}" selected>{{x.name}}</option>
+                {% else %}
+                <option value="{{x.id}}">{{x.name}}</option>
+                {% endif %}
+                {% endfor %}
+              </select></td>
+          </tr>
+        </div>
+        <div>
+          <tr>
+            <td>タイトル：</td>
+            <td><input type="text" id="name" name="name" required></td>
+          </tr>
+        </div>
+        <div>
+          <tr>
+            <td>詳細内容：</td>
+            <td><input type="text" id="contents" name="contents"></td>
+          </tr>
+        </div>
+        <tr></tr>
+        <div>
+          <tr>
+            <td>締め切り：</td>
+            <td><input type="date" id="end" name="end" required></td>
+          </tr>
+        </div>
         <tr></tr>
 
 
         <tr>
           <td>
-            
+
           </td>
           <td></td>
           <td></td>
           <td><input type="submit"></td>
         </tr>
-        
+
       </form>
     </table>
     <a href="{% url 'create_subject' %}">科目の追加</a>
@@ -405,7 +424,12 @@
   </script>
   <script src="{% static 'js/edit_modal.js' %}">
   </script>
-
+  <div class="forPortrait">
+    <!-- 縦長画面用のコンテンツ -->
+    <p class="note">
+      モバイル端末をお使いの場合は、画面を横向きにしてください。
+    </p>
+  </div>
 </body>
 
 </html>
