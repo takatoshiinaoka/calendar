@@ -26,15 +26,11 @@
             str += "<h2><a href='../?subject={{subject_id}}'>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました"+obj.created_at+"</a></h2>"
             +"<p>"+obj.num+"人中"+obj.done_num+"人完了</p>"
           }
-          document.getElementById('logs').innerHTML = str ;
-          console.log(data.comments);
-          for(let i = 0; i < data.comments.length; i++) {
-            obj = data.comments[i]
-            show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"+
-            "<p>"+obj.created_at+"</p>"
-          }
-          const list = document.getElementById('questions');
-          list.innerHTML = show_comments ;
+          
+          const list = document.getElementById('logs');
+          list.innerHTML = str ;
+          list.scrollTo(0, list.scrollHeight);
+
         })
         .catch(error => {
           console.error(error);
@@ -63,16 +59,8 @@
             str += "<h2><a href='../?subject={{subject_id}}'>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました"+obj.created_at+"</a></h2>"
             +"<p>"+obj.num+"人中"+obj.done_num+"人完了</p>"
           }
-          document.getElementById('logs').innerHTML = str ;
-          console.log(data.comments);
-          for(let i = 0; i < data.comments.length; i++) {
-            obj = data.comments[i]
-            show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"+
-            "<p>"+obj.created_at+"</p>"
-          }
-          const list = document.getElementById('questions');
-          list.innerHTML = show_comments ;
-          list.scrollTo(0, list.scrollHeight);
+          const list = document.getElementById('logs');
+          list.innerHTML = str ;
         })
         .catch(error => {
           console.error(error);
