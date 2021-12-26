@@ -152,7 +152,9 @@ a.highlight-text{
 }
 @media all and (orientation: landscape) {
    /* 横向きの場合は、縦長用を非表示にする */
-   div.forPortrait { display: none; }
+   div.forPortrait {
+      display: none; 
+    }
 }
 @media all and (orientation: portrait) {
    /* 縦向きの場合は、横長用を非表示にする */
