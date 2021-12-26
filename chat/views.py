@@ -19,7 +19,7 @@ from chat.models import Answer
 from chat.models import ReactionAnswer
 from calendarSite.forms import subject_manageForm
 # Create your views here.
-def chat(request):
+def log(request):
   
    mysubjects = User_Subject.objects.filter(user_id=str(request.user.id)).all()#今ログインしているユーザーの履修情報を取得
    subjects =[]#ログイン中のユーザーが履修している科目データをすべてリストに格納
@@ -32,9 +32,9 @@ def chat(request):
       'subjects':subjects,
       'subject_id':subject_id,
    }
-   return render(request, 'report.html',params)
+   return render(request, 'log.html',params)
 
-def comments(request):
+def chat(request):
    if 'message' in request.GET:
       message = request.GET['message']
       subject_id = Subject.objects.get(id = request.GET['subject'])
@@ -53,7 +53,7 @@ def comments(request):
       'subjects':subjects,
       'subject_id':subject_id,
    }
-   return render(request, 'comments.html',params)
+   return render(request, 'chat.html',params)
 
 def create_question(request):
    if 'message' in request.GET:

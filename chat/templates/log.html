@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
-<link href="../static/css/chat.css" rel="stylesheet" />
+<link href="{% static '../static/css/chat.css' %}" rel="stylesheet" />
 <script>
   function load_data() {
     str = "";
@@ -20,7 +20,13 @@
         })
         .then(data => {
           // console.log(data.tasks);
-          
+          for(let i = 0; i < data.logs.length; i++) {
+            // console.log(data.tasks[i])
+            obj = data.logs[i]
+            str += "<h2><a href='../?subject={{subject_id}}'>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました"+obj.created_at+"</a></h2>"
+            +"<p>"+obj.num+"人中"+obj.done_num+"人完了</p>"
+          }
+          document.getElementById('logs').innerHTML = str ;
           console.log(data.comments);
           for(let i = 0; i < data.comments.length; i++) {
             obj = data.comments[i]
@@ -39,7 +45,7 @@
   function save_comments(){
     
     message = document.getElementById('message').value
-    path = "?subject={{subject_id}}&message="+message
+    path = "comments?subject={{subject_id}}&message="+message
     fetch(path)
         .then(response => {
 
@@ -63,7 +69,7 @@
   function delete_all_comments(){
     
     
-    path = "getLog?subject={{subject_id}}&delete=all"
+    path = "app/test?delete=all"
     alert(path)
     fetch(path)
         .then(response => {
@@ -91,45 +97,25 @@
   })
   
 </script>
-<body>
 <div class="main">
 
   {% if subject_id == "0" %}
-    <h3>ルームを選んでください</h3>
+    <h3>ルームを選んでください（ログ）</h3>
     <ul>
-    {% for i in subjects %}
-    <li><a href="?subject={{i.id}}">{{i.name}}</a></li>
-    {% endfor %}
+      {% for i in subjects %}
+      <li><a href="?subject={{i.id}}">{{i.name}}</a></li>
+      {% endfor %}
     </ul>
-
   {% else %}
-    <div class="nav-bar">
-      <ul>
-        <li><a href="comments?subject={{subject_id}}">チャット</a></li>
-        <li><a href="create_question?subject={{subject_id}}">質問</a></li>
-        <li><a href="/chat?subject={{subject_id}}">ログ</a></li>
-      </ul>
-    </div>
-    <div class="select-room-bar">
-      <ul>
-        <h3>科目一覧</h3>
-        {% for i in subjects %}
-        <li><a href="?subject={{i.id}}">{{i.name}}</a></li>
-        {% endfor %} 
-      </ul>
-    </div>
-    <div class="chat">
-      <div id="comments"></div>
-      <div>
-        <h1>コメント</h1>
-        <input type="text" id="message">
-        <button onclick="save_comments()">送信</button>
-        <button onclick="delete_all_comments()">全消し</button>
-      </div>
-    </div>
+    <h1>ログ</h1>
+    <div id="logs"></div>
+    
   {% endif %}
+  <a href="/chat?subject={{subject_id}}">チャットルームへ</a>
+  <a href="create_question?subject={{subject_id}}">質問ルームへ</a>
+
   
+
 </div>
-</body>
 
 {% endblock %}
