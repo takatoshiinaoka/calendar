@@ -3,8 +3,82 @@ ul li {
     padding: 0.5em;
     margin-bottom: 3px;
     line-height: 1.5;
-    border-left: solid 16px #b7b7b7;
     background: #FFFFFF;
     color: #C3C3C3;
     margin: 10px 15px 8px 13px;
 }
+/* 元々のチェックボックス（非表示） */
+.mycheckbox input[type="checkbox"]{
+    display: none;
+}
+/* チェックボックスの代わりを成すラベル */
+.mycheckbox input[type="checkbox"]+label{
+    display: none;
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    padding-left: 25px;
+    padding-right: 10px;
+}
+/* ラベルの左に表示させる正方形のボックス□ */
+.mycheckbox input[type="checkbox"]+label::before{
+    content: "";
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    margin-top: -10px;
+    left: 0;
+    top: 50%;
+    border: 2px solid;
+    border-color:  #C3C3C3; /* 枠の色変更 お好きな色を */
+    background-color: #FFF; /* 背景の色変更 お好きな色を */
+}
+/* チェックが入った時のレ点 */
+.mycheckbox input[type="checkbox"]:checked+label::after{
+    content: "";
+    position: absolute;
+    display: block;
+    box-sizing: border-box;
+    width: 18px;
+    height: 9px;
+    margin-top: -9px;
+    top: 50%;
+    left: 3px;
+    transform: rotate(-45deg);
+    border-bottom: 3px solid;
+    border-left: 5px solid;
+    border-color: #71b4b1; /* チェックの色変更 お好きな色を */
+}
+a.highlight-text {
+    color: #8f8f8f;
+    padding: 0 0 10px 5px;
+}
+a.normal-text {
+    color: #8f8f8f;
+    padding: 0 0 10px 5px;
+}
+.side {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    background-color: #383838;
+    overflow-y: scroll;
+    margin: 30px 60px 25px 60px;
+    height: 84vh;
+    width: 30vw;
+    border-radius: 10px;
+}
+/*送信ボタン*/
+button, [type="button"], [type="reset"], [type="submit"] {
+    -webkit-appearance: button;
+    border-radius: 50px;
+    position: fixed;
+    bottom: 30px;
+    left: 60px;
+    background-color:#71b4b1;
+    color: #fff;
+    margin: 15px;
+    padding: 5px 15px;
+    border: none;
+} 
