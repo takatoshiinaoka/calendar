@@ -17,53 +17,58 @@
 </head>
 
 <body>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="{% static 'js/ajax.js' %}"></script>
-    <div class="main">
-      <div class="side">
-        <p class="subject-title">{{title}}</p>
-        <ul>
-          <form method = "GET">
-            {% for item in data %}
-            {{item.id}}
-            {% if item in mysubjects %}
-            <label>
-              <input type="checkbox" name="chk" value="{{item.id}}" checked="checked"/>
-              <li class="highlight"><a class="normal-text" id="subject_info{{item.id}}"></li>
-                
-            </label>
-            {% else %}
-            <label>
-              <input type="checkbox" name="chk" value="{{item.id}}" />
-              <li class="highlight"><a class="normal-text" id="subject_info{{item.id}}"></li>
-            </label>
-            {% endif %}
-            <script>
-              var week_num = "{{item.week}}";
-              var week = "";
-              switch(Number(week_num)){
-                case 1 : week = "日曜";break;
-                case 2 : week = "月曜";break;
-                case 3 : week = "火曜";break;
-                case 4 : week = "水曜";break;
-                case 5 : week = "木曜";break;
-                case 6 : week = "金曜";break;
-                case 7 : week = "土曜";break;
-              }
-              document.getElementById('subject_info{{item.id}}').innerHTML = "{{item.name}} " + week + " {{item.period}}限" ;
-            </script>
-            {% empty %}
-            <label>
-              <input id="box" type="checkbox" />
-              <li>現在登録されている科目がありません</li>
-            </label>
-            {% endfor %}
-            <input type="submit" value="登録">
-          </form>  
-        </ul>
-      </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="{% static 'js/ajax.js' %}"></script>
+  <div class="main">
+    <div class="side">
+      <p class="subject-title">{{title}}</p>
       <ul>
+        <form method="GET">
+          {% for item in data %}
+          {{item.id}}
+          {% if item in mysubjects %}
+          <div class="mycheckbox">
+            <li class="highlight">
+              <input type="checkbox" name="chk" id="sample1" value="{{item.id}}" />
+              <label for="sample1"><a class="normal-text">{{item.name}}</a></label>
+            </li>
+          </div>
+          {% else %}
+          <div class="mycheckbox">
+            <li>
+              <input type="checkbox" name="chk" id="sample2" value="{{item.id}}" />
+              <label for="sample2"><a class="highlight-text">{{item.name}}</a></label>
+            </li>
+          </div>
+          {% endif %}
+          <script>
+            var week_num = "{{item.week}}";
+            var week = "";
+            switch (Number(week_num)) {
+              case 1: week = "日曜"; break;
+              case 2: week = "月曜"; break;
+              case 3: week = "火曜"; break;
+              case 4: week = "水曜"; break;
+              case 5: week = "木曜"; break;
+              case 6: week = "金曜"; break;
+              case 7: week = "土曜"; break;
+            }
+            document.getElementById('subject_info{{item.id}}').innerHTML = "{{item.name}} " + week + " {{item.period}}限";
+          </script>
+          {% empty %}
+          <div class="mycheckbox">
+            <li>
+              <name="chk" value="{{item.id}}" />
+              <label>現在登録科目がありません</label>
+            </li>
+          </div>
+          {% endfor %}
+          <input type="submit" value="登録">
+        </form>
+      </ul>
+    </div>
+    <ul>
 
 </body>
 
