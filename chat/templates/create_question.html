@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
-<link href="{% static 'css/index.css' %}" rel="stylesheet" />
+<link href="{% static '../static/css/chat.css' %}" rel="stylesheet" />
 <script>
   function load_data() {
     str = "";
@@ -99,10 +99,11 @@
 
   {% if subject_id == "0" %}
     <h3>ルームを選んでください</h3>
-    {% for i in subjects %}
-    <a href="?subject={{i.id}}">{{i.name}}</p>
-    {% endfor %}
-
+    <ul>
+      {% for i in subjects %}
+      <li><a href="?subject={{i.id}}">{{i.name}}</a></li>
+      {% endfor %}
+    </ul>
   {% else %}
     <div>
     <h1>質問</h1>

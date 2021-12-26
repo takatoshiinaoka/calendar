@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
-<link href="{% static 'css/index.css' %}" rel="stylesheet" />
+<link href="../static/css/chat.css" rel="stylesheet" />
 <script>
   function load_data() {
     str = "";
@@ -96,18 +96,37 @@
 
   {% if subject_id == "0" %}
     <h3>ルームを選んでください</h3>
+    <ul>
     {% for i in subjects %}
-    <a href="?subject={{i.id}}">{{i.name}}</p>
+    <li><a href="?subject={{i.id}}">{{i.name}}</a></li>
     {% endfor %}
+    </ul>
 
   {% else %}
-    <div>
-    <h1>コメント</h1>
-    <input type="text" id="message">
-    <button onclick="save_comments()">送信</button>
-    <button onclick="delete_all_comments()">全消し</button>
+    <div class="nav-bar">
+      <ul>
+        <li><a href="#">チャット</a></li>
+        <li><a href="#">質問</a></li>
+        <li><a href="#">ログ</a></li>
+      </ul>
     </div>
-    <div id="comments"></div>
+    <div class="select-room-bar">
+      <ul>
+        <h3>科目一覧</h3>
+        {% for i in subjects %}
+        <li><a href="?subject={{i.id}}">{{i.name}}</p></li>
+        {% endfor %} 
+      </ul>
+    </div>
+    <div class="chat">
+      <div id="comments"></div>
+      <div>
+        <h1>コメント</h1>
+        <input type="text" id="message">
+        <button onclick="save_comments()">送信</button>
+        <button onclick="delete_all_comments()">全消し</button>
+      </div>
+    </div>
   {% endif %}
   
 </div>

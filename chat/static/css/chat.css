@@ -14,8 +14,8 @@ body{
   width:100vw;
   position:fixed;
   height:92vh;
- 
+  display:flex;
+  flex-direction:row;
 }
-.main::-webkit-scrollbar {  /* Chrome, Safari 対応 */
-  display:none;
-}
+
+
