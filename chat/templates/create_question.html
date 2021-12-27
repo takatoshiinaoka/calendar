@@ -62,7 +62,7 @@
             obj = data.questions[i]
             show_comments += "<h2 id="+obj.id+">"+obj.author+":"+obj.message+"</h2>"+
             "<p>"+obj.created_at+"</p>"+
-            "<a href=create_answer?question="+obj.id+">回答する</a> "
+            "<a href=create_answer?question="+obj.id+">詳細</a> "
             show_comments += data.myquestions.includes(obj.id) ? "<a href='create_question?solved="+obj.id+"&subject={{subject_id}}'>解決済みにする</a> ":" "
             show_comments += obj.resolved ? "解決済み":"未解決"
           }
@@ -94,7 +94,7 @@
           return response.json();
         })
         .then(data => {
-          console.log(data);
+          initialize();
           
         })
         .catch(error => {
@@ -147,7 +147,7 @@
   <div class="nav-bar">
     <ul>
       <li><a href="/chat?subject={{subject_id}}">チャット</a></li>
-      <li><a href="create_question?subject={{subject_id}}">質問〇</a></li>
+      <li><a href="create_question?subject={{subject_id}}">質問(スレッド)〇</a></li>
       <li><a href="log?subject={{subject_id}}">ログ</a></li>
     </ul>
   </div>
