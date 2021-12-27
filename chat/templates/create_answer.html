@@ -121,7 +121,7 @@
   {% else %}
     <h2>{{question.subject_id.name}}</h2>
     <h2>{{question.message}}</h2>
-    <a href="{{request.META.HTTP_REFERER}}">前のページに戻る</a>
+    <a href="create_question?subject={{question.subject_id.id}}">前のページに戻る</a>
     <div class="comments" id="questions"></div>
     <div class="input">
       <input type="text" id="message">
