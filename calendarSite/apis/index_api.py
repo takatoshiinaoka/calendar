@@ -119,32 +119,3 @@ def save_User_Subject(request):
     
     return JsonResponse({'test':0})
 
-def test(request):
-    response_data = {
-        "logs":[],
-        "comments":[],
-    }
-    if 'subject' in request.GET:
-        subject_id=request.GET['subject']
-        objs = Log.objects.filter(subject_id=subject_id).all()
-        for obj in objs:
-            response_data["logs"].append(log_to_dict(obj))
-        comments = Comment.objects.filter(subject_id=subject_id).all()
-        if 'delete' in request.GET:
-            for i in comments:
-                i.delete()
-        for i in comments:
-            response_data["comments"].append(comments_to_dict(i))
-    return JsonResponse(response_data)
-
-def log_to_dict(data):
-    num = User_Subject.objects.filter(subject_id=str(data.subject_id.id)).count()
-    yet_num = User_Task.objects.filter(task_id=data.task_id).count()
-    return {"id":data.id,"user":data.user_id,"subject": data.subject_id.name,
-    "task":data.task_id.name,"action":data.action,"created_at":data.created_at,
-    "done_num":num-yet_num,"num":num
-    }
-
-def comments_to_dict(data):
-  
-    return {"id":data.id,"author":data.author,"subject": data.subject_id.name,"message":data.message,"created_at":data.created_at}
