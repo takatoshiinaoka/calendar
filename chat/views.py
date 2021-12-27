@@ -31,6 +31,8 @@ def log(request):
    params = {
       'subjects':subjects,
       'subject_id':subject_id,
+      'subject_id_i':int(subject_id),
+
    }
    return render(request, 'log.html',params)
 
