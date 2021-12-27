@@ -2,6 +2,8 @@
 {% block content %}
 {% load static %}
 <link href="{% static '../static/css/chat.css' %}" rel="stylesheet" />
+<link href="{% static '../static/css/question.css' %}" rel="stylesheet" />
+
 <script>
   function initialize() {
     str = "";
@@ -23,11 +25,13 @@
           
           for(let i = 0; i < data.questions.length; i++) {
             obj = data.questions[i]
+            show_comments += obj.resolved ? "<div class='solvedQuestion'>":"<div class='unsolvedQuestion'>"
             show_comments += "<h2 id="+obj.id+">"+obj.author+":"+obj.message+"</h2>"+
-            "<p>"+obj.created_at+"</p>"+
-            "<a href=create_answer?question="+obj.id+">回答する</a> "
+            "<p>"+obj.created_at+"</p>"
+            +"<a class='buttonDetail' href=create_answer?question="+obj.id+">詳細</a> "
             show_comments += data.myquestions.includes(obj.id) ? "<a href='create_question?solved="+obj.id+"&subject={{subject_id}}'>解決済みにする</a> ":" "
             show_comments += obj.resolved ? "解決済み":"未解決"
+            show_comments += "</div>"
           }
           
           const list = document.getElementById('questions');
@@ -60,13 +64,15 @@
           
           for(let i = 0; i < data.questions.length; i++) {
             obj = data.questions[i]
+            show_comments += obj.resolved ? "<div class='solvedQuestion'>":"<div class='unsolvedQuestion'>"
             show_comments += "<h2 id="+obj.id+">"+obj.author+":"+obj.message+"</h2>"+
-            "<p>"+obj.created_at+"</p>"+
-            "<a href=create_answer?question="+obj.id+">詳細</a> "
+            "<p>"+obj.created_at+"</p>"
+            +"<a class='buttonDetail' href=create_answer?question="+obj.id+">詳細</a> "
             show_comments += data.myquestions.includes(obj.id) ? "<a href='create_question?solved="+obj.id+"&subject={{subject_id}}'>解決済みにする</a> ":" "
             show_comments += obj.resolved ? "解決済み":"未解決"
+            show_comments += "</div>"
           }
-          
+          console.log(show_comments)
           const list = document.getElementById('questions');
           list.innerHTML = show_comments ;
         })
@@ -129,7 +135,7 @@
   document.addEventListener
   ('DOMContentLoaded', function () { 
         initialize();
-        load_data();
+        setTimeout(function() {load_data()},1000);//todo websocketで必要なときだけデータを受け取る仕様に変更したい
   })
   
 </script>

@@ -1,0 +1,17 @@
+.solvedQuestion{
+  background-color:red;
+  margin:1vw;
+  padding:1vw;
+  border-radius: 1vw;
+}
+.unsolvedQuestion{
+  background-color:blue;
+  margin:1vw;
+  padding:1vw;
+  border-radius: 1vw;
+}
+.buttonDetail{
+  padding:0;
+  z-index:200;
+  background-color:green;
+}
