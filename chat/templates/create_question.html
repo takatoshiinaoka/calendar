@@ -68,8 +68,8 @@
             show_comments += "<h2 id="+obj.id+">"+obj.author+":"+obj.message+"</h2>"+
             "<p>"+obj.created_at+"</p>"
             +"<a class='buttonDetail' href=create_answer?question="+obj.id+"></a> "
-            show_comments += data.myquestions.includes(obj.id) ? "<a href='create_question?solved="+obj.id+"&subject={{subject_id}}'>解決済みにする</a> ":" "
-            show_comments += obj.resolved ? "解決済み":"未解決"
+            show_comments += data.myquestions.includes(obj.id) ? "<a class='buttonSolved' href='create_question?solved="+obj.id+"&subject={{subject_id}}'>解決済みにする</a> ":" "
+            show_comments += obj.resolved ? "解決済み":""
             show_comments += "</div>"
           }
           console.log(show_comments)
