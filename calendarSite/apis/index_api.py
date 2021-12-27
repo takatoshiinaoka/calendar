@@ -19,6 +19,8 @@ def get_tasks(request):
     done=""
     if not(yet):
         done="checked='checked'"
+    num = User_Subject.objects.filter(subject_id=subject_id).count()
+    yet_num = User_Task.objects.filter(task_id=task_id).count()
     response_data = {
         "subject_id": subject_id,
         "subject": '',
@@ -26,6 +28,8 @@ def get_tasks(request):
         "tasks": [],
         "task":'0',
         "done":done,
+        "num":num,
+        "done_num":num-yet_num,
     }
 
     if(subject_id!='0'):
