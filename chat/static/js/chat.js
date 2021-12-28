@@ -103,7 +103,6 @@ function delete_all_comments(){
   
   
   path = "getLog?subject="+getParam('subject')+"&delete=all"
-  alert(path)
   fetch(path)
       .then(response => {
 
