@@ -29,7 +29,9 @@
             +"<div style='margin:0 1rem;'>"+obj.created_at+"</div></div>"
             str+="</div>"
           }
-          
+          if(data.logs.length == 0){
+            str += "<div class='comment'>まだログがありません。</div>"
+          }
           const list = document.getElementById('logs');
           list.innerHTML = str ;
           list.scrollTo(0, list.scrollHeight);
@@ -64,6 +66,9 @@
             +"<div class='row'><div>"+obj.num+"人中"+obj.done_num+"人完了</div>"
             +"<div style='margin:0 1rem;'>"+obj.created_at+"</div></div>"
             str+="</div>"
+          }
+          if(data.logs.length == 0){
+            str += "<div class='comment'>まだログがありません。</div>"
           }
           const list = document.getElementById('logs');
           list.innerHTML = str ;

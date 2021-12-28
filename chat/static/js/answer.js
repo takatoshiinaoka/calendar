@@ -77,6 +77,8 @@ function getParam(name, url) {
           if(data.answers.length == 0){
             show_comments += "<div class='comment'>まだメッセージがありません。</div>"
           }
+          show_comments += "<div class='box'></div>"//余白用
+
           document.getElementById('questions').innerHTML = show_comments ;
         })
         .catch(error => {

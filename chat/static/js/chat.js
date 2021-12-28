@@ -23,7 +23,7 @@ function getComments(data){
     show_comments += "<div class='comment'>まだメッセージがありません。</div>"
   }
 
-  show_comments += "<div class='box'></div>"
+  show_comments += "<div class='box'></div>"//余白用
   return (show_comments)
 }
 function initialize(){
