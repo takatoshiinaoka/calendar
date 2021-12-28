@@ -19,6 +19,7 @@ function getComments(data){
           show_comments += "  <h3 class='message'>"+obj.message+"</h3>"
           show_comments += "</div>"
   }
+  show_comments += "<div class='box'></div>"
   return (show_comments)
 }
 function initialize(){

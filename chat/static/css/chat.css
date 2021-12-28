@@ -7,6 +7,7 @@
 }
 body{
   overflow-y:hidden;
+  background-color: rgb(40,40,40);
 }
 .main{
   top:8vh;
@@ -68,3 +69,9 @@ li{
 
 }
 
+.box{
+  margin:1rem 3vw;
+  padding: 2rem;
+  border-radius: 1rem;
+  position:relative;
+}
