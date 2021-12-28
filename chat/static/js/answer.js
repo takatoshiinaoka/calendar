@@ -34,6 +34,9 @@ function getParam(name, url) {
             data.done.includes(obj.id)
             show_comments += "</div>"
           }
+          if(data.answers.length == 0){
+            show_comments += "<div class='comment'>まだメッセージがありません。</div>"
+          }
           const list = document.getElementById('questions');
           list.innerHTML = show_comments ;
           list.scrollTo(0, list.scrollHeight);
@@ -70,6 +73,9 @@ function getParam(name, url) {
             data.done.includes(obj.id)
             show_comments += "</div>"
 
+          }
+          if(data.answers.length == 0){
+            show_comments += "<div class='comment'>まだメッセージがありません。</div>"
           }
           document.getElementById('questions').innerHTML = show_comments ;
         })

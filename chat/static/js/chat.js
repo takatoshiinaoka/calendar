@@ -19,6 +19,10 @@ function getComments(data){
           show_comments += "  <h3 class='message'>"+obj.message+"</h3>"
           show_comments += "</div>"
   }
+  if(data.comments.length == 0){
+    show_comments += "<div class='comment'>まだメッセージがありません。</div>"
+  }
+
   show_comments += "<div class='box'></div>"
   return (show_comments)
 }
