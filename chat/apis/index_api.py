@@ -88,9 +88,9 @@ def comments_to_dict(data):
     "created_at":getTimeToStr(data.created_at)}
 
 def question_to_dict(data):
-  
+    answerNum = Answer.objects.filter(question_id=data.id).all().count()
     return {"id":data.id,"author":data.author,"subject": data.subject_id.name,"message":data.message,
-    "created_at":getTimeToStr(data.created_at),"resolved":data.resolved}
+    "created_at":getTimeToStr(data.created_at),"resolved":data.resolved,"answerNum":str(answerNum)}
 
 def getAnswer(request):
     response_data = {
