@@ -57,7 +57,10 @@ def getQuestion(request):
         for i in myquestions:
             if i.resolved == False:
                 response_data["myquestions"].append(i.id)
-        
+    list = response_data['questions']
+    # 回答数でソート
+    if 'sort' in request.GET:
+        response_data['questions']=sorted(list,key=lambda x:x['answerNum'],reverse=True)
     return JsonResponse(response_data)
 
 def getTimeToStr(time):
@@ -90,7 +93,7 @@ def comments_to_dict(data):
 def question_to_dict(data):
     answerNum = Answer.objects.filter(question_id=data.id).all().count()
     return {"id":data.id,"author":data.author,"subject": data.subject_id.name,"message":data.message,
-    "created_at":getTimeToStr(data.created_at),"resolved":data.resolved,"answerNum":str(answerNum)}
+    "created_at":getTimeToStr(data.created_at),"resolved":data.resolved,"answerNum":answerNum}
 
 def getAnswer(request):
     response_data = {

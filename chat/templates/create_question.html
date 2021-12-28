@@ -5,10 +5,22 @@
 <link href="{% static '../static/css/question.css' %}" rel="stylesheet" />
 
 <script>
+  var sort = false
+  function answersort(){
+    sort = true
+  }
+  function newsort(){
+    sort = false
+  }
   function initialize() {
     str = "";
     show_comments = ""
-    fetch('getQuestion?subject={{subject_id}}')
+    path = 'getQuestion?subject={{subject_id}}'
+    if(sort){
+      path += '&sort=""'
+    }
+
+    fetch(path)
         .then(response => {
 
           // (1) 通信が成功したか確認する
@@ -47,7 +59,11 @@
   function load_data() {
     str = "";
     show_comments = ""
-    fetch('getQuestion?subject={{subject_id}}')
+    path = 'getQuestion?subject={{subject_id}}'
+    if(sort){
+      path += '&sort=""'
+    }
+    fetch(path)
         .then(response => {
 
           // (1) 通信が成功したか確認する
@@ -170,6 +186,12 @@
       {% empty %}
       <li>科目が登録されていません</li>
       {% endfor %} 
+    </ul>
+  </div>
+  <div class="sort-menu">
+    <ul>
+      <li><a href="#" onclick="newsort()">新着順</a></li>
+      <li><a href="#" onclick="answersort()">回答数順</a></li>
     </ul>
   </div>
   <div class="chat">
