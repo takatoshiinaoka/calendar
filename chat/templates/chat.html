@@ -25,8 +25,8 @@
           for(let i = 0; i < data.comments.length; i++) {
             obj = data.comments[i]
             show_comments += "<div class='comment'>"
-            show_comments += "<h2>"+obj.author+" : "+obj.message+"</h2>"+
-            "<p>"+obj.created_at+"</p>"
+            show_comments += "<h2>"+obj.author+"</h2>"+
+            "<p>"+obj.message+" "+obj.created_at+"</p>"
             show_comments += "</div>"
           }
           const list = document.getElementById('comments');
@@ -60,10 +60,12 @@
           for(let i = 0; i < data.comments.length; i++) {
             obj = data.comments[i]
             show_comments += "<div class='comment'>"
-            show_comments += "<h2>"+obj.author+" : "+obj.message+"</h2>"+
-            "<p>"+obj.created_at+"</p>"
+            show_comments += "  <div class='row'>"
+            show_comments += "    <div class='name'>"+obj.author+"</div>"
+            show_comments += "    <div class='time'>"+obj.created_at+"</div>"
+            show_comments += "  </div>"
+            show_comments += "  <div class='message'>"+obj.message+"</div>"
             show_comments += "</div>"
-            
           }
           const list = document.getElementById('comments');
           document.getElementById('comments').innerHTML = show_comments ;

@@ -18,6 +18,8 @@ from chat.models import Question
 from chat.models import Answer
 from calendarSite.forms import subject_manageForm
 from chat.models import ReactionAnswer
+import datetime
+
 
 def getLog(request):
     response_data = {
@@ -58,22 +60,37 @@ def getQuestion(request):
         
     return JsonResponse(response_data)
 
+def getTimeToStr(time):
+    dt = datetime.datetime.now()
+    dt1 = datetime.datetime(year=dt.year, month=dt.month, day=dt.day, hour=0)
+    dt2 = datetime.datetime(year=time.year, month=time.month, day=time.day, hour=0)
+    day_diff=dt1-dt2
+    if day_diff.days == 1:
+        return "昨日 "+str(time.hour)+":"+str(time.minute)
+    elif day_diff.days == 0:
+        return "今日 "+str(time.hour)+":"+str(time.minute)
+    else:
+        return str(time.year) + "/" +str(time.month) + "/" + str(time.day)
 
 def log_to_dict(data):
     num = User_Subject.objects.filter(subject_id=str(data.subject_id.id)).count()
     yet_num = User_Task.objects.filter(task_id=data.task_id).count()
     return {"id":data.id,"user":data.user_id,"subject": data.subject_id.name,
-    "task":data.task_id.name,"action":data.action,"created_at":data.created_at,
+    "task":data.task_id.name,"action":data.action,"created_at":getTimeToStr(data.created_at),
     "done_num":num-yet_num,"num":num
     }
 
 def comments_to_dict(data):
-  
-    return {"id":data.id,"author":data.author,"subject": data.subject_id.name,"message":data.message,"created_at":data.created_at}
+    
+    return {"id":data.id,"author":data.author,
+    "subject": data.subject_id.name,
+    "message":data.message,
+    "created_at":getTimeToStr(data.created_at)}
 
 def question_to_dict(data):
   
-    return {"id":data.id,"author":data.author,"subject": data.subject_id.name,"message":data.message,"created_at":data.created_at,"resolved":data.resolved}
+    return {"id":data.id,"author":data.author,"subject": data.subject_id.name,"message":data.message,
+    "created_at":getTimeToStr(data.created_at),"resolved":data.resolved}
 
 def getAnswer(request):
     response_data = {
@@ -93,4 +110,4 @@ def getAnswer(request):
 
 def answer_to_dict(data):
   
-    return {"id":data.id,"author":data.author,"message":data.message,"created_at":data.created_at,"good_count":data.good_count}
+    return {"id":data.id,"author":data.author,"message":data.message,"created_at":getTimeToStr(data.created_at),"good_count":data.good_count}
