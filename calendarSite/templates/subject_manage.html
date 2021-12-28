@@ -31,14 +31,14 @@
           <div class="mycheckbox">
             <li class="highlight">
               <input type="checkbox" name="chk" id="sample1" value="{{item.id}}" checked="checked"/>
-              <label for="sample1"><a class="normal-text">{{item.name}}</a></label>
+              <label for="sample1"><a class="normal-text" id="subject_info{{item.id}}">{{item.name}}</a></label>
             </li>
           </div>
           {% else %}
           <div class="mycheckbox">
             <li>
               <input type="checkbox" name="chk" id="sample2" value="{{item.id}}" />
-              <label for="sample2"><a class="highlight-text">{{item.name}}</a></label>
+              <label for="sample2"><a class="highlight-text" id="subject_info{{item.id}}">{{item.name}}</a></label>
             </li>
           </div>
           {% endif %}
