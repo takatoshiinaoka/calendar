@@ -18,13 +18,22 @@ body{
 
 .comments{
   top:8vh;
-  left:45vw;
-  width:50vw;
+  left:40vw;
+  width:55vw;
   position:fixed;
   height:83vh;
   overflow-y: scroll;
 }
-
+.comment{
+  background-color:#383838;
+  margin:1rem 3vw;
+  padding:1rem;
+  border-radius: 1rem;
+  position:relative;
+}
+.comment:hover{
+  transform: scale(1.1);
+}
 /*スクロールバー非表示*/
 .comments::-webkit-scrollbar {  /* Chrome, Safari 対応 */
   display:none;

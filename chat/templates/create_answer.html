@@ -23,11 +23,12 @@
           
           for(let i = 0; i < data.answers.length; i++) {
             obj = data.answers[i]
+            show_comments += "<div class='comment'>"
             show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"+
             "<p>"+obj.created_at+"</p>"+
             "<a href='create_answer?good="+obj.id+"&question={{question.id}}"+"'>いいね！"+obj.good_count+"</a>"+
             data.done.includes(obj.id)
-
+            show_comments += "</div>"
           }
           const list = document.getElementById('questions');
           list.innerHTML = show_comments ;
@@ -58,10 +59,12 @@
           
           for(let i = 0; i < data.answers.length; i++) {
             obj = data.answers[i]
+            show_comments += "<div class='comment'>"
             show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"+
             "<p>"+obj.created_at+"</p>"+
             "<a href='create_answer?good="+obj.id+"&question={{question.id}}"+"'>いいね！"+obj.good_count+"</a>"+
             data.done.includes(obj.id)
+            show_comments += "</div>"
 
           }
           document.getElementById('questions').innerHTML = show_comments ;
@@ -122,13 +125,14 @@
     <h2>{{question.subject_id.name}}</h2>
     <h2>{{question.message}}</h2>
     <a href="create_question?subject={{question.subject_id.id}}">前のページに戻る</a>
+    <div class="chat">
     <div class="comments" id="questions"></div>
     <div class="input">
       <input type="text" id="message">
       <button onclick="save_answer()">回答</button>
       
     </div>
-    
+    </div>
   {% endif %}
   
 </div>

@@ -8,17 +8,11 @@
 
 .solvedQuestion{
   background-color:#383838;
-  margin:1vw;
-  padding:1vw;
-  border-radius: 1rem;
-  position:relative;
+  
 }
 .unsolvedQuestion{
   background-color:var(--accent-color);
-  margin:1vw;
   padding:1rem 2rem 2rem 1rem;
-  border-radius: 1vw;
-  position:relative;
 }
 .buttonDetail{
   display: block;

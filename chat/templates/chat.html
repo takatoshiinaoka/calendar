@@ -24,14 +24,10 @@
           console.log(data.comments);
           for(let i = 0; i < data.comments.length; i++) {
             obj = data.comments[i]
-            if(i==data.comments.length-1){
-              show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"+
-              "<p>"+obj.created_at+"</p>"
-            }
-            else{
-              show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"+
-              "<p>"+obj.created_at+"</p>"
-            }
+            show_comments += "<div class='comment'>"
+            show_comments += "<h2>"+obj.author+" : "+obj.message+"</h2>"+
+            "<p>"+obj.created_at+"</p>"
+            show_comments += "</div>"
           }
           const list = document.getElementById('comments');
           document.getElementById('comments').innerHTML = show_comments ;
@@ -63,14 +59,11 @@
           console.log(data.comments);
           for(let i = 0; i < data.comments.length; i++) {
             obj = data.comments[i]
-            if(i==data.comments.length-1){
-              show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"+
-              "<p>"+obj.created_at+"</p>"
-            }
-            else{
-              show_comments += "<h2>"+obj.author+":"+obj.message+"</h2>"+
-              "<p>"+obj.created_at+"</p>"
-            }
+            show_comments += "<div class='comment'>"
+            show_comments += "<h2>"+obj.author+" : "+obj.message+"</h2>"+
+            "<p>"+obj.created_at+"</p>"
+            show_comments += "</div>"
+            
           }
           const list = document.getElementById('comments');
           document.getElementById('comments').innerHTML = show_comments ;
