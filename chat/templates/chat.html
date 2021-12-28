@@ -3,61 +3,9 @@
 {% load static %}
 <link href="../static/css/chat.css" rel="stylesheet" />
 <script>
-  function initialize(){
-    str = "";
+  function setComments(data){
     show_comments = ""
-    fetch('getLog?subject={{subject_id}}')
-        .then(response => {
-
-          // (1) 通信が成功したか確認する
-          if (!response.ok) {
-
-            // (2) 通信に失敗したときはエラーを発生させる
-            throw new Error('Not ok');
-          }
-          // (3) レスポンスデータからJSONデータを取得
-          return response.json();
-        })
-        .then(data => {
-          // console.log(data.tasks);
-          
-          console.log(data.comments);
-          for(let i = 0; i < data.comments.length; i++) {
-            obj = data.comments[i]
-            show_comments += "<div class='comment'>"
-            show_comments += "<h2>"+obj.author+"</h2>"+
-            "<p>"+obj.message+" "+obj.created_at+"</p>"
-            show_comments += "</div>"
-          }
-          const list = document.getElementById('comments');
-          document.getElementById('comments').innerHTML = show_comments ;
-          //スクロールバーの位置をリストの最下部に設定
-          list.scrollTo(0, list.scrollHeight);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-  }
-  function load_data() {
-    str = "";
-    show_comments = ""
-    fetch('getLog?subject={{subject_id}}')
-        .then(response => {
-
-          // (1) 通信が成功したか確認する
-          if (!response.ok) {
-
-            // (2) 通信に失敗したときはエラーを発生させる
-            throw new Error('Not ok');
-          }
-          // (3) レスポンスデータからJSONデータを取得
-          return response.json();
-        })
-        .then(data => {
-          // console.log(data.tasks);
-          
-          console.log(data.comments);
-          for(let i = 0; i < data.comments.length; i++) {
+    for(let i = 0; i < data.comments.length; i++) {
             obj = data.comments[i]
             show_comments += "<div class='comment'>"
             show_comments += "  <div class='row'>"
@@ -66,10 +14,51 @@
             show_comments += "  </div>"
             show_comments += "  <div class='message'>"+obj.message+"</div>"
             show_comments += "</div>"
+    }
+    const list = document.getElementById('comments');
+    document.getElementById('comments').innerHTML = show_comments ;
+  }
+  function initialize(){
+    fetch('getLog?subject={{subject_id}}')
+        .then(response => {
+
+          // (1) 通信が成功したか確認する
+          if (!response.ok) {
+
+            // (2) 通信に失敗したときはエラーを発生させる
+            throw new Error('Not ok');
           }
-          const list = document.getElementById('comments');
-          document.getElementById('comments').innerHTML = show_comments ;
+          // (3) レスポンスデータからJSONデータを取得
+          return response.json();
+        })
+        .then(data => {
+          // console.log(data.tasks);
           
+          setComments(data)
+          //スクロールバーの位置をリストの最下部に設定
+          list.scrollTo(0, list.scrollHeight);
+        })
+        .catch(error => {
+          console.error(error);
+        });
+  }
+  function load_data() {
+    fetch('getLog?subject={{subject_id}}')
+        .then(response => {
+
+          // (1) 通信が成功したか確認する
+          if (!response.ok) {
+
+            // (2) 通信に失敗したときはエラーを発生させる
+            throw new Error('Not ok');
+          }
+          // (3) レスポンスデータからJSONデータを取得
+          return response.json();
+        })
+        .then(data => {
+          // console.log(data.tasks);
+          
+          setComments(data)        
         })
         .catch(error => {
           console.error(error);
