@@ -1,14 +1,21 @@
+:root {
+  --accent-color: rgb(95, 172, 65);
+  --head-color:rgb(22,27,34);
+  --base-color:rgb(1,4,9);
+  --sub-color:rgb(13,17,23);
+  --text-color:white;
+}
 .solvedQuestion{
-  background-color:red;
+  background-color:rgb(139, 139, 139);
   margin:1vw;
   padding:1vw;
-  border-radius: 1vw;
+  border-radius: 1rem;
   position:relative;
 }
 .unsolvedQuestion{
-  background-color:blue;
+  background-color:var(--accent-color);
   margin:1vw;
-  padding:1vw;
+  padding:1rem 2rem 2rem 1rem;
   border-radius: 1vw;
   position:relative;
 }
