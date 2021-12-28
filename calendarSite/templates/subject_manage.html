@@ -9,7 +9,7 @@
   <link href="{% static 'css/base.css' %}" rel="stylesheet" />
   <link href="{% static 'css/normalize.css' %}" rel="stylesheet" />
   <link href="{% static 'css/index.css' %}" rel="stylesheet" />
-  <link href="{% static 'css/subject_manage.css' %}" rel="stylesheet" />
+  <!-- <link href="{% static 'css/subject_manage.css' %}" rel="stylesheet" /> -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
@@ -30,7 +30,7 @@
           {% if item in mysubjects %}
           <div class="mycheckbox">
             <li class="highlight">
-              <input type="checkbox" name="chk" id="sample1" value="{{item.id}}" />
+              <input type="checkbox" name="chk" id="sample1" value="{{item.id}}" checked="checked"/>
               <label for="sample1"><a class="normal-text">{{item.name}}</a></label>
             </li>
           </div>
