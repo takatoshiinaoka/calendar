@@ -5,8 +5,9 @@
   --sub-color:rgb(13,17,23);
   --text-color:white;
 }
+
 .solvedQuestion{
-  background-color:rgb(139, 139, 139);
+  background-color:#383838;
   margin:1vw;
   padding:1vw;
   border-radius: 1rem;

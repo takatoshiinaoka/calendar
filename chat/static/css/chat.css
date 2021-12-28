@@ -15,13 +15,19 @@ body{
   position:fixed;
   height:92vh;
 }
+
 .comments{
   top:8vh;
-  left:50vw;
+  left:45vw;
   width:50vw;
   position:fixed;
-  height:85vh;
+  height:83vh;
   overflow-y: scroll;
+}
+
+/*スクロールバー非表示*/
+.comments::-webkit-scrollbar {  /* Chrome, Safari 対応 */
+  display:none;
 }
 .input{
   top:93vh;
