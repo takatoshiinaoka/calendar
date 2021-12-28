@@ -17,11 +17,11 @@ body{
 }
 
 .comments{
-  top:8vh;
+  top:10vh;
   left:40vw;
   width:55vw;
   position:fixed;
-  height:83vh;
+  height:81vh;
   overflow-y: scroll;
 }
 .comment{
