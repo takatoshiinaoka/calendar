@@ -68,10 +68,7 @@ def index(request):
   
    if 'task' in request.GET:
       task_id = int(request.GET['task'])
-   if subject_id == '0':
-      tasks = Task.objects.filter().all() 
-   else:
-      tasks = Task.objects.filter(subject_id=subject_id).all()
+  
 
 
    task = Task.objects.filter(id=task_id).all() 
@@ -81,6 +78,13 @@ def index(request):
    for i in mysubjects:
       subjects.append(Subject.objects.get(id=i.subject_id))
 
+   if subject_id == '0':
+      tasks = []
+      for i in subjects:
+         tasks.extend(Task.objects.filter(subject_id=i.id).all())
+          
+   else:
+      tasks = Task.objects.filter(subject_id=subject_id).all()
 
    user = request.user #現在ログインしているアカウント
    if(request.method == 'POST'):
