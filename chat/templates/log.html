@@ -23,8 +23,11 @@
           for(let i = 0; i < data.logs.length; i++) {
             // console.log(data.tasks[i])
             obj = data.logs[i]
-            str += "<h2><a href='../?subject={{subject_id}}'>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました"+obj.created_at+"</a></h2>"
-            +"<p>"+obj.num+"人中"+obj.done_num+"人完了</p>"
+            str+="<div class='comment'>"
+            str += "<h2><a href='../?subject={{subject_id}}'>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました</a></h2>"
+            +"<div class='row'><div>"+obj.num+"人中"+obj.done_num+"人完了</div>"
+            +"<div style='margin:0 1rem;'>"+obj.created_at+"</div></div>"
+            str+="</div>"
           }
           
           const list = document.getElementById('logs');
@@ -56,8 +59,11 @@
           for(let i = 0; i < data.logs.length; i++) {
             // console.log(data.tasks[i])
             obj = data.logs[i]
-            str += "<h1><a href='../?subject={{subject_id}}'>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました"+obj.created_at+"</a></h1>"
-            +"<h2>"+obj.num+"人中"+obj.done_num+"人完了</h2>"
+            str+="<div class='comment'>"
+            str += "<h2><a href='../?subject={{subject_id}}'>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました</a></h2>"
+            +"<div class='row'><div>"+obj.num+"人中"+obj.done_num+"人完了</div>"
+            +"<div style='margin:0 1rem;'>"+obj.created_at+"</div></div>"
+            str+="</div>"
           }
           const list = document.getElementById('logs');
           list.innerHTML = str ;

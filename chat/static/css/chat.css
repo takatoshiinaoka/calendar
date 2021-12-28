@@ -3,6 +3,7 @@
   --base-color:rgb(1,4,9);
   --sub-color:rgb(13,17,23);
   --text-color:white;
+  font-family: sans-serif;
 }
 body{
   overflow-y:hidden;
@@ -23,13 +24,16 @@ body{
   position:fixed;
   height:81vh;
   overflow-y: scroll;
+  background-color:rgb(193,33,39);
+  border-radius:1rem;
 }
 .comment{
   background-color:#383838;
   margin:1rem 3vw;
-  padding:1rem;
+  padding: 1rem;
   border-radius: 1rem;
   position:relative;
+  
 }
 .comment:hover{
   transform: scale(1.1);
@@ -37,6 +41,19 @@ body{
 /*スクロールバー非表示*/
 .comments::-webkit-scrollbar {  /* Chrome, Safari 対応 */
   display:none;
+}
+.row{
+  display:flex;
+  flex-direction: row;
+}
+.name{
+  margin :0 1rem;
+  font-size:1.2rem;
+  font-weight: bold;
+}
+.message{
+  margin :0.5rem;
+  overflow-wrap:  break-word;
 }
 .input{
   top:93vh;
