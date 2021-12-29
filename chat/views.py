@@ -38,19 +38,19 @@ def log(request):
 def subject_to_dict(data):
     return {"id":data.id,"name":data.name,"week":data.week,"period":data.period}
 def chat(request):
-   if 'message' in request.GET:
+   if 'message' in request.GET:#データを保存するだけ
       message = request.GET['message']
       subject_id = Subject.objects.get(id = request.GET['subject'])
       author = request.user
       comment = Comment(message = message,subject_id = subject_id,author = author)
       comment.save()
-      return JsonResponse({"test":0})
+      return JsonResponse({"test":0})#何も返さないとエラーがでるため
    mysubjects = User_Subject.objects.filter(user_id=str(request.user.id)).all()#今ログインしているユーザーの履修情報を取得
    subjects =[]#ログイン中のユーザーが履修している科目データをすべてリストに格納
    for i in mysubjects:
       subject = Subject.objects.get(id=i.subject_id)
-      subjects.append(subject_to_dict(subject))
-   subjects = sorted(subjects,key=lambda x:(x['week'],x['period']))
+      subjects.append(subject_to_dict(subject))#sortするため辞書に変換
+   subjects = sorted(subjects,key=lambda x:(x['week'],x['period']))#曜日と時限でソート
 
    subject_id='0'
    if 'subject' in request.GET:
@@ -58,7 +58,7 @@ def chat(request):
    params = {
       'subjects':subjects,
       'subject_id':subject_id,
-      'subject_id_i':int(subject_id),
+      'subject_id_i':int(subject_id),#idがint型なので比較に必要
    }
    return render(request, 'chat.html',params)
 
@@ -68,7 +68,7 @@ def create_question(request):
       subject_id = Subject.objects.get(id = request.GET['subject'])
       author = str(request.user)
       Question(message = message,subject_id = subject_id,author = author,resolved=False).save()
-      return JsonResponse({"test":0})
+      return JsonResponse({"test":0})#何も返さないとエラーがでるため
    mysubjects = User_Subject.objects.filter(user_id=str(request.user.id)).all()#今ログインしているユーザーの履修情報を取得
    subjects =[]#ログイン中のユーザーが履修している科目データをすべてリストに格納
    for i in mysubjects:

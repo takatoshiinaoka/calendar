@@ -39,13 +39,13 @@
   </div>
   <div class="sort-menu">
     <ul>
-      <li><div  class="newsort" onclick="newsort()">新着順</div></li>
+      <li><div  onclick="newsort()">新着順</div></li>
       <li><div  onclick="answersort()">回答数順</div></li>
       <li><div class="sortButton"></div>
     </ul>
   </div>
   <div class="chat">
-    <div class="comments" id="questions"></div>
+    <div class="comments" id="questions"></div><!--jsで埋め込み--->
     <div class="input">
       <input type="text" id="message" style="width: 30vw; height: 3vh;">
       <button onclick="save_question()">投稿</button>
