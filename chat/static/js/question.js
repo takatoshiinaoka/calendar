@@ -1,4 +1,4 @@
-function getParam(name, url) {
+  function getParam(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, "\\$&");
     var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
@@ -8,6 +8,7 @@ function getParam(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
   }
   var sort = false
+  var filter = ""
   function answersort(){
     sort = true
   }
@@ -78,7 +79,7 @@ function getParam(name, url) {
   function load_data() {
     str = "";
     show_comments = ""
-    path = 'getQuestion?subject='+getParam('subject')
+    path = 'getQuestion?subject='+getParam('subject')+filter
     if(sort){
       path += '&sort=""'
       document.getElementById('sort-menu').innerHTML = 
@@ -159,6 +160,10 @@ function getParam(name, url) {
         .catch(error => {
           console.error(error);
         });
+  }
+  function setFilterUserName(){
+    userName = document.getElementById('userName').value
+    filter = "&user="+userName
   }
   function delete_all_comments(){
     

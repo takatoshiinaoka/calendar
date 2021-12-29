@@ -46,7 +46,11 @@ def getQuestion(request):
     }
     if 'subject' in request.GET:
         subject_id=request.GET['subject']
-        questions = Question.objects.filter(subject_id=subject_id).all().order_by('-pk')
+        if 'user' in request.GET:
+            questions = Question.objects.filter(subject_id=subject_id,author=request.GET['user']).all().order_by('-pk')
+        else:
+            questions = Question.objects.filter(subject_id=subject_id).all().order_by('-pk')
+
         for q in questions:
             response_data["questions"].append(question_to_dict(q))
         
