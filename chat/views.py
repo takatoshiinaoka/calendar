@@ -35,7 +35,8 @@ def log(request):
 
    }
    return render(request, 'log.html',params)
-
+def subject_to_dict(data):
+    return {"id":data.id,"name":data.name,"week":data.week,"period":data.period}
 def chat(request):
    if 'message' in request.GET:
       message = request.GET['message']
@@ -47,7 +48,10 @@ def chat(request):
    mysubjects = User_Subject.objects.filter(user_id=str(request.user.id)).all()#今ログインしているユーザーの履修情報を取得
    subjects =[]#ログイン中のユーザーが履修している科目データをすべてリストに格納
    for i in mysubjects:
-      subjects.append(Subject.objects.get(id=i.subject_id))
+      subject = Subject.objects.get(id=i.subject_id)
+      subjects.append(subject_to_dict(subject))
+   subjects = sorted(subjects,key=lambda x:(x['week'],x['period']))
+
    subject_id='0'
    if 'subject' in request.GET:
       subject_id = request.GET['subject']

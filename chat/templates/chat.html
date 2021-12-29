@@ -10,7 +10,21 @@
     <h3>ルームを選んでください</h3>
     <ul>
     {% for i in subjects %}
-    <li><a href="?subject={{i.id}}">{{i.name}}</a></li>
+    <li><a href="?subject={{i.id}}" id='subject_info{{i.id}}'>{{i.name}} {{i.week}} {{i.period}}限</a></li>
+    <script>
+      var week_num = " {{i.week}}";
+      var week = "";
+      switch (Number(week_num)) {
+        case 1: week = "日曜"; break;
+        case 2: week = "月曜"; break;
+        case 3: week = "火曜"; break;
+        case 4: week = "水曜"; break;
+        case 5: week = "木曜"; break;
+        case 6: week = "金曜"; break;
+        case 7: week = "土曜"; break;
+      }
+      document.getElementById('subject_info{{i.id}}').innerHTML = "{{i.name}} " + week + " {{i.period}}限";
+    </script>
     {% empty %}
     <li>科目が登録されていません</li>
     {% endfor %}
