@@ -71,7 +71,7 @@ Cancel changes
 
     git merge upstream/main
 
-4 **DBファイル**「db.sqlite3」と **マイグレーションファイル** 「000X~」の削除
+4 **DBファイル**「db.sqlite3」と **マイグレーションファイル** 「000X~」の削除(CalendarSiteとchatの2カ所あるので注意)
          
 5.マイグレーションファイルの作成
 
