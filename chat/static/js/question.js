@@ -20,6 +20,20 @@ function getParam(name, url) {
     path = 'getQuestion?subject='+getParam('subject')
     if(sort){
       path += '&sort=""'
+      document.getElementById('sort-menu').innerHTML = 
+      "<ul>"
+      +"<li><div  onclick='newsort()'>新着順</div></li>"
+      +'<li><div  onclick="answersort()">回答数順〇</div></li>'
+      +'<li><div class="sortButton"></div>'
+      +"</ul>" ;
+    }
+    else{
+      document.getElementById('sort-menu').innerHTML = 
+      "<ul>"
+      +"<li><div  onclick='newsort()'>新着順〇</div></li>"
+      +'<li><div  onclick="answersort()">回答数順</div></li>'
+      +'<li><div class="sortButton"></div>'
+      +"</ul>" ;
     }
 
     fetch(path)
@@ -67,6 +81,20 @@ function getParam(name, url) {
     path = 'getQuestion?subject='+getParam('subject')
     if(sort){
       path += '&sort=""'
+      document.getElementById('sort-menu').innerHTML = 
+      "<ul>"
+      +"<li><div  onclick='newsort()'>新着順</div></li>"
+      +'<li><div  onclick="answersort()">回答数順〇</div></li>'
+      +'<li><div class="sortButton"></div>'
+      +"</ul>" ;
+    }
+    else{
+      document.getElementById('sort-menu').innerHTML = 
+      "<ul>"
+      +"<li><div  onclick='newsort()'>新着順〇</div></li>"
+      +'<li><div  onclick="answersort()">回答数順</div></li>'
+      +'<li><div class="sortButton"></div>'
+      +"</ul>" ;
     }
     fetch(path)
         .then(response => {
