@@ -41,7 +41,7 @@
           for(let i = 0; i < data.questions.length; i++) {
             obj = data.questions[i]
             show_comments += obj.resolved ? "<div class='comment solvedQuestion'>":"<div class='comment unsolvedQuestion'>"
-            show_comments += "<h2>回答数："+obj.answerNum+"</h2>"
+            show_comments += "<h2>コメント数："+obj.answerNum+"</h2>"
             show_comments += "<h2 id="+obj.id+">"+obj.author+":"+obj.message+"</h2>"+
             "<p>"+obj.created_at+"</p>"
             +"<a class='buttonDetail' href=create_answer?question="+obj.id+"></a> "
@@ -79,7 +79,7 @@
         path += 'sort=comment'
        
       }
-      
+
     }
    
     fetch(path)
@@ -100,7 +100,7 @@
           for(let i = 0; i < data.questions.length; i++) {
             obj = data.questions[i]
             show_comments += obj.resolved ? "<div class='comment solvedQuestion'>":"<div class='comment unsolvedQuestion'>"
-            show_comments += "<h2>回答数："+obj.answerNum+"</h2>"
+            show_comments += "<h2>コメント数："+obj.answerNum+"</h2>"
             show_comments += "<h2 id="+obj.id+">"+obj.author+":"+obj.message+"</h2>"+
             "<p>"+obj.created_at+"</p>"
             +"<a class='buttonDetail' href=create_answer?question="+obj.id+"></a> "
