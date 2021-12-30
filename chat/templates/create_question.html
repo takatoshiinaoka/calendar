@@ -3,6 +3,7 @@
 {% load static %}
 <link href="{% static '../static/css/chat.css' %}" rel="stylesheet" />
 <link href="{% static '../static/css/question.css' %}" rel="stylesheet" />
+<link href="{% static '../static/css/modal_question.css' %}" rel="stylesheet" />
 
 <script src="../static/js/question.js"></script>
 <body>
@@ -72,7 +73,13 @@
       <button onclick="save_question()">投稿</button>
     </div>
   </div>
-  
+  <!-- クリックしたらモーダルを表示するボタン -->
+  <a href="#" class="btn-modal">＋</a>
+  <!-- オーバーレイ -->
+  <div class="overlay"></div>
+  <!-- モーダルウィンドウ -->
+  <div class="modal">
+  </div>
   
 </div>
 </body>

@@ -1,0 +1,14 @@
+.btn-modal{
+  position: absolute;
+  top:78vh;
+  left:88vw;
+  width:5vw;
+  height:5vw;
+  border-radius:2.5vw ;
+  background-color: rgb(17, 87, 38);
+  z-index: 20;
+  color: white;
+  font-weight: bold;
+  font-size: 5rem;
+  text-align: center;
+}
