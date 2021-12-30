@@ -3,7 +3,27 @@
     params = new URLSearchParams(url.search);
     return params.getAll(name)
   }
-  
+  function getQuestions(data){
+    show_comments = ""
+    
+    for(let i = 0; i < data.questions.length; i++) {
+      obj = data.questions[i]
+      show_comments += obj.resolved ? "<div class='comment solvedQuestion'>":"<div class='comment unsolvedQuestion'>"
+      show_comments += "<h2>コメント数："+obj.answerNum+"</h2>"
+      show_comments += "<h2 id="+obj.id+">"+obj.author+":"+obj.message+"</h2>"+
+      "<p>"+obj.created_at+"</p>"
+      +"<a class='buttonDetail' href=create_answer?question="+obj.id+"></a> "
+      show_comments += data.myquestions.includes(obj.id) ? "<a class='buttonSolved' href='create_question?solved="+obj.id+"&subject="+getParam('subject')+"'>解決済みにする</a> ":" "
+      show_comments += obj.resolved ? "解決済み":""
+      show_comments += "</div>"
+    }
+    if(data.questions.length == 0){
+      show_comments += "<div class='comment'>質問が投稿されていません。</div>"
+    }
+    show_comments += "<div class='box'></div>"//余白用
+
+    return (show_comments)
+  }
   function initialize() {
     str = "";
     show_comments = ""
@@ -38,23 +58,9 @@
         .then(data => {
           // console.log(data.tasks);
           
-          for(let i = 0; i < data.questions.length; i++) {
-            obj = data.questions[i]
-            show_comments += obj.resolved ? "<div class='comment solvedQuestion'>":"<div class='comment unsolvedQuestion'>"
-            show_comments += "<h2>コメント数："+obj.answerNum+"</h2>"
-            show_comments += "<h2 id="+obj.id+">"+obj.author+":"+obj.message+"</h2>"+
-            "<p>"+obj.created_at+"</p>"
-            +"<a class='buttonDetail' href=create_answer?question="+obj.id+"></a> "
-            show_comments += data.myquestions.includes(obj.id) ? "<a class='buttonSolved' href='create_question?solved="+obj.id+"&subject="+getParam('subject')+"'>解決済みにする</a> ":" "
-            show_comments += obj.resolved ? "解決済み":""
-            show_comments += "</div>"
-          }
-          if(data.questions.length == 0){
-            show_comments += "<div class='comment'>質問が投稿されていません。</div>"
-          }
-          show_comments += "<div class='box'></div>"//余白用
+          
           const list = document.getElementById('questions');
-          list.innerHTML = show_comments ;
+          list.innerHTML = getQuestions(data) ;
           // list.scrollTo(0, list.scrollHeight);
         })
         .catch(error => {
@@ -98,24 +104,10 @@
         .then(data => {
           // console.log(data.tasks);
           
-          for(let i = 0; i < data.questions.length; i++) {
-            obj = data.questions[i]
-            show_comments += obj.resolved ? "<div class='comment solvedQuestion'>":"<div class='comment unsolvedQuestion'>"
-            show_comments += "<h2>コメント数："+obj.answerNum+"</h2>"
-            show_comments += "<h2 id="+obj.id+">"+obj.author+":"+obj.message+"</h2>"+
-            "<p>"+obj.created_at+"</p>"
-            +"<a class='buttonDetail' href=create_answer?question="+obj.id+"></a> "
-            show_comments += data.myquestions.includes(obj.id) ? "<a class='buttonSolved' href='create_question?solved="+obj.id+"&subject="+getParam('subject')+"'>解決済みにする</a> ":" "
-            show_comments += obj.resolved ? "解決済み":""
-            show_comments += "</div>"
-          }
-          if(data.questions.length == 0){
-            show_comments += "<div class='comment'>質問が投稿されていません。</div>"
-          }
-          show_comments += "<div class='box'></div>"//余白用
+          
 
           const list = document.getElementById('questions');
-          list.innerHTML = show_comments ;
+          list.innerHTML =  getQuestions(data) ;
         })
         .catch(error => {
           console.error(error);
