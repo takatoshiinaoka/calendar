@@ -88,8 +88,11 @@ def create_question(request):
       'subjects':subjects,
       'subject_id':subject_id,
       'subject_id_i':int(subject_id),
-      'user_id':user_id
+      'user_id':user_id,
+      'sort':"0"
    }
+   if 'sort' in request.GET :
+      params['sort']=request.GET['sort']
    return render(request, 'create_question.html',params)
 
 def create_answer(request):

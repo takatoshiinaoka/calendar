@@ -3,13 +3,7 @@
     params = new URLSearchParams(url.search);
     return params.getAll(name)
   }
-  var sort = false
-  function answersort(){
-    sort = true
-  }
-  function newsort(){
-    sort = false
-  }
+  
   function initialize() {
     str = "";
     show_comments = ""
@@ -22,24 +16,13 @@
     queryUser.forEach(element=>
       path += "user="+element+"&"
     )
-    if(sort){
-      path += 'sort=""'
-      document.getElementById('sort-menu').innerHTML = 
-      "<ul>"
-      +"<li><div  onclick='newsort()'>新着順</div></li>"
-      +'<li><div  onclick="answersort()">回答数順〇</div></li>'
-      +'<li><div class="sortButton"></div>'
-      +"</ul>" ;
+    
+    if(getParam('sort').length>0){
+      if(getParam('sort')[0]=="comment"){
+        path += 'sort=comment'
+       
+      }
     }
-    else{
-      document.getElementById('sort-menu').innerHTML = 
-      "<ul>"
-      +"<li><div  onclick='newsort()'>新着順〇</div></li>"
-      +'<li><div  onclick="answersort()">回答数順</div></li>'
-      +'<li><div class="sortButton"></div>'
-      +"</ul>" ;
-    }
-
     fetch(path)
         .then(response => {
 
@@ -91,23 +74,14 @@
     queryUser.forEach(element=>
       path += "user="+element+"&"
     )
-    if(sort){
-      path += 'sort=""&'
-      document.getElementById('sort-menu').innerHTML = 
-      "<ul>"
-      +"<li><div  onclick='newsort()'>新着順</div></li>"
-      +'<li><div  onclick="answersort()">回答数順〇</div></li>'
-      +'<li><div class="sortButton"></div>'
-      +"</ul>" ;
+    if(getParam('sort')[0]){
+      if(getParam('sort')[0]=="comment"){
+        path += 'sort=comment'
+       
+      }
+      
     }
-    else{
-      document.getElementById('sort-menu').innerHTML = 
-      "<ul>"
-      +"<li><div  onclick='newsort()'>新着順〇</div></li>"
-      +'<li><div  onclick="answersort()">回答数順</div></li>'
-      +'<li><div class="sortButton"></div>'
-      +"</ul>" ;
-    }
+   
     fetch(path)
         .then(response => {
 

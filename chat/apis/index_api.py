@@ -70,7 +70,8 @@ def getQuestion(request):
     list = response_data['questions']
     # 回答数でソート
     if 'sort' in request.GET:
-        response_data['questions']=sorted(list,key=lambda x:x['answerNum'],reverse=True)
+        if request.GET['sort']=='comment':
+            response_data['questions']=sorted(list,key=lambda x:x['answerNum'],reverse=True)
     return JsonResponse(response_data)
 
 def getTimeToStr(time):

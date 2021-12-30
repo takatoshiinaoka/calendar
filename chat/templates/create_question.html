@@ -18,18 +18,18 @@
   <div class="select-room-bar">
     <ul>
       <h2>科目一覧</h2>
-      <h3><a href="create_question?user={{user_id}}">全て</a></h3>
+      <h3><a href="create_question?user={{user_id}}&sort={{sort}}">全て</a></h3>
       {% for i in subjects %}
       {% if i.id == subject_id_i %}
       <li>
         <!-- <input type="checkbox" id="subject" value="{{i.id}}" checked="checked"> -->
-        <a href="?subject={{i.id}}&user={{user_id}}">{{i.name}}〇</a>
+        <a href="?subject={{i.id}}&user={{user_id}}&sort={{sort}}">{{i.name}}〇</a>
       </li>
       
       {% else %}
       <li>
         <!-- <input type="checkbox" id="subject" value="{{i.id}}"> -->
-        <a href="?subject={{i.id}}&user={{user_id}}">{{i.name}}</a>
+        <a href="?subject={{i.id}}&user={{user_id}}&sort={{sort}}">{{i.name}}</a>
       </li>
       {% endif %}
       {% empty %}
@@ -37,8 +37,17 @@
       {% endfor %} 
     </ul>
   </div>
-  <div class="sort-menu" id="sort-menu"><!--jsで埋め込み--->
-    
+  <div class="sort-menu" id="sort-menu">
+    <ul>
+      {% if sort == "comment" %}
+        <li><a href='create_question?subject={{subject_id}}&user={{user_id}}&sort=0'>新着順</a></li>
+        <li><a href='create_question?subject={{subject_id}}&user={{user_id}}&sort=comment'>回答数順〇</a></li>
+      {% else %}
+        <li><a href='create_question?subject={{subject_id}}&user={{user_id}}&sort=0'>新着順〇</a></li>
+        <li><a href='create_question?subject={{subject_id}}&user={{user_id}}&sort=comment'>回答数順</a></li>
+      {% endif %}
+      <li><div class="sortButton"></div>
+    </ul>
   </div>
   <div>
     <select name="select">
@@ -52,7 +61,7 @@
     <script>
       function searchUserName(){
         userName = document.getElementById('userName').value
-        window.location.href = 'create_question?subject={{subject_id}}&user='+userName; // 通常の遷移
+        window.location.href = 'create_question?subject={{subject_id}}&user='+userName+'&sort={{sort}}'; // 通常の遷移
       }
     </script>
   </div>
