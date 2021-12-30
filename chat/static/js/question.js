@@ -4,7 +4,6 @@
     return params.getAll(name)
   }
   var sort = false
-  var filter = ""
   function answersort(){
     sort = true
   }
@@ -14,13 +13,17 @@
   function initialize() {
     str = "";
     show_comments = ""
-    path = 'getQuestion?'+filter
+    path = 'getQuestion?'
     querySubject = getParam('subject')
     querySubject.forEach(element=>
-      path += "&subject="+element
+      path += "subject="+element+"&"
+    )
+    queryUser = getParam('user')
+    queryUser.forEach(element=>
+      path += "user="+element+"&"
     )
     if(sort){
-      path += '&sort=""'
+      path += 'sort=""'
       document.getElementById('sort-menu').innerHTML = 
       "<ul>"
       +"<li><div  onclick='newsort()'>新着順</div></li>"
@@ -79,13 +82,17 @@
   function load_data() {
     str = "";
     show_comments = ""
-    path = 'getQuestion?'+filter
+    path = 'getQuestion?'
     querySubject = getParam('subject')
     querySubject.forEach(element=>
-      path += "&subject="+element
+      path += "subject="+element+"&"
+    )
+    queryUser = getParam('user')
+    queryUser.forEach(element=>
+      path += "user="+element+"&"
     )
     if(sort){
-      path += '&sort=""'
+      path += 'sort=""&'
       document.getElementById('sort-menu').innerHTML = 
       "<ul>"
       +"<li><div  onclick='newsort()'>新着順</div></li>"
@@ -164,10 +171,7 @@
           console.error(error);
         });
   }
-  function setFilterUserName(){
-    userName = document.getElementById('userName').value
-    filter = "&user="+userName
-  }
+  
   function delete_all_comments(){
     
     

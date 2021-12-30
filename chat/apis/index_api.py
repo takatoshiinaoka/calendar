@@ -52,23 +52,21 @@ def getQuestion(request):
     for i in filterListSubjects:
         conditionSubject = conditionSubject | Q(subject_id=i)
     
-    if 'subject' in request.GET:
-        subject_id=request.GET['subject']
-        if 'user' in request.GET:
-            questions = Question.objects.filter(subject_id=subject_id,author=request.GET['user']).all().order_by('-pk')
-        else:
-            questions = Question.objects.select_related().filter(conditionSubject).all().order_by('-pk')
+    if 'user' in request.GET:
+        questions = Question.objects.filter(conditionSubject,author=request.GET['user']).all().order_by('-pk')
+    else:
+        questions = Question.objects.select_related().filter(conditionSubject).all().order_by('-pk')
 
+    for q in questions:
+        response_data["questions"].append(question_to_dict(q))
+    
+    if 'delete' in request.GET:
         for q in questions:
-            response_data["questions"].append(question_to_dict(q))
-        
-        if 'delete' in request.GET:
-            for q in questions:
-                q.delete()
-        myquestions = Question.objects.filter(author=str(request.user))
-        for i in myquestions:
-            if i.resolved == False:
-                response_data["myquestions"].append(i.id)
+            q.delete()
+    myquestions = Question.objects.filter(author=str(request.user))
+    for i in myquestions:
+        if i.resolved == False:
+            response_data["myquestions"].append(i.id)
     list = response_data['questions']
     # 回答数でソート
     if 'sort' in request.GET:

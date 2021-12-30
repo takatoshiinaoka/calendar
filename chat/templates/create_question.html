@@ -7,15 +7,7 @@
 <script src="../static/js/question.js"></script>
 <body>
 <div class="main">
-
-  {% if subject_id == "0" %}
-    <h3>ルームを選んでください</h3>
-    <ul>
-      {% for i in subjects %}
-      <li><a href="?subject={{i.id}}">{{i.name}}</a></li>
-      {% endfor %}
-    </ul>
-  {% else %}
+  
   <div class="nav-bar">
     <ul>
       <li><a href="/chat?subject={{subject_id}}">チャット</a></li>
@@ -25,12 +17,20 @@
   </div>
   <div class="select-room-bar">
     <ul>
-      <h3>科目一覧</h3>
+      <h2>科目一覧</h2>
+      <h3><a href="create_question?user={{user_id}}">全て</a></h3>
       {% for i in subjects %}
       {% if i.id == subject_id_i %}
-      <li><a href="?subject={{i.id}}">{{i.name}}〇</a></li>
+      <li>
+        <!-- <input type="checkbox" id="subject" value="{{i.id}}" checked="checked"> -->
+        <a href="?subject={{i.id}}&user={{user_id}}">{{i.name}}〇</a>
+      </li>
+      
       {% else %}
-      <li><a href="?subject={{i.id}}">{{i.name}}</a></li>
+      <li>
+        <!-- <input type="checkbox" id="subject" value="{{i.id}}"> -->
+        <a href="?subject={{i.id}}&user={{user_id}}">{{i.name}}</a>
+      </li>
       {% endif %}
       {% empty %}
       <li>科目が登録されていません</li>
@@ -41,9 +41,20 @@
     
   </div>
   <div>
-    <h2>ユーザー名で検索</h2>
-    <input type="text" id="userName">
-    <button onclick="setFilterUserName()">検索</button>
+    <select name="select">
+      
+      <option value="user" selected>ユーザー名</option>
+     
+    </select>
+      <input type="text" id="userName" name="user">
+      <button onclick="searchUserName()">検索</button>
+      <a href ="create_question?subject={{subject_id}}">絞り込みなし</a>
+    <script>
+      function searchUserName(){
+        userName = document.getElementById('userName').value
+        window.location.href = 'create_question?subject={{subject_id}}&user='+userName; // 通常の遷移
+      }
+    </script>
   </div>
   <div class="chat">
     <div class="comments" id="questions"></div><!--jsで埋め込み--->
@@ -53,7 +64,6 @@
     </div>
   </div>
   
-  {% endif %}
   
 </div>
 </body>

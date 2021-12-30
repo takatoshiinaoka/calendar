@@ -76,6 +76,9 @@ def create_question(request):
    subject_id='0'
    if 'subject' in request.GET:
       subject_id = request.GET['subject']
+   user_id = "0"
+   if 'user' in request.GET:
+      user_id = request.GET['user']
    if 'solved' in request.GET:
       question = Question.objects.get(id = request.GET['solved'])
       Question(id=question.id,author=question.author,subject_id=question.subject_id,message=question.message,
@@ -85,7 +88,7 @@ def create_question(request):
       'subjects':subjects,
       'subject_id':subject_id,
       'subject_id_i':int(subject_id),
-
+      'user_id':user_id
    }
    return render(request, 'create_question.html',params)
 
