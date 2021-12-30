@@ -52,7 +52,7 @@ def getQuestion(request):
     for i in filterListSubjects:
         conditionSubject = conditionSubject | Q(subject_id=i)
     
-    if 'user' in request.GET:
+    if 'user' in request.GET and request.GET['user']!="0":
         questions = Question.objects.filter(conditionSubject,author=request.GET['user']).all().order_by('-pk')
     else:
         questions = Question.objects.select_related().filter(conditionSubject).all().order_by('-pk')
