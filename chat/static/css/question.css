@@ -51,3 +51,11 @@
   background-color:rgb(193,33,39);
   border-radius:1rem;
 }
+.input{
+  z-index: 300;
+  position: relative;
+  top:20%;
+  left:10%;
+  width:30%;
+  height:30%;
+}

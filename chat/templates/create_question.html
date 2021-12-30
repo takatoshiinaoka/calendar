@@ -6,13 +6,14 @@
 <link href="{% static '../static/css/modal_question.css' %}" rel="stylesheet" />
 
 <script src="../static/js/question.js"></script>
+
 <body>
 <div class="main">
   
   <div class="nav-bar">
     <ul>
       <li><a href="/chat?subject={{subject_id}}">チャット</a></li>
-      <li><a href="create_question?subject={{subject_id}}">質問(スレッド)〇</a></li>
+      <li><a href="create_question?subject={{subject_id}}">質問(チャンネル)〇</a></li>
       <li><a href="log?subject={{subject_id}}">ログ</a></li>
     </ul>
   </div>
@@ -68,10 +69,7 @@
   </div>
   <div class="chat">
     <div class="comments" id="questions"></div><!--jsで埋め込み--->
-    <div class="input">
-      <input type="text" id="message" style="width: 30vw; height: 3vh;">
-      <button onclick="save_question()">投稿</button>
-    </div>
+    
   </div>
   <!-- クリックしたらモーダルを表示するボタン -->
   <a href="#" class="btn-modal">＋</a>
@@ -79,9 +77,15 @@
   <div class="overlay"></div>
   <!-- モーダルウィンドウ -->
   <div class="modal">
+    <div class="close">&times</div>
+    <div class="input">
+      <input type="text" id="message" style="width: 15vw; height: 3vh;">
+      <button onclick="save_question()">投稿</button>
+    </div>
   </div>
   
 </div>
 </body>
+<script src="../static/js/modal.js"></script>
 
 {% endblock %}
