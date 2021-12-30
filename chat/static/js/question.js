@@ -52,6 +52,7 @@
           if(data.questions.length == 0){
             show_comments += "<div class='comment'>質問が投稿されていません。</div>"
           }
+          show_comments += "<div class='box'></div>"//余白用
           const list = document.getElementById('questions');
           list.innerHTML = show_comments ;
           // list.scrollTo(0, list.scrollHeight);
@@ -111,6 +112,8 @@
           if(data.questions.length == 0){
             show_comments += "<div class='comment'>質問が投稿されていません。</div>"
           }
+          show_comments += "<div class='box'></div>"//余白用
+
           const list = document.getElementById('questions');
           list.innerHTML = show_comments ;
         })
