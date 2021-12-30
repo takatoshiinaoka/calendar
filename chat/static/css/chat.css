@@ -16,7 +16,15 @@ body{
   position:fixed;
   height:92vh;
 }
-
+.chat{
+  top:8vh;
+  bottom:2vh;
+  left:35vw;
+  width:65vw;
+  position:fixed;
+  height:92vh;
+  background-color: var(--base-color);
+}
 .comments{
   top:10vh;
   left:40vw;

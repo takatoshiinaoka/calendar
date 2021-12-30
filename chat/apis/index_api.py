@@ -1,3 +1,5 @@
+from django.db.models.query import Q
+from django.db.models.sql.query import Query
 from django.shortcuts import render
 from django.http.response import JsonResponse
 from django.http.response import HttpResponse
@@ -44,12 +46,18 @@ def getQuestion(request):
         "questions":[],
         "myquestions":[],
     }
+    # return JsonResponse({"a":request.GET.getlist('subject')}) #実験コード
+    conditionSubject = Q()
+    filterListSubjects = request.GET.getlist('subject')
+    for i in filterListSubjects:
+        conditionSubject = conditionSubject | Q(subject_id=i)
+    
     if 'subject' in request.GET:
         subject_id=request.GET['subject']
         if 'user' in request.GET:
             questions = Question.objects.filter(subject_id=subject_id,author=request.GET['user']).all().order_by('-pk')
         else:
-            questions = Question.objects.filter(subject_id=subject_id).all().order_by('-pk')
+            questions = Question.objects.select_related().filter(conditionSubject).all().order_by('-pk')
 
         for q in questions:
             response_data["questions"].append(question_to_dict(q))

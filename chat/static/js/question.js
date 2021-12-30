@@ -1,11 +1,7 @@
-  function getParam(name, url) {
-    if (!url) url = window.location.href;
-    name = name.replace(/[\[\]]/g, "\\$&");
-    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-        results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, " "));
+  function getParam(name) {
+    url = new URL(window.location.href);
+    params = new URLSearchParams(url.search);
+    return params.getAll(name)
   }
   var sort = false
   var filter = ""
@@ -18,7 +14,11 @@
   function initialize() {
     str = "";
     show_comments = ""
-    path = 'getQuestion?subject='+getParam('subject')
+    path = 'getQuestion?'+filter
+    querySubject = getParam('subject')
+    querySubject.forEach(element=>
+      path += "&subject="+element
+    )
     if(sort){
       path += '&sort=""'
       document.getElementById('sort-menu').innerHTML = 
@@ -79,7 +79,11 @@
   function load_data() {
     str = "";
     show_comments = ""
-    path = 'getQuestion?subject='+getParam('subject')+filter
+    path = 'getQuestion?'+filter
+    querySubject = getParam('subject')
+    querySubject.forEach(element=>
+      path += "&subject="+element
+    )
     if(sort){
       path += '&sort=""'
       document.getElementById('sort-menu').innerHTML = 
@@ -126,7 +130,6 @@
           if(data.questions.length == 0){
             show_comments += "<div class='comment'>質問が投稿されていません。</div>"
           }
-          console.log(show_comments)
           const list = document.getElementById('questions');
           list.innerHTML = show_comments ;
         })
@@ -140,7 +143,7 @@
   function save_question(){
     
     message = document.getElementById('message').value
-    path = "create_question?subject="+getParam('subject')+"&message="+message
+    path = "create_question?subject="+getParam('subject')[0]+"&message="+message
     fetch(path)
         .then(response => {
 
