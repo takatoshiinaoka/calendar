@@ -3,6 +3,7 @@ const btn = document.querySelector('.btn-modal');
 const modal = document.querySelector('.modal');
 const closeBtn = document.querySelector('.close');
 const overlay = document.querySelector('.overlay');
+const submit = document.querySelector('.submit');
 
 // ボタンをクリックしたら、モダルとオーバーレイに.activeを付ける
 btn.addEventListener('click', function(e){
@@ -21,6 +22,11 @@ closeBtn.addEventListener('click', function(){
 
 // オーバーレイをクリックしたら、モダルとオーバーレイのactiveクラスを外す
 overlay.addEventListener('click', function() {
+  modal.classList.remove('active');
+  overlay.classList.remove('active');
+});
+
+submit.addEventListener('click', function() {
   modal.classList.remove('active');
   overlay.classList.remove('active');
 });
