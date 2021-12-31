@@ -9,12 +9,22 @@
     for(let i = 0; i < data.questions.length; i++) {
       obj = data.questions[i]
       show_comments += obj.resolved ? "<div class='comment solvedQuestion'>":"<div class='comment unsolvedQuestion'>"
-      show_comments += "<h2>コメント数："+obj.answerNum+"</h2>"
-      show_comments += "<h2 id="+obj.id+">"+obj.author+":"+obj.message+"</h2>"+
-      "<p>"+obj.created_at+"</p>"
-      +"<a class='buttonDetail' href=create_answer?question="+obj.id+"></a> "
+      show_comments += "<div class='row'>"
+      show_comments += "<div>"
+      show_comments += "  <h2>コメント数</h2>"
+      show_comments += "  <h1>"+obj.answerNum+"</h1>"
+      show_comments += "</div>"
+      show_comments += "<div>"
+      show_comments += "  <div class='row'>"
+      show_comments += "    <div class='name' id="+obj.id+">"+obj.author+"</div>"
+      show_comments += "    <div class='time' >"+obj.created_at+"</div>"
+      show_comments += "  </div>"
+      show_comments += "  <h3 class='message'>"+obj.message+"</h3>"
+      show_comments += "  <a class='buttonDetail' href=create_answer?question="+obj.id+"></a> "
       show_comments += data.myquestions.includes(obj.id) ? "<a class='buttonSolved' href='create_question?solved="+obj.id+"&subject="+getParam('subject')+"'>解決済みにする</a> ":" "
       show_comments += obj.resolved ? "解決済み":""
+      show_comments += "</div>"
+      show_comments += "</div>"
       show_comments += "</div>"
     }
     if(data.questions.length == 0){
