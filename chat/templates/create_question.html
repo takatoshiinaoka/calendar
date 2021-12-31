@@ -13,7 +13,7 @@
   <div class="nav-bar">
     <ul>
       <li><a href="/chat?subject={{subject_id}}">チャット</a></li>
-      <li><a href="create_question?subject={{subject_id}}">質問(チャンネル)〇</a></li>
+      <li><a href="create_question?subject={{subject_id}}">質問(スレッド)〇</a></li>
       <li><a href="log?subject={{subject_id}}">ログ</a></li>
     </ul>
   </div>
@@ -57,6 +57,7 @@
       <option value="user" selected>ユーザー名</option>
      
     </select>
+      
       <input type="text" id="userName" name="user">
       <button onclick="searchUserName()">検索</button>
       <a href ="create_question?subject={{subject_id}}">絞り込みなし</a>
@@ -79,6 +80,18 @@
   <div class="modal">
     <div class="close">&times</div>
     <div class="input">
+      <select id="select">
+      
+        {% for i in subjects %}
+          {% if i.id == subject_id_i %}
+            <option value="{{i.id}}" selected>{{i.name}}</option>
+          
+          {% else %}
+            <option value="{{i.id}}">{{i.name}}</option>
+          {% endif %}
+        
+        {% endfor %} 
+      </select>
       <input type="text" id="message" style="width: 15vw; height: 3vh;">
       <button onclick="save_question()">投稿</button>
     </div>

@@ -119,7 +119,10 @@
   function save_question(){
     
     message = document.getElementById('message').value
-    path = "create_question?subject="+getParam('subject')[0]+"&message="+message
+    select = document.getElementById('select').value
+
+    path = "create_question?subject="+getParam('subject')[0]+"&message="+message+"&select="+select
+    console.log(path)
     fetch(path)
         .then(response => {
 

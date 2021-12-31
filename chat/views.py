@@ -65,10 +65,10 @@ def chat(request):
 def create_question(request):
    if 'message' in request.GET:
       message = request.GET['message']
-      subject_id = Subject.objects.get(id = request.GET['subject'])
+      subject_id = Subject.objects.get(id = request.GET['select'])
       author = str(request.user)
       Question(message = message,subject_id = subject_id,author = author,resolved=False).save()
-      return JsonResponse({"test":0})#何も返さないとエラーがでるため
+      return JsonResponse({"test":0})#何も返さrequest.GET['select']ないとエラーがでるため
    mysubjects = User_Subject.objects.filter(user_id=str(request.user.id)).all()#今ログインしているユーザーの履修情報を取得
    subjects =[]#ログイン中のユーザーが履修している科目データをすべてリストに格納
    for i in mysubjects:
