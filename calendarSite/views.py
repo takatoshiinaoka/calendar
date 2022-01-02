@@ -55,6 +55,8 @@ def gmail_send(send_name, mail_to, task, delivery_date ):
   server.send_message(msg)
   server.close()
 #   print(send_name,'様：送信完了')
+def subject_to_dict(data):
+    return {"id":data.id,"name":data.name,"week":data.week,"period":data.period}
 
 #トップページ(科目を指定しない場合)
 def index(request):
@@ -76,7 +78,9 @@ def index(request):
    mysubjects = User_Subject.objects.filter(user_id=str(request.user.id)).all()#今ログインしているユーザーの履修情報を取得
    subjects =[]#ログイン中のユーザーが履修している科目データをすべてリストに格納
    for i in mysubjects:
-      subjects.append(Subject.objects.get(id=i.subject_id))
+      subject = Subject.objects.get(id=i.subject_id)
+      subjects.append(subject_to_dict(subject))
+   subjects = sorted(subjects,key = lambda x:(x['week'],x['period']))
 
    if subject_id == '0':
       tasks = []
