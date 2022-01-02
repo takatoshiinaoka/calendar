@@ -45,47 +45,47 @@
     str = "";
     show_comments = ""
     fetch('getLog?subject={{subject_id}}')
-      .then(response => {
+    .then(response => {
 
-        // (1) 通信が成功したか確認する
-        if (!response.ok) {
+      // (1) 通信が成功したか確認する
+      if (!response.ok) {
 
-          // (2) 通信に失敗したときはエラーを発生させる
-          throw new Error('Not ok');
-        }
-        // (3) レスポンスデータからJSONデータを取得
-        return response.json();
-      })
-      .then(data => {
-        // console.log(data.tasks);
-        for(let i = 0; i < data.logs.length; i++) {
-          // console.log(data.tasks[i])
-          obj = data.logs[i]
-          str+="<div class='comment'>"
-          str += "<h2><a href='../?subject={{subject_id}}'>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました</a></h2>"
-          +"<div class='row'><div>"+obj.num+"人中"+obj.done_num+"人完了</div>"
-          +"<div style='margin:0 1rem;'>"+obj.created_at+"</div></div>"
-          str+="</div>"
-        }
-        if(data.logs.length == 0){
-          str += "<div class='comment'>まだログがありません。</div>"
-        }
-        const element = document.getElementById('logs');
-        
-        var isScroll = false;//最後までスクロールされたか
-        if(element.scrollHeight  -  element.scrollTop <= element.clientHeight){//判定にはデータ更新前の情報を使いたいので一度変数に格納
-          isScroll = true
-        }
-        element.innerHTML = str ;
-        if(isScroll){
-          element.scrollTo(0, element.scrollHeight);
-        }
+        // (2) 通信に失敗したときはエラーを発生させる
+        throw new Error('Not ok');
+      }
+      // (3) レスポンスデータからJSONデータを取得
+      return response.json();
+    })
+    .then(data => {
+      // console.log(data.tasks);
+      for(let i = 0; i < data.logs.length; i++) {
+        // console.log(data.tasks[i])
+        obj = data.logs[i]
+        str+="<div class='comment'>"
+        str += "<h2><a href='../?subject={{subject_id}}'>"+obj.user+"が"+obj.subject+"の課題("+obj.task+")を"+obj.action+"しました</a></h2>"
+        +"<div class='row'><div>"+obj.num+"人中"+obj.done_num+"人完了</div>"
+        +"<div style='margin:0 1rem;'>"+obj.created_at+"</div></div>"
+        str+="</div>"
+      }
+      if(data.logs.length == 0){
+        str += "<div class='comment'>まだログがありません。</div>"
+      }
+      const element = document.getElementById('logs');
+      
+      var isScroll = false;//最後までスクロールされたか
+      if(element.scrollHeight  -  element.scrollTop <= element.clientHeight){//判定にはデータ更新前の情報を使いたいので一度変数に格納
+        isScroll = true
+      }
+      element.innerHTML = str ;
+      if(isScroll){
+        element.scrollTo(0, element.scrollHeight);
+      }
 
-      })
-      .catch(error => {
-        console.error(error);
-      });
-    
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  
     
     setTimeout(function() {load_data()},1000);//todo websocketで必要なときだけデータを受け取る仕様に変更したい
   }
