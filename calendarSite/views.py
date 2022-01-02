@@ -85,7 +85,7 @@ def index(request):
    if subject_id == '0':
       tasks = []
       for i in subjects:
-         tasks.extend(Task.objects.filter(subject_id=i.id).all())
+         tasks.extend(Task.objects.filter(subject_id=i['id']).all())
           
    else:
       tasks = Task.objects.filter(subject_id=subject_id).all()
@@ -313,12 +313,16 @@ def subject_manage(request):
    list = User_Subject.objects.filter(user_id=str(user))
    mysubjects = []#現在履修している科目は最初からチェックをつけておく
    for i in list:
-      mysubjects.append(Subject.objects.get(id=i.subject_id))
+      mysubjects.append(subject_to_dict(Subject.objects.get(id=i.subject_id)))
        
+   subjects = []
+   subjects_src = Subject.objects.all()
+   for i in subjects_src:
+      subjects.append(subject_to_dict(i))
+   subjects = sorted(subjects,key=lambda x:(x['week'],x['period']))
 
-   
    params={
-      'data': Subject.objects.all(),
+      'data': subjects,
       'mysubjects':mysubjects,
    }
    return render(request, 'subject_manage.html',params)
