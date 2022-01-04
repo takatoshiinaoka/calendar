@@ -22,7 +22,7 @@ def subject_to_dict(data):
 #トップページ(科目を指定しない場合)
 def index(request):
    user = request.user #現在ログインしているアカウント
-   print(user)
+   #print(user)
    subject_id = '0'
    task_id = 0
    if 'subject' in request.GET:
