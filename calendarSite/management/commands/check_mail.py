@@ -1,6 +1,12 @@
 #check_mail.py
 from django.core.management.base import BaseCommand, CommandError
 
+from calendarSite.models import Task
+from calendarSite.models import User_Task
+from calendarSite.models import Subject
+from calendarSite.models import User_Subject
+
+from django.contrib.auth.models import User
 
 #import pandas as pd
 import datetime #日付や時間を指定するモジュール
@@ -14,8 +20,8 @@ from email.mime.base import MIMEBase #添付ファイルの形式を指定する
 from email import encoders #添付ファイルをメールで送ることができるようにする
 
 
-# gmail_account = "pbl2021team1@gmail.com"
-# gmail_password = "fitrakugaku"
+gmail_account = "lexue3609@gmail.com"
+gmail_password = "fitrakugaku"
 
 # mail_to = "s20a2005@gmail.com"
 # send_name = "稲岡天駿"
@@ -51,5 +57,27 @@ class Command(BaseCommand):
     help = 'Check if you can send an email'
 
     def handle(self, *args, **options):
-        gmail_send("s20a2005", "s20a2005@bene.fit.ac.jp", "課題1:テスト", "2022/1/2" )
-        print("hello")
+      
+      #Usertask = User_Task.objects.filter().get(id!=None)
+      
+      #user_taskテーブルには未実施のタスクのみ保存されている。課題が終わると、usertaskテーブルから消される
+      Usertask = User_Task.objects.filter().all() 
+      # for i in Usertask: 
+      #   if(i.user_id != "None"):#ログインユーザのタスク
+      #     print("user_id: "+i.user_id+"  task_id: "+str(i.task_id_id))#タスクのUserid
+      #      #print("task_id: "+str(i.task_id_id))#タスクのUserid
+
+      #mailアドレスとユーザ名取得
+      # user_obj=User.objects.all()
+      # for j in user_obj:
+      #   print("email: "+j.email+"  pw:"+j.username)
+
+      #締切日取得 subject_id=科目名、subject_id_id=科目id
+      task_obj = Task.objects.all() 
+      for k in task_obj:
+        print("id :"+str(k.id)+" name: "+(k.name)+" sid:"+str(k.subject_id_id)+" end:"+str(k.end))
+
+
+      #print(Usertask)
+      #gmail_send("s20a2005", "s20a2005@bene.fit.ac.jp", "課題1:テスト", "2022/1/2" )
+      print("hello")
