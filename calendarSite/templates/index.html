@@ -54,6 +54,7 @@
         let c = []
         let item = ""
         console.log("{{leave_tasks}}")
+        
         {% for cale in tasks %}
         // todo 後で関数に
 
@@ -67,21 +68,22 @@
         tmp = tmp[1].split("日")
         e[2] = tmp[0]
 
-        events.push(
-          {
-            id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&end='
-              + e.join('-'),
-            title: '{{cale.name}}',
-            start: '{{cale.end | date:"Y-m-d" }}',
-          {% if cale.id in yet_tasks %}
-          color: 'red',
-        {% else %}
-        color: 'gray',
-        {% endif %}
-          //url: '?subject={{subject_id}}&task={{cale.id}}'
-
-          },
-    )
+        
+    events.push({
+      {% if user.is_anonymous %}
+      {%else%}
+      id: '?subject={{subject_id}}&task={{cale.id}}&name={{cale.name}}&end='
+        + e.join('-'),
+      title: '{{cale.name}}',
+      start: '{{cale.end | date:"Y-m-d" }}',
+      {% if cale.id in yet_tasks %}
+      color: 'red',
+      {% else %}
+      color: 'gray',
+      {% endif %}
+      {%endif%}
+      //url: '?subject={{subject_id}}&task={{cale.id}}'
+      },)
     {% endfor %}
     // tasks.forEach(element => 
     //   events.push(
@@ -329,6 +331,9 @@
     <div class="main">
       <div class="side">
         <p class="subject-title">科目一覧</p>
+        {% if user.is_anonymous %}
+        ログインしてください。
+        {% else %}
         <ul>
           {% for item in subjects %}
           {% if item.id == subject_id_i %}
@@ -355,14 +360,19 @@
           <li>現在登録されている科目がありません</li>
           {% endfor %}
         </ul>
+        {% endif %}
       </div>
       <ul>
         <div id="calendar"></div>
       </ul>
     </div>
   </div>
+  {% if user.is_anonymous %}
+  
+  {%else%}
   <!-- クリックしたらモーダルを表示するボタン -->
   <a href="#" class="btn-tsk">課題を追加</a>
+  {% endif %}
   <!-- オーバーレイ -->
   <div class="overlay"></div>
   <!-- モーダルウィンドウ（作成） -->

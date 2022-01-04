@@ -25,43 +25,80 @@ gmail_password = "fitrakugaku"
 
 # mail_to = "s20a2005@gmail.com"
 # send_name = "稲岡天駿"
-today_date = datetime.date.today()
+# today_date = datetime.date.today()
+# now_x=datetime.datetime.now()
+# now = now_x.strftime('%Y-%m-%d %H:%M:00')
+
 
 #gmailを送る関数
 def gmail_send(send_name, mail_to, task, delivery_date ):
-
-  subject = "{0}様、{1}の課題の締め切りが近づいています。".format(send_name,task)
-  body = '''課題締め切りのお知らせをします。<br>
-            myFITをご確認ください。<br>
-            {0}の期限は{1}となります。<br><br>
-            プロジェクト型演習team1メンバーより'''.format(task,delivery_date)
+  subject = "課題「{1}」の締切が近づいています。".format(send_name,task)
+  body = '''こんにちは、{0}さん<br>
+            課題「{1}」の締切が近づいています。<br>
+            myFITまたは各案内をご確認ください。<br>
+            期限は{2}となります。<br><br>
+            プロジェクト型演習team1メンバーより'''.format(send_name,task,delivery_date)
   msg=MIMEMultipart()
-
   msg['Subject'] = subject
   msg['To'] = mail_to
   msg['From'] = gmail_account
   msg_body = MIMEText(body, "html")
-
   msg.attach(msg_body)
-
   server = smtplib.SMTP_SSL("smtp.gmail.com", 465, context=ssl.create_default_context())
   server.login(gmail_account, gmail_password)
   server.send_message(msg)
   server.close()
-#   print(send_name,'様：送信完了')
 
+def check(task_obj):
+  for task in task_obj:
+    auth_obj=User.objects.all()
+    #print("task_id :"+str(task.id)+" name: "+(task.name)+" sub_id:"+str(task.subject_id_id)+" end:"+str(task.end))
+    Usertask_obj = User_Task.objects.filter(task_id_id=task.id).all() 
+    for Usertask in Usertask_obj: 
+      if(Usertask.user_id != "None"):#ログインユーザのタスク
+        #print("user_id: "+Usertask.user_id+"  task_id: "+str(Usertask.task_id_id))#タスクのUserid
+        for auth in auth_obj:
+          if(str(auth.id) == Usertask.user_id):
+            #print("user_id:"+str(auth.id)+" user_id:"+Usertask.user_id+" email:"+auth.email+"  username:"+auth.username)
+            gmail_send(auth.username, auth.email, task.name , task.end.strftime('%Y/%m/%d %H:%M:%S'))
+            print("送信完了")
 
 # BaseCommandを継承して作成
 class Command(BaseCommand):
     # python manage.py help count_entryで表示されるメッセージ
     help = 'Check if you can send an email'
 
+    
+
     def handle(self, *args, **options):
-      
+      today_date = datetime.date.today()
+      now_x=datetime.datetime.now()
+
+      now = now_x.strftime('%Y-%m-%d %H:%M:%S')
+      #print("now   : "+str(now))
+      now_s=now_x.strftime('%Y-%m-%d %H:%M:00')
+      #print("now 0s: "+str(now_s))
+
+      #end丁度の時刻
+      task_obj = Task.objects.filter(end=now_s).all() 
+      check(task_obj)
+
+      #endの1時間前
+      now_h = (now_x-datetime.timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:00')#print("now+1h: "+str(now_h)
+      task_obj = Task.objects.filter(end=now_h).all() 
+      check(task_obj)
+
+      #endの1日前
+      now_d = (now_x-datetime.timedelta(days=1)).strftime('%Y-%m-%d %H:%M:00')#print("now+1d: "+str(now_d))
+      task_obj = Task.objects.filter(end=now_d).all() 
+      check(task_obj)
+
+
+
       #Usertask = User_Task.objects.filter().get(id!=None)
       
       #user_taskテーブルには未実施のタスクのみ保存されている。課題が終わると、usertaskテーブルから消される
-      Usertask = User_Task.objects.filter().all() 
+      #Usertask = User_Task.objects.filter().all() 
       # for i in Usertask: 
       #   if(i.user_id != "None"):#ログインユーザのタスク
       #     print("user_id: "+i.user_id+"  task_id: "+str(i.task_id_id))#タスクのUserid
@@ -73,11 +110,10 @@ class Command(BaseCommand):
       #   print("email: "+j.email+"  pw:"+j.username)
 
       #締切日取得 subject_id=科目名、subject_id_id=科目id
-      task_obj = Task.objects.all() 
-      for k in task_obj:
-        print("id :"+str(k.id)+" name: "+(k.name)+" sid:"+str(k.subject_id_id)+" end:"+str(k.end))
 
-
+      
+      
+      #print(now+ datetime.timedelta(days=1))
       #print(Usertask)
       #gmail_send("s20a2005", "s20a2005@bene.fit.ac.jp", "課題1:テスト", "2022/1/2" )
       print("hello")
