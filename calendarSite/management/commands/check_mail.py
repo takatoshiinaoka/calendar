@@ -20,15 +20,8 @@ from email.mime.base import MIMEBase #添付ファイルの形式を指定する
 from email import encoders #添付ファイルをメールで送ることができるようにする
 
 
-gmail_account = "lexue3609@gmail.com"
+gmail_account = ""
 gmail_password = "fitrakugaku"
-
-# mail_to = "s20a2005@gmail.com"
-# send_name = "稲岡天駿"
-# today_date = datetime.date.today()
-# now_x=datetime.datetime.now()
-# now = now_x.strftime('%Y-%m-%d %H:%M:00')
-
 
 #gmailを送る関数
 def gmail_send(send_name, mail_to, task, delivery_date ):
