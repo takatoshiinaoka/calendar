@@ -55,6 +55,8 @@ def gmail_send(send_name, mail_to, task, delivery_date ):
   server.send_message(msg)
   server.close()
 #   print(send_name,'様：送信完了')
+def subject_to_dict(data):
+    return {"id":data.id,"name":data.name,"week":data.week,"period":data.period}
 
 #トップページ(科目を指定しない場合)
 def index(request):
@@ -76,12 +78,14 @@ def index(request):
    mysubjects = User_Subject.objects.filter(user_id=str(request.user.id)).all()#今ログインしているユーザーの履修情報を取得
    subjects =[]#ログイン中のユーザーが履修している科目データをすべてリストに格納
    for i in mysubjects:
-      subjects.append(Subject.objects.get(id=i.subject_id))
+      subject = Subject.objects.get(id=i.subject_id)
+      subjects.append(subject_to_dict(subject))
+   subjects = sorted(subjects,key = lambda x:(x['week'],x['period']))
 
    if subject_id == '0':
       tasks = []
       for i in subjects:
-         tasks.extend(Task.objects.filter(subject_id=i.id).all())
+         tasks.extend(Task.objects.filter(subject_id=i['id']).all())
           
    else:
       tasks = Task.objects.filter(subject_id=subject_id).all()
@@ -309,12 +313,16 @@ def subject_manage(request):
    list = User_Subject.objects.filter(user_id=str(user))
    mysubjects = []#現在履修している科目は最初からチェックをつけておく
    for i in list:
-      mysubjects.append(Subject.objects.get(id=i.subject_id))
+      mysubjects.append(subject_to_dict(Subject.objects.get(id=i.subject_id)))
        
+   subjects = []
+   subjects_src = Subject.objects.all()
+   for i in subjects_src:
+      subjects.append(subject_to_dict(i))
+   subjects = sorted(subjects,key=lambda x:(x['week'],x['period']))
 
-   
    params={
-      'data': Subject.objects.all(),
+      'data': subjects,
       'mysubjects':mysubjects,
    }
    return render(request, 'subject_manage.html',params)

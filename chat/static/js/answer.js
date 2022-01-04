@@ -77,9 +77,15 @@ function getParam(name, url) {
           if(data.answers.length == 0){
             show_comments += "<div class='comment'>まだメッセージがありません。</div>"
           }
-          show_comments += "<div class='box'></div>"//余白用
-
-          document.getElementById('questions').innerHTML = show_comments ;
+          const list = document.getElementById('questions');
+          var isScroll = false;//最後までスクロールされたか
+          if(list.scrollHeight  -  list.scrollTop <= list.clientHeight){//判定にはデータ更新前の情報を使いたいので一度変数に格納
+            isScroll = true
+          }
+          list.innerHTML = show_comments;
+          if(isScroll){
+            list.scrollTo(0, list.scrollHeight);
+          }          
         })
         .catch(error => {
           console.error(error);
@@ -106,7 +112,7 @@ function getParam(name, url) {
         })
         .then(data => {
           console.log(data);
-          
+          load_data()
         })
         .catch(error => {
           console.error(error);

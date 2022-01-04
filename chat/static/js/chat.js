@@ -23,7 +23,6 @@ function getComments(data){
     show_comments += "<div class='comment'>まだメッセージがありません。</div>"
   }
 
-  show_comments += "<div class='box'></div>"//余白用
   return (show_comments)
 }
 function initialize(){
@@ -66,7 +65,14 @@ function load_data() {
       .then(data => {
         // console.log(data.tasks);
         const list = document.getElementById('comments');
-        document.getElementById('comments').innerHTML = getComments(data) ;
+        var isScroll = false;//最後までスクロールされたか
+        if(list.scrollHeight  -  list.scrollTop <= list.clientHeight){//判定にはデータ更新前の情報を使いたいので一度変数に格納
+          isScroll = true
+        }
+        list.innerHTML = getComments(data);
+        if(isScroll){
+          list.scrollTo(0, list.scrollHeight);
+        }
           
       })
       .catch(error => {

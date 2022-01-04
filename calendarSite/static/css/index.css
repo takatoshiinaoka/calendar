@@ -48,7 +48,7 @@ th{
   padding:1rem 0;
 }
 td{
-  padding:1rem 0;
+  padding:0.7rem 0;
 }
 
 .over_lay{
@@ -168,4 +168,39 @@ p.note{
   position: fixed;
   top: 1000px;
   left: 0px;
+}
+p.modal-title{
+  font-size: 26px;
+  font-family: sans-serif;
+  font-weight: 700;
+}
+.btn-flat-border {
+  display: inline-block;
+  padding: 0.3em 1em;
+  text-decoration: none;
+  color: #446b69;
+  border: solid 2px #446b69;
+  border-radius: 3px;
+  transition: .4s;
+}
+
+.btn-flat-border:hover {
+  background: #446b69;
+  color: white;
+}
+
+.btn-submit-border {
+  display: inline-block;
+  background-color: #71b4b1;
+  padding: 0.3em 1em;
+  text-decoration: none;
+  color:  #446b69;
+  border: solid 2px #446b69;
+  border-radius: 3px;
+  transition: .4s;
+}
+
+.btn-submit-border:hover {
+  background:  #446b69;
+  color: white;
 }

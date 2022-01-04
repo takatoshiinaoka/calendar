@@ -13,15 +13,31 @@
     <table>
       <tr>
         <th>Subject</th>
-        <th></th>
-        <th></th>
+        <th>曜日</th>
+        <th>時限</th>
       </tr>
       {% for item in subject_list %}
         <tr>
           <td>{{item.name}}</td>
+          <td id="subject{{item.id}}"></td>
+          <td>{{item.period}}限</td>
           <td><a href="{% url 'edit_subject' item.id %}">編集</a></td>
           <td><a href="{% url 'delete_subject' item.id %}">削除</a></td>
         </tr>
+        <script>
+          var week_num = "{{item.week}}";
+          var week = "";
+          switch (Number(week_num)) {
+            case 1: week = "日曜"; break;
+            case 2: week = "月曜"; break;
+            case 3: week = "火曜"; break;
+            case 4: week = "水曜"; break;
+            case 5: week = "木曜"; break;
+            case 6: week = "金曜"; break;
+            case 7: week = "土曜"; break;
+          }
+          document.getElementById('subject{{item.id}}').innerHTML = week;
+        </script>
       {% endfor %}
     </table>
   </body>

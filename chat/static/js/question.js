@@ -54,30 +54,29 @@
       }
     }
     fetch(path)
-        .then(response => {
+    .then(response => {
 
-          // (1) 通信が成功したか確認する
-          if (!response.ok) {
+      // (1) 通信が成功したか確認する
+      if (!response.ok) {
 
-            // (2) 通信に失敗したときはエラーを発生させる
-            throw new Error('Not ok');
-          }
-          // (3) レスポンスデータからJSONデータを取得
-          return response.json();
-        })
-        .then(data => {
-          // console.log(data.tasks);
-          
-          
-          const list = document.getElementById('questions');
-          list.innerHTML = getQuestions(data) ;
-          // list.scrollTo(0, list.scrollHeight);
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    
-
+        // (2) 通信に失敗したときはエラーを発生させる
+        throw new Error('Not ok');
+      }
+      // (3) レスポンスデータからJSONデータを取得
+      return response.json();
+    })
+    .then(data => {
+      // console.log(data.tasks);
+      
+      
+      const list = document.getElementById('questions');
+      list.innerHTML = getQuestions(data) ;
+      // list.scrollTo(0, list.scrollHeight);
+    })
+    .catch(error => {
+      console.error(error);
+    });
+  
   }
   function load_data() {
     str = "";
@@ -100,29 +99,29 @@
     }
    
     fetch(path)
-        .then(response => {
+    .then(response => {
 
-          // (1) 通信が成功したか確認する
-          if (!response.ok) {
+      // (1) 通信が成功したか確認する
+      if (!response.ok) {
 
-            // (2) 通信に失敗したときはエラーを発生させる
-            throw new Error('Not ok');
-          }
-          // (3) レスポンスデータからJSONデータを取得
-          return response.json();
-        })
-        .then(data => {
-          // console.log(data.tasks);
-          
-          
+        // (2) 通信に失敗したときはエラーを発生させる
+        throw new Error('Not ok');
+      }
+      // (3) レスポンスデータからJSONデータを取得
+      return response.json();
+    })
+    .then(data => {
+      // console.log(data.tasks);
+      
+      
 
-          const list = document.getElementById('questions');
-          list.innerHTML =  getQuestions(data) ;
-        })
-        .catch(error => {
-          console.error(error);
-        });
-    
+      const list = document.getElementById('questions');
+      list.innerHTML =  getQuestions(data) ;
+    })
+    .catch(error => {
+      console.error(error);
+    });
+
 
     setTimeout(function() {load_data()},1000);//todo websocketで必要なときだけデータを受け取る仕様に変更したい
   }
