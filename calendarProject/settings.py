@@ -132,7 +132,7 @@ STATIC_URL = '/static/'
 SITE_ID = 1
 
 LOGIN_REDIRECT_URL = 'index'
-ACCOUNT_LOGOUT_REDIRECT_URL = '/accounts/login/'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'index'
 
 #EMAIL_HOST = 'smtp.gmail.com'
 #EMAIL_PORT = 587
