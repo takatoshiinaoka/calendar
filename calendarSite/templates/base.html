@@ -14,7 +14,6 @@
     <div class="header">
         <a class="title" href="{% url 'index' %}">楽学</a>
         {% if user.is_anonymous %}
-        <a  id="header-tag">科目管理</a>
         <a href="{% url 'setumei' %}" id="header-tag">使い方</a>
         {%else%}
         <a href="{% url 'subject_manage' %}" id="header-tag">科目管理</a>
@@ -28,7 +27,6 @@
         {% else %}
         <a class="button" href="/accounts/login">ログイン</a>
         {% endif %}
-
 
         {% block content %}{% endblock %}
 
