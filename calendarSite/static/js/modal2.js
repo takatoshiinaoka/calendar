@@ -8,7 +8,7 @@
    btn.addEventListener('click', function(e){
      // aタグのデフォルトの機能を停止する
      e.preventDefault();
-     　// モーダルとオーバーレイにactiveクラスを付与する
+     // モーダルとオーバーレイにactiveクラスを付与する
      modal.classList.add('active');
      overlay.classList.add('active');
    });
