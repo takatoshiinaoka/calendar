@@ -69,4 +69,5 @@
     border:solid 0.15rem #71b4b1;
     border-radius: 0.25rem;
     cursor:pointer;
-    transition:0.2s;
+	transition:0.2s;
+  }
