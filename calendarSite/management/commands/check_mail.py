@@ -54,7 +54,7 @@ def check(task_obj):
           if(str(auth.id) == Usertask.user_id):
             #print("user_id:"+str(auth.id)+" user_id:"+Usertask.user_id+" email:"+auth.email+"  username:"+auth.username)
             gmail_send(auth.username, auth.email, task.name , task.end.strftime('%Y/%m/%d %H:%M:%S'))
-            print("送信完了")
+            #print("送信完了")
 
 # BaseCommandを継承して作成
 class Command(BaseCommand):
@@ -109,4 +109,4 @@ class Command(BaseCommand):
       #print(now+ datetime.timedelta(days=1))
       #print(Usertask)
       #gmail_send("s20a2005", "s20a2005@bene.fit.ac.jp", "課題1:テスト", "2022/1/2" )
-      print("hello")
+      #print("hello")
