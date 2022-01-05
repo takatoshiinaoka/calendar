@@ -19,6 +19,10 @@ from chat.models import Comment
 def subject_to_dict(data):
     return {"id":data.id,"name":data.name,"week":data.week,"period":data.period}
 
+def setumei(request):
+   return render(request, 'setumei.html')
+
+
 #トップページ(科目を指定しない場合)
 def index(request):
    user = request.user #現在ログインしているアカウント

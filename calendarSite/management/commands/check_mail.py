@@ -1,14 +1,8 @@
 #check_mail.py
 from django.core.management.base import BaseCommand, CommandError
-
 from calendarSite.models import Task
 from calendarSite.models import User_Task
-from calendarSite.models import Subject
-from calendarSite.models import User_Subject
-
 from django.contrib.auth.models import User
-
-#import pandas as pd
 import datetime #日付や時間を指定するモジュール
 import smtplib #メールさメールサーバーを操作してメールを送信する SMTP
 import ssl #暗号化や認証の仕組み
@@ -16,11 +10,8 @@ from email.mime.text import MIMEText #メールを日本語で送信できるよ
 import sys, codecs
 sys.stdout = codecs.getwriter("utf-8")(sys.stdout)
 from email.mime.multipart import MIMEMultipart #メール本文以外に添付ファイルを送信できるようにする
-from email.mime.base import MIMEBase #添付ファイルの形式を指定する
-from email import encoders #添付ファイルをメールで送ることができるようにする
 
-
-gmail_account = ""
+gmail_account = "kadaiosirase@gmail.com"
 gmail_password = "fitrakugaku"
 
 #gmailを送る関数
@@ -59,9 +50,7 @@ def check(task_obj):
 # BaseCommandを継承して作成
 class Command(BaseCommand):
     # python manage.py help count_entryで表示されるメッセージ
-    help = 'Check if you can send an email'
-
-    
+    help = 'Check if you can send an email'    
 
     def handle(self, *args, **options):
       today_date = datetime.date.today()

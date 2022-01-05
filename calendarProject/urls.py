@@ -24,6 +24,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('', views.index,  name="index"),
+    path('setumei', views.setumei, name="setumei"),
     path('admin/', admin.site.urls),
     path('addData', views.addData, name="addData"),
     path('task', views.task, name="task"),
