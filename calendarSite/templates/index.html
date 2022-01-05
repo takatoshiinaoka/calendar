@@ -221,11 +221,10 @@
             // ajaxで受け取るjsonを埋め込むためjsで記述
             //-------
             var str =
-              "<h1>" + data.task.name + "</h1>"
-              + "<p>科目名:" + data.task.subject + "</p>"
-              + "<p>締切日：" + data.task.end + "</p>"
-              + "<p>内容:" + data.task.contents + "</p>"
-              + "<p>" + data.num + "人中" + data.done_num + "人完了</p>"
+              "<h3>" + data.task.subject +'：'+ data.task.name + "</h3>"
+              + "<label for='name'>締切日：" + data.task.end + "</label><br>"
+              + "<label for='name'>内容:" + data.task.contents + "</label><br>"
+              + "<label for='name'>" + data.num + "人中" + data.done_num + "人完了</label>"
               + "<form method = 'GET'>"
               + "  <label for='name'>課題名変更:</label>"
               + "  <input type='text' id='name' name='name' value='" + data.task.name + "'><br>"
