@@ -13,7 +13,7 @@ body {
 /* ボタンのデザイン */
 .btn {
   text-decoration: none;
-  background: linear-gradient(to right bottom, #FFA500, #FF6347);
+  background: linear-gradient(to right bottom, #71b4b1, #71b4b1);
   border-radius: 5px;
   color: #fff;
   text-align:center;
