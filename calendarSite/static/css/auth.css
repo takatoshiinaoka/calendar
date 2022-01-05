@@ -6,7 +6,7 @@
 	--text-color:white;
   }
   a{
-	color:var(--text-color);
+	color:orange;
 	text-decoration: none;
   }
   html{
