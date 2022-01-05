@@ -257,9 +257,9 @@ def subject_manage(request):
       for inaoka in dict(subjectid)['chk']:
          User_SubjectModel = User_Subject(user_id=str(user),subject_id=inaoka)
          User_SubjectModel.save()
-         yet_tasks = Task.objects.filter(subject_id=inaoka).all()#todo 期限も考慮
-         for i in yet_tasks: 
-            User_Task(user_id=str(user),task_id=i,done="true",notice="",howlong="").save()
+         # yet_tasks = Task.objects.filter(subject_id=inaoka).all()#todo 期限も考慮
+         # for i in yet_tasks: 
+         #    User_Task(user_id=str(user),task_id=i,done="true",notice="",howlong="").save()
       return redirect('index')
 
 
