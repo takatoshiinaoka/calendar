@@ -5,12 +5,18 @@
     <head>
         <title>{% block head_title %}{% endblock %}</title>
         <link href="{% static 'css/auth.css' %}" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap" rel="stylesheet">
+
         {% block extra_head %}
         {% endblock %}
     </head>
     <body>
+        <div class="header">
+            <a class="title" href="{% url 'index' %}">楽学</a>
+        </div>
         {% block body %}
-
+            
             {% if messages %}
             <div>
                 <strong>Messages:</strong>

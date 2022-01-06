@@ -12,7 +12,9 @@
   html{
 	color:var(--text-color);
   }
+
   .header{
+	margin: 0;
 	position:fixed;
 	display:flex;
 	flex-direction:row;
@@ -24,9 +26,11 @@
 	overflow-y:hidden;
   }
   body{
+	margin: 0;
 	background-color:var(--base-color);
   }
   .title{
+	margin-top: 0;
 	margin-left:2vw;
 	margin-right: 16px;
 	text-decoration: none;
