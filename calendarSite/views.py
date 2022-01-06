@@ -257,7 +257,7 @@ def subject_manage(request):
          if User_Subject.objects.filter(user_id=str(user),subject_id=inaoka).count()==0:
             User_SubjectModel = User_Subject(user_id=str(user),subject_id=inaoka)
             User_SubjectModel.save()
-            yet_tasks = Task.objects.filter(subject_id=inaoka,end__gte=datetime.date.today()).all()#todo 期限も考慮
+            yet_tasks = Task.objects.filter(subject_id=inaoka,end__gte=datetime.date.today()).all()
             for i in yet_tasks:
                num = User_Task.objects.filter(user_id=str(user),task_id = i).count()
                if num==0:
