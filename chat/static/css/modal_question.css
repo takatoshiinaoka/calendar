@@ -59,7 +59,7 @@ body {
   max-width: 500px;
   width: 86%;
   padding: 15px 20px;
-  background: rgb(31, 29, 139);
+  background: rgba(25, 153, 179, 0.8);
   /* 位置の調整(真ん中に表示) */
   position: fixed;
   top: 50%;

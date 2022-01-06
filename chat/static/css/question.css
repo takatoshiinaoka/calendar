@@ -1,5 +1,5 @@
 :root {
-  --accent-color: rgb(12,69,70);
+  --accent-color: rgba(250,0,0,0.6);
   --head-color:rgb(22,27,34);
   --base-color:rgb(1,4,9);
   --sub-color:rgb(13,17,23);
@@ -7,7 +7,7 @@
 }
 
 .solvedQuestion{
-  background-color:#383838;
+  background-color:rgba(0,0,0,0.6);
   
 }
 .unsolvedQuestion{
@@ -48,7 +48,7 @@
   width:55vw;
   position:fixed;
   height:88vh;
-  background-color:rgb(193,33,39);
+  background-color:#71b4b1;
   border-radius:1rem;
 }
 .input{

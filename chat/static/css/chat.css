@@ -32,11 +32,11 @@ body{
   position:fixed;
   height:78vh;
   overflow-y: scroll;
-  background-color:rgb(193,33,39);
+  background-color:#71b4b1;
   border-radius:1rem;
 }
 .comment{
-  background-color:#383838;
+  background-color:rgba(0,0,0,0.6);
   margin:1rem 3vw;
   padding: 1rem;
   border-radius: 1rem;
