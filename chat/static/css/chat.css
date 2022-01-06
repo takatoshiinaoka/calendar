@@ -30,7 +30,7 @@ body{
   left:40vw;
   width:55vw;
   position:fixed;
-  height:81vh;
+  height:78vh;
   overflow-y: scroll;
   background-color:rgb(193,33,39);
   border-radius:1rem;
@@ -64,7 +64,7 @@ body{
   overflow-wrap:  break-word;
 }
 .input{
-  top:93vh;
+  top:90vh;
   left:50vw;
   width:50vw;
   position:fixed;
