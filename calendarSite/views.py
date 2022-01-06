@@ -14,7 +14,7 @@ from calendarSite.models import User_Subject
 from calendarSite.forms import subject_manageForm
 from chat.models import Log
 from chat.models import Comment
-
+import datetime
 
 def subject_to_dict(data):
     return {"id":data.id,"name":data.name,"week":data.week,"period":data.period}
@@ -253,13 +253,15 @@ def subject_manage(request):
       #c.execute(sql)
       # db.execute(sql) #sql文を実行
       # db.close()      #データベースを閉じる
-      User_Subject.objects.filter(user_id=str(user)).delete()#まずログインユーザーの履修データをすべて消す
       for inaoka in dict(subjectid)['chk']:
-         User_SubjectModel = User_Subject(user_id=str(user),subject_id=inaoka)
-         User_SubjectModel.save()
-         # yet_tasks = Task.objects.filter(subject_id=inaoka).all()#todo 期限も考慮
-         # for i in yet_tasks: 
-         #    User_Task(user_id=str(user),task_id=i,done="true",notice="",howlong="").save()
+         if User_Subject.objects.filter(user_id=str(user),subject_id=inaoka).count()==0:
+            User_SubjectModel = User_Subject(user_id=str(user),subject_id=inaoka)
+            User_SubjectModel.save()
+            yet_tasks = Task.objects.filter(subject_id=inaoka,end__gte=datetime.date.today()).all()#todo 期限も考慮
+            for i in yet_tasks:
+               num = User_Task.objects.filter(user_id=str(user),task_id = i).count()
+               if num==0:
+                  User_Task(user_id=str(user),task_id=i,done="true",notice="",howlong="").save()
       return redirect('index')
 
 
