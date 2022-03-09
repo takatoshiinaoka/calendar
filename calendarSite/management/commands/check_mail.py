@@ -10,9 +10,14 @@ from email.mime.text import MIMEText #メールを日本語で送信できるよ
 import sys, codecs
 sys.stdout = codecs.getwriter("utf-8")(sys.stdout)
 from email.mime.multipart import MIMEMultipart #メール本文以外に添付ファイルを送信できるようにする
+import environ 
+import os 
 
-gmail_account = "kadaiosirase@gmail.com"
-gmail_password = "fitrakugaku"
+env = environ.Env()
+env.read_env(os.path.join(BASE_DIR, '.env'))
+
+gmail_account = env('GMAIL_ACCOUNT')
+gmail_password = env('GMAIL_PASSWORD')
 
 #gmailを送る関数
 def gmail_send(send_name, mail_to, task, delivery_date ):
