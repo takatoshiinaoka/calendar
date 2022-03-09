@@ -9,7 +9,7 @@
 - django-allauth            :0.47.0                  
 
 
-## 1. はじめに
+## はじめに
 今回は2021年クラウドアプリ開発入門講座を受講し，独自のアプリ開発をすることになった．その報告会に向けた成果物として今回のカレンダープロジェクトを行っていく．
 しかし，クラウドアプリ開発の期間では完成させることができなかったため，プロジェクト型演習でその続きを行っていく．
 
@@ -27,7 +27,7 @@
 
 
         
-8. localhostにアクセスする
+* localhostにアクセスする
 Cancel changes
     [localhost:8000](http://localhost:8000/)　　　
     ※サーバーを閉じるときは「Ctrlキー + C」
@@ -35,7 +35,7 @@ Cancel changes
     
 
 
-## 5. pushするために必要な作業(VScodeのターミナルで実行する)
+## pushするために必要な作業(VScodeのターミナルで実行する)
 1.Githubのアカウント　(VSCodeのターミナル)  
 例：git config --global user.name "takathosiinaoka"
 
@@ -47,14 +47,14 @@ Cancel changes
 
     git config --global user.email メールアドレス
 
-## 6.編集履歴の表示(TortoiseGit or Gitlog)
+## 編集履歴の表示(TortoiseGit or Gitlog)
 エクスプローラーで緑のチェックが入ったフォルダを右クリックし、「TortoiseGit」の「ログを表示」より閲覧できる。  
 また、VSCodeのターミナルで確認することもできる。以下のコードより確認できる。Enterキーを押すと過去のログが参照できる。「q」キーで終了する。
 
 
     git log
    
-## 7.フォークしたリポジトリを最新化する
+## フォークしたリポジトリを最新化する
 [フォークしたリポジトリを最新化する方法](https://qiita.com/Nossa/items/ace2ab802adc85f86b20)
 
 
@@ -85,7 +85,7 @@ Cancel changes
       git pull origin main
 
 
-## 8.問題点を検出する
+## 問題点を検出する
 
 1.自動テストの実行
 testsファイルの中身とtest.pyに書かれたコードを実行し、動作を一部確認できる。
