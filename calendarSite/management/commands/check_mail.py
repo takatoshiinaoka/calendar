@@ -10,7 +10,7 @@ from email.mime.text import MIMEText #メールを日本語で送信できるよ
 import sys, codecs
 sys.stdout = codecs.getwriter("utf-8")(sys.stdout)
 from email.mime.multipart import MIMEMultipart #メール本文以外に添付ファイルを送信できるようにする
-import environ 
+import environ #.envを読み込むためのモジュール
 import os 
 
 env = environ.Env()
