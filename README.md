@@ -6,8 +6,7 @@
 
 - python                    :3.7.9                
 - django                    :3.1.2                        
-- django-allauth            :0.47.0   
-- markdown                  :3.2.2                   
+- django-allauth            :0.47.0                  
 
 
 ## 1. はじめに
