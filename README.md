@@ -1,6 +1,6 @@
 # calendar
 
-[サイトにアクセス:pblsrv.cs.fit.ac.jp:18000/](http://pblsrv.cs.fit.ac.jp:18000/)
+[サイトにアクセス(学内LANのみ):pblsrv.cs.fit.ac.jp:18000/](http://pblsrv.cs.fit.ac.jp:18000/)
 
 # 環境
 
