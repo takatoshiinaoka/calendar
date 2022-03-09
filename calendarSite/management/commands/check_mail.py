@@ -75,27 +75,3 @@ class Command(BaseCommand):
       task_obj = Task.objects.filter(end=now_d).all() 
       check(task_obj)
 
-
-
-      #Usertask = User_Task.objects.filter().get(id!=None)
-      
-      #user_taskテーブルには未実施のタスクのみ保存されている。課題が終わると、usertaskテーブルから消される
-      #Usertask = User_Task.objects.filter().all() 
-      # for i in Usertask: 
-      #   if(i.user_id != "None"):#ログインユーザのタスク
-      #     print("user_id: "+i.user_id+"  task_id: "+str(i.task_id_id))#タスクのUserid
-      #      #print("task_id: "+str(i.task_id_id))#タスクのUserid
-
-      #mailアドレスとユーザ名取得
-      # user_obj=User.objects.all()
-      # for j in user_obj:
-      #   print("email: "+j.email+"  pw:"+j.username)
-
-      #締切日取得 subject_id=科目名、subject_id_id=科目id
-
-      
-      
-      #print(now+ datetime.timedelta(days=1))
-      #print(Usertask)
-      #gmail_send("s20a2005", "s20a2005@bene.fit.ac.jp", "課題1:テスト", "2022/1/2" )
-      #print("hello")
