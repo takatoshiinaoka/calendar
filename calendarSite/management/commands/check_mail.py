@@ -71,12 +71,12 @@ class Command(BaseCommand):
       check(task_obj)
 
       #endの1時間前
-      now_h = (now_x-datetime.timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:00')#print("now+1h: "+str(now_h)
+      now_h = (now_x-datetime.timedelta(hours=1)).strftime('%Y-%m-%d %H:%M:00')
       task_obj = Task.objects.filter(end=now_h).all() 
       check(task_obj)
 
       #endの1日前
-      now_d = (now_x-datetime.timedelta(days=1)).strftime('%Y-%m-%d %H:%M:00')#print("now+1d: "+str(now_d))
+      now_d = (now_x-datetime.timedelta(days=1)).strftime('%Y-%m-%d %H:%M:00')
       task_obj = Task.objects.filter(end=now_d).all() 
       check(task_obj)
 
