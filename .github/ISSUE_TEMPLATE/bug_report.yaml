@@ -21,32 +21,28 @@ body:
     validations:
       required: true
   - type: input
-    id: contact
+    id: pr
     attributes:
-      label: Contact Details
-      description: さらに情報が必要な場合、どのように連絡すればよいでしょうか？
-      placeholder: ex. email@example.com
-    validations:
-      required: false
-  - type: textarea
-    id: what-happened
-    attributes:
-      label: What happened?
-      description: また、生じると期待されていたことは何でしょうか？
-      placeholder: Tell us what you see!
-      value: "バグが生じました!"
+      label: 障害原因
+      description: 障害のきっかけとなった PR のリンクを貼ってください。
+      placeholder: 
     validations:
       required: true
-  - type: dropdown
+  - type: input
+    id: what-happened
+    attributes:
+      label: 障害発生時刻
+      description: yyyy-mm-dd hh:mm で記入してください。
+      placeholder: 
+    validations:
+      required: true
+  - type: input
     id: browsers
     attributes:
-      label: What browsers are you seeing the problem on?
+      label: サービス復元時刻
+      description: yyyy-mm-dd hh:mm で記入してください。
+      placeholder: 
       multiple: true
-      options:
-        - Firefox
-        - Chrome
-        - Safari
-        - Microsoft Edge
   - type: textarea
     id: logs
     attributes:
