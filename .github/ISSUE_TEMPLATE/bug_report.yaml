@@ -1,4 +1,4 @@
-name: template
+name: Bug Report
 description: File a bug report
 title: "[Bug]: "
 labels: ["bug", "triage"]
@@ -27,25 +27,25 @@ body:
     validations:
       required: true
   - type: dropdown
-    id: env
+    id: version
     attributes:
-      label: 環境
-      description: 実行していたソフトウェアの環境は?
+      label: Version
+      description: 実行していたソフトウェアのバージョンは?
       options:
-        - 本番
-        - テスト
-        - 開発
+        - 1.0.2 (Default)
+        - 1.0.3 (Edge)
     validations:
       required: true
-   - type: Input
-    id: what-happened
+  - type: dropdown
+    id: browsers
     attributes:
-      label: 障害原因
-      description: 障害のきっかけとなった PR のリンクを貼ってください
-      placeholder: Tell us what you see!
-      value: ""
-    validations:
-      required: true
+      label: What browsers are you seeing the problem on?
+      multiple: true
+      options:
+        - Firefox
+        - Chrome
+        - Safari
+        - Microsoft Edge
   - type: textarea
     id: logs
     attributes:
