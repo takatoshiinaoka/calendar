@@ -42,7 +42,8 @@ body:
       label: サービス復元時刻
       description: yyyy-mm-dd hh:mm で記入してください。
       placeholder: 
-      multiple: true
+    validations:
+      required: true
   - type: textarea
     id: logs
     attributes:
