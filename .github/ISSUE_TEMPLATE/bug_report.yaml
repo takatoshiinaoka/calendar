@@ -46,7 +46,6 @@ body:
       value: ""
     validations:
       required: true
-  - type: 
   - type: textarea
     id: logs
     attributes:
