@@ -44,14 +44,6 @@ body:
       placeholder: 
     validations:
       required: true
-  - type: input
-    id: browsers
-    attributes:
-      label: サービス復元時刻
-      description: yyyy-mm-dd hh:mm で記入してください。
-      placeholder: 
-    validations:
-      required: false
   - type: textarea
     id: logs
     attributes:
