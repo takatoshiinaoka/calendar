@@ -23,7 +23,7 @@ body:
   - type: dropdown
     id: couse-deploy
     attributes:
-      label: 
+      label: "Deploy"
       description: 障害の原因は Deploy ですか?
       options:
         - deploy
