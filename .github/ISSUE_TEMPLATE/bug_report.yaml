@@ -26,8 +26,8 @@ body:
       label: "Deploy"
       description: 障害の原因は Deploy ですか?
       options:
-        - deploy
-        - deploy以外
+        - Yes
+        - No
     validations:
       required: true
   - type: input
