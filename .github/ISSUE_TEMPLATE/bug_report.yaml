@@ -35,7 +35,7 @@ body:
     attributes:
       label: 障害原因
       description: 障害原因がDeployの場合、きっかけとなった PR のリンクを貼ってください。（例：#1）
-      placeholder: #0
+      placeholder: "#0"
     validations:
       required: true
   - type: input
@@ -43,7 +43,7 @@ body:
     attributes:
       label: 障害発生時刻
       description: yyyy-mm-dd hh:mm で記入してください。
-      placeholder: 00-00-00 00:00
+      placeholder: 0000-00-00 00:00
     validations:
       required: true
   - type: input
@@ -51,7 +51,7 @@ body:
     attributes:
       label: 障害検知時刻
       description: yyyy-mm-dd hh:mm で記入してください。
-      placeholder: 
+      placeholder: 0000-00-00 00:00
     validations:
       required: true
   - type: input
@@ -59,7 +59,7 @@ body:
     attributes:
       label: サービス復元時刻
       description: yyyy-mm-dd hh:mm で記入してください。
-      placeholder: 
+      placeholder: 0000-00-00 00:00
     validations:
       required: false
   - type: textarea
